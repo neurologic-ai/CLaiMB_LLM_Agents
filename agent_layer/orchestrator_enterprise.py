@@ -97,12 +97,7 @@ class EnterpriseOrchestrator:
             def _call_tool(_ctx: Dict[str, Any], _f):
                 return _f(_ctx)
 
-            parallel = RunnableParallel(
-                **{
-                    m: RunnableLambda(partial(_call_tool, _f=tools[m]))
-                    for m in wave
-                }
-            )
+            parallel = RunnableParallel(**{m: RunnableLambda(lambda _inp, _m=m, _f=tools[m]: _f(ctx)) for m in wave})
 
             out_map = parallel.invoke({})  # input ignored; we use bound ctx via partial
             for m in wave:
