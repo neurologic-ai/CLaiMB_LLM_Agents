@@ -7,48 +7,51 @@ from typing import Any, Callable, Dict
 from dotenv import load_dotenv
 
 load_dotenv()
-# Ensure repo root on sys.path (so we can import the backbone without init-file gymnastics)
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from data_collection_agents.bi_tracker_agent.llm_engine import BIUsageLLM # noqa: E402
+from data_collection_agents.bi_tracker_agent.llm_engine import BIUsageLLM  # noqa: E402
 
-# ---- Singleton LLM wrapper (reuses your JSON-contract scorers) ----
 _llm = BIUsageLLM(
     model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
     temperature=float(os.getenv("OPENAI_TEMPERATURE", "0.0")),
 )
 
-def _clamp_band(v: Any) -> int:
+def _clamp_1to5(v: Any, default: int = 3) -> int:
     try:
-        return max(1, min(5, int(v)))
+        x = int(v)
+        return 1 if x < 1 else 5 if x > 5 else x
     except Exception:
-        return 3
+        return default
 
-def _sanitize(out: Dict[str, Any], metric_id: str) -> Dict[str, Any]:
-    out = dict(out or {})
+def _sanitize(raw: Dict[str, Any], metric_id: str) -> Dict[str, Any]:
+    out = dict(raw or {})
     out["metric_id"] = metric_id
-    out["band"] = _clamp_band(out.get("band", out.get("score", 3)))
+
+    # --- single source of truth: SCORE (1..5) ---
+    score = out.get("score", out.get("band", 3))
+    out["score"] = _clamp_1to5(score, 3)
+    # remove any band remnants so artifacts never show it
+    if "band" in out:
+        del out["band"]
+
+    # required fields
     out.setdefault("rationale", "Strong signal; limited by missing detail.")
     out.setdefault("gaps", [])
     out.setdefault("flags", [])
 
-    # Keep things tidy
+    # hygiene limits
     out["rationale"] = str(out["rationale"])[:600]
-    gaps = out.get("gaps", [])
-    out["gaps"] = [str(g)[:280] for g in gaps][:6]
-    flags = out.get("flags", [])
-    out["flags"] = [str(f)[:80] for f in flags][:10]
+    out["gaps"] = [str(g)[:280] for g in (out.get("gaps") or [])][:6]
+    out["flags"] = [str(f)[:80] for f in (out.get("flags") or [])][:10]
 
-    # For backward-compat consumers that read 'score'
-    out["score"] = out["band"]
     return out
 
-# Map metric_id -> callable(snapshot)-> JSON (delegates to your BIUsageLLM)
 def load_tool(metric_id: str) -> Callable[[Dict[str, Any]], Dict[str, Any]]:
     def _score(_mid: str, snapshot: Dict[str, Any]) -> Dict[str, Any]:
         s = snapshot or {}
+
         if _mid == "usage.dau_mau":
             return _sanitize(_llm.score_dau_mau(s.get("activity_events", []), s.get("today_utc", "")), _mid)
         if _mid == "usage.creators_ratio":
@@ -97,7 +100,6 @@ def load_tool(metric_id: str) -> Callable[[Dict[str, Any]], Dict[str, Any]]:
                 s.get("dashboard_metadata", []),
             ), _mid)
 
-        # Unknown metric id
-        return _sanitize({"band": 3, "rationale": "Unknown metric_id."}, _mid)
+        return _sanitize({"score": 3, "rationale": "Unknown metric_id."}, _mid)
 
     return lambda snapshot: _score(metric_id, snapshot)

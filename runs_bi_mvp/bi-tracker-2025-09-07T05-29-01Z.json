@@ -1,0 +1,503 @@
+{
+  "run_id": "bi-tracker-2025-09-07T05-29-01Z",
+  "metrics": {
+    "usage.dau_mau": {
+      "metric_id": "usage.dau_mau",
+      "score": 1,
+      "rationale": "The data is too sparse to compute a reliable stickiness score, with only four distinct events from three users over the last 30 days. This lack of coverage prevents any meaningful analysis of engagement trends.",
+      "flags": [
+        "severe_data_sparsity"
+      ],
+      "gaps": [
+        "Increase daily event coverage to enable reliable DAU and MAU calculations."
+      ]
+    },
+    "usage.creators_ratio": {
+      "metric_id": "usage.creators_ratio",
+      "score": 1,
+      "rationale": "The creator percentage is 33% among active users, but there is no department mapping provided to assess breadth or concentration risks. This limits the ability to evaluate the overall democratization of creator roles.",
+      "flags": [],
+      "gaps": [
+        "Department spread unknown; provide dept_map to assess breadth and concentration."
+      ]
+    },
+    "usage.session_depth": {
+      "metric_id": "usage.session_depth",
+      "score": 3,
+      "rationale": "Average duration and page breadth are moderate, but repeat cadence data is sparse and incomplete for many users.",
+      "flags": [
+        "repeat_freq_sparse"
+      ],
+      "gaps": [
+        "Instrument repeats_per_week for ≥80% actives to validate sustained depth (unlocks score 4)."
+      ]
+    },
+    "usage.drilldown": {
+      "metric_id": "usage.drilldown",
+      "score": 2,
+      "rationale": "Drill actions are limited to a few users, indicating low adoption; no evidence of stability over time.",
+      "flags": [
+        "low_adoption",
+        "trend_unknown"
+      ],
+      "gaps": [
+        "Expand user base to demonstrate broader departmental usage; provide timestamps for stability analysis."
+      ]
+    },
+    "usage.weekly_active_trend": {
+      "metric_id": "usage.weekly_active_trend",
+      "score": 3,
+      "rationale": "Activity shows some engagement with distinct users across the weeks, but the sample size is limited and there is noise in the data. The lack of consistent weekly activity prevents a stronger score.",
+      "flags": [
+        "small_sample",
+        "noise"
+      ],
+      "gaps": [
+        "Provide a more comprehensive 4-week series to assess trend stability."
+      ]
+    },
+    "usage.retention_4w": {
+      "metric_id": "usage.retention_4w",
+      "score": 1,
+      "rationale": "The retention rate is extremely low, with no identifiable week-1 cohort returning in weeks 2-4. The evidence is too sparse to draw any meaningful conclusions.",
+      "flags": [
+        "cohort_mix_unknown"
+      ],
+      "gaps": [
+        "Provide a larger dataset to identify week-1 cohort and their returns; aim for ≥15% retention to improve score."
+      ]
+    },
+    "features.cross_links": {
+      "metric_id": "features.cross_links",
+      "score": 2,
+      "rationale": "Only 50% of dashboards are linked, but overall traversal is low, indicating limited engagement. The lack of links on the second dashboard contributes to a weak navigation experience.",
+      "flags": [],
+      "gaps": [
+        "Increase link coverage across dashboards; aim for at least 45% linked to improve score."
+      ]
+    },
+    "features.export_rate": {
+      "metric_id": "features.export_rate",
+      "score": 2,
+      "rationale": "Exports represent 25% of the actions, but governance status is unclear, limiting confidence in data protection measures.",
+      "flags": [
+        "governance_unknown"
+      ],
+      "gaps": [
+        "Add export policy status + exception rate; ≥95% governed (unlocks score 4–5)."
+      ]
+    },
+    "features.alerts_usage": {
+      "metric_id": "features.alerts_usage",
+      "score": 2,
+      "rationale": "Adoption is very low with only a few unique users and no clear evidence of successful alert or subscription deliveries. The presence of an error event indicates potential reliability issues.",
+      "flags": [
+        "low_adoption",
+        "delivery_reliability_issue"
+      ],
+      "gaps": [
+        "Provide unique user counts and delivery success rates to assess broader adoption (unlocks score 3)."
+      ]
+    },
+    "governance.coverage": {
+      "metric_id": "governance.coverage",
+      "score": 2,
+      "rationale": "Only one dashboard is certified and owned, while the other lacks both certification and ownership, indicating significant gaps in governance.",
+      "flags": [
+        "missing_owner",
+        "inconsistent_certification"
+      ],
+      "gaps": [
+        "Establish ownership for all dashboards and ensure certification for at least 85% (unlocks score 4)."
+      ]
+    },
+    "governance.pii_coverage": {
+      "metric_id": "governance.pii_coverage",
+      "score": 2,
+      "rationale": "There is a lack of explicit PII tagging and access policies across the dashboards, with only one certified dashboard present. The absence of metadata in the second dashboard indicates significant gaps in control posture.",
+      "flags": [
+        "missing_pii_tags",
+        "missing_access_policy"
+      ],
+      "gaps": [
+        "Implement PII tagging and access policies for all dashboards to achieve at least 50% coverage (unlocks score 3)."
+      ]
+    },
+    "governance.lineage_coverage": {
+      "metric_id": "governance.lineage_coverage",
+      "score": 2,
+      "rationale": "Only one dashboard has lineage documented, and there are significant owner gaps, with one dashboard lacking an owner entirely. This sparse documentation limits overall coverage and auditability.",
+      "flags": [
+        "owner_missing"
+      ],
+      "gaps": [
+        "Establish owners for all dashboards and ensure lineage and glossary are documented for at least 50% of assets (unlocks score 3)."
+      ]
+    },
+    "reliability.refresh_timeliness": {
+      "metric_id": "reliability.refresh_timeliness",
+      "score": 1,
+      "rationale": "The high-priority dashboard is stale, having not been refreshed for over a day past its daily SLA, which significantly erodes trust. The low-priority dashboard is also stale but does not impact the score as severely.",
+      "flags": [
+        "chronic_stale"
+      ],
+      "gaps": [
+        "Provide p95/p99 lateness; keep p95 within SLA for ≥95% dashboards (unlocks score 5)."
+      ]
+    },
+    "reliability.sla_breach_streaks": {
+      "metric_id": "reliability.sla_breach_streaks",
+      "score": 5,
+      "rationale": "There are no breaches on the critical dashboard (d1), and the low-priority dashboard (d2) has a longer refresh period, minimizing impact. The absence of breaches on high-priority assets strongly supports a high score.",
+      "flags": [],
+      "gaps": []
+    },
+    "reliability.error_rate_queries": {
+      "metric_id": "reliability.error_rate_queries",
+      "score": 4,
+      "rationale": "The estimated error rate is approximately 20% based on 1 error out of 5 total actions, which is within the 0.1–0.5% range. However, the impact and severity of the error are not documented, limiting the score.",
+      "flags": [
+        "impact_unknown"
+      ],
+      "gaps": [
+        "Capture severity and affected-user counts; show no Sev1/Sev2 incidents in the last 30 days (unlocks score 5)."
+      ]
+    },
+    "data.source_diversity": {
+      "metric_id": "data.source_diversity",
+      "score": 3,
+      "rationale": "There are three distinct sources, but they only cover two domains (data warehousing and CRM), limiting overall diversity. The absence of domain tags prevents a clearer assessment of breadth.",
+      "flags": [
+        "domain_mix_unknown"
+      ],
+      "gaps": [
+        "Tag sources to domains; demonstrate ≥3 domains (unlocks score 4)."
+      ]
+    },
+    "democratization.dept_coverage": {
+      "metric_id": "democratization.dept_coverage",
+      "score": 3,
+      "rationale": "Creators are present in 1 out of 3 departments, indicating some level of democratization. However, the total number of departments is unknown, limiting the ability to assess broader coverage accurately.",
+      "flags": [
+        "coverage_percent_unknown"
+      ],
+      "gaps": [
+        "Provide total number of departments to confirm coverage percentage."
+      ]
+    },
+    "democratization.self_service": {
+      "metric_id": "democratization.self_service",
+      "score": 1,
+      "rationale": "Only 33% of active users are creators, but there is no evidence of departmental breadth or growth trends, limiting the overall score significantly.",
+      "flags": [
+        "coverage_unknown",
+        "growth_unknown"
+      ],
+      "gaps": [
+        "Provide department distribution of creators and a trend analysis over the past month to assess growth."
+      ]
+    },
+    "decision.traceability": {
+      "score": 3,
+      "rationale": "Unknown metric_id.",
+      "metric_id": "decision.traceability",
+      "gaps": [],
+      "flags": []
+    },
+    "data.cost_efficiency": {
+      "metric_id": "data.cost_efficiency",
+      "score": 4,
+      "rationale": "Diverse source mix with Snowflake, Postgres, and Salesforce supports efficiency; however, the presence of one stale dashboard limits overall performance.",
+      "flags": [
+        "stale_assets_present"
+      ],
+      "gaps": [
+        "Ensure the high-priority dashboard is refreshed daily as per SLA to eliminate staleness (unlocks score 5)."
+      ]
+    }
+  },
+  "aggregates": {
+    "business_integration": 1.86,
+    "decision_making": 2.68,
+    "overall_score": 2.27
+  },
+  "aimri_mapping": {
+    "governance.lineage_coverage": [
+      {
+        "dimension": "12. Business Impact",
+        "subsection": "12.2 Cost Reduction & Efficiency"
+      },
+      {
+        "dimension": "13. AI Risk & Resilience",
+        "subsection": "13.2 Data Dependability & Trust"
+      }
+    ],
+    "usage.weekly_active_trend": [
+      {
+        "dimension": "12. Business Impact",
+        "subsection": "12.2 Cost Reduction & Efficiency"
+      },
+      {
+        "dimension": "7. Decision Making & Culture",
+        "subsection": "7.4 Decision Making"
+      }
+    ],
+    "usage.dau_mau": [
+      {
+        "dimension": "4. Talent & Skills",
+        "subsection": "4.1 Technical Expertise"
+      },
+      {
+        "dimension": "7. Decision Making & Culture",
+        "subsection": "7.3 Collaboration Culture"
+      }
+    ],
+    "data.source_diversity": [
+      {
+        "dimension": "7. Decision Making & Culture",
+        "subsection": "7.2 Change Management"
+      },
+      {
+        "dimension": "6. Strategic Alignment",
+        "subsection": "6.1 Business Integration"
+      }
+    ],
+    "features.alerts_usage": [
+      {
+        "dimension": "13. AI Risk & Resilience",
+        "subsection": "13.4 Operational Continuity"
+      },
+      {
+        "dimension": "2. Data Management & Quality",
+        "subsection": "2.2 Data Quality"
+      }
+    ],
+    "reliability.error_rate_queries": [
+      {
+        "dimension": "5. Governance & Ethics",
+        "subsection": "5.2 Regulatory Compliance"
+      },
+      {
+        "dimension": "13. AI Risk & Resilience",
+        "subsection": "13.5 Regulatory & Legal Compliance"
+      }
+    ],
+    "governance.coverage": [
+      {
+        "dimension": "2. Data Management & Quality",
+        "subsection": "2.1 Data Architecture"
+      },
+      {
+        "dimension": "14. External Ecosystem",
+        "subsection": "14.2 Supplier & Vendor AI Collaboration"
+      }
+    ],
+    "usage.drilldown": [
+      {
+        "dimension": "13. AI Risk & Resilience",
+        "subsection": "13.4 Operational Continuity"
+      },
+      {
+        "dimension": "2. Data Management & Quality",
+        "subsection": "2.2 Data Quality"
+      }
+    ],
+    "features.export_rate": [
+      {
+        "dimension": "13. AI Risk & Resilience",
+        "subsection": "13.4 Operational Continuity"
+      },
+      {
+        "dimension": "8. Process Maturity",
+        "subsection": "8.4 Operational Excellence"
+      }
+    ],
+    "governance.pii_coverage": [
+      {
+        "dimension": "5. Governance & Ethics",
+        "subsection": "5.4 Transparency Practices"
+      },
+      {
+        "dimension": "2. Data Management & Quality",
+        "subsection": "2.3 Data Governance"
+      }
+    ],
+    "reliability.sla_breach_streaks": [
+      {
+        "dimension": "13. AI Risk & Resilience",
+        "subsection": "13.1 Model Reliability & Robustness"
+      },
+      {
+        "dimension": "2. Data Management & Quality",
+        "subsection": "2.2 Data Quality"
+      }
+    ],
+    "features.cross_links": [
+      {
+        "dimension": "5. Governance & Ethics",
+        "subsection": "5.2 Regulatory Compliance"
+      },
+      {
+        "dimension": "2. Data Management & Quality",
+        "subsection": "2.3 Data Governance"
+      }
+    ],
+    "democratization.dept_coverage": [],
+    "usage.session_depth": [
+      {
+        "dimension": "7. Decision Making & Culture",
+        "subsection": "7.4 Decision Making"
+      },
+      {
+        "dimension": "8. Process Maturity",
+        "subsection": "8.4 Operational Excellence"
+      }
+    ],
+    "democratization.self_service": [
+      {
+        "dimension": "5. Governance & Ethics",
+        "subsection": "5.4 Transparency Practices"
+      },
+      {
+        "dimension": "7. Decision Making & Culture",
+        "subsection": "7.4 Decision Making"
+      }
+    ],
+    "decision.traceability": [
+      {
+        "dimension": "12. Business Impact",
+        "subsection": "12.1 Revenue Generation & Growth"
+      },
+      {
+        "dimension": "7. Decision Making & Culture",
+        "subsection": "7.1 Innovation Mindset"
+      }
+    ],
+    "usage.creators_ratio": [
+      {
+        "dimension": "7. Decision Making & Culture",
+        "subsection": "7.1 Innovation Mindset"
+      },
+      {
+        "dimension": "12. Business Impact",
+        "subsection": "12.3 Customer Experience Enhancement"
+      }
+    ],
+    "usage.retention_4w": [
+      {
+        "dimension": "8. Process Maturity",
+        "subsection": "8.1 Project Management"
+      },
+      {
+        "dimension": "6. Strategic Alignment",
+        "subsection": "6.5 Innovation Management"
+      }
+    ],
+    "reliability.refresh_timeliness": [
+      {
+        "dimension": "6. Strategic Alignment",
+        "subsection": "6.1 Business Integration"
+      },
+      {
+        "dimension": "14. External Ecosystem",
+        "subsection": "14.1 Customer AI Integration"
+      }
+    ],
+    "data.cost_efficiency": [
+      {
+        "dimension": "7. Decision Making & Culture",
+        "subsection": "7.3 Collaboration Culture"
+      },
+      {
+        "dimension": "6. Strategic Alignment",
+        "subsection": "6.1 Business Integration"
+      }
+    ]
+  },
+  "aimri_index": {
+    "12. Business Impact: 12.1 Revenue Generation & Growth": [
+      "decision.traceability"
+    ],
+    "12. Business Impact: 12.2 Cost Reduction & Efficiency": [
+      "governance.lineage_coverage",
+      "usage.weekly_active_trend"
+    ],
+    "12. Business Impact: 12.3 Customer Experience Enhancement": [
+      "usage.creators_ratio"
+    ],
+    "13. AI Risk & Resilience: 13.1 Model Reliability & Robustness": [
+      "reliability.sla_breach_streaks"
+    ],
+    "13. AI Risk & Resilience: 13.2 Data Dependability & Trust": [
+      "governance.lineage_coverage"
+    ],
+    "13. AI Risk & Resilience: 13.4 Operational Continuity": [
+      "features.alerts_usage",
+      "features.export_rate",
+      "usage.drilldown"
+    ],
+    "13. AI Risk & Resilience: 13.5 Regulatory & Legal Compliance": [
+      "reliability.error_rate_queries"
+    ],
+    "14. External Ecosystem: 14.1 Customer AI Integration": [
+      "reliability.refresh_timeliness"
+    ],
+    "14. External Ecosystem: 14.2 Supplier & Vendor AI Collaboration": [
+      "governance.coverage"
+    ],
+    "2. Data Management & Quality: 2.1 Data Architecture": [
+      "governance.coverage"
+    ],
+    "2. Data Management & Quality: 2.2 Data Quality": [
+      "features.alerts_usage",
+      "reliability.sla_breach_streaks",
+      "usage.drilldown"
+    ],
+    "2. Data Management & Quality: 2.3 Data Governance": [
+      "features.cross_links",
+      "governance.pii_coverage"
+    ],
+    "4. Talent & Skills: 4.1 Technical Expertise": [
+      "usage.dau_mau"
+    ],
+    "5. Governance & Ethics: 5.2 Regulatory Compliance": [
+      "features.cross_links",
+      "reliability.error_rate_queries"
+    ],
+    "5. Governance & Ethics: 5.4 Transparency Practices": [
+      "democratization.self_service",
+      "governance.pii_coverage"
+    ],
+    "6. Strategic Alignment: 6.1 Business Integration": [
+      "data.cost_efficiency",
+      "data.source_diversity",
+      "reliability.refresh_timeliness"
+    ],
+    "6. Strategic Alignment: 6.5 Innovation Management": [
+      "usage.retention_4w"
+    ],
+    "7. Decision Making & Culture: 7.1 Innovation Mindset": [
+      "decision.traceability",
+      "usage.creators_ratio"
+    ],
+    "7. Decision Making & Culture: 7.2 Change Management": [
+      "data.source_diversity"
+    ],
+    "7. Decision Making & Culture: 7.3 Collaboration Culture": [
+      "data.cost_efficiency",
+      "usage.dau_mau"
+    ],
+    "7. Decision Making & Culture: 7.4 Decision Making": [
+      "democratization.self_service",
+      "usage.session_depth",
+      "usage.weekly_active_trend"
+    ],
+    "8. Process Maturity: 8.1 Project Management": [
+      "usage.retention_4w"
+    ],
+    "8. Process Maturity: 8.4 Operational Excellence": [
+      "features.export_rate",
+      "usage.session_depth"
+    ]
+  }
+}
