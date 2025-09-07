@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Set
 
 from dotenv import load_dotenv
 from langchain_core.runnables import RunnableParallel
-from loguru import logger  # <-- add loguru
+from loguru import logger
 
 # import path bootstrap (if needed when run as module)
 import sys
@@ -16,7 +16,8 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from agent_layer.registry_mlops import LEVEL0, LEVEL1_DEPS, CATEGORIES, BAND_TO_SCORE  # noqa: E402
-from agent_layer.router_mlops import route # noqa: E402
+from agent_layer.router_mlops import route  # noqa: E402
+from agent_layer.aimri_mapping import MLOPS_METRIC_TO_AIMRI  # noqa: E402
 
 
 class MLOpsOrchestrator:
@@ -44,7 +45,7 @@ class MLOpsOrchestrator:
           {
             "run_id": <str>,
             "artifact_path": <str>,
-            "log_path": <str>,          # <-- NEW
+            "log_path": <str>,
             "metrics": {...},
             "aggregates": {...}
           }
@@ -104,7 +105,7 @@ class MLOpsOrchestrator:
             return {
                 "run_id": run_id,
                 "artifact_path": str(out_path),
-                "log_path": str(run_log),       # <-- NEW
+                "log_path": str(run_log),
                 "metrics": results,
                 "aggregates": aggregates,
             }
@@ -197,6 +198,98 @@ class MLOpsOrchestrator:
         return {"categories": cat_scores, "overall": overall}
 
 
+# ---------------------------
+# Mapping & score helpers (module level; class unchanged)
+# ---------------------------
+
+def _filter_mapping_for_present_metrics(mapping: Dict[str, List[Dict[str, str]]],
+                                        present_metric_ids: List[str]) -> Dict[str, List[Dict[str, str]]]:
+    present = set(present_metric_ids)
+    return {mid: mapping[mid] for mid in mapping.keys() & present}
+
+
+def _build_reverse_index(mapping: Dict[str, List[Dict[str, str]]]) -> Dict[str, List[str]]:
+    idx: Dict[str, List[str]] = {}
+    for mid, tags in mapping.items():
+        for t in tags or []:
+            dim = (t.get("dimension") or "").strip()
+            sub = (t.get("subsection") or "").strip()
+            key = f"{dim}: {sub}".strip(": ").strip()
+            if not key:
+                continue
+            idx.setdefault(key, []).append(mid)
+    for k in list(idx.keys()):
+        idx[k] = sorted(set(idx[k]))
+    return dict(sorted(idx.items()))
+
+
+# A..E → 5..1 mapping for per-metric "score"
+_BAND_TO_5 = {"A": 5, "B": 4, "C": 3, "D": 2, "E": 1}
+def _band_to_five(band: Any) -> int:
+    try:
+        s = str(band).strip().upper()
+        if s in _BAND_TO_5:
+            return _BAND_TO_5[s]
+        n = int(s)
+        return max(1, min(5, n))
+    except Exception:
+        return 3
+
+
+# ---------------------------
+# Public module API (keeps class untouched) — inject mapping + score(1..5)
+# ---------------------------
+
 def run(snapshot: Dict[str, Any], *, out_dir: Path | str = "runs_mlop_mvp", log_dir: Path | str = "logs/ml_ops") -> Dict[str, Any]:
     orchestrator = MLOpsOrchestrator(out_dir=out_dir, log_dir=log_dir)
-    return orchestrator.run(snapshot)
+    base = orchestrator.run(snapshot)
+
+    # Build mapping slice only for metrics that were actually computed
+    present_metric_ids = list((base.get("metrics") or {}).keys())
+    aimri_mapping = _filter_mapping_for_present_metrics(MLOPS_METRIC_TO_AIMRI, present_metric_ids)
+    aimri_index = _build_reverse_index(aimri_mapping)
+
+    # ---- mutate in-memory results: inject mapping, add score(1..5), drop score_0to100 ----
+    # ---- mutate in-memory results: inject mapping, add score(1..5), drop score_0to100 & band ----
+    metrics = base.get("metrics") or {}
+    for mid, metric_obj in metrics.items():
+        if isinstance(metric_obj, dict):
+            # inject AIMRI mapping
+            metric_obj["aimri_mapping"] = aimri_mapping.get(mid, [])
+            # add score 1..5 from band
+            if "band" in metric_obj and "score" not in metric_obj:
+                metric_obj["score"] = _band_to_five(metric_obj.get("band"))
+            # remove unwanted fields
+            metric_obj.pop("score_0to100", None)
+            metric_obj.pop("band", None)   # <-- remove band entirely
+
+    # Keep top-level mapping/index too
+    base["aimri_mapping"] = aimri_mapping
+    base["aimri_index"] = aimri_index
+
+    # ---- patch the on-disk artifact written by the class, to mirror the above ----
+    try:
+        artifact_path = base.get("artifact_path")
+        if artifact_path:
+            with open(artifact_path, "r", encoding="utf-8") as f:
+                artifact_json = json.load(f)
+
+            art_metrics = artifact_json.get("metrics", {})
+            for mid, metric_obj in art_metrics.items():
+                if isinstance(metric_obj, dict):
+                    metric_obj["aimri_mapping"] = aimri_mapping.get(mid, [])
+                    if "band" in metric_obj and "score" not in metric_obj:
+                        metric_obj["score"] = _band_to_five(metric_obj.get("band"))
+                    metric_obj.pop("score_0to100", None)
+                    metric_obj.pop("band", None)   # <-- remove band entirely
+
+            artifact_json["aimri_mapping"] = aimri_mapping
+            artifact_json["aimri_index"] = aimri_index
+
+            with open(artifact_path, "w", encoding="utf-8") as f:
+                json.dump(artifact_json, f, indent=2, ensure_ascii=False)
+    except Exception:
+        # non-fatal: mapping & score still available in-memory
+        pass
+
+    return base

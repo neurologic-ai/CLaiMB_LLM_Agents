@@ -94,5 +94,10 @@ CATEGORIES = {
     },
 }
 
-# Optional: A..E → score_0to100
-BAND_TO_SCORE = {"A": 100, "B": 85, "C": 70, "D": 55, "E": 40}
+BAND_TO_SCORE = {
+    "A": 5,
+    "B": 4,
+    "C": 3,
+    "D": 2,
+    "E": 1,
+}
