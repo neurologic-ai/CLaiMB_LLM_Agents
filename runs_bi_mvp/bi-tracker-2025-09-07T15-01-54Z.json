@@ -1,0 +1,413 @@
+{
+  "run_id": "bi-tracker-2025-09-07T15-01-54Z",
+  "metrics": {
+    "usage.dau_mau": {
+      "metric_id": "usage.dau_mau",
+      "score": 1.0,
+      "rationale": "The stickiness is not computable due to severe data sparsity, with only 10 distinct user events over the last 30 days. This lack of coverage prevents reliable computation of DAU and MAU.",
+      "flags": [],
+      "gaps": [
+        "Severe data sparsity preventing trustworthy computation of DAU and MAU."
+      ],
+      "aimri": [
+        {
+          "dimension": "7. Cultural Readiness",
+          "subsection": "7.4 Decision Making"
+        },
+        {
+          "dimension": "12. Business Impact",
+          "subsection": "12.1 Revenue Generation & Growth"
+        }
+      ]
+    },
+    "usage.creators_ratio": {
+      "metric_id": "usage.creators_ratio",
+      "score": 3.0,
+      "rationale": "Creator share is 40%, indicating a strong level of enablement; however, the lack of department mapping suggests a potential concentration risk as we cannot assess the distribution across teams.",
+      "flags": [
+        "dept_spread_unknown"
+      ],
+      "gaps": [
+        "Department spread unknown → report creators by department and coverage % → reach ≥60% dept coverage (unlocks score 4)."
+      ],
+      "aimri": [
+        {
+          "dimension": "4. Talent & Skills",
+          "subsection": "4.1 Technical Expertise"
+        },
+        {
+          "dimension": "7. Cultural Readiness",
+          "subsection": "7.3 Collaboration Culture"
+        }
+      ]
+    },
+    "usage.session_depth": {
+      "metric_id": "usage.session_depth",
+      "score": 3.0,
+      "rationale": "Average session duration is 245 seconds with 4 pages per session, indicating decent engagement; however, the repeat cadence is sparse, limiting the overall score.",
+      "flags": [
+        "repeat_freq_sparse"
+      ],
+      "gaps": [
+        "Repeat cadence data is missing for some users; aim to capture repeats_per_week for at least 80% of active users to better assess repeat engagement."
+      ],
+      "aimri": [
+        {
+          "dimension": "7. Cultural Readiness",
+          "subsection": "7.1 Innovation Mindset"
+        },
+        {
+          "dimension": "12. Business Impact",
+          "subsection": "12.3 Customer Experience Enhancement"
+        }
+      ]
+    },
+    "usage.drilldown": {
+      "metric_id": "usage.drilldown",
+      "score": 2.0,
+      "rationale": "Drill actions account for about 60% of the total interactions, but the usage is limited to only 3 users with no clear department spread, which significantly limits the score.",
+      "flags": [
+        "spread_limited"
+      ],
+      "gaps": [
+        "Department spread unknown → report drilldown usage by dept/team → show broad spread across ≥3 BUs (unlocks score 4).",
+        "Stability unverified → include 4-week drilldown time series → demonstrate non-declining trend (supports score 4–5)."
+      ],
+      "aimri": [
+        {
+          "dimension": "7. Cultural Readiness",
+          "subsection": "7.4 Decision Making"
+        },
+        {
+          "dimension": "8. Process Maturity",
+          "subsection": "8.4 Operational Excellence"
+        }
+      ]
+    },
+    "usage.weekly_active_trend": {
+      "metric_id": "usage.weekly_active_trend",
+      "score": 3.0,
+      "rationale": "WAU trajectory appears flat with some noise; no material drop in activity is observed, but sample coverage is limited across the weeks.",
+      "flags": [],
+      "gaps": [
+        "Sample coverage is limited; provide distinct WAU counts for each of the last 4 weeks to assess stability and growth potential."
+      ],
+      "aimri": [
+        {
+          "dimension": "12. Business Impact",
+          "subsection": "12.1 Revenue Generation & Growth"
+        },
+        {
+          "dimension": "7. Cultural Readiness",
+          "subsection": "7.1 Innovation Mindset"
+        }
+      ]
+    },
+    "usage.retention_4w": {
+      "metric_id": "usage.retention_4w",
+      "score": 1.0,
+      "rationale": "Retention is below 15%, indicating significant challenges in user engagement; the lack of returning users in weeks 2-4 is a major concern.",
+      "flags": [],
+      "gaps": [
+        "Cohort composition unknown → report cohort size and retention by persona/BU → reach ≥45% overall with clear segment drivers (unlocks score 4)."
+      ],
+      "aimri": [
+        {
+          "dimension": "12. Business Impact",
+          "subsection": "12.2 Cost Reduction & Efficiency"
+        },
+        {
+          "dimension": "7. Cultural Readiness",
+          "subsection": "7.4 Decision Making"
+        }
+      ]
+    },
+    "features.cross_links": {
+      "metric_id": "features.cross_links",
+      "score": 3.0,
+      "rationale": "43% of dashboards are linked, indicating moderate connectivity; however, link usage is concentrated on a few dashboards, leading to uneven traversal patterns.",
+      "flags": [
+        "distribution_skewed"
+      ],
+      "gaps": [
+        "Link usage is concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve a more balanced distribution and potentially unlock a higher score."
+      ],
+      "aimri": [
+        {
+          "dimension": "6. Strategic Alignment",
+          "subsection": "6.1 Business Integration"
+        },
+        {
+          "dimension": "14. External Ecosystem",
+          "subsection": "14.1 Customer AI Integration"
+        }
+      ]
+    },
+    "features.export_rate": {
+      "metric_id": "features.export_rate",
+      "score": 1.0,
+      "rationale": "Exports account for only 6.67% of total actions, indicating minimal offline usage; governance details are completely unknown.",
+      "flags": [
+        "governance_unknown"
+      ],
+      "gaps": [
+        "Export governance unknown → add policy enforcement status + exception rate → demonstrate ≥95% governed exports (unlocks score 4–5)."
+      ],
+      "aimri": [
+        {
+          "dimension": "8. Process Maturity",
+          "subsection": "8.1 Project Management"
+        },
+        {
+          "dimension": "6. Strategic Alignment",
+          "subsection": "6.5 Innovation Management"
+        }
+      ]
+    },
+    "features.alerts_usage": {
+      "metric_id": "features.alerts_usage",
+      "score": 3.0,
+      "rationale": "There are a few unique users engaging with alerts and subscriptions, indicating some level of adoption; however, the breadth across business units is unclear and delivery reliability is not fully assessed due to limited data on failures or bounces.",
+      "flags": [
+        "coverage_unknown"
+      ],
+      "gaps": [
+        "BU spread unknown → count unique alert/subscription users per BU and delivery success → reach moderate adoption across ≥3 BUs (unlocks score 4)."
+      ],
+      "aimri": [
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.4 Operational Continuity"
+        },
+        {
+          "dimension": "8. Process Maturity",
+          "subsection": "8.4 Operational Excellence"
+        }
+      ]
+    },
+    "governance.coverage": {
+      "metric_id": "governance.coverage",
+      "score": 2.0,
+      "rationale": "Only 50% of dashboards are certified and there are multiple missing owners, which significantly limits trust and governance. The lack of ownership and certification on several dashboards is a critical gap.",
+      "flags": [
+        "missing_owners",
+        "missing_certifications"
+      ],
+      "gaps": [
+        "Critical missing owners on dashboards d3 and d7 → assign owners to all dashboards to improve governance.",
+        "Dashboards d3 and d5 are not certified → ensure all dashboards are certified to enhance trust."
+      ],
+      "aimri": [
+        {
+          "dimension": "5. Governance & Ethics",
+          "subsection": "5.2 Regulatory Compliance"
+        },
+        {
+          "dimension": "2. Data Management & Quality",
+          "subsection": "2.3 Data Governance"
+        }
+      ]
+    },
+    "governance.pii_coverage": {
+      "metric_id": "governance.pii_coverage",
+      "score": 3.0,
+      "rationale": "Some dashboards are tagged with PII, indicating awareness of sensitive data; however, the overall coverage is inconsistent and lacks enforced access policies, limiting the score.",
+      "flags": [
+        "coverage_inconsistent"
+      ],
+      "gaps": [
+        "Many dashboards lack PII tagging and access policies; implement comprehensive tagging and access controls across all dashboards to improve governance."
+      ],
+      "aimri": [
+        {
+          "dimension": "5. Governance & Ethics",
+          "subsection": "5.2 Regulatory Compliance"
+        },
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.5 Regulatory & Legal Compliance"
+        }
+      ]
+    },
+    "governance.lineage_coverage": {
+      "metric_id": "governance.lineage_coverage",
+      "score": 3.0,
+      "rationale": "There is moderate coverage with lineage documented for some dashboards, but several dashboards lack owners and metadata, indicating noticeable gaps in documentation. The absence of owners for multiple dashboards is the biggest limiter.",
+      "flags": [
+        "owner_missing"
+      ],
+      "gaps": [
+        "Owners missing for dashboards d3 and d7; enforce owner assignment to achieve at least 80% coverage (unlocks score 4).",
+        "Lineage/glossary metadata is absent for dashboards d2, d3, and d7; ensure all dashboards have at least one metadata entry to improve coverage."
+      ],
+      "aimri": [
+        {
+          "dimension": "5. Governance & Ethics",
+          "subsection": "5.4 Transparency Practices"
+        },
+        {
+          "dimension": "2. Data Management & Quality",
+          "subsection": "2.3 Data Governance"
+        }
+      ]
+    },
+    "reliability.refresh_timeliness": {
+      "metric_id": "reliability.refresh_timeliness",
+      "score": 2.0,
+      "rationale": "Only 57% of dashboards are within SLA, with several high-priority dashboards stale beyond acceptable limits. The last refresh for high-priority dashboards is significantly overdue, impacting trust.",
+      "flags": [],
+      "gaps": [
+        "High-priority dashboards stale beyond SLA → address refresh frequency to ensure timely updates."
+      ],
+      "aimri": [
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.4 Operational Continuity"
+        },
+        {
+          "dimension": "2. Data Management & Quality",
+          "subsection": "2.2 Data Quality"
+        }
+      ]
+    },
+    "reliability.sla_breach_streaks": {
+      "metric_id": "reliability.sla_breach_streaks",
+      "score": 5.0,
+      "rationale": "There are no breaches on critical high-priority dashboards, indicating strong reliability. The absence of breaches on these critical assets significantly enhances trust.",
+      "flags": [],
+      "gaps": [],
+      "aimri": [
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.4 Operational Continuity"
+        },
+        {
+          "dimension": "2. Data Management & Quality",
+          "subsection": "2.2 Data Quality"
+        }
+      ]
+    },
+    "reliability.error_rate_queries": {
+      "metric_id": "reliability.error_rate_queries",
+      "score": 5.0,
+      "rationale": "There are no recorded 'error' actions in the activity events, indicating a 0% error rate. This absence of errors, combined with no reported high-impact incidents, supports a score of 5.",
+      "flags": [],
+      "gaps": [],
+      "aimri": [
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.1 Model Reliability & Robustness"
+        },
+        {
+          "dimension": "2. Data Management & Quality",
+          "subsection": "2.2 Data Quality"
+        }
+      ]
+    },
+    "data.source_diversity": {
+      "metric_id": "data.source_diversity",
+      "score": 3.0,
+      "rationale": "Three sources suggest some variety; however, the lack of clear domain coverage limits the score. The sources include a data warehouse and a CRM, but without explicit domain tags, the diversity is uncertain.",
+      "flags": [
+        "domain_mix_unknown"
+      ],
+      "gaps": [
+        "Domain mix unknown → tag each source to domain (ERP/CRM/Support) → show ≥3 domains represented (unlocks score 4)."
+      ],
+      "aimri": [
+        {
+          "dimension": "2. Data Management & Quality",
+          "subsection": "2.1 Data Architecture"
+        },
+        {
+          "dimension": "14. External Ecosystem",
+          "subsection": "14.2 Supplier & Vendor AI Collaboration"
+        }
+      ]
+    },
+    "democratization.dept_coverage": {
+      "metric_id": "democratization.dept_coverage",
+      "score": 3.0,
+      "rationale": "Creators are present in 4 out of 5 departments, indicating a reasonable level of democratization. However, the total number of departments is unknown, which limits the certainty of the coverage percentage.",
+      "flags": [],
+      "gaps": [
+        "Total number of departments unknown → report total departments and creator presence per department to clarify coverage percentage."
+      ],
+      "aimri": [
+        {
+          "dimension": "7. Cultural Readiness",
+          "subsection": "7.3 Collaboration Culture"
+        },
+        {
+          "dimension": "6. Strategic Alignment",
+          "subsection": "6.1 Business Integration"
+        }
+      ]
+    },
+    "democratization.self_service": {
+      "metric_id": "democratization.self_service",
+      "score": 3.0,
+      "rationale": "Creator share is approximately 40% (4 out of 10), indicating a fair level of engagement; however, the lack of department mapping limits understanding of breadth and growth potential.",
+      "flags": [
+        "coverage_unknown"
+      ],
+      "gaps": [
+        "Department spread unknown → report creators by department and coverage % → reach ≥60% dept coverage (unlocks score 4)."
+      ],
+      "aimri": [
+        {
+          "dimension": "7. Cultural Readiness",
+          "subsection": "7.2 Change Management"
+        },
+        {
+          "dimension": "6. Strategic Alignment",
+          "subsection": "6.1 Business Integration"
+        }
+      ]
+    },
+    "decision.traceability": {
+      "score": 3.0,
+      "rationale": "Unknown metric_id.",
+      "metric_id": "decision.traceability",
+      "gaps": [],
+      "flags": [],
+      "aimri": [
+        {
+          "dimension": "5. Governance & Ethics",
+          "subsection": "5.4 Transparency Practices"
+        },
+        {
+          "dimension": "7. Cultural Readiness",
+          "subsection": "7.4 Decision Making"
+        }
+      ]
+    },
+    "data.cost_efficiency": {
+      "metric_id": "data.cost_efficiency",
+      "score": 3.0,
+      "rationale": "The source mix is healthy with a balance of Snowflake, Postgres, and Salesforce, but there is some egress indicated by the export activity and several dashboards show staleness beyond their SLA, particularly for high-priority assets.",
+      "flags": [
+        "egress_present",
+        "stale_assets_present"
+      ],
+      "gaps": [
+        "Egress and staleness present → quantify export session % and stale share by priority → reduce exports <15% and stale critical assets to 0 (unlocks score 4–5)."
+      ],
+      "aimri": [
+        {
+          "dimension": "12. Business Impact",
+          "subsection": "12.2 Cost Reduction & Efficiency"
+        },
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.2 Data Dependability & Trust"
+        }
+      ]
+    }
+  },
+  "aggregates": {
+    "business_integration": 2.42,
+    "decision_making": 3.22,
+    "overall_score": 2.82
+  }
+}

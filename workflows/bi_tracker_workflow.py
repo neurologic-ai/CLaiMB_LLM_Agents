@@ -10,54 +10,118 @@ def collect_snapshot() -> Dict[str, Any]:
     return {
         "today_utc": "2025-09-02",
         # Activity & interaction
-        "activity_events": [
-            {"ts": "2025-09-01T10:00:00Z", "user_id": "u1", "action": "view"},
-            {"ts": "2025-09-01T11:30:00Z", "user_id": "u2", "action": "export"},
-            {"ts": "2025-08-25T09:00:00Z", "user_id": "u3", "action": "view"},
-            {"ts": "2025-08-15T09:00:00Z", "user_id": "u1", "action": "error"},
+         "activity_events": [
+            {"ts":"2025-08-01T09:12:00Z","user_id":"u1","action":"view","content_id":"d1"},
+            {"ts":"2025-08-01T09:30:00Z","user_id":"u2","action":"edit","content_id":"d2"},
+            {"ts":"2025-08-01T10:10:00Z","user_id":"u3","action":"drill","content_id":"d3"},
+            {"ts":"2025-08-01T11:40:00Z","user_id":"u4","action":"view","content_id":"d4"},
+            {"ts":"2025-07-31T08:45:00Z","user_id":"u5","action":"view","content_id":"d5"},
+            {"ts":"2025-07-30T13:20:00Z","user_id":"u6","action":"alert_delivered","content_id":"d6"},
+            {"ts":"2025-07-30T13:25:00Z","user_id":"u7","action":"subscription_email","content_id":"d6"},
+            {"ts":"2025-07-29T12:00:00Z","user_id":"u8","action":"view","content_id":"d7"},
+            {"ts":"2025-07-28T09:50:00Z","user_id":"u9","action":"export","content_id":"d8"},
+            {"ts":"2025-07-28T15:05:00Z","user_id":"u10","action":"view","content_id":"d1"},
+            {"ts":"2025-07-25T11:20:00Z","user_id":"u2","action":"drill","content_id":"d2"},
+            {"ts":"2025-07-25T11:45:00Z","user_id":"u3","action":"drill","content_id":"d3"},
+            {"ts":"2025-07-24T14:15:00Z","user_id":"u6","action":"view","content_id":"d4"},
+            {"ts":"2025-07-23T16:40:00Z","user_id":"u8","action":"view","content_id":"d5"},
+            {"ts":"2025-07-22T09:30:00Z","user_id":"u1","action":"view","content_id":"d6"}
         ],
-        "interaction_logs": [
-            {"ts": "2025-09-01T10:01:00Z", "user": "u1", "action": "drill"},
-            {"ts": "2025-09-01T10:05:00Z", "user": "u2", "action": "click"},
+          "interaction_logs": [
+            {"user":"u1","action":"drill"},
+            {"user":"u2","action":"drill"},
+            {"user":"u3","action":"view"},
+            {"user":"u4","action":"view"},
+            {"user":"u5","action":"drill"}
         ],
-        "session_logs": [
-            {"user": "u1", "duration": 310, "pages": 4, "repeats_per_week": 2},
-            {"user": "u2", "duration": 190, "pages": 3},
+          "session_logs": [
+            {"user":"u1","duration":320,"pages":6,"repeats_per_week":3},
+            {"user":"u2","duration":250,"pages":4,"repeats_per_week":2},
+            {"user":"u3","duration":190,"pages":3,"repeats_per_week":1},
+            {"user":"u4","duration":140,"pages":2,"repeats_per_week":1},
+            {"user":"u5","duration":410,"pages":7,"repeats_per_week":4},
+            {"user":"u6","duration":180,"pages":3,"repeats_per_week":2}
         ],
         "usage_logs": [
-            {"user": "u1", "role": "creator"},
-            {"user": "u2", "role": "viewer"},
-            {"user": "u3", "role": "viewer"},
+            {"user":"u1","role":"creator"},
+            {"user":"u2","role":"creator"},
+            {"user":"u3","role":"viewer"},
+            {"user":"u4","role":"viewer"},
+            {"user":"u5","role":"creator"},
+            {"user":"u6","role":"viewer"},
+            {"user":"u7","role":"viewer"},
+            {"user":"u8","role":"creator"},
+            {"user":"u9","role":"viewer"},
+            {"user":"u10","role":"viewer"}
         ],
+
         "user_roles": [
             {"id": "u1", "role": "creator"},
-            {"id": "u2", "role": "viewer"},
+            {"id": "u2", "role": "creator"},
             {"id": "u3", "role": "viewer"},
+            {"id": "u4", "role": "viewer"},
+            {"id": "u5", "role": "creator"},
+            {"id": "u6", "role": "viewer"},
+            {"id": "u7", "role": "viewer"},
+            {"id": "u8", "role": "creator"},
+            {"id": "u9", "role": "viewer"},
+            {"id": "u10", "role": "viewer"}
         ],
         "user_directory": [
-            {"user_id": "u1", "department": "Finance"},
-            {"user_id": "u2", "department": "Sales"},
-            {"user_id": "u3", "department": "Ops"},
+            {"user_id":"u1","department":"Finance"},
+            {"user_id":"u2","department":"Ops"},
+            {"user_id":"u3","department":"Sales"},
+            {"user_id":"u4","department":"HR"},
+            {"user_id":"u5","department":"Marketing"},
+            {"user_id":"u6","department":"Ops"},
+            {"user_id":"u7","department":"Support"},
+            {"user_id":"u8","department":"Sales"},
+            {"user_id":"u9","department":"Finance"},
+            {"user_id":"u10","department":"HR"}
         ],
         # Governance & dashboards
         "governance_data": [
-            {"id": "d1", "certified": True, "owner": "bi_ops", "metadata": ["description", "refresh_rate", "lineage"]},
-            {"id": "d2", "certified": False, "owner": None, "metadata": []},
+            {"id":"d1","certified":True,"owner":"fin_bi","metadata":["description","refresh_rate","lineage"]},
+            {"id":"d2","certified":True,"owner":"ops_bi","metadata":["description","refresh_rate"]},
+            {"id":"d3","certified":False,"owner":None,"metadata":[]},
+            {"id":"d4","certified":True,"owner":"hr_bi","metadata":["description","refresh_rate","pii"]},
+            {"id":"d5","certified":False,"owner":"mktg_bi","metadata":["description"]},
+            {"id":"d6","certified":True,"owner":"ops_bi","metadata":["description","refresh_rate","glossary"]},
+            {"id":"d7","certified":False,"owner":None,"metadata":[]},
+            {"id":"d8","certified":True,"owner":"sales_bi","metadata":["description","refresh_rate","pii"]}
         ],
         "dashboard_metadata": [
-            {"id": "d1", "last_refresh": "2025-09-01", "sla": "daily", "priority": "high"},
-            {"id": "d2", "last_refresh": "2025-08-26", "sla": "weekly", "priority": "low"},
+            {"id":"d1","last_refresh":"2025-07-31","sla":"daily","priority":"high"},
+            {"id":"d2","last_refresh":"2025-07-30","sla":"daily","priority":"high"},
+            {"id":"d3","last_refresh":"2025-07-27","sla":"weekly","priority":"normal"},
+            {"id":"d4","last_refresh":"2025-07-28","sla":"weekly","priority":"normal"},
+            {"id":"d5","last_refresh":"2025-07-29","sla":"weekly","priority":"normal"},
+            {"id":"d6","last_refresh":"2025-07-31","sla":"daily","priority":"high"},
+            {"id":"d7","last_refresh":"2025-07-22","sla":"weekly","priority":"normal"},
+            {"id":"d8","last_refresh":"2025-07-25","sla":"weekly","priority":"normal"}
         ],
         "dashboard_link_data": [
-            {"id": "d1", "links": ["d2"], "link_usage": 12},
-            {"id": "d2", "links": [], "link_usage": 1},
+            {"id":"d1","links":["d2","d3"],"link_usage":20},
+            {"id":"d2","links":["d1","d4"],"link_usage":12},
+            {"id":"d3","links":["d1"],"link_usage":8},
+            {"id":"d4","links":[],"link_usage":0},
+            {"id":"d5","links":["d6"],"link_usage":10},
+            {"id":"d6","links":["d5","d7"],"link_usage":9},
+            {"id":"d7","links":[],"link_usage":0},
+            {"id":"d8","links":[],"link_usage":0}
         ],
         # Sources & decisions
-        "source_catalog": ["Snowflake", "Postgres", "Salesforce"],
+        "source_catalog": ["Snowflake","Postgres","Salesforce"],
         "decision_logs": [
-            {"id": "dec1", "linked_dash": "d1", "evidence": "screenshot", "date": "2025-08-28"},
-            {"id": "dec2", "linked_dash": None, "evidence": None, "date": "2025-08-20"},
-        ],
+            {"id": "dec01", "linked_dash": "sales_forecast", "evidence": "minutes"},
+            {"id": "dec02", "linked_dash": "sales_forecast", "evidence": "minutes"},
+            {"id": "dec03","linked_dash": "d05", "evidence": "ticket_link"},
+            {"id": "dec04", "linked_dash": "d01", "evidence": "deck"},
+            {"id": "dec05", "linked_dash": None, "evidence": None},
+            {"id": "dec06", "linked_dash": "d03", "evidence": "minutes"},
+            {"id": "dec07", "linked_dash": "d05", "evidence": "deck"},
+            {"id": "dec08", "linked_dash": None, "evidence": None}
+        ]
     }
 
 def run_workflow() -> Dict[str, Any]:
