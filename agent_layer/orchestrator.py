@@ -28,42 +28,30 @@ def _now_id(prefix: str = "bi-tracker") -> str:
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")
     return f"{prefix}-{ts}"
 
+
 def _clamp_score(v: Any) -> float:
+    """Coerce score-like value to float in [1..5] (default 3.0)."""
     try:
         x = int(v)
         return float(1 if x < 1 else 5 if x > 5 else x)
     except Exception:
         return 3.0
 
+
 def _normalize_metric(m: Dict[str, Any]) -> Dict[str, Any]:
-    """Ensure only 'score' is present; drop any legacy 'band'."""
+    """
+    Ensure only 'score' is present; drop any legacy 'band'.
+    Also clamps score to [1..5].
+    """
     m = dict(m or {})
     if "score" not in m:
         m["score"] = _clamp_score(m.get("band", 3))
+    else:
+        m["score"] = _clamp_score(m["score"])
     # remove any band to guarantee artifacts never show it
     if "band" in m:
         del m["band"]
     return m
-
-
-def _build_reverse_index(mapping: Dict[str, List[Dict[str, str]]]) -> Dict[str, List[str]]:
-    """
-    Build AIMRI reverse index:
-      "Dimension: Subsection" -> ["metric.id", ...]
-    """
-    idx: Dict[str, List[str]] = {}
-    for mid, tags in mapping.items():
-        for t in tags or []:
-            dim = (t.get("dimension") or "").strip()
-            sub = (t.get("subsection") or "").strip()
-            key = f"{dim}: {sub}".strip(": ").strip()
-            if not key:
-                continue
-            idx.setdefault(key, []).append(mid)
-    # dedupe + sort for stable UI
-    for k in list(idx.keys()):
-        idx[k] = sorted(set(idx[k]))
-    return dict(sorted(idx.items()))
 
 
 def _aggregate(metrics: Dict[str, Dict[str, Any]]) -> Dict[str, float]:
@@ -93,15 +81,6 @@ def _aggregate(metrics: Dict[str, Dict[str, Any]]) -> Dict[str, float]:
     return {**cat_scores, "overall_score": overall_score}
 
 
-def _filter_mapping_for_present_metrics(
-    mapping: Dict[str, List[Dict[str, str]]],
-    present_metric_ids: List[str],
-) -> Dict[str, List[Dict[str, str]]]:
-    """Limit the AIMRI mapping to only metrics that were actually computed in this run."""
-    present = set(present_metric_ids)
-    return {mid: mapping[mid] for mid in mapping.keys() & present}
-
-
 # -----------------------------
 # Orchestrator (functional API)
 # -----------------------------
@@ -111,7 +90,7 @@ def run(snapshot: Dict[str, Any], out_dir: Optional[Path] = None) -> Dict[str, A
       - Level 0 (parallel, no deps)
       - Level 1 (ordered by simple dependency list; no fan-in of outputs yet)
       - Aggregation (categories → overall)
-      - Augment output with AIMRI mapping (both metric→AIMRI and reverse index)
+      - Embed AIMRI mapping inside each metric result (`metrics[mid]["aimri"]`)
 
     If out_dir is provided, writes ./<out_dir>/<run_id>.json
     """
@@ -129,30 +108,28 @@ def run(snapshot: Dict[str, Any], out_dir: Optional[Path] = None) -> Dict[str, A
     # ----- Level 1 sequential (deps only for ordering) -----
     l1_out: Dict[str, Dict[str, Any]] = {}
     for mid, deps in LEVEL1_DEPS.items():
-        _missing = [d for d in deps if d not in l0_out]
+        _missing = [d for d in deps if d not in l0_out]  # kept for future validation/logging
         l1_out[mid] = load_tool(mid)(snapshot)
 
-    # ----- Merge & aggregate -----
-    # After computing l0_out / l1_out and merging:
+    # ----- Merge, normalize, and embed AIMRI per metric -----
     metrics: Dict[str, Dict[str, Any]] = {**l0_out, **l1_out}
 
-    # normalize to keep only 'score'
-    for k, v in list(metrics.items()):
-        metrics[k] = _normalize_metric(v)
+    for mid, m in list(metrics.items()):
+        nm = _normalize_metric(m)
+        # Embed AIMRI tags directly into each metric object
+        nm["aimri"] = METRIC_TO_AIMRI.get(mid, [])
+        # Ensure metric_id is present and correct
+        nm["metric_id"] = mid
+        metrics[mid] = nm
 
+    # ----- Aggregate -----
     aggregates = _aggregate(metrics)
 
-    # ----- AIMRI mapping (only for metrics present in this run) -----
-    present_metric_ids = list(metrics.keys())
-    aimri_mapping = _filter_mapping_for_present_metrics(METRIC_TO_AIMRI, present_metric_ids)
-    aimri_index = _build_reverse_index(aimri_mapping)
-
+    # ----- Final payload (no top-level aimri_mapping / aimri_index) -----
     result: Dict[str, Any] = {
         "run_id": _now_id(),
         "metrics": metrics,
         "aggregates": aggregates,
-        "aimri_mapping": aimri_mapping,
-        "aimri_index": aimri_index,
     }
 
     # ----- Persistence -----

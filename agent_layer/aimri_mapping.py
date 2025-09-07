@@ -8,28 +8,28 @@ AIMRI mapping for BI Tracker metrics.
 Each metric id maps to a list of AIMRI dimension entries:
     {"dimension": "<major number>. <name>", "subsection": "<subnumber> <title>"}
 
-Example: {"dimension": "7. Decision Making & Culture", "subsection": "7.4 Decision Making"}
+Example: {"dimension": "7. Cultural Readiness", "subsection": "7.4 Decision Making"}
 
 """
 
 METRIC_TO_AIMRI: Dict[str, List[Dict[str, str]]] = {
-    # Header / umbrella line you provided (kept under a special key in case you want to surface it in the UI)
+    
     "__metrics_for_computation__": [
-        {"dimension": "7. Decision Making & Culture", "subsection": "7.4 Decision Making"},
+        {"dimension": "7. Cultural Readiness", "subsection": "7.4 Decision Making"},
         {"dimension": "12. Business Impact",         "subsection": "12.1 Revenue Generation & Growth"},
     ],
 
     # usage.* ------------------------------------------------------------------
     "usage.dau_mau": [
         {"dimension": "4. Talent & Skills",              "subsection": "4.1 Technical Expertise"},
-        {"dimension": "7. Decision Making & Culture",    "subsection": "7.3 Collaboration Culture"},
+        {"dimension": "7. Cultural Readiness",    "subsection": "7.3 Collaboration Culture"},
     ],
     "usage.creators_ratio": [
-        {"dimension": "7. Decision Making & Culture",    "subsection": "7.1 Innovation Mindset"},
+        {"dimension": "7. Cultural Readiness",    "subsection": "7.1 Innovation Mindset"},
         {"dimension": "12. Business Impact",             "subsection": "12.3 Customer Experience Enhancement"},
     ],
     "usage.session_depth": [
-        {"dimension": "7. Decision Making & Culture",    "subsection": "7.4 Decision Making"},
+        {"dimension": "7. Cultural Readiness",    "subsection": "7.4 Decision Making"},
         {"dimension": "8. Process Maturity",             "subsection": "8.4 Operational Excellence"},
     ],
     "usage.drilldown": [
@@ -38,7 +38,7 @@ METRIC_TO_AIMRI: Dict[str, List[Dict[str, str]]] = {
     ],
     "usage.weekly_active_trend": [
         {"dimension": "12. Business Impact",             "subsection": "12.2 Cost Reduction & Efficiency"},
-        {"dimension": "7. Decision Making & Culture",    "subsection": "7.4 Decision Making"},
+        {"dimension": "7. Cultural Readiness",    "subsection": "7.4 Decision Making"},
     ],
     "usage.retention_4w": [
         {"dimension": "8. Process Maturity",             "subsection": "8.1 Project Management"},
@@ -89,22 +89,22 @@ METRIC_TO_AIMRI: Dict[str, List[Dict[str, str]]] = {
 
     # data.* -------------------------------------------------------------------
     "data.source_diversity": [
-        {"dimension": "7. Decision Making & Culture",    "subsection": "7.2 Change Management"},
+        {"dimension": "7. Cultural Readiness",    "subsection": "7.2 Change Management"},
         {"dimension": "6. Strategic Alignment",          "subsection": "6.1 Business Integration"},
     ],
     "data.cost_efficiency": [
-        {"dimension": "7. Decision Making & Culture",    "subsection": "7.3 Collaboration Culture"},
+        {"dimension": "7. Cultural Readiness",    "subsection": "7.3 Collaboration Culture"},
         {"dimension": "6. Strategic Alignment",          "subsection": "6.1 Business Integration"},
     ],
 
     # democratization.* --------------------------------------------------------
     "democratization.self_service": [
         {"dimension": "5. Governance & Ethics",          "subsection": "5.4 Transparency Practices"},
-        {"dimension": "7. Decision Making & Culture",    "subsection": "7.4 Decision Making"},
+        {"dimension": "7. Cultural Readiness",    "subsection": "7.4 Decision Making"},
     ],
     "decision.traceability": [
         {"dimension": "12. Business Impact",             "subsection": "12.1 Revenue Generation & Growth"},
-        {"dimension": "7. Decision Making & Culture",    "subsection": "7.1 Innovation Mindset"},
+        {"dimension": "7. Cultural Readiness",    "subsection": "7.1 Innovation Mindset"},
     ],
     "democratization.dept_coverage": [
         # Intentionally left empty per your original mapping.
