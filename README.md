@@ -87,7 +87,7 @@ python data_collection_agents/ml_ops_agent/main.py
 ### **4. View Results**
 
 - **Agent layer results:**  
-  `runs_mlops_mvp/bi-tracker-{run_id}.json` (Agent results)
+  `runs_mlops_mvp/` (Agent results)
 - **LLM Backbone results:**  
   `data/Outputs`
 
