@@ -68,7 +68,7 @@ python run_once.py
 ### **2.  Run as API Service **
 
 ```sh
-uvicorn services.mlops_service:app --reload --port 8080 
+uvicorn services.bi_tracker_service:app --reload --port 8080 
 ```
 - Endpoints:
 	•	GET  /health → service check
@@ -86,18 +86,14 @@ python data_collection_agents/bi_tracker_agent/main.py
 
 ### **4. View Results**
 
-- **results:**  
-  `runs_bi_mvp/bi-tracker-{run_id}.json` (Agent results)  
-  `data/micro_agents/aggregate.json` (LLM backbone results)
-- **Per-repo results:**  
+- **Agent layer results:**  
+  `runs_bi_mvp/bi-tracker-{run_id}.json` (Agent results)
+- **LLM Backbone results**  
   `data/Outputs`
 
 ---
 
 ## Configuration
-
-- **Model:**  
-  Set `MICRO_AGENT_MODEL` in `.env` (e.g., `gpt-4o-mini`, `gpt-3.5-turbo`).
 
 - **API Keys:**  
   - For OpenAI: `OPENAI_API_KEY`
@@ -115,11 +111,10 @@ python data_collection_agents/bi_tracker_agent/main.py
 ## Example: Quickstart
 
 ```sh
-# 1. Clone some repos into useful_repos/
-# 2. Set up your .env as above
-# 3. Run:
+# 1. Set up your .env as above
+# 2. Run:
 python run_once.py
-# 4. See results in runs_bi_mvp/bi-tracker-{run_id}.json
+# 3. See results in runs_bi_mvp/bi-tracker-{run_id}.json
 ```
 
 ---
@@ -128,13 +123,16 @@ python run_once.py
 
 ```
 ClaimbAI/
-├── BI-Tracker/
 ├── agent_layer/
 │   ├── orchestrator.py          # BIOrchestrator (class-based runner)
 │   ├── tool_loader.py           # Metric → scorer mapping
 │   ├── registry.py              # DAG (LEVEL0, LEVEL1 metrics)
 │   ├── router.py              
 │   └── aimri_mapping.py         # AIMRI dimension mappings
+│
+│── data/                        #LLM Backbone related inputs and outputs
+│   ├── Inputs/
+│   └── Outputs/
 │
 ├── data_collection_agents/
 │   └── bi_tracker_agent/
