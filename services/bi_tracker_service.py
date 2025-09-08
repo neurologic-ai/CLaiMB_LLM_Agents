@@ -28,15 +28,8 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks, Query
 from pydantic import BaseModel, Field
 from loguru import logger
 
-# --- ensure project imports work when started from anywhere ---
-import sys
-ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
-
-
-from agent_layer.orchestrator import run as run_bi_tracker        # noqa: E402
-from workflows.bi_tracker_workflow import collect_snapshot         # noqa: E402
+from agent_layer.orchestrator import run as run_bi_tracker
+from workflows.bi_tracker_workflow import collect_snapshot
 
 
 # -----------------------
@@ -92,9 +85,7 @@ RUNS_LOCK = threading.Lock()
 # Request/Response models
 # -----------------------
 class RunRequest(BaseModel):
-    # Optional snapshot; if omitted, we call collect_snapshot()
     snapshot: Optional[Dict[str, Any]] = None
-    # Where to write the JSON artifact; default = ARTIFACT_DIR
     out_dir: Optional[str] = None
 
 

@@ -1,5 +1,5 @@
 {
-  "run_id": "bi-tracker-2025-09-07T15-01-54Z",
+  "run_id": "bi-tracker-2025-09-08T05-20-57Z",
   "metrics": {
     "usage.dau_mau": {
       "metric_id": "usage.dau_mau",
@@ -44,12 +44,12 @@
     "usage.session_depth": {
       "metric_id": "usage.session_depth",
       "score": 3.0,
-      "rationale": "Average session duration is 245 seconds with 4 pages per session, indicating decent engagement; however, the repeat cadence is sparse, limiting the overall score.",
+      "rationale": "Average duration is 245 seconds and average pages are 4, indicating decent engagement; however, the repeat cadence is sparse, limiting the overall score.",
       "flags": [
         "repeat_freq_sparse"
       ],
       "gaps": [
-        "Repeat cadence data is missing for some users; aim to capture repeats_per_week for at least 80% of active users to better assess repeat engagement."
+        "Repeat cadence data is missing for some users; aim to capture repeats_per_week for at least 80% of active users to strengthen evidence of repeat usage."
       ],
       "aimri": [
         {
@@ -64,8 +64,8 @@
     },
     "usage.drilldown": {
       "metric_id": "usage.drilldown",
-      "score": 2.0,
-      "rationale": "Drill actions account for about 60% of the total interactions, but the usage is limited to only 3 users with no clear department spread, which significantly limits the score.",
+      "score": 3.0,
+      "rationale": "Approximately 60% of sessions involve drill actions, but the usage is concentrated among a limited number of users, indicating a narrow spread across departments. Stability over the past 4 weeks is not assessed due to lack of timestamps.",
       "flags": [
         "spread_limited"
       ],
@@ -87,10 +87,10 @@
     "usage.weekly_active_trend": {
       "metric_id": "usage.weekly_active_trend",
       "score": 3.0,
-      "rationale": "WAU trajectory appears flat with some noise; no material drop in activity is observed, but sample coverage is limited across the weeks.",
+      "rationale": "The WAU trajectory appears flat with some noise, as there are distinct user activities across the weeks but no clear upward trend. The sample size is limited, particularly in the earlier weeks, which affects the reliability of the assessment.",
       "flags": [],
       "gaps": [
-        "Sample coverage is limited; provide distinct WAU counts for each of the last 4 weeks to assess stability and growth potential."
+        "Sample size is limited; provide WAU counts for each week to assess stability and growth more accurately."
       ],
       "aimri": [
         {
@@ -106,10 +106,10 @@
     "usage.retention_4w": {
       "metric_id": "usage.retention_4w",
       "score": 1.0,
-      "rationale": "Retention is below 15%, indicating significant challenges in user engagement; the lack of returning users in weeks 2-4 is a major concern.",
+      "rationale": "Retention is below 15%, indicating significant challenges in user engagement. The lack of returning users in weeks 2-4 highlights a critical gap in retention strategies.",
       "flags": [],
       "gaps": [
-        "Cohort composition unknown → report cohort size and retention by persona/BU → reach ≥45% overall with clear segment drivers (unlocks score 4)."
+        "Retention rate <15% indicates severe engagement issues; need to analyze user feedback and improve onboarding processes."
       ],
       "aimri": [
         {
@@ -125,12 +125,12 @@
     "features.cross_links": {
       "metric_id": "features.cross_links",
       "score": 3.0,
-      "rationale": "43% of dashboards are linked, indicating moderate connectivity; however, link usage is concentrated on a few dashboards, leading to uneven traversal patterns.",
+      "rationale": "43% of dashboards are linked, but link usage is concentrated on a few dashboards, indicating uneven engagement. The highest usage is from only a couple of dashboards, which limits overall effectiveness.",
       "flags": [
         "distribution_skewed"
       ],
       "gaps": [
-        "Link usage is concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve a more balanced distribution and potentially unlock a higher score."
+        "Link usage concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve broader engagement and potentially unlock a higher score."
       ],
       "aimri": [
         {
@@ -145,8 +145,8 @@
     },
     "features.export_rate": {
       "metric_id": "features.export_rate",
-      "score": 1.0,
-      "rationale": "Exports account for only 6.67% of total actions, indicating minimal offline usage; governance details are completely unknown.",
+      "score": 2.0,
+      "rationale": "Exports account for approximately 7% of total actions, indicating weak offline usage; governance details are unclear, which limits the score.",
       "flags": [
         "governance_unknown"
       ],
@@ -166,13 +166,11 @@
     },
     "features.alerts_usage": {
       "metric_id": "features.alerts_usage",
-      "score": 3.0,
-      "rationale": "There are a few unique users engaging with alerts and subscriptions, indicating some level of adoption; however, the breadth across business units is unclear and delivery reliability is not fully assessed due to limited data on failures or bounces.",
-      "flags": [
-        "coverage_unknown"
-      ],
+      "score": 2.0,
+      "rationale": "There are a few alert and subscription events, but the overall adoption is very low with only a handful of unique users involved. Additionally, there is no evidence of delivery reliability due to the absence of alert failures or bounces.",
+      "flags": [],
       "gaps": [
-        "BU spread unknown → count unique alert/subscription users per BU and delivery success → reach moderate adoption across ≥3 BUs (unlocks score 4)."
+        "Limited user engagement → increase unique user count and track delivery success to demonstrate broader adoption."
       ],
       "aimri": [
         {
@@ -194,8 +192,8 @@
         "missing_certifications"
       ],
       "gaps": [
-        "Critical missing owners on dashboards d3 and d7 → assign owners to all dashboards to improve governance.",
-        "Dashboards d3 and d5 are not certified → ensure all dashboards are certified to enhance trust."
+        "Missing owners on dashboards d3 and d7 is critical; assign owners to all dashboards to improve governance.",
+        "Dashboards d3 and d5 are not certified; ensure all dashboards are certified to enhance trust."
       ],
       "aimri": [
         {
@@ -211,12 +209,12 @@
     "governance.pii_coverage": {
       "metric_id": "governance.pii_coverage",
       "score": 3.0,
-      "rationale": "Some dashboards are tagged with PII, indicating awareness of sensitive data; however, the overall coverage is inconsistent and lacks enforced access policies, limiting the score.",
+      "rationale": "Some dashboards are tagged with PII, but overall coverage is inconsistent and lacks enforced access policies, limiting the score. The absence of access policy tags in most dashboards is a significant gap.",
       "flags": [
         "coverage_inconsistent"
       ],
       "gaps": [
-        "Many dashboards lack PII tagging and access policies; implement comprehensive tagging and access controls across all dashboards to improve governance."
+        "Many dashboards lack PII and access policy tags; implement comprehensive tagging and access control measures to improve coverage."
       ],
       "aimri": [
         {
@@ -238,7 +236,7 @@
       ],
       "gaps": [
         "Owners missing for dashboards d3 and d7; enforce owner assignment to achieve at least 80% coverage (unlocks score 4).",
-        "Lineage/glossary metadata is absent for dashboards d2, d3, and d7; ensure all dashboards have at least one metadata entry to improve coverage."
+        "Lineage/glossary missing for dashboards d2, d3, and d7; ensure all dashboards have at least one metadata entry to improve coverage."
       ],
       "aimri": [
         {
@@ -257,7 +255,7 @@
       "rationale": "Only 57% of dashboards are within SLA, with several high-priority dashboards stale beyond acceptable limits. The last refresh for high-priority dashboards is significantly overdue, impacting trust.",
       "flags": [],
       "gaps": [
-        "High-priority dashboards stale beyond SLA → address refresh frequency to ensure timely updates."
+        "High-priority dashboards stale beyond SLA → immediate action required to refresh these assets."
       ],
       "aimri": [
         {
@@ -307,7 +305,7 @@
     "data.source_diversity": {
       "metric_id": "data.source_diversity",
       "score": 3.0,
-      "rationale": "Three sources suggest some variety; however, the lack of clear domain coverage limits the score. The sources include a data warehouse and a CRM, but without explicit domain tags, the diversity is uncertain.",
+      "rationale": "Three sources suggest some variety; however, the lack of clear domain coverage limits the score.",
       "flags": [
         "domain_mix_unknown"
       ],
@@ -328,10 +326,10 @@
     "democratization.dept_coverage": {
       "metric_id": "democratization.dept_coverage",
       "score": 3.0,
-      "rationale": "Creators are present in 4 out of 5 departments, indicating a reasonable level of democratization. However, the total number of departments is unknown, which limits the certainty of the coverage percentage.",
+      "rationale": "Creators are present in 4 out of 5 departments, indicating a reasonable breadth of creator presence. However, the total number of departments is unknown, which limits the certainty of the coverage percentage.",
       "flags": [],
       "gaps": [
-        "Total number of departments unknown → report total departments and creator presence per department to clarify coverage percentage."
+        "Total number of departments unknown → report total departments considered to clarify coverage percentage."
       ],
       "aimri": [
         {
@@ -347,7 +345,7 @@
     "democratization.self_service": {
       "metric_id": "democratization.self_service",
       "score": 3.0,
-      "rationale": "Creator share is approximately 40% (4 out of 10), indicating a fair level of engagement; however, the lack of department mapping limits understanding of breadth and growth potential.",
+      "rationale": "Creator share is approximately 40% (4 out of 10), indicating a strong presence; however, the lack of department mapping limits understanding of breadth and growth potential.",
       "flags": [
         "coverage_unknown"
       ],
@@ -385,13 +383,13 @@
     "data.cost_efficiency": {
       "metric_id": "data.cost_efficiency",
       "score": 3.0,
-      "rationale": "The source mix is healthy with a balance of Snowflake, Postgres, and Salesforce, but there is some egress indicated by the export activity and several dashboards show staleness beyond their SLA, particularly for high-priority assets.",
+      "rationale": "The source mix is healthy with a balance of Snowflake, Postgres, and Salesforce, but there is some egress indicated by the export activity and several dashboards show staleness beyond their SLA, leading to mixed efficiency signals.",
       "flags": [
         "egress_present",
         "stale_assets_present"
       ],
       "gaps": [
-        "Egress and staleness present → quantify export session % and stale share by priority → reduce exports <15% and stale critical assets to 0 (unlocks score 4–5)."
+        "Quantify the percentage of exports and the share of stale dashboards by priority to address inefficiencies; aim to reduce exports below 15% and eliminate staleness in critical assets to improve the score."
       ],
       "aimri": [
         {
@@ -406,8 +404,8 @@
     }
   },
   "aggregates": {
-    "business_integration": 2.42,
+    "business_integration": 2.48,
     "decision_making": 3.22,
-    "overall_score": 2.82
+    "overall_score": 2.85
   }
 }

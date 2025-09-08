@@ -2,17 +2,12 @@
 from __future__ import annotations
 import json
 import os
-import sys
 from pathlib import Path
 from dotenv import load_dotenv
 
-ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
-
-from bi_tracker_agent.canonical import BIInputs  # noqa: E402
-from bi_tracker_agent.orchestrator import BIOrchestrator  # noqa: E402
-from bi_tracker_agent.logging_utils import setup_logger # noqa: E402
+from bi_tracker_agent.canonical import BIInputs  
+from bi_tracker_agent.orchestrator import BIOrchestrator  
+from bi_tracker_agent.logging_utils import setup_logger
 
 def main() -> None:
     load_dotenv()
