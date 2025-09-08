@@ -1,18 +1,22 @@
-# ClaimbAI: Automated AI/ML Repository Quality Assessment
+# BI Tracker: Automated Business Intelligence Platform Assessment
 
-ClaimbAI is a robust, extensible pipeline for **automated static and LLM-based analysis of AI/ML code repositories**.  
-It supports both classic static code analysis and advanced LLM-powered micro-agents to assess code quality, ML maturity, and best practices across many repositories in parallel.
+BI Tracker is a robust, extensible pipeline for **automated assessment of BI platform usage, reliability, governance, and data democratization**.  
+It supports both direct signal extraction and advanced LLM-powered micro-agents to evaluate BI maturity, adoption, and operational best practices across dashboards and usage logs.
 
 ---
 
 ## Features
 
-- **Static Analysis:** Cyclomatic complexity, maintainability, docstring coverage, test/CI/CD detection, secrets scanning, and more.
-- **LLM Micro-Agents:** Modular agents for code quality, ML pipeline, infrastructure, and project structure, powered by OpenAI or Huggingface models.
-- **Parallel Processing:** Scans multiple repos concurrently for speed.
-- **Smart Budgeting:** Caps on files/snippets per repo and per-agent to avoid API overuse and context overflow.
-- **Extensible:** Add your own micro-agents or static checks easily.
-- **Output:** Per-repo and aggregate JSON reports with detailed signals and scores.
+- **Usage Metrics:** DAU/MAU ratio, retention, active creators, session depth, drilldowns, weekly active trends.
+- **Feature Adoption:** Cross-links, export rate, alerts usage.
+- **Democratization:** Department coverage, self-service adoption.
+- **Reliability:** Refresh timeliness, SLA breach streaks, query error rate.
+- **Governance:** Coverage of governance rules, PII tagging, lineage.
+- **Data Efficiency:** Source diversity, cost efficiency.
+- **LLM Orchestration:** Automated scoring with rationale, flags, gaps, and AIMRI-aligned mappings.
+- **Parallel Processing:** Runs metrics in dependency-ordered waves.
+- **Extensible:** Add new metrics easily by updating the tool loader and registry.
+- **Microservice API:** FastAPI endpoints for triggering runs, checking status, and viewing logs.
 
 ---
 
@@ -20,7 +24,7 @@ It supports both classic static code analysis and advanced LLM-powered micro-age
 
 - Python 3.9+
 - [pip](https://pip.pypa.io/en/stable/)
-- (Optional) [OpenAI API key](https://platform.openai.com/account/api-keys) or [Huggingface API token](https://huggingface.co/settings/tokens)
+- [OpenAI API key](https://platform.openai.com/account/api-keys)
 - (Optional) [tiktoken](https://github.com/openai/tiktoken) for token counting
 
 ---
@@ -29,9 +33,8 @@ It supports both classic static code analysis and advanced LLM-powered micro-age
 
 1. **Clone the repository:**
    ```sh
-   git clone <your-claimbai-repo-url>
-   cd ClaimbAI
-   ```
+   git clone <your-bi-tracker-repo-url>
+   cd BI-Tracker
 
 2. **Create and activate a virtual environment:**
    ```sh
@@ -48,59 +51,53 @@ It supports both classic static code analysis and advanced LLM-powered micro-age
    - Copy `.env.example` to `.env` and fill in your API keys and settings, or edit `.env` directly:
      ```
      OPENAI_API_KEY=sk-...
-     REPO_BASE=useful_repos
-     MA_CONCURRENCY=2
-     MA_MAX_FILES_PER_REPO=5
-     MA_SNIPPETS_PER_AGENT=2
-     MA_MAX_SNIPPET_BYTES=1800
-     MA_MAX_CALLS_PER_REPO=10
-     MICRO_AGENT_MODEL=gpt-4o-mini
+
      ```
 
 ---
 
 ## Usage
 
-### **1. Prepare Repositories**
-
-- Place or clone all target repositories under the folder specified by `REPO_BASE` (default: `useful_repos/`).
-
-### **2. Run Static + LLM Analysis (Recommended)**
+### **1. Run Once via Orchestrator **
 
 ```sh
-python run_agents.py
+python run_once.py
 ```
-- This will scan all repos in parallel and write results to `data/dev_platform_outputs.json`.
+- Collects a snapshot, runs orchestrator, and writes results to runs_bi_mvp/.
 
-### **3. Run Only LLM Micro-Agents (Advanced)**
+### **2.  Run as API Service **
 
 ```sh
-python scripts/run_micro_agents_all.py --base useful_repos --out data/micro_agents/aggregate.json --per-repo-dir data/micro_agents/per_repo
+uvicorn services.mlops_service:app --reload --port 8080 
 ```
-- Adjust `--max-workers` to control parallelism.
+- Endpoints:
+	•	GET  /health → service check
+	•	POST /run → start a run
+	•	GET  /status/{run_id} → check status
+	•	GET  /runs → list all runs
+	•	GET  /logs/{run_id} → logs
+	•	GET  /latest → latest run metadata
+
+### **3. Run Only LLM Backbones **
+
+```sh
+python data_collection_agents/bi_tracker_agent/main.py
+```
 
 ### **4. View Results**
 
-- **Aggregate results:**  
-  `data/dev_platform_outputs.json` (static+LLM)  
-  `data/micro_agents/aggregate.json` (LLM micro-agents only)
+- **results:**  
+  `runs_bi_mvp/bi-tracker-{run_id}.json` (Agent results)  
+  `data/micro_agents/aggregate.json` (LLM backbone results)
 - **Per-repo results:**  
-  `data/micro_agents/per_repo/<repo_name>.json`
+  `data/Outputs`
 
 ---
 
 ## Configuration
 
-- **Budgeting:**  
-  Control the number of files/snippets/LLM calls per repo via `.env`:
-  ```
-  MA_MAX_FILES_PER_REPO=5
-  MA_SNIPPETS_PER_AGENT=2
-  MA_MAX_SNIPPET_BYTES=1800
-  MA_CONCURRENCY=2
-  ```
 - **Model:**  
-  Set `MICRO_AGENT_MODEL` in `.env` (e.g., `gpt-4o-mini`, `gpt-3.5-turbo`, or a Huggingface model).
+  Set `MICRO_AGENT_MODEL` in `.env` (e.g., `gpt-4o-mini`, `gpt-3.5-turbo`).
 
 - **API Keys:**  
   - For OpenAI: `OPENAI_API_KEY`
@@ -109,24 +106,9 @@ python scripts/run_micro_agents_all.py --base useful_repos --out data/micro_agen
 
 ## Troubleshooting
 
-- **LLM context length exceeded:**  
-  The orchestrator automatically trims files/snippets to avoid this. If you still see errors, lower `MA_MAX_FILES_PER_REPO` or `MA_SNIPPETS_PER_AGENT` in `.env`.
-
-- **API rate limits:**  
-  Lower `MA_CONCURRENCY` and/or `MA_MAX_CALLS_PER_REPO`.
-
 - **No output or errors:**  
   Check your `.env` for correct API keys and settings.  
   Check logs for error messages.
-
----
-
-## Extending
-
-- **Add new micro-agents:**  
-  Implement a new agent class in `micro_agents/` and register it in `orchestrator.py`.
-- **Add new static checks:**  
-  Add functions to `utils/code_analysis.py` or `utils/ml_insights.py`.
 
 ---
 
@@ -136,8 +118,8 @@ python scripts/run_micro_agents_all.py --base useful_repos --out data/micro_agen
 # 1. Clone some repos into useful_repos/
 # 2. Set up your .env as above
 # 3. Run:
-python run_agents.py
-# 4. See results in data/dev_platform_outputs.json
+python run_once.py
+# 4. See results in runs_bi_mvp/bi-tracker-{run_id}.json
 ```
 
 ---
@@ -146,53 +128,34 @@ python run_agents.py
 
 ```
 ClaimbAI/
-├── Data_Collection_Agents/
-│   ├── __init__.py
-│   ├── dev_env_agent/                 # (was: micro_agents)
-│   │   ├── __init__.py
-│   │   ├── base_agent.py
-│   │   ├── code_quality_agents.py
-│   │   ├── file_system_agents.py
-│   │   ├── infrastructure_agents.py
-│   │   ├── ml_framework_agents.py
-│   │   └── orchestrator.py            # MicroAgentOrchestrator
-│   └── ml_ops_agent/
-│       ├── __init__.py
-│       ├── platform_agents.py         # MLflow/SageMaker/AzureML/Kubeflow LLM agents
-│       ├── pipeline_agents.py         # Tracking + automation LLM agents
-│       └── orchestrator.py            # MLOpsOrchestrator
+├── BI-Tracker/
+├── agent_layer/
+│   ├── orchestrator.py          # BIOrchestrator (class-based runner)
+│   ├── tool_loader.py           # Metric → scorer mapping
+│   ├── registry.py              # DAG (LEVEL0, LEVEL1 metrics)
+│   ├── router.py              
+│   └── aimri_mapping.py         # AIMRI dimension mappings
 │
-├── agents/
-│   └── dev_platform_agent.py          # Static dev-platform scanner (baseline)
+├── data_collection_agents/
+│   └── bi_tracker_agent/
+│       ├── base_agent.py 
+│       ├── llm_engine.py        # BIUsageLLM (metric graders)
+│       ├── canonical.py
+│       └── logging_utils.py
 │
-├── utils/
-│   ├── code_analysis.py               # AST metrics, tests/env/CI/CD detection (PEP8)
-│   ├── ml_insights.py                 # ML patterns (frameworks, endpoints, etc.)
-│   └── file_utils.py                  # list_all_files, list_source_files
+├── api/
+│   └── bi_tracker_service.py    # FastAPI microservice
 │
-├── scripts/
-│   ├── run_micro_agents_all.py        # runs dev_env_agent orchestrator (LLM)
-│   └── run_ml_ops_agent.py            # runs ml_ops_agent orchestrator (LLM)
+├── workflows/
+│   └── bi_tracker_workflow.py   # Snapshot collector + orchestrator call
 │
-├── data/
-│   ├── dev_platform_outputs.json      # legacy static agent output (optional)
-│   ├── micro_agents/                  # dev_env_agent results
-│   │   ├── all_results.json           # aggregate
-│   │   └── per_repo/                  # one JSON per repo
-│   └── ml_ops/                        # ml_ops_agent results
-│       ├── all_results.json           # aggregate
-│       └── per_repo/                  # one JSON per repo
+├── run_once.py                  # CLI entrypoint
 │
-├── useful_repos/
-│   ├── Github_repos/
-│   │   └── ... (your cloned GitHub repos; each must contain a .git folder)
-│   └── Gitlab_repos/
-│       └── ... (your cloned GitLab repos; each must contain a .git folder)
-│
-├── .env                               # OPENAI_API_KEY, OPENAI_MODEL (optional)
+├── runs_bi_mvp/                 # Artifacts
+├── logs/bi_tracker/             # Run + service logs
+├── .env                         # OPENAI_API_KEY, OPENAI_MODEL (optional)
 ├── requirements.txt
-├── run_agents.py                      # (optional) umbrella runner if you use it
-└── README.md                          # this file
+└── README.md                    # this file
 ```
 
 ---

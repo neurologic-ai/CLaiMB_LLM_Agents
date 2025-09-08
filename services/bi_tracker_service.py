@@ -12,7 +12,7 @@ Endpoints (mentor-style):
 - GET  /logs/latest               → logs for the latest run
 
 The service wraps your orchestrator.run(snapshot, out_dir) and persists artifacts.
-Uses loguru for consistent logging (as requested).
+Uses loguru for consistent logging.
 """
 
 from __future__ import annotations
