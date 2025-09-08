@@ -16,7 +16,7 @@ DEFAULT_RUNS_DIR = os.getenv("RUNS_DIR", "runs")
 DEFAULT_LOGS_DIR = os.getenv("LOGS_DIR", "logs")
 DEFAULT_BATCH_DIR = os.getenv("BATCH_DIR")  # can be None; allow override via request
 
-app = FastAPI(title="Cloud Infra Agent API", version="0.2.0")
+app = FastAPI(title="Cloud Infra Agent API", version="0.1.0")
 
 # -----------------------------
 # Request / Response Schemas
