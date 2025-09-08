@@ -141,7 +141,7 @@ ClaimbAI/
 │       ├── canonical.py
 │       └── logging_utils.py
 │
-├── api/
+├── services/
 │   └── bi_tracker_service.py    # FastAPI microservice
 │
 ├── workflows/
