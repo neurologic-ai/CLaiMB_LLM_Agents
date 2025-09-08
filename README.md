@@ -48,7 +48,7 @@ python -m main
 ### **2. Run the FastAPI Endpoints**
 
 ```sh
-uvicorn fastapi_data_platform_agent:app --reload
+uvicorn services.AGENT_DATA_PLATFORM_ANALYZER.fastapi_data_platform_agent:app --reload
 ```
 
 ### **4. View Results**
@@ -73,33 +73,40 @@ uvicorn fastapi_data_platform_agent:app --reload
 
 ## Project Structure
 
+AGENT_DATA_PLATFORM_ANALYZER
+
 ```
-ClaiMB_LLM_Agents/
-├── agents/
-│   ├── data_pipeline_agent.py       #(LLM functions)
-│   ├── prompts.py                   #(Contains the prompts of the LLM functions) 
-│   └── snapshot_collectors.py       #(Simoulates the data colection from various sources, presently dependent on config/config.yaml)
+ClaimbAI/
+├── agent_layer/
+|   └──  AGENT_DATA_PLATFORM_ANALYZER
+│        ├── data_pipeline_agent.py          # LLM Functions
+│        ├── prompts.py                      # Prompts for the LLM Functions             
+│        └── aimri_mapping.py                # AIMRI dimension mappings
+│ 
+├── agent_layer_output/          
+|   └──  AGENT_DATA_PLATFORM_ANALYZER
+|        ├── run_<timestamp>.json            # JSON output for each run 
+|        └── ...
+│ 
+│── data/                                    
+|   └──  AGENT_DATA_PLATFORM_ANALYZER
+│        └──  Input/...                      # Input JSONs
 |
-├── config/
-│   └── config.yaml                  #(config file for snapshot_collectors.py)
+├── logs/AGENT_DATA_PLATFORM_ANALYZER/       # Run logs
 │
-├── data/Input                       #(Input JSONs)
-│   └── ...json
+├── services/
+|   └──  AGENT_DATA_PLATFORM_ANALYZER
+│        └── fastapi_data_platform_agent.py  # FastAPI service       
 │
-├── logs/
-│   └── data_platform_analyzer.log   #(logs are stored here)
-│    
-├── runs_mvp_scanner/                #(The output JSONs of each runs are stored here)
-│   ├── run_1757144480.json          
-|   └── ...
-│
-├── fastapi_data_platform_agent.py   #(FastAPI endpoints)
-├── mvp_data_platform_scanner.py     #(orchestrates the LLM functions in a DAG topo order)
-├── main.py                          #(runs the mvp)
-├── .env    
-├── .gitignore  
-├── requirements.txt                
-└── README.md                      
+├── workflows/                   
+|   └──  AGENT_DATA_PLATFORM_ANALYZER
+│        ├── mvp_data_platform_scanner.py    # Agent
+│        └── snapshot_collectors.py          # data collector simulator
+|
+├── main.py                                  # CLI entrypoint                 
+├── .env                                     # OPENAI_API_KEY
+├── requirements.txt
+└── README.md                                # this file               
 ```
 
 ---

@@ -14,7 +14,7 @@ from typing import Any, Dict, Optional
 
 
 class DataPlatformAnalyzerSnapshotCollector:
-    def __init__(self, data_dir: str = "data/Input", config_file: str = "config/config.yaml"):
+    def __init__(self, data_dir: str = "data/AGENT_DATA_PLATFORM_ANALYZER/Input", config_file: str = "config/AGENT_DATA_PLATFORM_ANALYZER/config.yaml"):
         self.data_path = Path(data_dir)
         self.config_path = Path(config_file)
         self.config = self._load_config()

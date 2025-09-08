@@ -15,10 +15,10 @@ import json
 import glob
 
 # Import your MVP scanner entrypoint
-from mvp_data_platform_scanner import run_once
+from workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner import run_once
 
 # Directory where run artifacts are stored
-RUNS_DIR = Path("runs_mvp_scanner")
+RUNS_DIR = Path("agent_layer_output/AGENT_DATA_PLATFORM_ANALYZER")
 RUNS_DIR.mkdir(parents=True, exist_ok=True)
 
 app = FastAPI(

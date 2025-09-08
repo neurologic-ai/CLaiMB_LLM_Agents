@@ -8,13 +8,14 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from loguru import logger
+from agent_layer.AGENT_DATA_PLATFORM_ANALYZER.aimri_mapping import MLOPS_METRIC_TO_AIMRI
 
 # updated import: use the snapshot collector class
-from agents.snapshot_collectors import DataPlatformAnalyzerSnapshotCollector
-from agents.prompts import DataManagementPrompts, AnalyticsReadinessPrompts
+from workflows.AGENT_DATA_PLATFORM_ANALYZER.snapshot_collectors import DataPlatformAnalyzerSnapshotCollector
+from agent_layer.AGENT_DATA_PLATFORM_ANALYZER.prompts import DataManagementPrompts, AnalyticsReadinessPrompts
 
 # Configure loguru to log both to console and file
-LOG_DIR = Path("logs")
+LOG_DIR = Path("logs/AGENT_DATA_PLATFORM_ANALYZER")
 LOG_DIR.mkdir(parents=True, exist_ok=True)
 logger.remove()  # remove default handler
 logger.add(lambda msg: print(msg, end=""))  # console
@@ -79,7 +80,7 @@ def _log(level: str, message: str):
 
 
 class MVPDataPlatformScanner:
-    def __init__(self, api_key: str = None, out_dir: str = "runs_mvp_scanner",
+    def __init__(self, api_key: str = None, out_dir: str = "agent_layer_output/AGENT_DATA_PLATFORM_ANALYZER",
                  snapshot_data_dir: str = "data/Input", snapshot_config_file: str = "config/config.yaml"):
         load_dotenv()
         self.api_key = api_key or os.getenv("OPENAI_API_KEY")
@@ -199,18 +200,6 @@ class MVPDataPlatformScanner:
         if not isinstance(gap, list):
             gap = [str(gap)]
         parsed["gap"] = [str(g)[:200] for g in gap[:5]]
-
-        # Mapping: normalize to list of strings if present, otherwise empty list
-        mapping = parsed.get("mapping")
-        if mapping is None:
-            parsed["mapping"] = []
-        elif isinstance(mapping, str):
-            parsed["mapping"] = [mapping]
-        elif isinstance(mapping, list):
-            parsed["mapping"] = [str(m) for m in mapping]
-        else:
-            parsed["mapping"] = [str(mapping)]
-
         return parsed
 
     def _metric_input_for(self, metric: str, ctx: Dict[str, Any]) -> Any:
@@ -274,6 +263,8 @@ class MVPDataPlatformScanner:
         input_obj = self._metric_input_for(metric, ctx)
         prompt = self._build_prompt_for(metric, input_obj)
         result = self._llm_evaluate(prompt, metric)
+        aimri_vals = MLOPS_METRIC_TO_AIMRI.get(metric, [])
+        result["aimri_mapping"] = aimri_vals
         _log("debug", f"Completed metric evaluation: {metric}")
         return result
 
