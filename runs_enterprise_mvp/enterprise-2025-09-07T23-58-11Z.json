@@ -1,0 +1,439 @@
+{
+  "run": {
+    "run_id": "enterprise-2025-09-07T23-58-11Z",
+    "waves": [
+      [
+        "compute_ai_penetration",
+        "compute_api_reliability",
+        "compute_backlog_aging",
+        "compute_case_resolution_time",
+        "compute_change_failure_rate",
+        "compute_data_sync_latency",
+        "compute_dq_exceptions_rate",
+        "compute_duplicate_record_rate",
+        "compute_hr_onboarding_cycle_time",
+        "compute_incident_reopen_rate",
+        "compute_lead_to_oppty_cycle_time",
+        "compute_platform_customization_debt",
+        "compute_process_automation_coverage",
+        "compute_procure_to_pay_cycle",
+        "compute_q2c_throughput",
+        "compute_rpa_success_rate",
+        "compute_workflow_sla_adherence"
+      ],
+      [
+        "compute_integration_topology_health"
+      ],
+      [
+        "compute_ai_governance_coverage"
+      ],
+      [
+        "compute_ai_outcome_uplift"
+      ]
+    ]
+  },
+  "scores": {
+    "categories": {
+      "data_management": 3.57,
+      "analytics_readiness": 3.31
+    },
+    "overall": 3.47
+  },
+  "metrics": {
+    "compute_ai_penetration": {
+      "metric_id": "ai.penetration",
+      "score": 3,
+      "rationale": "AI is included in 45% of workflows, but only 42% of executions utilize AI features; the execution share is below the threshold for a higher band. The strongest positive is the inclusion of AI in nearly half of the workflows, while the limiting factor is the execution share being below 50%.",
+      "flags": [],
+      "gaps": [
+        "Execution share low → increase AI execution share → achieve ≥50% (unlocks band 4)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "03. AI/ML Capabilities",
+          "subsection": "3.4 Advanced Capabilities"
+        },
+        {
+          "dimension": "12. AI Business Value & ROI",
+          "subsection": "12.1 Revenue Generation & Growth"
+        }
+      ]
+    },
+    "compute_api_reliability": {
+      "metric_id": "api.reliability",
+      "score": 4,
+      "rationale": "The p95 latency is within the SLO, but the error rate slightly exceeds the acceptable threshold; strong latency performance is a positive aspect. The error rate of 0.6% is the limiting factor preventing a higher band.",
+      "flags": [],
+      "gaps": [
+        "Error rate exceeds SLO → implement error tracking and resolution processes → reduce error rate to ≤0.5% (unlocks band 5)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "01. Technical Infrastructure",
+          "subsection": "1.5 Integration Architecture"
+        },
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.1 Model Reliability & Robustness"
+        }
+      ]
+    },
+    "compute_backlog_aging": {
+      "metric_id": "backlog.aging",
+      "score": 3,
+      "rationale": "The median age of open items is 2.2 days, which is within the fair range, but the 90th percentile age of 5.5 days exceeds the threshold for a higher band. While the median indicates a relatively quick turnover, the longer tail risk limits the overall performance assessment.",
+      "flags": [],
+      "gaps": [
+        "High tail risk → analyze and reduce the age of the oldest open items → achieve p90 ≤5d (unlocks band 4)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "08. Process Maturity",
+          "subsection": "8.5 Measurement & Metrics"
+        },
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.4 Operational Continuity"
+        }
+      ]
+    },
+    "compute_case_resolution_time": {
+      "metric_id": "itsm.case_resolution_time",
+      "score": 3,
+      "rationale": "Median of 95m and p90 of 180m indicate fair resolution times; however, the p90 is at the upper limit of the band. The strong volume of resolved tickets (700) is positive, but the high p90 limits the overall performance assessment.",
+      "flags": [],
+      "gaps": [
+        "High p90 minutes → analyze resolution times by priority level → achieve p90 ≤90m (unlocks band 4)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.4 Operational Continuity"
+        },
+        {
+          "dimension": "08. Process Maturity",
+          "subsection": "8.4 Operational Excellence"
+        }
+      ]
+    },
+    "compute_change_failure_rate": {
+      "metric_id": "change.failure_rate",
+      "score": 3,
+      "rationale": "A 9% change failure rate indicates some reliability issues; while the number of deploys is substantial, the failure rate is above the threshold for a higher band. The strong positive is the total number of deploys, but the failure rate limits the overall assessment.",
+      "flags": [
+        "moderate_cfr"
+      ],
+      "gaps": [
+        "High failure rate → analyze root causes of failures and implement targeted improvements → reduce failure rate to ≤7% (unlocks band 4)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "08. Process Maturity",
+          "subsection": "8.3 Quality Assurance"
+        },
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.4 Operational Continuity"
+        }
+      ]
+    },
+    "compute_data_sync_latency": {
+      "metric_id": "integration.data_sync_latency",
+      "score": 4,
+      "rationale": "The median of 75s and p95 of 160s indicate good performance, but they are on the edge of the band limits. The failure rate is low at 0.2%, which is a strong positive factor.",
+      "flags": [],
+      "gaps": [
+        "Latency nearing upper limits → optimize delivery processes and reduce median to ≤60s → unlock band 5."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "01. Technical Infrastructure",
+          "subsection": "1.5 Integration Architecture"
+        },
+        {
+          "dimension": "14. AI Ecosystem & External Integration",
+          "subsection": "14.1 Customer AI Integration"
+        }
+      ]
+    },
+    "compute_dq_exceptions_rate": {
+      "metric_id": "dq.exceptions_rate",
+      "score": 3,
+      "rationale": "The exception rate of 3.2% indicates a fair level of data quality, but the presence of 90 failed checks suggests significant issues that need addressing. The weighted severity of 1.2 is relatively low, which is a positive aspect.",
+      "flags": [],
+      "gaps": [
+        "High exception rate → analyze failed checks for root causes → reduce rate to ≤3% (unlocks band 4)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "02. Data Management & Quality",
+          "subsection": "2.2 Data Quality"
+        },
+        {
+          "dimension": "05. Governance & Ethics",
+          "subsection": "5.2 Regulatory Compliance"
+        }
+      ]
+    },
+    "compute_duplicate_record_rate": {
+      "metric_id": "mdm.duplicate_rate",
+      "score": 4,
+      "rationale": "A 5.5% duplicate rate indicates a good level of matching, but the presence of 44 duplicate groups suggests room for improvement in standardization. The strongest positive is the relatively low duplicate rate, while the limiting factor is the number of duplicate groups detected.",
+      "flags": [
+        "moderate_dupes"
+      ],
+      "gaps": [
+        "High number of duplicate groups → implement stricter matching criteria and data cleansing processes → achieve ≤3% duplicate rate (unlocks band 5)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "02. Data Management & Quality",
+          "subsection": "2.2 Data Quality"
+        },
+        {
+          "dimension": "02. Data Management & Quality",
+          "subsection": "2.5 Data Accessibility"
+        }
+      ]
+    },
+    "compute_hr_onboarding_cycle_time": {
+      "metric_id": "hr.onboarding_cycle_time",
+      "score": 3,
+      "rationale": "Median 50h is within the fair range, but the p90 of 72h indicates potential delays; the approval process may be a limiting factor. The number of hires (40) suggests a reasonable volume, but the longer completion times are concerning.",
+      "flags": [],
+      "gaps": [
+        "Approval delays identified → analyze approval step durations and identify bottlenecks → reduce p90 to ≤48h (unlocks band 4)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "04. Talent & Skills",
+          "subsection": "4.5 Recruitment & Retention"
+        },
+        {
+          "dimension": "07. Cultural Readiness",
+          "subsection": "7.2 Change Management"
+        }
+      ]
+    },
+    "compute_incident_reopen_rate": {
+      "metric_id": "itsm.incident_reopen_rate",
+      "score": 3,
+      "rationale": "Reopen rate of 8.5% indicates a fair level of first-time resolution, but it is above the threshold for a higher band. The number of reopened incidents is significant, suggesting room for improvement in resolution quality.",
+      "flags": [],
+      "gaps": [
+        "Quality of resolutions unclear → analyze root causes of reopened incidents → achieve ≤7% reopen rate (unlocks band 4)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.1 Model Reliability & Robustness"
+        },
+        {
+          "dimension": "08. Process Maturity",
+          "subsection": "8.3 Quality Assurance"
+        }
+      ]
+    },
+    "compute_lead_to_oppty_cycle_time": {
+      "metric_id": "sales.lead_to_oppty_cycle_time",
+      "score": 3,
+      "rationale": "The median of 26 hours is fair, but the p90 at 48 hours indicates a significant tail risk. While the sample size of 400 is strong, the high p90 limits the overall performance assessment.",
+      "flags": [],
+      "gaps": [
+        "Tail risk unknown → add p95 latency and failure % → keep p95 within 48h (unlocks band 4)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "12. AI Business Value & ROI",
+          "subsection": "12.1 Revenue Generation & Growth"
+        },
+        {
+          "dimension": "08. Process Maturity",
+          "subsection": "8.5 Measurement & Metrics"
+        }
+      ]
+    },
+    "compute_platform_customization_debt": {
+      "metric_id": "platform.customization_debt",
+      "score": 3,
+      "rationale": "Moderate customization footprint with a significant number of Apex classes and a reasonable count of custom records; however, the index indicates a higher risk level due to the number of transports and custom steps. The strong point is the relatively low number of custom records, but the high count of Apex classes limits the overall stability.",
+      "flags": [],
+      "gaps": [
+        "High customization risk → reduce Apex classes and transports → target ≤80 Apex classes and ≤5 transports (unlocks band 4)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "01. Technical Infrastructure",
+          "subsection": "1.4 Development Environment"
+        },
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.2 Data Dependency Risks"
+        }
+      ]
+    },
+    "compute_process_automation_coverage": {
+      "metric_id": "process.automation.coverage",
+      "score": 4,
+      "rationale": "The coverage ratio of 0.72 indicates good automation across multiple platforms, with active flows in Salesforce, ServiceNow, and Workday. However, the lack of coverage on SAP BPM limits the overall score.",
+      "flags": [
+        "multi_platform_coverage"
+      ],
+      "gaps": [
+        "Coverage uneven by platform → report coverage per platform and runs/week → achieve ≥0.85 coverage on ≥3 platforms (unlocks band 5)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "08. Process Maturity",
+          "subsection": "8.4 Operational Excellence"
+        },
+        {
+          "dimension": "10. Generative AI Capabilities",
+          "subsection": "10.2 Quality Control & Validation"
+        }
+      ]
+    },
+    "compute_procure_to_pay_cycle": {
+      "metric_id": "sap.procure_to_pay_cycle",
+      "score": 3,
+      "rationale": "Total days of 10.5 indicates a fair performance; while approval days are strong at 1.2, the total duration exceeds the threshold for a higher band. The limiting factor is the total days from PO creation to invoice posting.",
+      "flags": [],
+      "gaps": [
+        "Total days exceed target → streamline processes to reduce total_days → achieve ≤8d (unlocks band 4)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "08. Process Maturity",
+          "subsection": "8.4 Operational Excellence"
+        },
+        {
+          "dimension": "12. AI Business Value & ROI",
+          "subsection": "12.2 Cost Reduction & Efficiency"
+        }
+      ]
+    },
+    "compute_q2c_throughput": {
+      "metric_id": "q2c.throughput",
+      "score": 3,
+      "rationale": "The total of 30 hours indicates a fair performance; however, the time from sales order to billing at 20 hours is a significant delay that limits overall efficiency.",
+      "flags": [],
+      "gaps": [
+        "SO to billing delay → streamline billing processes → reduce to ≤24h (unlocks band 4)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "12. AI Business Value & ROI",
+          "subsection": "12.3 Customer Experience Enhancement"
+        },
+        {
+          "dimension": "08. Process Maturity",
+          "subsection": "8.4 Operational Excellence"
+        }
+      ]
+    },
+    "compute_rpa_success_rate": {
+      "metric_id": "rpa.success_rate",
+      "score": 4,
+      "rationale": "Overall success rate is 94%, which is strong, but the SAP system is slightly below the threshold at 93%. This limits the overall band despite good performance from the SF system.",
+      "flags": [
+        "high_reliability"
+      ],
+      "gaps": [
+        "SAP system underperformance → analyze failure reasons and optimize processes → achieve ≥95% success rate on SAP (unlocks band 5)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "10. Generative AI Capabilities",
+          "subsection": "10.2 Quality Control & Validation"
+        },
+        {
+          "dimension": "08. Process Maturity",
+          "subsection": "8.4 Operational Excellence"
+        }
+      ]
+    },
+    "compute_workflow_sla_adherence": {
+      "metric_id": "workflow.sla_adherence",
+      "score": 4,
+      "rationale": "On-time rate of 0.91 is strong, with both SF and SN systems performing well; however, the overall rate is just below the threshold for band 5.",
+      "flags": [],
+      "gaps": [
+        "On-time rate below 0.95 → improve SF and SN performance → achieve ≥0.95 on-time rate (unlocks band 5)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "09. Foundation Model Operations",
+          "subsection": "9.1 Model Integration & Deployment"
+        },
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.4 Operational Continuity"
+        }
+      ]
+    },
+    "compute_integration_topology_health": {
+      "metric_id": "integration.topology_health",
+      "score": 4,
+      "rationale": "All nodes are healthy with an average uptime of 99.7% and no critical errors; however, the presence of only three nodes limits the robustness of the assessment. ",
+      "flags": [
+        "nodes_green"
+      ],
+      "gaps": [
+        "limited node count → increase the number of monitored nodes → achieve ≥5 nodes healthy (unlocks band 5)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "01. Technical Infrastructure",
+          "subsection": "1.5 Integration Architecture"
+        },
+        {
+          "dimension": "14. AI Ecosystem & External Integration",
+          "subsection": "14.2 Supplier & Vendor AI Collaboration"
+        }
+      ]
+    },
+    "compute_ai_governance_coverage": {
+      "metric_id": "ai.governance_coverage",
+      "score": 4,
+      "rationale": "Coverage is at 78%, which is good, but there is still room for improvement to reach the excellent band. The presence of only 2 alerts in the last 30 days indicates effective monitoring, but the coverage percentage is the limiting factor.",
+      "flags": [
+        "policies_covered"
+      ],
+      "gaps": [
+        "Coverage below 90% → increase models with all controls to ≥45 → achieve ≥90% coverage (unlocks band 5)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "05. Governance & Ethics",
+          "subsection": "5.1 Ethical Framework"
+        },
+        {
+          "dimension": "05. Governance & Ethics",
+          "subsection": "5.2 Regulatory Compliance"
+        }
+      ]
+    },
+    "compute_ai_outcome_uplift": {
+      "metric_id": "ai.outcome_uplift",
+      "score": 3,
+      "rationale": "An estimated uplift of 11% indicates a fair improvement; however, the post-AI KPI value has decreased from the baseline, suggesting instability. The positive aspect is the uplift percentage, but the drop in the post value limits the overall assessment.",
+      "flags": [],
+      "gaps": [
+        "Post value decline → investigate root causes of KPI drop and implement corrective actions → achieve post value ≥ baseline (unlocks band 4)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "12. AI Business Value & ROI",
+          "subsection": "12.1 Revenue Generation & Growth"
+        },
+        {
+          "dimension": "12. AI Business Value & ROI",
+          "subsection": "12.3 Customer Experience Enhancement"
+        }
+      ]
+    }
+  },
+  "snapshot_meta": {
+    "collected_at": "2025-09-07T23:58:11.037127+00:00"
+  }
+}

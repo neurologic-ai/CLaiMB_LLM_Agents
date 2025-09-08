@@ -1,0 +1,42 @@
+2025-09-08 05:28:11.037 | INFO     | workflows.enterprise_workflow:run:38 - Starting EnterpriseWorkflow.run (run_id=enterprise-2025-09-07T23-58-11Z)
+2025-09-08 05:28:11.149 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:11.149 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:11.155 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:11.157 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:11.159 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:11.163 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:11.164 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:11.170 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:11.170 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:11.176 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:11.176 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:11.182 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:11.184 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:11.184 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:13.199 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (2049.98 ms)
+2025-09-08 05:28:13.251 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:13.290 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (2132.70 ms)
+2025-09-08 05:28:13.312 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (2136.35 ms)
+2025-09-08 05:28:13.321 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (2166.18 ms)
+2025-09-08 05:28:13.339 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (2163.30 ms)
+2025-09-08 05:28:13.346 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:13.376 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:13.429 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (2246.54 ms)
+2025-09-08 05:28:13.432 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (2262.06 ms)
+2025-09-08 05:28:13.514 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (2365.11 ms)
+2025-09-08 05:28:13.545 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (2380.82 ms)
+2025-09-08 05:28:13.655 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (2495.95 ms)
+2025-09-08 05:28:13.693 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (2529.56 ms)
+2025-09-08 05:28:13.841 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (2657.55 ms)
+2025-09-08 05:28:14.060 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (2876.22 ms)
+2025-09-08 05:28:14.253 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (3083.43 ms)
+2025-09-08 05:28:15.250 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (1998.75 ms)
+2025-09-08 05:28:15.263 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (1916.68 ms)
+2025-09-08 05:28:15.283 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (1907.39 ms)
+2025-09-08 05:28:15.317 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:17.115 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (1797.88 ms)
+2025-09-08 05:28:17.146 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:19.211 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (2065.40 ms)
+2025-09-08 05:28:19.267 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-08 05:28:21.362 | INFO     | data_collection_agents.enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (2095.20 ms)
+2025-09-08 05:28:21.365 | INFO     | workflows.enterprise_workflow:run:53 - Artifact written → /Users/anilkumar/Desktop/CLaiMB_LLM_AGENTS/CLaiMB_LLM_Agents/runs_enterprise_mvp/enterprise-2025-09-07T23-58-11Z.json
