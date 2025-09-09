@@ -71,6 +71,7 @@ uvicorn api:app --reload --host 127.0.0.1 --port 8000
 - `GET /runs` → list runs (most‑recent first)
 - `GET /runs/latest` → latest run with output and log
 - `GET /runs/{run_id}` → get a specific run
+- `GET /runs/last/{n}` → get last n number of runs
 
 If `API_KEY` is set, pass it via the `X-API-Key` header.
 
