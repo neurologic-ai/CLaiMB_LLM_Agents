@@ -2,7 +2,6 @@
 from __future__ import annotations
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
-import json
 from loguru import logger
 
 # add root for imports
@@ -11,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from agent_layer.orchestrator import CodeRepoOrchestrator, now_utc_iso  # noqa: E402
+from agent_layer.dev_env_scanner.orchestrator import CodeRepoOrchestrator, now_utc_iso  # noqa: E402
 from data_collection_agents.dev_env_scanner_agent.logging_utils import setup_logger  # noqa: E402
 
 ARTIFACT_DIR = Path("runs_code_repo_mvp")

@@ -14,12 +14,12 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from agent_layer.registry import LEVEL0, LEVEL1_DEPS, CATEGORIES  # noqa: E402
-from agent_layer.router import route, route_many                 # noqa: E402
+from agent_layer.dev_env_scanner.registry import LEVEL0, LEVEL1_DEPS, CATEGORIES  # noqa: E402
+from agent_layer.dev_env_scanner.router import route, route_many                 # noqa: E402
 from langchain_core.runnables import RunnableParallel           # noqa: E402
 
 # NEW: import the code-repo AIMRI mapping
-from agent_layer.aimri_mapping import CODE_REPO_METRIC_TO_AIMRI  # noqa: E402
+from agent_layer.dev_env_scanner.aimri_mapping import CODE_REPO_METRIC_TO_AIMRI  # noqa: E402
 
 
 def now_utc_iso() -> str:
