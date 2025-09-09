@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any, Dict
 from pathlib import Path
 
-from agent_layer.orchestrator import BIOrchestrator
+from agent_layer.bi_tracker_agent.orchestrator import BIOrchestrator
 
 def collect_snapshot() -> Dict[str, Any]:
     """Tiny, realistic sample snapshot. Replace with your real loader if desired."""
@@ -127,5 +127,5 @@ def collect_snapshot() -> Dict[str, Any]:
 def run_workflow() -> Dict[str, Any]:
     snapshot = collect_snapshot()
     orch = BIOrchestrator()
-    result = orch.run(snapshot, out_dir=Path("runs_bi_mvp"))
+    result = orch.run(snapshot, out_dir=Path("agent_layer_outputs/bi_tracker"))
     return result

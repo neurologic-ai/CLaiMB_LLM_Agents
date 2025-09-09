@@ -18,8 +18,8 @@ def main() -> None:
     load_dotenv()
     setup_logger("logs/bi_tracker.log", level="INFO", serialize=False)
 
-    SAMPLES_DIR = Path("data/Sample_Inputs")
-    OUTPUT_DIR  = Path("data/Outputs")
+    SAMPLES_DIR = Path("data/inputs/BI_Tracker_Inputs")
+    OUTPUT_DIR  = Path("data/outputs/BI_Tracker_Outputs")
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     sample_files = sorted(SAMPLES_DIR.glob("*.json"))

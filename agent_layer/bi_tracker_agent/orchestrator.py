@@ -10,9 +10,9 @@ from dotenv import load_dotenv
 from langchain_core.runnables import RunnableLambda, RunnableParallel
 
 
-from agent_layer.registry import LEVEL0, LEVEL1_DEPS, CATEGORIES
-from agent_layer.tool_loader import load_tool
-from agent_layer.aimri_mapping import METRIC_TO_AIMRI
+from agent_layer.bi_tracker_agent.registry import LEVEL0, LEVEL1_DEPS, CATEGORIES
+from agent_layer.bi_tracker_agent.tool_loader import load_tool
+from agent_layer.bi_tracker_agent.aimri_mapping import METRIC_TO_AIMRI
 
 
 class BIOrchestrator:

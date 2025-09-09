@@ -28,7 +28,7 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks, Query
 from pydantic import BaseModel, Field
 from loguru import logger
 
-from agent_layer.orchestrator import run as run_bi_tracker
+from agent_layer.bi_tracker_agent.orchestrator import run as run_bi_tracker
 from workflows.bi_tracker_workflow import collect_snapshot
 
 
