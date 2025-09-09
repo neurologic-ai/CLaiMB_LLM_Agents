@@ -169,16 +169,16 @@ class CodeRepoOrchestrator:
         aggregates = _aggregate(metrics)
 
         # Build top-level mapping/index (only for present metrics)
-        present_ids = list(metrics.keys())
-        aimri_mapping = _filter_mapping_for_present_metrics(CODE_REPO_METRIC_TO_AIMRI, present_ids)
-        aimri_index = _build_reverse_index(aimri_mapping)
+        #present_ids = list(metrics.keys())
+        #aimri_mapping = _filter_mapping_for_present_metrics(CODE_REPO_METRIC_TO_AIMRI, present_ids)
+        #aimri_index = _build_reverse_index(aimri_mapping)
 
         result = {
             "run_id": _now_id(self.prefix),
             "metrics": metrics,
             "aggregates": aggregates,
-            "aimri_mapping": aimri_mapping,  # top-level copy
-            "aimri_index": aimri_index,      # reverse index
+            #"aimri_mapping": aimri_mapping,  # top-level copy
+            #"aimri_index": aimri_index,      # reverse index
         }
 
         # Optional artifact write (already normalized)
