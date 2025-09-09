@@ -2,7 +2,7 @@
 from pathlib import Path
 from typing import Dict, Any, Tuple
 
-from agent_layer.orchestrator_mlops import run as run_agent
+from agent_layer.ml_ops_agent.orchestrator_mlops import run as run_agent
 from .snapshot_mlops import collect_snapshot
 
 def run_workflow() -> Tuple[str, Dict[str, Any], Dict[str, Any]]:

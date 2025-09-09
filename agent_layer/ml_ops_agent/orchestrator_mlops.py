@@ -15,9 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from agent_layer.registry_mlops import LEVEL0, LEVEL1_DEPS, CATEGORIES, BAND_TO_SCORE  # noqa: E402
-from agent_layer.router_mlops import route  # noqa: E402
-from agent_layer.aimri_mapping import MLOPS_METRIC_TO_AIMRI  # noqa: E402
+from agent_layer.ml_ops_agent.registry_mlops import LEVEL0, LEVEL1_DEPS, CATEGORIES, BAND_TO_SCORE  # noqa: E402
+from agent_layer.ml_ops_agent.router_mlops import route  # noqa: E402
+from agent_layer.ml_ops_agent.aimri_mapping import MLOPS_METRIC_TO_AIMRI  # noqa: E402
 
 
 class MLOpsOrchestrator:

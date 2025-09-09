@@ -33,7 +33,7 @@ if str(ROOT) not in sys.path:
 # --------------------------------
 
 # ⬇️ Swap these imports to your ML Ops agent code
-from agent_layer.orchestrator_mlops import run as run_mlops              # noqa: E402
+from agent_layer.ml_ops_agent.orchestrator_mlops import run as run_mlops  # noqa: E402
 from workflows.ml_ops_workflow import collect_snapshot                    # noqa: E402
 
 # -----------------------

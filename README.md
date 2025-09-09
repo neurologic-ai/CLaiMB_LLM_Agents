@@ -60,7 +60,7 @@ It evaluates workflows, orchestration, experiment tracking, deployment reliabili
 ### **1. Run Once via Orchestrator**
 
 ```sh
-python run_once.py
+ python mvp/mlops_runonce.py
 ```
 
 - Collects a snapshot of platform + pipeline signals and writes results to `runs_mlops/`.
@@ -113,7 +113,7 @@ python data_collection_agents/ml_ops_agent/main.py
 ```sh
 # 1. Set up your .env as above
 # 2. Run:
-python run_once.py
+python mvp/mlops_runonce.py
 # 3. See results in data/dev_platform_outputs.json
 ```
 
@@ -124,11 +124,12 @@ python run_once.py
 ```
 ClaimbAI/
 ├── agent_layer/
-│   ├── orchestrator_mlops.py          # BIOrchestrator (class-based runner)
-│   ├── tool_loader_mlops.py           # Metric → scorer mapping
-│   ├── registry_mlops.py              # DAG (LEVEL0, LEVEL1 metrics)
-│   ├── route_mlopsr.py              
-│   └── aimri_mapping.py         # AIMRI dimension mappings
+│   └──  ml_ops_agent/
+│        ├── orchestrator_mlops.py          # BIOrchestrator (class-based runner)
+│        ├── tool_loader_mlops.py           # Metric → scorer mapping
+│        ├── registry_mlops.py              # DAG (LEVEL0, LEVEL1 metrics)
+│        ├── route_mlopsr.py              
+│        └── aimri_mapping.py         # AIMRI dimension mappings
 │ 
 ├── agent_layer_output/          # Agent outputs
 │ 
@@ -137,7 +138,7 @@ ClaimbAI/
 │   └── Outputs/
 │
 ├── data_collection_agents/
-│   └── bml_ops_agent/
+│   └── ml_ops_agent/
 │       ├── base_agent.py 
 │       ├── llm_engine.py        # BIUsageLLM (metric graders)
 │       ├── canonical.py
@@ -149,7 +150,8 @@ ClaimbAI/
 ├── workflows/                   # Snapshot collector + orchestrator call
 │   ├── ml_ops_workflow.py   
 │   └── snapshot_mlops.py
-├── run_once.py                  # CLI entrypoint
+│
+├── mvp/mlops_runonce.py         # CLI entrypoint
 ├── logs/ml_ops/                 # Run + service logs
 ├── .env                         # OPENAI_API_KEY, OPENAI_MODEL (optional)
 ├── requirements.txt

@@ -13,7 +13,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from data_collection_agents.ml_ops_agent.llm_engine import MLOpsLLM  # noqa: E402
-from agent_layer.registry_mlops import BAND_TO_SCORE  # noqa: E402
+from agent_layer.ml_ops_agent.registry_mlops import BAND_TO_SCORE  # noqa: E402
 
 _llm = MLOpsLLM(
     model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
