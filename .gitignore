@@ -3,13 +3,13 @@ venv/
 *.env
 .env
 .DS_Store
-__pycache__
+__pycache__/
 cloud_infra_agent/__pycache__
 test.py
 cloud_infra_agent/__pycache__/agent_wrappers.cpython-313.pyc
 cloud_infra_agent/__pycache__/metrics.cpython-313.pyc
 cloud_infra_agent/__pycache__
-*pyc
+*.pyc
 cloud_infra_agent/__pycache__/__init__.cpython-313.pyc
 cloud_infra_agent/__pycache__/__init__.cpython-313.pyc
 agent_layer/llm_providers.py

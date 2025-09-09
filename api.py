@@ -182,7 +182,7 @@ def latest(x_api_key: Optional[str] = Header(default=None)):
 @app.get("/runs", response_model=RunsList)
 def list_runs(
     x_api_key: Optional[str] = Header(default=None),
-    limit: Optional[int] = Query(default=None, ge=1, description="Optional cap on number of runs returned (most recent first)"),
+    # limit: Optional[int] = Query(default=None, ge=1, description="Optional cap on number of runs returned (most recent first)"),
 ):
     """
     Returns count and the list of runs, including each run's JSON and its log.
@@ -194,8 +194,8 @@ def list_runs(
 
     items = _find_all_runs(runs_dir)
     items.sort(key=lambda p: (p.stat().st_mtime, p.name), reverse=True)
-    if limit is not None:
-        items = items[:limit]
+    # if limit is not None:
+    #     items = items[:limit]
 
     runs = [ _collect_run(p.stem, runs_dir, logs_dir) for p in items ]
     return RunsList(count=len(_find_all_runs(runs_dir)), runs=runs)
@@ -209,3 +209,23 @@ def get_run(run_id: str, x_api_key: Optional[str] = Header(default=None)):
     runs_dir = DEFAULT_RUNS_DIR
     logs_dir = DEFAULT_LOGS_DIR
     return _collect_run(run_id, runs_dir, logs_dir)
+
+@app.get("/runs/last/{n}", response_model=RunsList)
+def last_runs(
+    n: int,
+    x_api_key: Optional[str] = Header(default=None),
+):
+    """
+    Returns the last N runs (most-recent first), including each run's JSON and its log.
+    """
+    _auth(x_api_key)
+    runs_dir = DEFAULT_RUNS_DIR
+    logs_dir = DEFAULT_LOGS_DIR
+
+    items = _find_all_runs(runs_dir)
+    # newest first (mtime, then name as deterministic tiebreaker)
+    items.sort(key=lambda p: (p.stat().st_mtime, p.name), reverse=True)
+    items = items[:n]
+
+    runs = [_collect_run(p.stem, runs_dir, logs_dir) for p in items]
+    return RunsList(count=len(items), runs=runs)
