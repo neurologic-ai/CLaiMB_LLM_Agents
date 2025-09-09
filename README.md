@@ -41,7 +41,7 @@
 ### **1. Run the Agent using main.py (Recommended)**
 
 ```sh
-python -m main
+python -m mvp.main
 ```
 - This will scan all input data in DAG like structure and writes results to `runs_mvp_scanner/run_<timestamp>.json`.
 
@@ -103,7 +103,9 @@ ClaimbAI/
 │        ├── mvp_data_platform_scanner.py    # Agent
 │        └── snapshot_collectors.py          # data collector simulator
 |
-├── main.py                                  # CLI entrypoint                 
+├── mvp/
+|   └──  AGENT_DATA_PLATFORM_ANALYZER
+|        └── main.py                         # CLI entrypoint                 
 ├── .env                                     # OPENAI_API_KEY
 ├── requirements.txt
 └── README.md                                # this file               
@@ -120,3 +122,5 @@ ClaimbAI/
 ## Contact
 
 For questions or contributions, open an issue or pull request on GitHub.
+
+git clone --branch AGENT_ML_OPS_MONITOR https://github.com/neurologic-ai/CLaiMB_LLM_Agents

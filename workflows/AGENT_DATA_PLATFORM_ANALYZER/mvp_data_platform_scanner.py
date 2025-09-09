@@ -81,7 +81,7 @@ def _log(level: str, message: str):
 
 class MVPDataPlatformScanner:
     def __init__(self, api_key: str = None, out_dir: str = "agent_layer_output/AGENT_DATA_PLATFORM_ANALYZER",
-                 snapshot_data_dir: str = "data/Input", snapshot_config_file: str = "config/config.yaml"):
+                 snapshot_data_dir: str = "data/Input", snapshot_config_file: str = "config/AGENT_DATA_PLATFORM_ANALYZER/config.yaml"):
         load_dotenv()
         self.api_key = api_key or os.getenv("OPENAI_API_KEY")
         if not self.api_key:
