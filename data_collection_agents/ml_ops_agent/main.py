@@ -38,17 +38,17 @@ def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Run ML Ops agent on JSON input(s).")
     p.add_argument(
         "--inputs",
-        default="data/sample_inputs",
+        default="data/inputs/mlops_inputs",
         help="Path to a single JSON file OR a directory of JSON files.",
     )
     p.add_argument(
         "--out",
-        default="data/aggregate_results.json",
+        default="data/mlops_aggregate_results.json",
         help="Aggregate JSON output path.",
     )
     p.add_argument(
         "--per-input-dir",
-        default="data/outputs",
+        default="data/outputs/mlops_outputs",
         help="Directory to write per-input result JSONs.",
     )
     p.add_argument(

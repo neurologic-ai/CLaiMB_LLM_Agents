@@ -1,5 +1,5 @@
 {
-  "run_id": "mlops-2025-09-08T09-56-51Z",
+  "run_id": "mlops-2025-09-09T18-54-48Z",
   "inputs_present": [
     "aml_cost_correlation",
     "aml_endpoint_slo",
@@ -26,7 +26,7 @@
   "metrics": {
     "aml.cost_correlation_band": {
       "metric_id": "aml.cost_correlation_band",
-      "rationale": "The cost join rate is excellent at 0.93, and the coverage is comprehensive with 'tags+resourceId', indicating strong attribution. This combination reflects a robust and reliable metric.",
+      "rationale": "The cost join rate is excellent at 0.93, and the coverage is comprehensive with 'tags+resourceId', indicating stable attribution. This combination meets the highest standards set in the rubric.",
       "flags": [],
       "gaps": [],
       "aimri_mapping": [
@@ -43,11 +43,11 @@
     },
     "aml.jobs_flow_band": {
       "metric_id": "aml.jobs_flow_band",
-      "rationale": "Success rate is below 0.95, which limits the band; p95 duration and lead time are acceptable.",
+      "rationale": "Success rate is below 0.95, which limits the band; p95 duration and lead time are acceptable but could be improved.",
       "flags": [],
       "gaps": [
-        "Success at 0.94 is the limiter → implement more robust error handling and monitoring → raise success_rate to ≥0.95 (unlocks band 4).",
-        "Lead-time 6.4h is acceptable but could be improved → optimize job scheduling and resource allocation → target ≤4h (pushes toward band 5 when success is ≥0.98)."
+        "Success at 0.94 is the limiter → add retry-on-transient and resource quota checks → raise success_rate to ≥0.95 (unlocks band 4).",
+        "Lead-time 6.4h acceptable but improvable → enable caching and artifact reuse → target ≤4h (pushes toward band 5 when success is ≥0.98)."
       ],
       "aimri_mapping": [
         {
@@ -80,10 +80,11 @@
     },
     "aml.registry_governance_band": {
       "metric_id": "aml.registry_governance_band",
-      "rationale": "All metrics are above the band-3 thresholds, and the median transition time is acceptable. However, the pct_staged is below the band-5 threshold.",
+      "rationale": "All metrics are above the band-3 thresholds, and the median transition time is acceptable. However, the pct_staged is below the band-5 requirement.",
       "flags": [],
       "gaps": [
-        "Staging coverage at 0.83 is below 0.90 → enforce stage on register policy → raise pct_staged to ≥0.90 (unlocks band 5)."
+        "Staging coverage at 0.83 <0.90 → enforce stage on register policy → raise pct_staged to ≥0.90 (unlocks band 5).",
+        "Latency at 60h prevents band-5 → parallelize QA and security gates → reduce median_transition_h to <48h (unlocks band 5)."
       ],
       "aimri_mapping": [
         {
@@ -99,7 +100,7 @@
     },
     "cicd.change_failure_rate_band": {
       "metric_id": "cicd.change_failure_rate_band",
-      "rationale": "Both the change failure rate (CFR) at 0.11 and the rollbacks in the last 30 days at 3 are well within the excellent band limits.",
+      "rationale": "Both the change failure rate (CFR) at 0.11 and the rollbacks in the last 30 days at 3 are well within the excellent band limits. This indicates a strong deployment reliability and minimal need for rollbacks.",
       "flags": [],
       "gaps": [],
       "aimri_mapping": [
@@ -119,7 +120,7 @@
       "rationale": "The frequency of deployments is good, averaging just over 5 per week, but the number of services is at the upper limit, which restricts the per-service rate. This results in a per-service rate of approximately 0.74, which is below the threshold for band 5.",
       "flags": [],
       "gaps": [
-        "per-service rate is below threshold → increase deployments or reduce services → achieve freq_per_week ≥ 5 with ≤ 7 services (unlocks band 5)"
+        "per-service rate is below threshold → increase deployments or reduce services → raise per-service rate to ≥1/day (unlocks band 5)"
       ],
       "aimri_mapping": [
         {
@@ -154,10 +155,9 @@
     },
     "cicd.policy_gates_band": {
       "metric_id": "cicd.policy_gates_band",
-      "rationale": "All required checks are present and have passed successfully in the logs, indicating a robust CI/CD process.",
+      "rationale": "All required checks are present and have passed successfully before deployment. This indicates a strong CI/CD process with no issues detected in the logs.",
       "present": [
         "pytest",
-        "integration-tests",
         "bandit",
         "trivy",
         "bias_check",
@@ -181,13 +181,12 @@
     },
     "mlflow.experiment_completeness_band": {
       "metric_id": "mlflow.experiment_completeness_band",
-      "rationale": "Parameter and tag logging are strong, but the overall completeness at 0.82 and artifacts at 0.82 are the main limiting factors.",
+      "rationale": "Parameter logging is strong at 0.92, and tags are also good at 0.90, but the overall completeness at 0.82 and artifacts at 0.82 are limiting factors.",
       "flags": [
         "artifacts_low"
       ],
       "gaps": [
-        "Overall completeness at 0.82 limits the band → ensure all runs log artifacts consistently → raise pct_all to ≥0.85 (unlocks band 4).",
-        "Artifacts at 0.82 cap the band → persist model files and evaluation reports on every run → raise pct_artifacts to ≥0.85 (unlocks band 4)."
+        "Overall completeness at 0.82 limits the band → ensure all runs log artifacts consistently → raise pct_all to ≥0.85 (unlocks band 4)."
       ],
       "aimri_mapping": [
         {
@@ -203,7 +202,7 @@
     },
     "mlflow.experiment_velocity_band": {
       "metric_id": "mlflow.experiment_velocity_band",
-      "rationale": "Both the monthly improvement rate and the number of experiments per week exceed the thresholds for band 5, indicating a strong performance in experimentation and improvement. The consistent upward trend in scores further supports this assessment.",
+      "rationale": "Both the monthly improvement rate and the number of experiments per week exceed the thresholds for band 5, indicating a strong performance in model improvement and experimentation cadence.",
       "flags": [],
       "gaps": [],
       "aimri_mapping": [
@@ -220,10 +219,12 @@
     },
     "mlflow.lineage_coverage_band": {
       "metric_id": "mlflow.lineage_coverage_band",
-      "rationale": "All metrics are above 0.85, with pct_git_sha and pct_env_files both above 0.90, which is strong. However, pct_data_ref at 0.86 is the limiting factor for achieving a higher band.",
-      "flags": [],
+      "rationale": "All metrics are above 0.85, with pct_git_sha and pct_env_files at 0.91, which are strong positives. However, pct_data_ref at 0.86 is the limiting factor preventing a higher band.",
+      "flags": [
+        "data_ref_coverage"
+      ],
       "gaps": [
-        "Data references at 0.86 limit the band → log immutable dataset version/hash per run → raise pct_data_ref to ≥0.90 (unlocks band 5)."
+        "Data references at 0.86 block a higher band → log immutable dataset version/hash per run → raise pct_data_ref to ≥0.90 (unlocks band 5)."
       ],
       "aimri_mapping": [
         {
@@ -260,12 +261,12 @@
     },
     "mlflow.reproducibility_band": {
       "metric_id": "mlflow.reproducibility_band",
-      "rationale": "The match rate is strong at 0.88, indicating good reproducibility, though there is a minor signature conflict present.",
+      "rationale": "The match rate is strong at 0.88, indicating good reproducibility, but there is a minor signature conflict present that prevents a higher band.",
       "flags": [
         "conflicts_present"
       ],
       "gaps": [
-        "Signature conflict on 'sigA' → review model signature management and ensure consistency → remove conflict occurrences and lift match_rate ≥0.95 (unlocks band 5)."
+        "Signature conflict on 'sigA' → review model versioning and ensure consistent environment settings → remove conflict occurrences and lift match_rate ≥0.95 (unlocks band 5)."
       ],
       "aimri_mapping": [
         {
@@ -321,10 +322,10 @@
     },
     "sm.experiments_lineage_band": {
       "metric_id": "sm.experiments_lineage_band",
-      "rationale": "All lineage metrics are above 0.85 with two metrics at or above 0.90; however, the data reference is slightly below the threshold for band 5.",
+      "rationale": "All lineage metrics are above 0.85 with two metrics above 0.90; however, the code reference at 0.9 prevents reaching band 5.",
       "flags": [],
       "gaps": [
-        "Data ref at 0.86 blocks band-5 → log immutable dataset version or hash per run → raise pct_data_ref to ≥0.90 (unlocks band 5)."
+        "Code ref at 0.9 limits band-5 → ensure all experiments include code references consistently → raise pct_code_ref to ≥0.95 (unlocks band 5)."
       ],
       "aimri_mapping": [
         {
@@ -360,7 +361,7 @@
     },
     "aml.endpoint_slo_band": {
       "metric_id": "aml.endpoint_slo_band",
-      "rationale": "All measured dimensions exceed SLOs with healthy margins. The availability is above the declared SLO by 0.002, the p95 latency is well below the threshold, and the error rate is significantly lower than the target.",
+      "rationale": "All measured dimensions exceed SLOs with healthy margins. The availability is above the declared SLO, the p95 latency is well below the threshold, and the error rate is significantly lower than the target.",
       "flags": [],
       "gaps": [],
       "aimri_mapping": [
@@ -377,7 +378,7 @@
     },
     "sm.cost_efficiency_band": {
       "metric_id": "sm.cost_efficiency_band",
-      "rationale": "All metrics are well within the excellent range: serving cost, training cost, GPU headroom, and idle ratio are all optimal.",
+      "rationale": "All metrics are well within the excellent range, indicating strong cost efficiency and resource utilization. The serving cost and training cost are both low, and the GPU memory headroom is optimal.",
       "flags": [],
       "gaps": [],
       "aimri_mapping": [
@@ -420,16 +421,6 @@
     "overall": 3.0
   },
   "aimri_mapping": {
-    "aml.registry_governance_band": [
-      {
-        "dimension": "05. Governance & Ethics",
-        "subsection": "5.2 Regulatory Compliance"
-      },
-      {
-        "dimension": "03. AI/ML Capabilities",
-        "subsection": "3.4 Model Governance"
-      }
-    ],
     "sm.clarify_coverage_band": [
       {
         "dimension": "01. Technical Infrastructure",
@@ -440,7 +431,37 @@
         "subsection": "5.3 Risk Management"
       }
     ],
-    "mlflow.lineage_coverage_band": [
+    "aml.cost_correlation_band": [
+      {
+        "dimension": "12. AI Business Value & ROI",
+        "subsection": "12.2 Cost Reduction & Efficiency"
+      },
+      {
+        "dimension": "06. Strategic Alignment",
+        "subsection": "6.2 Leadership Support"
+      }
+    ],
+    "mlflow.reproducibility_band": [
+      {
+        "dimension": "13. AI Risk & Resilience",
+        "subsection": "13.1 Model Reliability & Robustness"
+      },
+      {
+        "dimension": "08. Process Maturity",
+        "subsection": "8.4 Operational Excellence"
+      }
+    ],
+    "sm.endpoint_slo_scaling_band": [
+      {
+        "dimension": "09. Foundation Model Operations",
+        "subsection": "9.3 Performance Optimization"
+      },
+      {
+        "dimension": "13. AI Risk & Resilience",
+        "subsection": "13.4 Operational Continuity"
+      }
+    ],
+    "sm.experiments_lineage_band": [
       {
         "dimension": "05. Governance & Ethics",
         "subsection": "5.4 Transparency Practices"
@@ -460,44 +481,24 @@
         "subsection": "3.3 MLOps Maturity"
       }
     ],
-    "mlflow.experiment_velocity_band": [
+    "mlflow.registry_hygiene_band": [
       {
-        "dimension": "07. Cultural Readiness",
-        "subsection": "7.1 Innovation Mindset"
+        "dimension": "05. Governance & Ethics",
+        "subsection": "5.2 Regulatory Compliance"
       },
       {
-        "dimension": "06. Strategic Alignment",
-        "subsection": "6.5 Innovation Management"
+        "dimension": "09. Foundation Model Operations",
+        "subsection": "9.2 Domain Adaptation & Fine-tuning"
       }
     ],
-    "aml.monitoring_coverage_band": [
+    "mlflow.validation_artifacts_band": [
+      {
+        "dimension": "02. Data Management & Quality",
+        "subsection": "2.2 Data Quality"
+      },
       {
         "dimension": "13. AI Risk & Resilience",
         "subsection": "13.1 Model Reliability & Robustness"
-      },
-      {
-        "dimension": "03. AI/ML Capabilities",
-        "subsection": "3.4 Model Governance"
-      }
-    ],
-    "aml.cost_correlation_band": [
-      {
-        "dimension": "12. AI Business Value & ROI",
-        "subsection": "12.2 Cost Reduction & Efficiency"
-      },
-      {
-        "dimension": "06. Strategic Alignment",
-        "subsection": "6.2 Leadership Support"
-      }
-    ],
-    "mlflow.experiment_completeness_band": [
-      {
-        "dimension": "03. AI/ML Capabilities",
-        "subsection": "3.3 MLOps Maturity"
-      },
-      {
-        "dimension": "08. Process Maturity",
-        "subsection": "8.5 Measurement & Metrics"
       }
     ],
     "sm.cost_efficiency_band": [
@@ -510,47 +511,17 @@
         "subsection": "13.2 Data Dependability & Trust"
       }
     ],
-    "mlflow.registry_hygiene_band": [
-      {
-        "dimension": "05. Governance & Ethics",
-        "subsection": "5.2 Regulatory Compliance"
-      },
-      {
-        "dimension": "09. Foundation Model Operations",
-        "subsection": "9.2 Domain Adaptation & Fine-tuning"
-      }
-    ],
-    "mlflow.reproducibility_band": [
-      {
-        "dimension": "13. AI Risk & Resilience",
-        "subsection": "13.1 Model Reliability & Robustness"
-      },
+    "cicd.deploy_frequency_band": [
       {
         "dimension": "08. Process Maturity",
-        "subsection": "8.4 Operational Excellence"
-      }
-    ],
-    "aml.endpoint_slo_band": [
-      {
-        "dimension": "09. Foundation Model Operations",
-        "subsection": "9.1 Model Integration & Deployment"
-      },
-      {
-        "dimension": "13. AI Risk & Resilience",
-        "subsection": "13.4 Operational Continuity"
-      }
-    ],
-    "sm.pipeline_flow_band": [
-      {
-        "dimension": "08. Process Maturity",
-        "subsection": "8.3 Quality Assurance"
+        "subsection": "8.1 Project Management"
       },
       {
         "dimension": "03. AI/ML Capabilities",
-        "subsection": "3.3 MLOps Maturity"
+        "subsection": "3.2 Production Deployment"
       }
     ],
-    "cicd.policy_gates_band": [
+    "aml.registry_governance_band": [
       {
         "dimension": "05. Governance & Ethics",
         "subsection": "5.2 Regulatory Compliance"
@@ -570,6 +541,46 @@
         "subsection": "6.5 Innovation Management"
       }
     ],
+    "cicd.policy_gates_band": [
+      {
+        "dimension": "05. Governance & Ethics",
+        "subsection": "5.2 Regulatory Compliance"
+      },
+      {
+        "dimension": "03. AI/ML Capabilities",
+        "subsection": "3.4 Model Governance"
+      }
+    ],
+    "mlflow.experiment_velocity_band": [
+      {
+        "dimension": "07. Cultural Readiness",
+        "subsection": "7.1 Innovation Mindset"
+      },
+      {
+        "dimension": "06. Strategic Alignment",
+        "subsection": "6.5 Innovation Management"
+      }
+    ],
+    "aml.endpoint_slo_band": [
+      {
+        "dimension": "09. Foundation Model Operations",
+        "subsection": "9.1 Model Integration & Deployment"
+      },
+      {
+        "dimension": "13. AI Risk & Resilience",
+        "subsection": "13.4 Operational Continuity"
+      }
+    ],
+    "mlflow.lineage_coverage_band": [
+      {
+        "dimension": "05. Governance & Ethics",
+        "subsection": "5.4 Transparency Practices"
+      },
+      {
+        "dimension": "02. Data Management & Quality",
+        "subsection": "2.3 Data Governance"
+      }
+    ],
     "cicd.change_failure_rate_band": [
       {
         "dimension": "13. AI Risk & Resilience",
@@ -580,44 +591,34 @@
         "subsection": "8.3 Quality Assurance"
       }
     ],
-    "sm.endpoint_slo_scaling_band": [
-      {
-        "dimension": "09. Foundation Model Operations",
-        "subsection": "9.3 Performance Optimization"
-      },
-      {
-        "dimension": "13. AI Risk & Resilience",
-        "subsection": "13.4 Operational Continuity"
-      }
-    ],
-    "mlflow.validation_artifacts_band": [
-      {
-        "dimension": "02. Data Management & Quality",
-        "subsection": "2.2 Data Quality"
-      },
+    "aml.monitoring_coverage_band": [
       {
         "dimension": "13. AI Risk & Resilience",
         "subsection": "13.1 Model Reliability & Robustness"
-      }
-    ],
-    "cicd.deploy_frequency_band": [
-      {
-        "dimension": "08. Process Maturity",
-        "subsection": "8.1 Project Management"
       },
       {
         "dimension": "03. AI/ML Capabilities",
-        "subsection": "3.2 Production Deployment"
+        "subsection": "3.4 Model Governance"
       }
     ],
-    "sm.experiments_lineage_band": [
+    "mlflow.experiment_completeness_band": [
       {
-        "dimension": "05. Governance & Ethics",
-        "subsection": "5.4 Transparency Practices"
+        "dimension": "03. AI/ML Capabilities",
+        "subsection": "3.3 MLOps Maturity"
       },
       {
-        "dimension": "02. Data Management & Quality",
-        "subsection": "2.3 Data Governance"
+        "dimension": "08. Process Maturity",
+        "subsection": "8.5 Measurement & Metrics"
+      }
+    ],
+    "sm.pipeline_flow_band": [
+      {
+        "dimension": "08. Process Maturity",
+        "subsection": "8.3 Quality Assurance"
+      },
+      {
+        "dimension": "03. AI/ML Capabilities",
+        "subsection": "3.3 MLOps Maturity"
       }
     ]
   },

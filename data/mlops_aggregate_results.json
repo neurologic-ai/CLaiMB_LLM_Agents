@@ -49,7 +49,7 @@
       "mlflow.lineage_coverage_band": {
         "metric_id": "mlflow.lineage_coverage_band",
         "band": 4,
-        "rationale": "All metrics are above 0.85, with pct_git_sha and pct_env_files at 0.91, which are strong positives. However, pct_data_ref at 0.86 is the limiting factor preventing a higher band.",
+        "rationale": "All metrics are above 0.85, with pct_git_sha and pct_env_files at 0.91, which are strong positives. However, pct_data_ref at 0.86 is the limiting factor for achieving a higher band.",
         "flags": [],
         "gaps": [
           "Data references at 0.86 block a higher band → log immutable dataset version/hash per run → raise pct_data_ref to ≥0.90 (unlocks band 5)."
@@ -58,7 +58,7 @@
       "mlflow.experiment_velocity_band": {
         "metric_id": "mlflow.experiment_velocity_band",
         "band": 5,
-        "rationale": "Both the monthly improvement rate and the number of experiments per week exceed the thresholds for band 5, indicating a strong performance in both areas. The consistent improvement and experimentation suggest a robust MLOps process.",
+        "rationale": "Both the monthly improvement rate and the number of experiments per week exceed the thresholds for band 5, indicating a strong performance in model improvement and experimentation cadence.",
         "flags": [],
         "gaps": []
       },
@@ -76,14 +76,14 @@
       "mlflow.validation_artifacts_band": {
         "metric_id": "mlflow.validation_artifacts_band",
         "band": 3,
-        "rationale": "The validation JSON coverage is strong at 0.88, but both SHAP and bias report percentages are below 0.80, which limits the overall band.",
+        "rationale": "The validation JSON coverage is strong at 0.88, but both SHAP and bias report metrics are below 0.85, limiting the overall band. The lowest metric is the bias report at 0.72.",
         "flags": [
           "bias_coverage_low",
           "shap_coverage_low"
         ],
         "gaps": [
-          "SHAP coverage at 0.84 → implement SHAP file generation in all runs → raise pct_with_shap to ≥0.85 (unlocks band 4).",
-          "Bias report at 0.72 → integrate a bias evaluation step in the pipeline → raise pct_with_bias_report to ≥0.80 (unlocks band 4)."
+          "Bias report at 0.72 → add fairness evaluation step to pipeline and publish report → raise pct_with_bias_report to ≥0.80 (unlocks band 4).",
+          "Explainability at 0.84 → implement SHAP step and ensure artifacts are stored → raise pct_with_shap to ≥0.80 (unlocks band 4)."
         ]
       },
       "mlflow.reproducibility_band": {
@@ -94,13 +94,13 @@
           "conflicts_present"
         ],
         "gaps": [
-          "Signature conflict on 'sigA' → ensure consistent model signatures across runs → remove conflict occurrences and lift match_rate ≥0.95 (unlocks band 5)."
+          "Signature conflict on 'sigA' → pin environment and seed; verify data hashes → remove conflict occurrences and lift match_rate ≥0.95 (unlocks band 5)."
         ]
       },
       "aml.endpoint_slo_band": {
         "metric_id": "aml.endpoint_slo_band",
         "band": 5,
-        "rationale": "All measured dimensions exceed SLOs with healthy margins. The availability is above the declared SLO by 0.002, the p95 latency is well below the threshold, and the error rate is significantly lower than the target.",
+        "rationale": "All measured dimensions exceed SLOs with healthy margins. The availability is above the target by 0.002, the p95 latency is well below the target, and the error rate is significantly lower than the target.",
         "flags": [],
         "gaps": []
       },
@@ -116,24 +116,24 @@
       "aml.monitoring_coverage_band": {
         "metric_id": "aml.monitoring_coverage_band",
         "band": 5,
-        "rationale": "All monitoring systems are enabled, and the median time to acknowledge alerts is well below 2 hours, indicating a strong response capability. The presence of drift alerts also suggests active monitoring and engagement with the system's performance.",
+        "rationale": "Monitoring is enabled, and the median time to acknowledge alerts is excellent at 1.2 hours, well below the 2-hour threshold.",
         "flags": [],
         "gaps": []
       },
       "aml.registry_governance_band": {
         "metric_id": "aml.registry_governance_band",
         "band": 4,
-        "rationale": "Both pct_staged and pct_with_approvals are above 0.80, and the median transition time is within the acceptable range for band 4. However, the median transition time of 60 hours is not low enough to reach band 5.",
+        "rationale": "Both pct_staged and pct_with_approvals are above 0.80, and median_transition_h is below 72, meeting the criteria for band 4. However, the pct_staged is below the 0.90 threshold for band 5.",
         "flags": [],
         "gaps": [
-          "Median transition time at 60h prevents band-5 → streamline transition processes and reduce bottlenecks → target median_transition_h to <48h (unlocks band 5).",
-          "Staging coverage at 0.83 <0.90 → enforce stage on register policy → raise pct_staged to ≥0.90 (supports band 5)."
+          "Staging coverage at 0.83 <0.90 → enforce stage on register policy → raise pct_staged to ≥0.90 (unlocks band 5).",
+          "Latency at 60h is above the band-5 threshold → parallelize QA and security gates → reduce median_transition_h to <48h (unlocks band 5)."
         ]
       },
       "aml.cost_correlation_band": {
         "metric_id": "aml.cost_correlation_band",
         "band": 5,
-        "rationale": "The cost join rate is excellent at 0.93, and the coverage is comprehensive with 'tags+resourceId', indicating stable attribution. The cost per 1k requests is also low, reflecting efficient tracking.",
+        "rationale": "The cost join rate is excellent at 0.93, and the coverage is comprehensive with 'tags+resourceId', indicating stable attribution. The cost per 1k requests is also low, reflecting efficient cost management.",
         "flags": [],
         "gaps": []
       },
@@ -143,61 +143,61 @@
         "rationale": "No evidence is provided, which fails to meet any thresholds. The absence of data prevents any assessment of performance metrics.",
         "flags": [],
         "gaps": [
-          "Missing evidence prevents evaluation → collect and report availability, error rate, p95, reaction time, and max RPS → meet all thresholds for band 3."
+          "Missing evidence for all metrics → collect and report availability, error rate, p95, reaction time, and max RPS → meet all thresholds for band 3."
         ]
       },
       "sm.pipeline_flow_band": {
         "metric_id": "sm.pipeline_flow_band",
         "band": 3,
-        "rationale": "The success rate is good at 0.96, but the promotion time exceeds the band-3 threshold at 12h, which limits the overall band. The p95 duration is also borderline, impacting the overall performance.",
+        "rationale": "The success rate is good, but the promotion time exceeds the threshold for band 3, and the p95 duration is borderline. The retry rate is acceptable, but the overall performance is limited by the promotion time.",
         "flags": [],
         "gaps": [
-          "Promotion time at 12h → automate risk sign-off and bake validation into CI → reduce promotion_time_h to ≤24h (unlocks band 4).",
-          "p95 at 42min → parallelize feature gen and cache heavy steps → keep p95 ≤60min (reinforces band 4)."
+          "Promotion time at 12h → streamline approval processes and automate checks → reduce promotion_time_h to ≤24h (unlocks band 4).",
+          "p95 at 42min → optimize pipeline steps and reduce bottlenecks → keep p95 ≤60min (reinforces band 3)."
         ]
       },
       "sm.experiments_lineage_band": {
         "metric_id": "sm.experiments_lineage_band",
-        "band": 4,
-        "rationale": "All lineage metrics are above 0.85, with two metrics above 0.90; however, the code reference is slightly below the threshold for band 5.",
+        "band": 1,
+        "rationale": "No evidence provided results in a critical band rating. The absence of all metrics indicates a lack of tracking and documentation.",
         "flags": [],
         "gaps": [
-          "Code ref at 0.9 limits band-5 → implement stricter code review processes to ensure all experiments have code references → raise pct_code_ref to ≥0.95 (unlocks band 5)."
+          "Missing evidence across all metrics → implement tracking for code, data, and environment references → achieve pct_code_ref, pct_data_ref, and pct_env to ≥0.70 (unlocks band 3)."
         ]
       },
       "sm.clarify_coverage_band": {
         "metric_id": "sm.clarify_coverage_band",
         "band": 1,
-        "rationale": "Both metrics are missing, which results in a critical band of 1. There are no positive aspects to highlight.",
+        "rationale": "Both metrics are missing, which results in a critical band of 1. The absence of evidence for bias and explainability severely limits the assessment.",
         "flags": [],
         "gaps": [
-          "Both metrics are missing → implement tracking for bias and explainability reports → achieve pct_with_bias_report and pct_with_explainability ≥0.60 (unlocks band 2)."
+          "Both metrics are missing → implement tracking for bias and explainability reports → ensure pct_with_bias_report and pct_with_explainability are both ≥0.60 (unlocks band 2)."
         ]
       },
       "sm.cost_efficiency_band": {
         "metric_id": "sm.cost_efficiency_band",
         "band": 1,
-        "rationale": "All metrics indicate significant inefficiencies: high serving cost, excessive training cost, very high GPU headroom, and a concerning idle ratio. These factors collectively demonstrate heavy waste across several dimensions.",
+        "rationale": "All metrics indicate significant waste: serving cost is high, training cost exceeds the threshold, GPU headroom is excessive, and idle time is above acceptable levels.",
         "flags": [
           "serving_cost_high",
           "training_cost_high",
           "gpu_headroom_high",
-          "idle_ratio_high"
+          "idle_time_high"
         ],
         "gaps": [
           "Serving cost 0.11/1k → enable model quantization and autoscaling down → keep per_1k ≤ 0.10 (unlocks band 4).",
-          "Training cost 5.2/hour → optimize training process or resource allocation → reduce to ≤4 (unlocks band 4).",
+          "Training cost 5.2/hour → optimize training process or resource allocation → reduce per_training_hour to ≤4 (unlocks band 4).",
           "High GPU headroom at 52% → reduce instance size or increase batch size → bring headroom into 10–40% (unlocks band 4).",
-          "Idle ratio at 0.26 → improve resource scheduling or utilization strategies → keep idle ratio <0.20 (unlocks band 4)."
+          "Idle ratio at 0.26 → improve resource scheduling or increase workload → keep idle_ratio < 0.20 (unlocks band 5)."
         ]
       },
       "cicd.deploy_frequency_band": {
         "metric_id": "cicd.deploy_frequency_band",
         "band": 4,
-        "rationale": "The overall frequency of deployments is good, but the per-service rate is just below the threshold for excellent. With 5.2 deployments per week across 7 services, the per-service rate is approximately 0.74, which is not quite at the level needed for a higher band.",
+        "rationale": "The overall frequency of deployments is good, but the per-service rate is just below the threshold for excellent due to the number of services. While freq_per_week is above 5, the per-service rate is approximately 0.74, which is not sufficient for a higher band.",
         "flags": [],
         "gaps": [
-          "per-service rate is below threshold → increase deployments or reduce services → achieve ≥1/week/service (unlocks band 5)"
+          "per-service rate is below threshold → increase deployments across services → raise per-service rate to ≥1/week (unlocks band 5)"
         ]
       },
       "cicd.lead_time_band": {
@@ -212,7 +212,7 @@
       "cicd.change_failure_rate_band": {
         "metric_id": "cicd.change_failure_rate_band",
         "band": 5,
-        "rationale": "Both the change failure rate (CFR) at 0.11 and the rollbacks in the last 30 days at 3 are well within the excellent band limits. This indicates a strong deployment process with minimal failures and rollbacks.",
+        "rationale": "Both the change failure rate (CFR) at 0.11 and the rollbacks in the last 30 days at 3 are well within the excellent band limits.",
         "flags": [],
         "gaps": []
       },
@@ -275,7 +275,7 @@
       "mlflow.experiment_completeness_band": {
         "metric_id": "mlflow.experiment_completeness_band",
         "band": 1,
-        "rationale": "All fields are below the minimum threshold, with pct_all at 0.42 being the most critical issue. The lack of parameters, metrics, tags, and artifacts severely limits the overall completeness.",
+        "rationale": "All fields are below the minimum threshold, with pct_all at 0.42 being particularly low. The lack of parameters, metrics, tags, and artifacts significantly limits the overall completeness.",
         "flags": [
           "all_fields_low"
         ],
@@ -299,76 +299,76 @@
       "mlflow.experiment_velocity_band": {
         "metric_id": "mlflow.experiment_velocity_band",
         "band": 1,
-        "rationale": "Both the improvement rate and the number of experiments are below the minimum thresholds, indicating a critical lack of progress and experimentation. The negative improvement rate suggests a decline in performance, which is concerning.",
+        "rationale": "Both the improvement rate and the number of experiments are below the minimum thresholds, indicating a lack of progress and experimentation. The negative improvement rate is particularly concerning as it suggests regression rather than advancement.",
         "flags": [],
         "gaps": [
-          "Negative improvement rate and low experiments per week → implement a structured experimentation process and focus on performance improvements → achieve improvement_rate_mom ≥ 0.01 and experiments_per_week ≥ 1.0 (unlocks band 2)."
+          "Negative improvement rate and low experiments per week → implement a structured experimentation process and set clear improvement goals → achieve improvement_rate_mom ≥ 0.01 and experiments_per_week ≥ 1.0 (unlocks band 2)."
         ]
       },
       "mlflow.registry_hygiene_band": {
         "metric_id": "mlflow.registry_hygiene_band",
         "band": 1,
-        "rationale": "Evidence is missing, which directly leads to a critical band rating. Without any data, it's impossible to assess the performance against the rubric criteria.",
+        "rationale": "Evidence is missing, which defaults the assessment to the lowest band. Without any data, it's impossible to evaluate the metrics effectively.",
         "flags": [
           "evidence_missing"
         ],
         "gaps": [
-          "Missing evidence prevents any assessment → collect and report pct_staged, pct_with_approver, median_stage_latency_h, and rollback_count_30d → provide complete evidence (unlocks band 3)."
+          "No evidence provided limits assessment → collect and report pct_staged, pct_with_approver, median_stage_latency_h, and rollback_count_30d → meet all thresholds for band 4."
         ]
       },
       "mlflow.validation_artifacts_band": {
         "metric_id": "mlflow.validation_artifacts_band",
         "band": 1,
-        "rationale": "All metrics are below the critical threshold of 0.60, indicating significant gaps in model evaluation and reporting. The absence of evidence limits the ability to assess model performance effectively.",
-        "flags": [
-          "missing_evidence"
-        ],
+        "rationale": "All metrics are below the critical threshold of 0.60, indicating significant gaps in model evaluation and reporting. The absence of evidence further exacerbates the situation.",
+        "flags": [],
         "gaps": [
           "All metrics below 0.60 → implement mandatory reporting for SHAP, bias, and validation JSON → raise all metrics to ≥0.60 (unlocks band 2)."
         ]
       },
       "mlflow.reproducibility_band": {
         "metric_id": "mlflow.reproducibility_band",
-        "band": 3,
-        "rationale": "The match rate is acceptable, but there are some signature conflicts that limit the overall score. Addressing these conflicts could improve the reliability of the results.",
+        "band": 4,
+        "rationale": "The match rate is strong at 0.88, indicating good reproducibility, though there is a minor signature conflict present.",
         "flags": [
           "conflicts_present"
         ],
         "gaps": [
-          "Signature conflicts present → resolve discrepancies in model signatures → lift match_rate to ≥0.85 (unlocks band 4)."
+          "Signature conflict on 'svc@1.0' → pin environment and seed; verify data hashes → remove conflict occurrences and lift match_rate ≥0.95 (unlocks band 5)."
         ]
       },
       "aml.endpoint_slo_band": {
         "metric_id": "aml.endpoint_slo_band",
         "band": 2,
-        "rationale": "Only the availability_30d is close to the declared SLO, while both p95_ms and error_rate exceed their respective limits significantly. The high p95_ms and error_rate are the main limiting factors.",
+        "rationale": "Only the availability_30d is close to the declared SLO, while both p95_ms and error_rate exceed their respective limits significantly. The biggest limiting factor is the p95_ms, which is well above the declared target.",
         "flags": [],
-        "gaps": "p95_ms at 420 exceeds the declared SLO of 300 → optimize performance to reduce latency → keep p95_ms ≤300 (unlocks band 3)."
+        "gaps": [
+          "p95_ms is too high → optimize response times and reduce latency → keep p95_ms ≤300 (unlocks band 4)"
+        ]
       },
       "aml.jobs_flow_band": {
         "metric_id": "aml.jobs_flow_band",
         "band": 1,
-        "rationale": "The success rate of 0.86 is significantly below the threshold, and both p95 duration and lead time are far from acceptable limits, indicating critical failure.",
+        "rationale": "The success rate of 0.86 is significantly below the threshold, and both p95 duration and lead time are well beyond acceptable limits. This combination indicates a generally failing state.",
         "flags": [],
         "gaps": [
-          "Success at 0.86 is the limiter → implement more robust error handling and monitoring → raise success_rate to ≥0.90 (unlocks band 3).",
-          "Lead time of 28h is excessive → streamline job scheduling and resource allocation → target ≤24h (pushes toward band 3 when success is ≥0.90).",
-          "p95 duration at 75min is too high → optimize job execution and reduce bottlenecks → target ≤60min (pushes toward band 3 when success is ≥0.90)."
+          "Success at 0.86 is the limiter → implement robust error handling and monitoring → raise success_rate to ≥0.90 (unlocks band 3).",
+          "Lead time at 28h is excessive → streamline job scheduling and resource allocation → target ≤24h (pushes toward band 3 when success is ≥0.90).",
+          "p95 duration at 75min is too high → optimize job execution and reduce bottlenecks → aim for p95 ≤60min (also supports band 3)."
         ]
       },
       "aml.monitoring_coverage_band": {
         "metric_id": "aml.monitoring_coverage_band",
         "band": 1,
-        "rationale": "There is no evidence of monitors being enabled or any response process in place, which is critical for effective monitoring.",
+        "rationale": "There is no evidence of monitors being enabled or any response process in place, indicating a critical gap in monitoring capabilities.",
         "flags": [],
         "gaps": [
-          "Monitors are disabled → enable data/quality/drift monitors → establish a monitoring process (unlocks band 2)."
+          "Monitors are disabled → enable data/quality/drift monitors → achieve monitors_enabled = true (unlocks band 3)."
         ]
       },
       "aml.registry_governance_band": {
         "metric_id": "aml.registry_governance_band",
         "band": 3,
-        "rationale": "While pct_staged and pct_with_approvals are above the minimum for band 3, the median transition time exceeds the threshold, limiting the overall band rating.",
+        "rationale": "While pct_staged and pct_with_approvals are above the minimum for band 3, the median transition time exceeds the threshold, limiting the overall band.",
         "flags": [],
         "gaps": [
           "Median transition time at 60h exceeds band-3 limit → optimize transition processes → reduce median_transition_h to <48h (unlocks band 5)."
@@ -377,83 +377,84 @@
       "aml.cost_correlation_band": {
         "metric_id": "aml.cost_correlation_band",
         "band": 1,
-        "rationale": "There is no provided evidence for cost_join_rate or coverage, indicating critical limitations in attribution. Without usable attribution data, the metric cannot be assessed effectively.",
+        "rationale": "There is no evidence provided for cost_join_rate or coverage, indicating a critical lack of usable attribution. Without any usable data, the assessment cannot meet the minimum threshold for evaluation.",
         "flags": [],
         "gaps": [
-          "No usable attribution data → implement tracking for cost_join_rate and coverage → establish a cost_join_rate of ≥0.40 (unlocks band 2)."
+          "No usable attribution data available → implement tracking for cost_join_rate and coverage metrics → establish a cost_join_rate of ≥0.40 (unlocks band 2)."
         ]
       },
       "sm.endpoint_slo_scaling_band": {
         "metric_id": "sm.endpoint_slo_scaling_band",
-        "band": 2,
-        "rationale": "Only the availability and error rate meet the band-3 thresholds, while p95 latency and max RPS are significantly below the required levels. The median reaction time is also above the acceptable threshold, limiting overall performance.",
+        "band": 3,
+        "rationale": "Availability and error rate are close to thresholds, but p95 latency and max RPS are outside acceptable limits. The biggest limiting factor is the p95 latency at 260ms, which exceeds the band-3 threshold.",
         "flags": [],
         "gaps": [
-          "p95 at 260ms above 300ms threshold → optimize query performance and reduce latency → keep p95 ≤300ms (unlocks band 3).",
-          "Max RPS at 300 below 400 → enhance infrastructure and load balancing → raise max_rps_at_slo to ≥400 (unlocks band 3).",
-          "Reaction time 110s >120s → implement proactive scaling strategies → reduce median_reaction_s ≤120s (unlocks band 3)."
+          "p95 at 260ms exceeds 300ms threshold → optimize query performance and reduce processing time → keep p95 ≤300ms (unlocks band 4).",
+          "Max RPS at 300 below 400 → enhance infrastructure and load balancing → raise max_rps_at_slo to ≥400 (unlocks band 4)."
         ]
       },
       "sm.pipeline_flow_band": {
         "metric_id": "sm.pipeline_flow_band",
         "band": 2,
-        "rationale": "The success rate is below the acceptable threshold, and both the promotion time and p95 duration are significantly higher than the limits for any band. While the retry rate is not excessively high, the overall performance is critically lacking.",
+        "rationale": "The success rate is below the acceptable threshold, and both the promotion time and p95 duration are significantly higher than the limits for any band. The low success rate is the most critical limiting factor.",
         "flags": [],
         "gaps": [
           "Success rate at 0.88 → identify and resolve failure points in the pipeline → raise success_rate to ≥0.90 (unlocks band 3).",
-          "Promotion time at 36h → streamline model validation and deployment processes → reduce promotion_time_h to ≤24h (unlocks band 3).",
-          "p95 duration at 90min → optimize pipeline steps and resource allocation → keep p95_duration_min ≤60min (unlocks band 3)."
+          "Promotion time at 36h → streamline model validation and approval processes → reduce promotion_time_h to ≤24h (reinforces band 3).",
+          "p95 duration at 90min → optimize pipeline steps and resource allocation → keep p95_duration_min ≤60min (reinforces band 3)."
         ]
       },
       "sm.experiments_lineage_band": {
         "metric_id": "sm.experiments_lineage_band",
         "band": 3,
-        "rationale": "All lineage metrics are above 0.70, with one at 0.85; however, the lowest value at 0.9 does not meet the higher thresholds for a better band. The limiting factor is that none of the metrics reach the 0.85 threshold required for band 4.",
+        "rationale": "All lineage metrics are above 0.70, with one at 0.85; however, the lowest value at 0.9 limits the band from reaching 4.",
         "flags": [],
         "gaps": [
-          "pct_code_ref at 0.9 limits band-4 → implement stricter code reference tracking → raise pct_code_ref to ≥0.85 (unlocks band 4)."
+          "pct_code_ref at 0.9 limits band-4 → implement stricter code review processes to ensure all experiments have code references → raise pct_code_ref to ≥0.85 (unlocks band 4)."
         ]
       },
       "sm.clarify_coverage_band": {
         "metric_id": "sm.clarify_coverage_band",
         "band": 1,
-        "rationale": "Both metrics are missing, which results in a critical band of 1. The absence of evidence for bias and explainability severely limits the assessment.",
+        "rationale": "Both metrics are missing, which results in a critical band of 1. There are no positive aspects to highlight.",
         "flags": [],
         "gaps": [
-          "Both metrics are missing → implement tracking for bias and explainability reports → ensure pct_with_bias_report and pct_with_explainability are both ≥0.60 (unlocks band 2)."
+          "Both metrics are missing → implement tracking for bias and explainability reports → achieve pct_with_bias_report and pct_with_explainability to ≥0.60 (unlocks band 2)."
         ]
       },
       "sm.cost_efficiency_band": {
         "metric_id": "sm.cost_efficiency_band",
         "band": 1,
-        "rationale": "All metrics indicate significant waste: serving cost is high, training cost exceeds the threshold, GPU headroom is excessive, and idle time is too high.",
+        "rationale": "All metrics indicate significant inefficiencies: high serving cost, excessive training cost, very high GPU headroom, and a concerning idle ratio. These factors collectively demonstrate heavy waste across several dimensions.",
         "flags": [
           "serving_cost_high",
           "training_cost_high",
           "gpu_headroom_high",
-          "high_idle_ratio"
+          "idle_ratio_high"
         ],
         "gaps": [
           "Serving cost 0.11/1k → enable model quantization and autoscaling down → keep per_1k ≤ 0.10 (unlocks band 4).",
-          "Training cost 5.2 → optimize training processes or use more efficient algorithms → reduce per_training_hour to ≤4 (unlocks band 4).",
+          "Training cost 5.2/hour → optimize training process or resource allocation → reduce per_training_hour to ≤4 (unlocks band 4).",
           "High GPU headroom at 52% → reduce instance size or increase batch size → bring headroom into 10–40% (unlocks band 4).",
-          "Idle ratio at 0.26 → improve resource scheduling or increase workload efficiency → keep idle_ratio < 0.20 (unlocks band 5)."
+          "Idle ratio at 0.26 → improve resource scheduling or utilization strategies → keep idle_ratio < 0.20 (unlocks band 5)."
         ]
       },
       "cicd.deploy_frequency_band": {
         "metric_id": "cicd.deploy_frequency_band",
         "band": 2,
-        "rationale": "The frequency of deployments is sporadic, averaging 0.8 per week across 3 services, which indicates some activity but not enough to meet the monthly threshold per service. The limiting factor is the low deployment frequency, which is below the monthly per-service rate. ",
+        "rationale": "The deployment frequency is sporadic with only 0.8 deployments per week across 3 services, indicating some activity but not meeting the threshold for more regular deployments. The limited frequency of deployments is the primary limiting factor.",
         "flags": [],
-        "gaps": "Low deployment frequency → increase deployment frequency to at least 1 per week → raise freq_per_week to ≥3 (unlocks band 4)."
+        "gaps": [
+          "freq_per_week is low → increase deployment frequency to at least 1/week → raise freq_per_week to ≥3 (unlocks band 4)"
+        ]
       },
       "cicd.lead_time_band": {
         "metric_id": "cicd.lead_time_band",
         "band": 1,
-        "rationale": "Both p50 and p95 exceed the thresholds for all bands, indicating critical delays in lead time. The p50 at 20h and p95 at 72h are significantly higher than the acceptable limits.",
+        "rationale": "Both p50 and p95 exceed the thresholds for all bands, indicating critical performance issues. The p50 of 20h and p95 of 72h are significantly higher than the acceptable limits.",
         "flags": [],
         "gaps": [
-          "p50 at 20h and p95 at 72h are critical delays → optimize CI/CD pipeline and reduce bottlenecks → aim for p50 ≤ 4h and p95 ≤ 24h (unlocks band 5)."
+          "p50 at 20h and p95 at 72h are critical → optimize the CI/CD pipeline and reduce bottlenecks → aim for p50 ≤ 4h and p95 ≤ 24h (unlocks band 5)."
         ]
       },
       "cicd.change_failure_rate_band": {
@@ -470,7 +471,7 @@
       "cicd.policy_gates_band": {
         "metric_id": "cicd.policy_gates_band",
         "band": 2,
-        "rationale": "Only the pytest check is present and it has failed tests, while the other required checks are missing entirely. This significantly limits the overall effectiveness of the CI process.",
+        "rationale": "Only pytest is present in the workflow, and it has failing tests. Other required checks are missing, leading to a significant gap in CI enforcement.",
         "present": [
           "pytest"
         ],
@@ -485,7 +486,7 @@
           "pytest"
         ],
         "gaps": [
-          "Missing required checks reduce overall CI effectiveness → implement all required checks in the workflow → achieve full presence of checks (unlocks band 3)."
+          "Missing required checks like integration-tests and data validation reduce overall CI effectiveness → implement all required checks in the workflow → achieve ≥50% present/passing (unlocks band 3)."
         ]
       },
       "cicd.artifact_lineage": {
@@ -538,10 +539,10 @@
       "mlflow.experiment_completeness_band": {
         "metric_id": "mlflow.experiment_completeness_band",
         "band": 4,
-        "rationale": "All fields are above 0.80, with most at 0.90, but pct_all at 0.88 is the limiting factor preventing a higher band.",
+        "rationale": "All fields are strong, with parameters, metrics, and artifacts at 0.9 or above. However, pct_all at 0.88 is just below the threshold for band 5.",
         "flags": [],
         "gaps": [
-          "pct_all at 0.88 limits the band → ensure all runs have params, metrics, tags, and artifacts logged → raise pct_all to ≥0.90 (unlocks band 5)."
+          "pct_all at 0.88 limits the band → ensure all runs consistently log parameters, metrics, tags, and artifacts → raise pct_all to ≥0.90 (unlocks band 5)."
         ]
       },
       "mlflow.lineage_coverage_band": {
@@ -550,34 +551,36 @@
         "rationale": "No evidence data is provided, indicating a critical lack of tracking for Git SHA, data references, and environment files.",
         "flags": [],
         "gaps": [
-          "Missing all evidence data indicates critical tracking issues → implement logging for Git SHA, data references, and environment files → achieve at least one metric ≥0.60 (unlocks band 2)."
+          "Missing evidence data indicates critical tracking failures → implement logging for Git SHA, data references, and environment files → achieve all metrics ≥0.60 (unlocks band 2)."
         ]
       },
       "mlflow.experiment_velocity_band": {
         "metric_id": "mlflow.experiment_velocity_band",
         "band": 5,
-        "rationale": "Both the monthly improvement rate and the number of experiments per week exceed the thresholds for band 5, indicating a strong performance in both metrics. The consistent improvement and experimentation suggest a robust MLOps process.",
+        "rationale": "Both the monthly improvement rate and the number of experiments per week exceed the thresholds for band 5, indicating a strong performance in model improvement and experimentation cadence.",
         "flags": [],
         "gaps": []
       },
       "mlflow.registry_hygiene_band": {
         "metric_id": "mlflow.registry_hygiene_band",
         "band": 1,
-        "rationale": "Evidence is missing, which leads to a critical band rating. Without any data, it's impossible to assess the performance against the rubric criteria.",
+        "rationale": "Evidence is missing, which directly leads to a critical band rating. Without any data on staged models, approvals, latency, or rollbacks, it is impossible to assess the performance accurately.",
         "flags": [
           "evidence_missing"
         ],
         "gaps": [
-          "No evidence provided limits assessment → collect and report pct_staged, pct_with_approver, median_stage_latency_h, and rollback_count_30d → ensure all evidence is available (unlocks band 3)."
+          "No evidence provided limits assessment capabilities → ensure all relevant metrics are recorded and reported → achieve complete evidence for all fields (unlocks band 3)."
         ]
       },
       "mlflow.validation_artifacts_band": {
         "metric_id": "mlflow.validation_artifacts_band",
         "band": 1,
         "rationale": "All metrics are below the critical threshold of 0.60, indicating significant gaps in model evaluation and reporting. The absence of evidence limits the ability to assess model performance effectively.",
-        "flags": [],
+        "flags": [
+          "missing_evidence"
+        ],
         "gaps": [
-          "All metrics below 0.60 → implement mandatory reporting for SHAP, bias, and validation JSON → raise all metrics to ≥0.60 (unlocks band 2)."
+          "All metrics below 0.60 → implement tracking for SHAP, bias reports, and validation JSON → raise all to ≥0.60 (unlocks band 2)."
         ]
       },
       "mlflow.reproducibility_band": {
@@ -586,7 +589,7 @@
         "rationale": "The match rate is strong at 0.92, which is above the threshold for band 4, and there are no signature conflicts present. However, it falls short of the excellent band 5 due to not reaching the 0.95 match rate threshold.",
         "flags": [],
         "gaps": [
-          "Match rate at 0.92 is below 0.95 → enhance model consistency checks and optimize rerun conditions → raise match_rate to ≥0.95 (unlocks band 5)."
+          "Match rate at 0.92 is below 0.95 → optimize model training and evaluation processes → raise match_rate to ≥0.95 (unlocks band 5)."
         ]
       },
       "aml.endpoint_slo_band": {
@@ -602,16 +605,17 @@
         "rationale": "Success rate is below 0.95, which limits the band; however, both p95 duration and lead time are within acceptable ranges.",
         "flags": [],
         "gaps": [
-          "Success at 0.94 is the limiter → add retry-on-transient and resource quota checks → raise success_rate to ≥0.95 (unlocks band 4)."
+          "Success at 0.94 is the limiter → implement more robust error handling and monitoring → raise success_rate to ≥0.95 (unlocks band 4).",
+          "Lead-time 6.4h acceptable but improvable → enable caching and artifact reuse → target ≤4h (pushes toward band 5 when success is ≥0.98)."
         ]
       },
       "aml.monitoring_coverage_band": {
         "metric_id": "aml.monitoring_coverage_band",
-        "band": 1,
-        "rationale": "There is no evidence of monitors being enabled or any response process in place, which is critical for effective monitoring.",
+        "band": 3,
+        "rationale": "Monitoring is enabled, but the median time to acknowledge alerts is over 6 hours, which limits the effectiveness of the monitoring process. The presence of alerts indicates some level of responsiveness, but the slow acknowledgment time is a significant concern.",
         "flags": [],
         "gaps": [
-          "Monitors are disabled → enable data/quality/drift monitors → establish a monitoring process (unlocks band 2)."
+          "Ack at over 6h indicates slow response → implement a dedicated alert response team and streamline processes → reduce median_time_to_ack_h <6h (unlocks band 4)."
         ]
       },
       "aml.registry_governance_band": {
@@ -626,10 +630,10 @@
       "aml.cost_correlation_band": {
         "metric_id": "aml.cost_correlation_band",
         "band": 1,
-        "rationale": "There is no provided evidence for cost_join_rate or coverage, indicating a critical lack of usable attribution. Without any data, it is impossible to assess the performance accurately.",
+        "rationale": "There is no evidence provided for cost_join_rate or coverage, indicating a critical lack of usable attribution. Without any usable data, the assessment cannot meet the minimum threshold for evaluation.",
         "flags": [],
         "gaps": [
-          "No usable attribution data → implement tracking for cost_join_rate and coverage → establish a baseline for cost_join_rate ≥0.40 (unlocks band 2)."
+          "No usable attribution available → implement tracking for cost_join_rate and coverage → establish a baseline for cost_join_rate ≥0.40 (unlocks band 2)."
         ]
       },
       "sm.endpoint_slo_scaling_band": {
@@ -642,25 +646,25 @@
       "sm.pipeline_flow_band": {
         "metric_id": "sm.pipeline_flow_band",
         "band": 4,
-        "rationale": "The success rate is strong at 0.96, and the retry rate is within acceptable limits. However, the promotion time of 12 hours is at the upper limit for band 4.",
+        "rationale": "The success rate is strong at 0.96, and the promotion time of 12h meets the band-4 criteria. However, the p95 duration of 42 minutes is above the threshold for band 5.",
         "flags": [],
         "gaps": [
-          "Promotion latency at 12h → automate risk sign-off and bake validation into CI → reduce promotion_time_h to ≤8h (unlocks band 5)."
+          "p95 at 42min → optimize pipeline steps and reduce bottlenecks → keep p95 ≤30min (unlocks band 5)."
         ]
       },
       "sm.experiments_lineage_band": {
         "metric_id": "sm.experiments_lineage_band",
         "band": 4,
-        "rationale": "All lineage metrics are above 0.85, with two metrics above 0.90; however, the code reference at 0.90 prevents reaching band 5.",
+        "rationale": "All lineage metrics are above 0.85, with two metrics above 0.90; however, the code reference at 0.9 prevents reaching band 5.",
         "flags": [],
         "gaps": [
-          "Code ref at 0.90 limits to band-4 → implement stricter code review processes to ensure all experiments reference code → raise pct_code_ref to ≥0.95 (unlocks band 5)."
+          "Code ref at 0.9 limits band-5 → implement stricter code review processes to ensure all experiments have code references → raise pct_code_ref to ≥0.95 (unlocks band 5)."
         ]
       },
       "sm.clarify_coverage_band": {
         "metric_id": "sm.clarify_coverage_band",
         "band": 4,
-        "rationale": "Both metrics are above 0.80, indicating good coverage in bias reporting and explainability. The strongest positives are the high values for both metrics, which reflect a solid understanding of fairness and transparency. However, neither metric meets the threshold for excellence, limiting the band to 4.",
+        "rationale": "Both metrics are above 0.80, indicating good coverage in bias reporting and explainability. The combination of these values supports a strong band rating.",
         "flags": [],
         "gaps": []
       },
@@ -674,19 +678,19 @@
       "cicd.deploy_frequency_band": {
         "metric_id": "cicd.deploy_frequency_band",
         "band": 3,
-        "rationale": "The frequency of deployments is approximately weekly per service, which meets the threshold for Band 3. However, the overall deployment frequency is below the threshold for Band 4 due to the limited number of services. This combination results in a fair rating.",
+        "rationale": "The frequency of deployments is approximately weekly per service, which meets the threshold for a fair rating. However, the overall deployment frequency is below the weekly target for each service, limiting the band. ",
         "flags": [],
         "gaps": [
-          "freq_per_week is below threshold for Band 4 → increase deployment frequency or add more services → target freq_per_week ≥ 5 (unlocks band 4)"
+          "freq_per_week is below weekly target per service → increase deployment frequency to at least 4/week → raise per-service rate to ≥1/week (unlocks band 4)"
         ]
       },
       "cicd.lead_time_band": {
         "metric_id": "cicd.lead_time_band",
         "band": 4,
-        "rationale": "p50 is 5.5h, which is within the band-4 threshold, and p95 is 20.0h, also within the band-4 threshold. However, the p50 exceeding 4h prevents achieving band-5.",
+        "rationale": "p50 is 5.5h and p95 is 20.0h, both of which meet the thresholds for band-4; however, the p50 exceeds 4h, preventing a higher band.",
         "flags": [],
         "gaps": [
-          "p50 at 5.5h prevents band-5 → optimize deployment processes and reduce bottlenecks → target p50 ≤4h (unlocks band 5)."
+          "p50 at 5.5h prevents band-5 → parallelize tests and cache dependencies → reduce p50 ≤4h (unlocks band 5)."
         ]
       },
       "cicd.change_failure_rate_band": {
@@ -703,7 +707,7 @@
       "cicd.policy_gates_band": {
         "metric_id": "cicd.policy_gates_band",
         "band": 4,
-        "rationale": "All required checks are present, but the integration-tests are flaky, which affects reliability. The other checks have passed successfully.",
+        "rationale": "All required checks are present, with only the integration-tests showing flakiness in the logs. This indicates a strong CI setup, but the flaky nature of one check limits the overall reliability.",
         "present": [
           "pytest",
           "integration-tests",

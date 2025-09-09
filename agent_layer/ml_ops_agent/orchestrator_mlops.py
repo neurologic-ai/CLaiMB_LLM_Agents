@@ -199,7 +199,7 @@ class MLOpsOrchestrator:
 
 
 # ---------------------------
-# Mapping & score helpers (module level; class unchanged)
+# Mapping & score helpers
 # ---------------------------
 
 def _filter_mapping_for_present_metrics(mapping: Dict[str, List[Dict[str, str]]],
@@ -237,7 +237,7 @@ def _band_to_five(band: Any) -> int:
 
 
 # ---------------------------
-# Public module API (keeps class untouched) — inject mapping + score(1..5)
+# Public module API — inject mapping + score(1..5)
 # ---------------------------
 
 def run(snapshot: Dict[str, Any], *, out_dir: Path | str = "runs_mlop_mvp", log_dir: Path | str = "logs/ml_ops") -> Dict[str, Any]:
@@ -249,21 +249,18 @@ def run(snapshot: Dict[str, Any], *, out_dir: Path | str = "runs_mlop_mvp", log_
     aimri_mapping = _filter_mapping_for_present_metrics(MLOPS_METRIC_TO_AIMRI, present_metric_ids)
     aimri_index = _build_reverse_index(aimri_mapping)
 
-    # ---- mutate in-memory results: inject mapping, add score(1..5), drop score_0to100 ----
-    # ---- mutate in-memory results: inject mapping, add score(1..5), drop score_0to100 & band ----
     metrics = base.get("metrics") or {}
     for mid, metric_obj in metrics.items():
         if isinstance(metric_obj, dict):
             # inject AIMRI mapping
             metric_obj["aimri_mapping"] = aimri_mapping.get(mid, [])
-            # add score 1..5 from band
+           
             if "band" in metric_obj and "score" not in metric_obj:
                 metric_obj["score"] = _band_to_five(metric_obj.get("band"))
-            # remove unwanted fields
+          
             metric_obj.pop("score_0to100", None)
             metric_obj.pop("band", None)   # <-- remove band entirely
 
-    # Keep top-level mapping/index too
     base["aimri_mapping"] = aimri_mapping
     base["aimri_index"] = aimri_index
 
