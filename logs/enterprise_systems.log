@@ -1,0 +1,9 @@
+2025-09-09 12:14:00.907 | INFO     | enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-09 12:14:04.132 | INFO     | enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (3225.24 ms)
+2025-09-09 12:14:04.169 | INFO     | enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-09 12:14:07.251 | INFO     | enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (3082.03 ms)
+2025-09-09 12:14:07.290 | INFO     | enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-09 12:14:09.973 | INFO     | enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (2682.92 ms)
+2025-09-09 12:14:10.036 | INFO     | enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call
+2025-09-09 12:14:12.235 | INFO     | enterprise_systems_agent.logging_utils:timed:42 - ✅ done: LLM.call (2199.49 ms)
+2025-09-09 12:14:12.295 | INFO     | enterprise_systems_agent.logging_utils:timed:38 - ▶️ start: LLM.call

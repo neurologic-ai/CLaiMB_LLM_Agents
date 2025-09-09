@@ -57,7 +57,7 @@ It evaluates workflows, SLAs, integration health, AI penetration, and platform r
 ### **1.  Run Once via Orchestrator**
 
 ```sh
-python run_once.py
+python -m  mvp.enterprise_runonce
 ```
 - 	Collects a snapshot of enterprise systems and writes results to `runs_enterprise/`.
 
@@ -114,13 +114,14 @@ python run_once.py
 ```
 ClaimbAI/
 ├── agent_layer/
-│   ├── orchestrator_enterprise.py   # EnterpriseOrchestrator (class-based)
-│   ├── tool_loader_enterprise.py    # compute_* → grader mapping
-│   ├── registry_enterprise.py       # DAG registry (dependencies, categories)
-│   ├── router.py
-│   ├── snapshot_enterprise.py       # Snapshot(dummy input)
-│   ├── aimri_mapping.py             # AIMRI mappings for enterprise metrics
-│   └── validate.py
+│   └── enterrise_systems/
+│       ├── orchestrator_enterprise.py   # EnterpriseOrchestrator (class-based)
+│       ├── tool_loader_enterprise.py    # compute_* → grader mapping
+│       ├── registry_enterprise.py       # DAG registry (dependencies, categories)
+│       ├── router.py
+│       ├── snapshot_enterprise.py       # Snapshot(dummy input)
+│       ├── aimri_mapping.py             # AIMRI mappings for enterprise metrics
+│       └── validate.py
 │ 
 │── data/                        #LLM Backbone related inputs and outputs
 │   ├── sample_inputs/
@@ -138,8 +139,9 @@ ClaimbAI/
 ├── workflows/                   # Snapshot collector + orchestrator call
 │   └── enterprise_workflow.py   
 │
-├── run_once.py                  # CLI entrypoint
-├── logs/       b                # Run + service logs
+├── mvp/
+│   └── run_once.py                  # CLI entrypoint
+├── logs/                        # Run + service logs
 ├── .env                         # OPENAI_API_KEY, OPENAI_MODEL (optional)
 ├── requirements.txt
 └── README.md                    # this file

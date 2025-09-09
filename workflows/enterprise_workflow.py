@@ -5,8 +5,8 @@ from pathlib import Path
 from typing import Any, Dict, Tuple
 from loguru import logger
 
-from agent_layer.snapshot_enterprise import collect_snapshot
-from agent_layer.orchestrator_enterprise import EnterpriseOrchestrator, now_utc_iso
+from agent_layer.enterprise_systems.snapshot_enterprise import collect_snapshot
+from agent_layer.enterprise_systems.orchestrator_enterprise import EnterpriseOrchestrator, now_utc_iso
 from data_collection_agents.enterprise_systems_agent.logging_utils import setup_logger  # NEW
 
 ARTIFACT_DIR = Path("runs_enterprise_mvp")

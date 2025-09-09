@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 from data_collection_agents.enterprise_systems_agent.llm_engine import EnterpriseLLM #noqa:E402
 
 
-from agent_layer.validate import sanitize_metric #noqa:E402
+from agent_layer.enterprise_systems.validate import sanitize_metric #noqa:E402
 
 # Singleton LLM
 _llm = EnterpriseLLM(model="gpt-4o-mini", temperature=0.0)
