@@ -49,7 +49,7 @@
         },
         {
           "dimension": "08. Process Maturity",
-          "subsection": "8.2 Reliability Engineering"
+          "subsection": "8.3 Quality Assurance"
         }
       ]
     },
@@ -139,10 +139,6 @@
         {
           "dimension": "08. Process Maturity",
           "subsection": "8.4 Operational Excellence"
-        },
-        {
-          "dimension": "08. Process Maturity",
-          "subsection": "8.2 Reliability Engineering"
         }
       ]
     },

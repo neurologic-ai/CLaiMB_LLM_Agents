@@ -4,8 +4,8 @@
     "files_processed": 6,
     "metrics_seen": 113,
     "metrics_used": 113,
-    "subsections_count": 53,
-    "dimensions_count": 25
+    "subsections_count": 51,
+    "dimensions_count": 14
   },
   "subsections": {
     "1.1 Cloud Computing Capabilities": {
@@ -147,8 +147,8 @@
       "metric_contributions": 1
     },
     "6.4 Innovation Management": {
-      "score": 3.33,
-      "numerator": 5.0,
+      "score": 3.67,
+      "numerator": 5.5,
       "denominator": 1.5,
       "metric_contributions": 3
     },
@@ -177,8 +177,8 @@
       "metric_contributions": 5
     },
     "8.1 Project Management": {
-      "score": 2.0,
-      "numerator": 3.0,
+      "score": 2.33,
+      "numerator": 3.5,
       "denominator": 1.5,
       "metric_contributions": 3
     },
@@ -188,22 +188,16 @@
       "denominator": 0.33,
       "metric_contributions": 1
     },
-    "8.2 Reliability Engineering": {
-      "score": 3.0,
-      "numerator": 2.0,
-      "denominator": 0.67,
-      "metric_contributions": 2
-    },
     "8.3 Quality Assurance": {
       "score": 2.96,
-      "numerator": 12.83,
-      "denominator": 4.33,
+      "numerator": 13.83,
+      "denominator": 4.67,
       "metric_contributions": 10
     },
     "8.4 Operational Excellence": {
-      "score": 2.63,
-      "numerator": 31.5,
-      "denominator": 12.0,
+      "score": 2.64,
+      "numerator": 32.5,
+      "denominator": 12.33,
       "metric_contributions": 25
     },
     "8.5 Measurement & Metrics": {
@@ -254,17 +248,11 @@
       "denominator": 0.5,
       "metric_contributions": 1
     },
-    "11.2 Privacy & Data Protection": {
-      "score": 2.0,
-      "numerator": 1.0,
-      "denominator": 0.5,
-      "metric_contributions": 2
-    },
     "11.3 Privacy & Data Protection": {
-      "score": 1.0,
-      "numerator": 0.25,
-      "denominator": 0.25,
-      "metric_contributions": 1
+      "score": 1.67,
+      "numerator": 1.25,
+      "denominator": 0.75,
+      "metric_contributions": 3
     },
     "11.5 Human-AI Collaboration": {
       "score": 1.0,
@@ -329,112 +317,58 @@
   },
   "dimensions": {
     "01. Technical Infrastructure": {
-      "score": 2.74,
-      "numerator": 24.17,
-      "denominator": 8.83,
-      "metric_contributions": 13
-    },
-    "1. Technical Infrastructure": {
-      "score": 2.29,
-      "numerator": 8.0,
-      "denominator": 3.5,
-      "metric_contributions": 9
+      "score": 2.61,
+      "numerator": 32.17,
+      "denominator": 12.33,
+      "metric_contributions": 22
     },
     "02. Data Management & Quality": {
-      "score": 2.98,
-      "numerator": 40.75,
-      "denominator": 13.67,
-      "metric_contributions": 20
-    },
-    "2. Data Management & Quality": {
-      "score": 2.45,
-      "numerator": 13.5,
-      "denominator": 5.5,
-      "metric_contributions": 9
+      "score": 2.83,
+      "numerator": 54.25,
+      "denominator": 19.17,
+      "metric_contributions": 29
     },
     "03. AI/ML Capabilities": {
-      "score": 3.27,
-      "numerator": 19.33,
-      "denominator": 5.92,
-      "metric_contributions": 13
-    },
-    "3. AI/ML Capabilities": {
-      "score": 1.82,
-      "numerator": 6.67,
-      "denominator": 3.67,
-      "metric_contributions": 7
+      "score": 2.71,
+      "numerator": 26.0,
+      "denominator": 9.58,
+      "metric_contributions": 20
     },
     "04. Talent & Skills": {
-      "score": 3.0,
-      "numerator": 1.5,
-      "denominator": 0.5,
-      "metric_contributions": 1
-    },
-    "4. Talent & Skills": {
-      "score": 2.25,
-      "numerator": 4.5,
-      "denominator": 2.0,
-      "metric_contributions": 5
-    },
-    "05. Governance & Ethics": {
-      "score": 4.09,
-      "numerator": 23.5,
-      "denominator": 5.75,
-      "metric_contributions": 11
-    },
-    "5. Governance & Ethics": {
-      "score": 2.53,
-      "numerator": 7.17,
-      "denominator": 2.83,
-      "metric_contributions": 7
-    },
-    "06. Strategic Alignment": {
-      "score": 4.67,
-      "numerator": 7.0,
-      "denominator": 1.5,
-      "metric_contributions": 3
-    },
-    "6. Strategic Alignment": {
-      "score": 2.5,
-      "numerator": 5.0,
-      "denominator": 2.0,
-      "metric_contributions": 4
-    },
-    "07. Cultural Readiness": {
-      "score": 4.0,
-      "numerator": 4.0,
-      "denominator": 1.0,
-      "metric_contributions": 2
-    },
-    "7. Cultural Readiness": {
-      "score": 2.36,
-      "numerator": 13.0,
-      "denominator": 5.5,
-      "metric_contributions": 10
-    },
-    "08. Process Maturity": {
-      "score": 3.01,
-      "numerator": 42.67,
-      "denominator": 14.17,
-      "metric_contributions": 26
-    },
-    "8. Process Maturity": {
-      "score": 1.98,
-      "numerator": 13.5,
-      "denominator": 6.83,
-      "metric_contributions": 14
-    },
-    "09. Foundation Model Operations": {
-      "score": 3.77,
-      "numerator": 9.75,
-      "denominator": 2.58,
+      "score": 2.4,
+      "numerator": 6.0,
+      "denominator": 2.5,
       "metric_contributions": 6
     },
-    "9. Foundation Model Operations": {
-      "score": 1.4,
-      "numerator": 1.17,
-      "denominator": 0.83,
-      "metric_contributions": 2
+    "05. Governance & Ethics": {
+      "score": 3.57,
+      "numerator": 30.67,
+      "denominator": 8.58,
+      "metric_contributions": 18
+    },
+    "06. Strategic Alignment": {
+      "score": 3.57,
+      "numerator": 12.5,
+      "denominator": 3.5,
+      "metric_contributions": 7
+    },
+    "07. Cultural Readiness": {
+      "score": 2.62,
+      "numerator": 17.0,
+      "denominator": 6.5,
+      "metric_contributions": 12
+    },
+    "08. Process Maturity": {
+      "score": 2.7,
+      "numerator": 56.67,
+      "denominator": 21.0,
+      "metric_contributions": 40
+    },
+    "09. Foundation Model Operations": {
+      "score": 3.2,
+      "numerator": 10.92,
+      "denominator": 3.42,
+      "metric_contributions": 8
     },
     "10. Generative AI Capabilities": {
       "score": 4.0,
@@ -449,16 +383,10 @@
       "metric_contributions": 5
     },
     "12. AI Business Value & ROI": {
-      "score": 2.69,
-      "numerator": 17.5,
-      "denominator": 6.5,
-      "metric_contributions": 11
-    },
-    "12. Business Impact": {
-      "score": 2.4,
-      "numerator": 6.0,
-      "denominator": 2.5,
-      "metric_contributions": 5
+      "score": 2.61,
+      "numerator": 23.5,
+      "denominator": 9.0,
+      "metric_contributions": 16
     },
     "13. AI Risk & Resilience": {
       "score": 3.41,
@@ -467,16 +395,10 @@
       "metric_contributions": 28
     },
     "14. AI Ecosystem & External Integration": {
-      "score": 4.0,
-      "numerator": 4.0,
-      "denominator": 1.0,
-      "metric_contributions": 2
-    },
-    "14. External Ecosystem": {
-      "score": 3.0,
-      "numerator": 3.0,
-      "denominator": 1.0,
-      "metric_contributions": 2
+      "score": 3.5,
+      "numerator": 7.0,
+      "denominator": 2.0,
+      "metric_contributions": 4
     }
   }
 }
