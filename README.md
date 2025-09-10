@@ -25,6 +25,7 @@ It supports both direct signal extraction and advanced LLM-powered micro-agents 
 - Python 3.9+
 - [pip](https://pip.pypa.io/en/stable/)
 - [OpenAI API key](https://platform.openai.com/account/api-keys)
+- [OpenAI API key](https://platform.openai.com/account/api-keys)
 - (Optional) [tiktoken](https://github.com/openai/tiktoken) for token counting
 
 ---
@@ -51,6 +52,7 @@ It supports both direct signal extraction and advanced LLM-powered micro-agents 
    - Copy `.env.example` to `.env` and fill in your API keys and settings, or edit `.env` directly:
      ```
      OPENAI_API_KEY=sk-...
+
 
      ```
 

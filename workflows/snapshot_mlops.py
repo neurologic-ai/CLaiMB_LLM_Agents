@@ -1,0 +1,147 @@
+# workflows/snapshot_mlops.py
+from typing import Dict, Any
+
+def collect_snapshot() -> Dict[str, Any]:
+    # Minimal demo evidence; replace with real collectors later
+    return {
+        "declared_slo": {"availability": 0.995, "p95_ms": 300, "error_rate": 0.01},
+
+        # MLflow
+        "mlflow_experiment_completeness": {
+            "metric_id": "mlflow.experiment_completeness",
+            "window": {"from": 1722816000, "to": 1725494400},
+            "pct_params": 0.92,
+            "pct_metrics": 0.88,
+            "pct_tags": 0.90,
+            "pct_artifacts": 0.82,
+            "pct_all": 0.82,
+            "samples_missing": [{"run_id": "r_101", "missing": ["artifacts"]}]
+        },
+        "mlflow_lineage_coverage": {
+            "metric_id": "mlflow.lineage_coverage",
+            "pct_git_sha": 0.93,
+            "pct_data_ref": 0.86,
+            "pct_env_files": 0.91,
+            "samples": [{"run_id": "r_77", "git_sha": True, "data_ref": True, "env_files": ["conda.yaml"]}]
+        },
+        "mlflow_best_run_trend": {
+            "metric_id": "mlflow.best_run_trend",
+            "weekly_best": [{"week": "2025-31", "score": 0.71}, {"week": "2025-32", "score": 0.74}, {"week": "2025-33", "score": 0.79}],
+            "improvement_rate_mom": 0.06,
+            "experiments_per_week": 2.1,
+            "direction": "max"
+        },
+        "mlflow_registry_hygiene": {
+            "metric_id": "mlflow.registry_hygiene",
+            "pct_staged": 0.83,
+            "median_stage_latency_h": 60,
+            "rollback_count_30d": 1,
+            "pct_with_approver": 0.88
+        },
+        "mlflow_validation_artifacts": {
+            "metric_id": "mlflow.validation_artifacts",
+            "pct_with_shap": 0.84,
+            "pct_with_bias_report": 0.72,
+            "pct_with_validation_json": 0.88,
+            "pct_overall": 0.81
+        },
+        "mlflow_reproducibility": {
+            "metric_id": "mlflow.reproducibility",
+            "match_rate": 0.88,
+            "signature_conflicts": [{"signature": "sigA", "runs": ["r1", "r8"], "metric_diff": 0.025}]
+        },
+
+        # AML
+        "aml_jobs_flow": {
+            "metric_id": "aml.jobs_flow",
+            "success_rate": 0.94,
+            "p95_duration_min": 38,
+            "lead_time_hours": 6.4
+        },
+        "aml_monitoring_coverage": {
+            "metric_id": "aml.monitoring_coverage",
+            "monitors_enabled": True,
+            "drift_alerts_30d": 2,
+            "median_time_to_ack_h": 1.2
+        },
+        "aml_registry_governance": {
+            "metric_id": "aml.registry_governance",
+            "pct_staged": 0.83,
+            "pct_with_approvals": 0.88,
+            "median_transition_h": 60
+        },
+        "aml_cost_correlation": {
+            "metric_id": "aml.cost_correlation",
+            "cost_join_rate": 0.93,
+            "cost_per_1k_requests": 0.087,
+            "coverage": "tags+resourceId"
+        },
+        "aml_endpoint_slo": {
+            "metric_id": "aml.endpoint_slo",
+            "availability_30d": 0.997,
+            "error_rate": 0.003,
+            "p95_ms": 215
+        },
+
+        # SageMaker
+        "sm_pipeline_stats": {
+            "metric_id": "sm.pipeline_stats",
+            "success_rate": 0.96,
+            "p95_duration_min": 42,
+            "retry_rate": 0.03,
+            "promotion_time_h": 12.0
+        },
+        "sm_experiments_lineage": {
+            "metric_id": "sm.experiments_lineage",
+            "pct_code_ref": 0.9,
+            "pct_data_ref": 0.86,
+            "pct_env": 0.92
+        },
+        "sm_clarify_coverage": {
+            "metric_id": "sm.clarify_coverage",
+            "pct_with_bias_report": 0.81,
+            "pct_with_explainability": 0.84
+        },
+        "sm_cost_efficiency": {
+            "metric_id": "sm.cost_efficiency",
+            "per_1k_inferences_usd": 0.065,
+            "per_training_hour_usd": 3.2,
+            "gpu_mem_headroom_pct": 28,
+            "idle_vs_active_ratio": 0.18
+        },
+        "sm_endpoint_slo_scaling": {
+            "metric_id": "sm.endpoint_slo_scaling",
+            "availability_30d": 0.999,
+            "error_rate": 0.002,
+            "p95_ms": 180,
+            "median_reaction_s": 55,
+            "max_rps_at_slo": 950
+        },
+
+        # CI/CD
+        "cicd_deploy_frequency": {
+            "metric_id": "cicd.deploy_frequency",
+            "freq_per_week": 5.2,
+            "service_count": 7
+        },
+        "cicd_lead_time": {
+            "metric_id": "cicd.lead_time",
+            "p50_hours": 6.8,
+            "p95_hours": 18.2
+        },
+        
+        "cicd_change_failure_rate": {
+            "metric_id": "cicd.change_failure_rate",
+            "cfr": 0.11,
+            "rollbacks_30d": 3
+        },
+        "cicd_policy_gates": {
+            "metric_id": "cicd.policy_gates_band",
+            "required_checks": ["pytest", "integration-tests", "bandit", "trivy", "bias_check", "data_validation"],
+            "workflow_yaml": "jobs:\n  build:\n    steps:\n      - run: pytest\n      - run: bandit -r .\n      - run: trivy fs .\n      - run: make data_validation\n      - run: make bias_check\n  deploy:\n    needs: build\n    steps:\n      - run: ./deploy.sh",
+            "logs_snippets": ["pytest passed", "bandit 0 issues", "trivy no HIGH|CRITICAL", "data_validation ok", "bias_check ok"],
+            "rubric": "5 if all required checks exist and pass before deploy; 3 if partial; 1 if missing most."
+        },
+        
+
+    }
