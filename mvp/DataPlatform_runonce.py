@@ -1,0 +1,3 @@
+from workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner import run_once
+
+run_once()

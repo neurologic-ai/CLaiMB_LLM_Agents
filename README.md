@@ -22,7 +22,7 @@ It supports both direct signal extraction and advanced LLM-powered micro-agents 
 
 ## Requirements
 
-- Python 3.9+
+- Python 3.13.12
 - [pip](https://pip.pypa.io/en/stable/)
 - [OpenAI API key](https://platform.openai.com/account/api-keys)
 - [OpenAI API key](https://platform.openai.com/account/api-keys)
@@ -37,12 +37,11 @@ It supports both direct signal extraction and advanced LLM-powered micro-agents 
    git clone <your-bi-tracker-repo-url>
    cd BI-Tracker
 
-2. **Create and activate a virtual environment:**
+2. **Create and activate a virtual environment:** (may use conda as well)
    ```sh
    python3 -m venv venv
    source venv/bin/activate
    ```
-
 3. **Install dependencies:**
    ```sh
    pip install -r requirements.txt
@@ -55,7 +54,6 @@ It supports both direct signal extraction and advanced LLM-powered micro-agents 
 
 
      ```
-
 ---
 
 ## Usage
@@ -121,7 +119,10 @@ python run_once.py
 
 ---
 
+
 ## Project Structure
+
+AGENT_DATA_PLATFORM_ANALYZER
 
 ```
 ClaimbAI/
@@ -169,3 +170,5 @@ ClaimbAI/
 ## Contact
 
 For questions or contributions, open an issue or pull request on GitHub.
+
+git clone --branch AGENT_ML_OPS_MONITOR https://github.com/neurologic-ai/CLaiMB_LLM_Agents
