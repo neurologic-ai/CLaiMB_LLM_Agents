@@ -22,4 +22,6 @@ agent_layer/llm_providers.py
 save_prompt.py
 GeneratedPrompts/
 runs/
-api.py
+runs_bi_mvp/
+runs_code_repo_mvp/
+runs_enterprise_mvp/
