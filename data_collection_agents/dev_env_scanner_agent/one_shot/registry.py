@@ -1,0 +1,71 @@
+# Data_Collection_Agents/dev_env_scanner/one_shot/registry.py
+from __future__ import annotations
+from typing import Any, Dict
+
+# code-quality example maps (now split)
+from data_collection_agents.dev_env_scanner_agent.one_shot.code_quality_oneshot_examples.cyclomatic_complexity_example import CYCLO_COMPLEXITY_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.code_quality_oneshot_examples.maintainability_index_example import MAINTAINABILITY_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.code_quality_oneshot_examples.docstring_coverage_example import DOCSTRING_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.code_quality_oneshot_examples.nested_loops_example import NESTED_LOOPS_EXAMPLE
+
+# File-system example maps (now split)
+from data_collection_agents.dev_env_scanner_agent.one_shot.file_system_oneshot_examples.test_detection_example import TEST_DETECTION_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.file_system_oneshot_examples.environment_config_example import ENV_CONFIG_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.file_system_oneshot_examples.ci_cd_example import CI_CD_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.file_system_oneshot_examples.deployment_example import DEPLOYMENT_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.file_system_oneshot_examples.experiment_detection_example import EXPERIMENT_DETECTION_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.file_system_oneshot_examples.project_structure_example import PROJECT_STRUCTURE_EXAMPLE
+
+# infrastructure-engineering example maps (now split)
+from data_collection_agents.dev_env_scanner_agent.one_shot.infrastructure_oneshot_examples.parallel_patterns_example import INFRA_PARALLEL_PATTERNS_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.infrastructure_oneshot_examples.inference_endpoint_example import INFRA_INFERENCE_ENDPOINT_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.infrastructure_oneshot_examples.model_export_example import INFRA_MODEL_EXPORT_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.infrastructure_oneshot_examples.data_pipeline_example import INFRA_DATA_PIPELINE_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.infrastructure_oneshot_examples.feature_engineering_example import INFRA_FEATURE_ENGINEERING_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.infrastructure_oneshot_examples.security_hygiene_example import INFRA_SECURITY_HYGIENE_EXAMPLE
+
+# ml-frameworks example maps (now split)
+from data_collection_agents.dev_env_scanner_agent.one_shot.ml_frameworks_oneshot_examples.data_validation_example import MLFRAMEWORK_DATAVALIDATIONAGENT_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.ml_frameworks_oneshot_examples.experiment_tracking_example import MLFRAMEWORK_EXPERIMENTTRACKINGAGENT_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.ml_frameworks_oneshot_examples.hpo_example import MLFRAMEWORK_HYPERPARAMETEROPTIMIZATIONAGENT_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.ml_frameworks_oneshot_examples.ml_framework_agent_example import MLFRAMEWORK_MLFRAMEWORKAGENT_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.ml_frameworks_oneshot_examples.model_training_example import MLFRAMEWORK_MODELTRAININGAGENT_EXAMPLE
+from data_collection_agents.dev_env_scanner_agent.one_shot.ml_frameworks_oneshot_examples.model_evaluation_example import MLFRAMEWORK_MODELEVALUATIONAGENT_EXAMPLE
+
+# Merge into a single registry keyed by agent class name
+_ONE_SHOT_REGISTRY: Dict[str, Dict[str, Any]] = {}
+_ONE_SHOT_REGISTRY.update(CYCLO_COMPLEXITY_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(MAINTAINABILITY_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(DOCSTRING_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(NESTED_LOOPS_EXAMPLE)
+
+_ONE_SHOT_REGISTRY.update(TEST_DETECTION_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(ENV_CONFIG_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(CI_CD_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(DEPLOYMENT_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(EXPERIMENT_DETECTION_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(PROJECT_STRUCTURE_EXAMPLE)
+
+_ONE_SHOT_REGISTRY.update(INFRA_PARALLEL_PATTERNS_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(INFRA_INFERENCE_ENDPOINT_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(INFRA_MODEL_EXPORT_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(INFRA_DATA_PIPELINE_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(INFRA_FEATURE_ENGINEERING_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(INFRA_SECURITY_HYGIENE_EXAMPLE)
+
+_ONE_SHOT_REGISTRY.update(MLFRAMEWORK_MLFRAMEWORKAGENT_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(MLFRAMEWORK_EXPERIMENTTRACKINGAGENT_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(MLFRAMEWORK_HYPERPARAMETEROPTIMIZATIONAGENT_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(MLFRAMEWORK_DATAVALIDATIONAGENT_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(MLFRAMEWORK_MODELTRAININGAGENT_EXAMPLE)
+_ONE_SHOT_REGISTRY.update(MLFRAMEWORK_MODELEVALUATIONAGENT_EXAMPLE)
+
+def get_one_shot(agent_name: str) -> Dict[str, Any]:
+    """
+    Return {"input_key_meanings", "example_input", "example_output"} for an agent.
+    Raises KeyError if not found (so call sites fail fast).
+    """
+    ex = _ONE_SHOT_REGISTRY.get(agent_name)
+    if not ex:
+        raise KeyError(f"No one-shot examples registered for {agent_name}")
+    return ex

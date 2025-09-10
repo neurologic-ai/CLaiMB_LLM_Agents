@@ -1,0 +1,905 @@
+{
+  "run_id": "code-repo-2025-09-09T04-43-24Z",
+  "metrics": {
+    "code.cyclomatic_complexity_band": {
+      "metric_id": "code.cyclomatic_complexity_band",
+      "score": 2,
+      "rationale": "The code exhibits a high average complexity with several functions showing signs of high complexity, particularly in the ResumeParser class and its methods. The presence of multiple nested structures and the use of external libraries without clear encapsulation contribute to a critical level of complexity.",
+      "flags": [
+        "high_average_complexity",
+        "nested_structures"
+      ],
+      "gaps": [
+        "High average complexity across functions → simplify logic and reduce nesting → target avg complexity ≤ 10 (unlocks band 3).",
+        "Multiple functions with high complexity → refactor to smaller, single-responsibility functions → reduce high/very_high complexity to ≤20% (unlocks band 3)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "4. Talent & Skills",
+          "subsection": "4.1 Technical Expertise"
+        },
+        {
+          "dimension": "8. Process Maturity",
+          "subsection": "8.3 Quality Assurance"
+        },
+        {
+          "dimension": "1. Technical Infrastructure",
+          "subsection": "1.2 Computing Resources"
+        }
+      ]
+    },
+    "code.maintainability_band": {
+      "metric_id": "code.maintainability_band",
+      "score": 2,
+      "rationale": "The code demonstrates some strengths in using libraries effectively and has a clear structure for data processing; however, there are significant issues with readability due to inconsistent naming conventions and incomplete function definitions, which hinder maintainability.",
+      "flags": [
+        "incomplete_function_definition",
+        "inconsistent_naming"
+      ],
+      "gaps": [
+        "Incomplete function definition for pdf_reader → complete the function with proper logic → improve readability and maintainability (unlocks band 3).",
+        "Inconsistent naming conventions (e.g., __details, __nlp) → standardize naming across the codebase → enhance readability score ≥0.75 (unlocks band 4)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "8. Process Maturity",
+          "subsection": "8.3 Quality Assurance"
+        },
+        {
+          "dimension": "8. Process Maturity",
+          "subsection": "8.4 Operational Excellence"
+        },
+        {
+          "dimension": "4. Talent & Skills",
+          "subsection": "4.1 Technical Expertise"
+        }
+      ]
+    },
+    "code.docstring_coverage_band": {
+      "metric_id": "code.docstring_coverage_band",
+      "score": 2,
+      "rationale": "While there are some docstrings present, many functions lack documentation, and critical details such as parameter and return descriptions are missing, which limits overall clarity and usability.",
+      "flags": [
+        "missing_function_docs",
+        "incomplete_params"
+      ],
+      "gaps": [
+        "Lack of function documentation → add docstrings to all functions with parameter/return descriptions → achieve ≥0.80 coverage and quality ≥0.75 (unlocks band 4).",
+        "Inconsistent docstring quality → standardize docstring format across all functions → increase docstring_quality ≥0.85 (unlocks band 5)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "8. Process Maturity",
+          "subsection": "8.2 Documentation Practices"
+        },
+        {
+          "dimension": "4. Talent & Skills",
+          "subsection": "4.1 Technical Expertise"
+        },
+        {
+          "dimension": "5. Governance & Ethics",
+          "subsection": "5.5 Transparency Practices"
+        }
+      ]
+    },
+    "code.nested_loops_band": {
+      "metric_id": "code.nested_loops_band",
+      "score": 2,
+      "rationale": "The code exhibits frequent deep nesting, particularly in the data visualization section, which can lead to performance and complexity risks. Additionally, there is limited testing or mitigation strategies in place to handle potential issues arising from this complexity.",
+      "flags": [
+        "nested_depth_4",
+        "performance_risk",
+        "limited_tests"
+      ],
+      "gaps": [
+        "Frequent deep nesting (depth ≥4) in data processing and visualization → refactor to reduce nesting and improve readability → target depth ≤3 (unlocks band 3).",
+        "Lack of tests for critical functions → implement unit tests for key components → ensure reliability and maintainability (unlocks band 3)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "1. Technical Infrastructure",
+          "subsection": "1.2 Computing Resources"
+        },
+        {
+          "dimension": "8. Process Maturity",
+          "subsection": "8.4 Operational Excellence"
+        },
+        {
+          "dimension": "4. Talent & Skills",
+          "subsection": "4.1 Technical Expertise"
+        }
+      ]
+    },
+    "infra.parallel_patterns": {
+      "metric_id": "infra.parallel_patterns",
+      "score": 3,
+      "rationale": "The use of multiprocessing is appropriate for CPU-bound tasks, but there are important safety pieces missing, such as timeouts and graceful shutdown mechanisms. The code lacks back-pressure handling, which could lead to unbounded resource consumption.",
+      "flags": [
+        "multiprocessing_used",
+        "cpu_bound_workload"
+      ],
+      "gaps": [
+        "No timeouts present → implement timeouts for pool tasks → prevents hanging processes (unlocks band 4).",
+        "No graceful shutdown → add termination signals for the pool → safer resource management (supports band 4)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "1. Technical Infrastructure",
+          "subsection": "1.2 Computing Resources"
+        },
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.1 Model Reliability & Robustness"
+        }
+      ]
+    },
+    "infra.security_hygiene": {
+      "metric_id": "infra.security_hygiene",
+      "score": 2,
+      "rationale": "The code contains hardcoded values and lacks strong input validation, which poses material security risks. Additionally, there are no evident mechanisms for managing sensitive data or enforcing strong authentication policies.",
+      "flags": [
+        "hardcoded_values",
+        "weak_validation"
+      ],
+      "gaps": [
+        "Remove hardcoded values and use environment variables or a secrets manager → eliminate exposure of sensitive data (unlocks band 3).",
+        "Implement robust input validation and authentication mechanisms → strengthen security posture (supports band 3–5)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "1. Technical Infrastructure",
+          "subsection": "1.5 Security Infrastructure"
+        },
+        {
+          "dimension": "5. Governance & Ethics",
+          "subsection": "5.2 Regulatory Compliance"
+        },
+        {
+          "dimension": "11. Responsible AI & Social Impact",
+          "subsection": "11.2 Privacy & Data Protection"
+        },
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.5 Regulatory & Legal Compliance"
+        }
+      ]
+    },
+    "infra.data_pipeline": {
+      "metric_id": "infra.data_pipeline",
+      "score": 1,
+      "rationale": "The provided code snippets do not demonstrate any evidence of a structured data pipeline or orchestration framework. There are no retries, SLAs, alerts, validation steps, or monitoring hooks present, indicating a lack of reliability and orchestration.",
+      "flags": [],
+      "gaps": [
+        "Implement a structured orchestration framework (e.g., Airflow, Prefect) → define a clear pipeline with retries and validation → unlocks band 3."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "2. Data Management & Quality",
+          "subsection": "2.2 Data Quality"
+        },
+        {
+          "dimension": "3. AI/ML Capabilities",
+          "subsection": "3.1 Model Development"
+        }
+      ]
+    },
+    "infra.feature_engineering": {
+      "metric_id": "infra.feature_engineering",
+      "score": 2,
+      "rationale": "The code lacks a structured feature engineering pipeline, relying on manual transformations and ad-hoc processing, which poses risks for serving parity. While there are some preprocessing functions, they are not integrated into a cohesive pipeline that ensures reproducibility and persistence of transformers.",
+      "flags": [],
+      "gaps": [
+        "Integrate preprocessing functions into a structured pipeline → establish a consistent feature engineering process → unlocks band 4."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "1. Technical Infrastructure",
+          "subsection": "1.5 Security Infrastructure"
+        },
+        {
+          "dimension": "5. Governance & Ethics",
+          "subsection": "5.2 Regulatory Compliance"
+        },
+        {
+          "dimension": "11. Responsible AI & Social Impact",
+          "subsection": "11.2 Privacy & Data Protection"
+        },
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.5 Regulatory & Legal Compliance"
+        }
+      ]
+    },
+    "ml.framework_maturity": {
+      "metric_id": "ml.framework_maturity",
+      "score": 3,
+      "rationale": "The code primarily uses Streamlit and Plotly for visualization, but there is a mix of various libraries and inconsistent patterns, particularly with the use of multiple data processing libraries and the lack of clear conventions. The presence of multiple frameworks and ad-hoc usage limits the overall clarity and consistency.",
+      "flags": [
+        "mixed_frameworks",
+        "inconsistent_patterns"
+      ],
+      "gaps": [
+        "Inconsistent framework usage → standardize on a primary framework and idiomatic usage → improve clarity and consistency (unlocks band 4)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "3. AI/ML Capabilities",
+          "subsection": "3.3 MLOps Maturity"
+        },
+        {
+          "dimension": "8. Process Maturity",
+          "subsection": "8.4 Operational Excellence"
+        }
+      ]
+    },
+    "ml.data_validation": {
+      "metric_id": "ml.data_validation",
+      "score": 2,
+      "rationale": "The code snippets show some data processing and visualization but lack any formal schema or drift checks, indicating ad-hoc validations only. There are no mechanisms in place to enforce data quality or monitor for drift, which severely limits the reliability of the data handling.",
+      "flags": [
+        "no_schema_checks",
+        "no_drift_monitoring",
+        "no_ci_enforcement"
+      ],
+      "gaps": [
+        "Implement schema validation checks → ensure data integrity before processing → unlocks band 3.",
+        "Add drift monitoring mechanisms → detect changes in data distributions over time → unlocks band 3.",
+        "Integrate CI gating for data validation → prevent deployment of code with bad data assumptions → unlocks band 3."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "2. Data Management & Quality",
+          "subsection": "2.2 Data Quality"
+        },
+        {
+          "dimension": "2. Data Management & Quality",
+          "subsection": "2.4 Data Operations"
+        }
+      ]
+    },
+    "ml.experiment_tracking": {
+      "metric_id": "ml.experiment_tracking",
+      "score": 2,
+      "rationale": "The code snippets show some basic logging of parameters and metrics, but there is a lack of structured tracking for artifacts, signatures, and lineage, which limits the overall effectiveness of the tracking system.",
+      "flags": [
+        "ad-hoc_logging",
+        "artifacts_missing",
+        "signature_missing",
+        "lineage_unknown"
+      ],
+      "gaps": [
+        "Ad-hoc logging → implement consistent logging for parameters and metrics across all functions → structured tracking (unlocks band 3).",
+        "Artifacts missing → ensure model artifacts are saved after training → complete tracking (unlocks band 3).",
+        "Signature missing → log model signature for reproducibility → supports band 3.",
+        "Lineage unknown → track dataset versions used in training → traceable experiments (supports band 3)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "3. AI/ML Capabilities",
+          "subsection": "3.3 MLOps Maturity"
+        },
+        {
+          "dimension": "8. Process Maturity",
+          "subsection": "8.5 Measurement & Metrics"
+        }
+      ]
+    },
+    "ml.hpo_practice": {
+      "metric_id": "ml.hpo_practice",
+      "score": 2,
+      "rationale": "The code snippets lack any evidence of hyperparameter optimization (HPO) strategies, relying instead on hardcoded values and basic data handling without controls. There are no indications of systematic search methods or persistence of parameters, which severely limits the rigor of the approach.",
+      "flags": [
+        "no_hpo"
+      ],
+      "gaps": [
+        "No HPO strategy implemented → introduce a systematic search method (e.g., Optuna) → enable reproducibility (unlocks band 4).",
+        "No persistence of parameters or artifacts → implement logging of best parameters and results → enhance auditability (supports band 4)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "3. AI/ML Capabilities",
+          "subsection": "3.1 Model Development"
+        }
+      ]
+    },
+    "ml.training_practice": {
+      "metric_id": "ml.training_practice",
+      "score": 2,
+      "rationale": "The code snippets show a lack of structured configuration and reliance on hardcoded values, indicating script sprawl. There are no clear entrypoints or mechanisms for checkpoints and reproducibility, which severely limits the training infrastructure.",
+      "flags": [
+        "script_sprawl",
+        "no_configs",
+        "no_checkpoints"
+      ],
+      "gaps": [
+        "Entrypoint structure missing → implement a main function with clear entrypoints → organized training flow (unlocks band 3).",
+        "Configuration management absent → introduce config files for parameters → improve maintainability and clarity (unlocks band 3)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "3. AI/ML Capabilities",
+          "subsection": "3.1 Model Development"
+        },
+        {
+          "dimension": "8. Process Maturity",
+          "subsection": "8.4 Operational Excellence"
+        }
+      ]
+    },
+    "ml.evaluation_practice": {
+      "metric_id": "ml.evaluation_practice",
+      "score": 3,
+      "rationale": "The code includes basic metrics for evaluating resumes, such as extracting details like name, email, and skills, but lacks comprehensive calibration or fairness assessments. The absence of a clear methodology for evaluation limits its effectiveness.",
+      "flags": [
+        "calibration_missing",
+        "fairness_analysis_missing"
+      ],
+      "gaps": [
+        "No calibration metrics → implement evaluation metrics for model performance → enhance reliability (unlocks band 4).",
+        "Fairness not addressed → include bias assessments in resume parsing → improve evaluation completeness (supports band 4)."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "3. AI/ML Capabilities",
+          "subsection": "3.4 Model Governance"
+        },
+        {
+          "dimension": "8. Process Maturity",
+          "subsection": "8.5 Measurement & Metrics"
+        },
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.1 Model Reliability & Robustness"
+        }
+      ]
+    },
+    "fs.tests_practice": {
+      "metric_id": "fs.tests_practice",
+      "score": 1,
+      "rationale": "tests=0, est_cov=0.00, quality=0.00, coverage_report=False",
+      "flags": [],
+      "gaps": [
+        "Increase coverage and add coverage report"
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "8. Process Maturity",
+          "subsection": "8.3 Quality Assurance"
+        },
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.1 Model Reliability & Robustness"
+        }
+      ]
+    },
+    "fs.env_config_maturity": {
+      "metric_id": "fs.env_config_maturity",
+      "score": 3,
+      "rationale": "dep_quality=0.50, env_consistency=0.80, has_any=True",
+      "flags": [],
+      "gaps": [
+        "Add/normalize dependency files and lock versions"
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "1. Technical Infrastructure",
+          "subsection": "1.3 Development Environment"
+        },
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.2 Data & Vendor Resilience"
+        }
+      ]
+    },
+    "fs.ci_cd_maturity": {
+      "metric_id": "fs.ci_cd_maturity",
+      "score": 1,
+      "rationale": "workflows=0, quality=0.00, deploy_auto=0.00",
+      "flags": [],
+      "gaps": [
+        "Add CI workflows and enforce checks"
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "8. Process Maturity",
+          "subsection": "8.1 Project Management"
+        },
+        {
+          "dimension": "8. Process Maturity",
+          "subsection": "8.4 Operational Excellence"
+        }
+      ]
+    },
+    "fs.deployment_maturity": {
+      "metric_id": "fs.deployment_maturity",
+      "score": 1,
+      "rationale": "deploy_files=0, automation=0.00, quality=0.00",
+      "flags": [],
+      "gaps": [
+        "Introduce automated deployment with rollout/rollback"
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "1. Technical Infrastructure",
+          "subsection": "1.4 Integration Architecture"
+        },
+        {
+          "dimension": "9. Foundation Model Operations",
+          "subsection": "9.3 Performance Optimization"
+        }
+      ]
+    },
+    "fs.experiment_org": {
+      "metric_id": "fs.experiment_org",
+      "score": 1,
+      "rationale": "experiment_dirs=0, management=0.00",
+      "flags": [],
+      "gaps": [
+        "Standardize experiment directory & reproducibility"
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "7. Cultural Readiness",
+          "subsection": "7.1 Innovation Mindset"
+        },
+        {
+          "dimension": "7. Cultural Readiness",
+          "subsection": "7.4 Decision Making"
+        }
+      ]
+    },
+    "fs.project_structure": {
+      "metric_id": "fs.project_structure",
+      "score": 3,
+      "rationale": "struct=0.80, docs=0.70, best_practices=0.60",
+      "flags": [],
+      "gaps": [
+        "Improve top-level layout and docs (README, CONTRIBUTING)"
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "1. Technical Infrastructure",
+          "subsection": "1.3 Development Environment"
+        },
+        {
+          "dimension": "8. Process Maturity",
+          "subsection": "8.4 Operational Excellence"
+        }
+      ]
+    },
+    "infra.inference_endpoint": {
+      "metric_id": "infra.inference_endpoint",
+      "score": 2,
+      "rationale": "The code snippets lack a clear serving framework, health checks, and robust error handling. While there are some data processing functions, they do not provide a structured API for model predictions, which is critical for operational readiness.",
+      "flags": [],
+      "gaps": [
+        "Implement a serving framework (e.g., FastAPI) → establish structured endpoints for predictions → target band 4.",
+        "Add health checks and error handling → ensure operational reliability → target band 3."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "1. Technical Infrastructure",
+          "subsection": "1.4 Integration Architecture"
+        },
+        {
+          "dimension": "3. AI/ML Capabilities",
+          "subsection": "3.3 MLOps Maturity"
+        },
+        {
+          "dimension": "9. Foundation Model Operations",
+          "subsection": "9.1 Model Integration & Deployment"
+        },
+        {
+          "dimension": "9. Foundation Model Operations",
+          "subsection": "9.3 Scaling & Distribution"
+        }
+      ]
+    },
+    "infra.model_export": {
+      "metric_id": "infra.model_export",
+      "score": 1,
+      "rationale": "There is no evidence of model export or serialization methods in the provided snippets, which is critical for reproducibility and deployment. The absence of any persistence methods or related metadata significantly limits the assessment.",
+      "flags": [],
+      "gaps": [
+        "Implement model export using standardized methods (e.g., joblib, ONNX) → add persistence methods → unlocks band 5."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "2. Data Management & Quality",
+          "subsection": "2.1 Data Architecture"
+        },
+        {
+          "dimension": "2. Data Management & Quality",
+          "subsection": "2.2 Data Quality"
+        },
+        {
+          "dimension": "2. Data Management & Quality",
+          "subsection": "2.4 Data Operations"
+        }
+      ]
+    }
+  },
+  "aggregates": {
+    "development_maturity": 1.9,
+    "innovation_pipeline": 1.94,
+    "overall_score": 1.92
+  },
+  "aimri_mapping": {
+    "fs.tests_practice": [
+      {
+        "dimension": "8. Process Maturity",
+        "subsection": "8.3 Quality Assurance"
+      },
+      {
+        "dimension": "13. AI Risk & Resilience",
+        "subsection": "13.1 Model Reliability & Robustness"
+      }
+    ],
+    "fs.project_structure": [
+      {
+        "dimension": "1. Technical Infrastructure",
+        "subsection": "1.3 Development Environment"
+      },
+      {
+        "dimension": "8. Process Maturity",
+        "subsection": "8.4 Operational Excellence"
+      }
+    ],
+    "code.maintainability_band": [
+      {
+        "dimension": "8. Process Maturity",
+        "subsection": "8.3 Quality Assurance"
+      },
+      {
+        "dimension": "8. Process Maturity",
+        "subsection": "8.4 Operational Excellence"
+      },
+      {
+        "dimension": "4. Talent & Skills",
+        "subsection": "4.1 Technical Expertise"
+      }
+    ],
+    "code.nested_loops_band": [
+      {
+        "dimension": "1. Technical Infrastructure",
+        "subsection": "1.2 Computing Resources"
+      },
+      {
+        "dimension": "8. Process Maturity",
+        "subsection": "8.4 Operational Excellence"
+      },
+      {
+        "dimension": "4. Talent & Skills",
+        "subsection": "4.1 Technical Expertise"
+      }
+    ],
+    "infra.model_export": [
+      {
+        "dimension": "2. Data Management & Quality",
+        "subsection": "2.1 Data Architecture"
+      },
+      {
+        "dimension": "2. Data Management & Quality",
+        "subsection": "2.2 Data Quality"
+      },
+      {
+        "dimension": "2. Data Management & Quality",
+        "subsection": "2.4 Data Operations"
+      }
+    ],
+    "fs.deployment_maturity": [
+      {
+        "dimension": "1. Technical Infrastructure",
+        "subsection": "1.4 Integration Architecture"
+      },
+      {
+        "dimension": "9. Foundation Model Operations",
+        "subsection": "9.3 Performance Optimization"
+      }
+    ],
+    "infra.security_hygiene": [
+      {
+        "dimension": "1. Technical Infrastructure",
+        "subsection": "1.5 Security Infrastructure"
+      },
+      {
+        "dimension": "5. Governance & Ethics",
+        "subsection": "5.2 Regulatory Compliance"
+      },
+      {
+        "dimension": "11. Responsible AI & Social Impact",
+        "subsection": "11.2 Privacy & Data Protection"
+      },
+      {
+        "dimension": "13. AI Risk & Resilience",
+        "subsection": "13.5 Regulatory & Legal Compliance"
+      }
+    ],
+    "fs.ci_cd_maturity": [
+      {
+        "dimension": "8. Process Maturity",
+        "subsection": "8.1 Project Management"
+      },
+      {
+        "dimension": "8. Process Maturity",
+        "subsection": "8.4 Operational Excellence"
+      }
+    ],
+    "ml.experiment_tracking": [
+      {
+        "dimension": "3. AI/ML Capabilities",
+        "subsection": "3.3 MLOps Maturity"
+      },
+      {
+        "dimension": "8. Process Maturity",
+        "subsection": "8.5 Measurement & Metrics"
+      }
+    ],
+    "ml.framework_maturity": [
+      {
+        "dimension": "3. AI/ML Capabilities",
+        "subsection": "3.3 MLOps Maturity"
+      },
+      {
+        "dimension": "8. Process Maturity",
+        "subsection": "8.4 Operational Excellence"
+      }
+    ],
+    "ml.hpo_practice": [
+      {
+        "dimension": "3. AI/ML Capabilities",
+        "subsection": "3.1 Model Development"
+      }
+    ],
+    "infra.inference_endpoint": [
+      {
+        "dimension": "1. Technical Infrastructure",
+        "subsection": "1.4 Integration Architecture"
+      },
+      {
+        "dimension": "3. AI/ML Capabilities",
+        "subsection": "3.3 MLOps Maturity"
+      },
+      {
+        "dimension": "9. Foundation Model Operations",
+        "subsection": "9.1 Model Integration & Deployment"
+      },
+      {
+        "dimension": "9. Foundation Model Operations",
+        "subsection": "9.3 Scaling & Distribution"
+      }
+    ],
+    "infra.feature_engineering": [
+      {
+        "dimension": "1. Technical Infrastructure",
+        "subsection": "1.5 Security Infrastructure"
+      },
+      {
+        "dimension": "5. Governance & Ethics",
+        "subsection": "5.2 Regulatory Compliance"
+      },
+      {
+        "dimension": "11. Responsible AI & Social Impact",
+        "subsection": "11.2 Privacy & Data Protection"
+      },
+      {
+        "dimension": "13. AI Risk & Resilience",
+        "subsection": "13.5 Regulatory & Legal Compliance"
+      }
+    ],
+    "ml.training_practice": [
+      {
+        "dimension": "3. AI/ML Capabilities",
+        "subsection": "3.1 Model Development"
+      },
+      {
+        "dimension": "8. Process Maturity",
+        "subsection": "8.4 Operational Excellence"
+      }
+    ],
+    "infra.data_pipeline": [
+      {
+        "dimension": "2. Data Management & Quality",
+        "subsection": "2.2 Data Quality"
+      },
+      {
+        "dimension": "3. AI/ML Capabilities",
+        "subsection": "3.1 Model Development"
+      }
+    ],
+    "fs.experiment_org": [
+      {
+        "dimension": "7. Cultural Readiness",
+        "subsection": "7.1 Innovation Mindset"
+      },
+      {
+        "dimension": "7. Cultural Readiness",
+        "subsection": "7.4 Decision Making"
+      }
+    ],
+    "ml.evaluation_practice": [
+      {
+        "dimension": "3. AI/ML Capabilities",
+        "subsection": "3.4 Model Governance"
+      },
+      {
+        "dimension": "8. Process Maturity",
+        "subsection": "8.5 Measurement & Metrics"
+      },
+      {
+        "dimension": "13. AI Risk & Resilience",
+        "subsection": "13.1 Model Reliability & Robustness"
+      }
+    ],
+    "code.cyclomatic_complexity_band": [
+      {
+        "dimension": "4. Talent & Skills",
+        "subsection": "4.1 Technical Expertise"
+      },
+      {
+        "dimension": "8. Process Maturity",
+        "subsection": "8.3 Quality Assurance"
+      },
+      {
+        "dimension": "1. Technical Infrastructure",
+        "subsection": "1.2 Computing Resources"
+      }
+    ],
+    "code.docstring_coverage_band": [
+      {
+        "dimension": "8. Process Maturity",
+        "subsection": "8.2 Documentation Practices"
+      },
+      {
+        "dimension": "4. Talent & Skills",
+        "subsection": "4.1 Technical Expertise"
+      },
+      {
+        "dimension": "5. Governance & Ethics",
+        "subsection": "5.5 Transparency Practices"
+      }
+    ],
+    "infra.parallel_patterns": [
+      {
+        "dimension": "1. Technical Infrastructure",
+        "subsection": "1.2 Computing Resources"
+      },
+      {
+        "dimension": "13. AI Risk & Resilience",
+        "subsection": "13.1 Model Reliability & Robustness"
+      }
+    ],
+    "fs.env_config_maturity": [
+      {
+        "dimension": "1. Technical Infrastructure",
+        "subsection": "1.3 Development Environment"
+      },
+      {
+        "dimension": "13. AI Risk & Resilience",
+        "subsection": "13.2 Data & Vendor Resilience"
+      }
+    ],
+    "ml.data_validation": [
+      {
+        "dimension": "2. Data Management & Quality",
+        "subsection": "2.2 Data Quality"
+      },
+      {
+        "dimension": "2. Data Management & Quality",
+        "subsection": "2.4 Data Operations"
+      }
+    ]
+  },
+  "aimri_index": {
+    "1. Technical Infrastructure: 1.2 Computing Resources": [
+      "code.cyclomatic_complexity_band",
+      "code.nested_loops_band",
+      "infra.parallel_patterns"
+    ],
+    "1. Technical Infrastructure: 1.3 Development Environment": [
+      "fs.env_config_maturity",
+      "fs.project_structure"
+    ],
+    "1. Technical Infrastructure: 1.4 Integration Architecture": [
+      "fs.deployment_maturity",
+      "infra.inference_endpoint"
+    ],
+    "1. Technical Infrastructure: 1.5 Security Infrastructure": [
+      "infra.feature_engineering",
+      "infra.security_hygiene"
+    ],
+    "11. Responsible AI & Social Impact: 11.2 Privacy & Data Protection": [
+      "infra.feature_engineering",
+      "infra.security_hygiene"
+    ],
+    "13. AI Risk & Resilience: 13.1 Model Reliability & Robustness": [
+      "fs.tests_practice",
+      "infra.parallel_patterns",
+      "ml.evaluation_practice"
+    ],
+    "13. AI Risk & Resilience: 13.2 Data & Vendor Resilience": [
+      "fs.env_config_maturity"
+    ],
+    "13. AI Risk & Resilience: 13.5 Regulatory & Legal Compliance": [
+      "infra.feature_engineering",
+      "infra.security_hygiene"
+    ],
+    "2. Data Management & Quality: 2.1 Data Architecture": [
+      "infra.model_export"
+    ],
+    "2. Data Management & Quality: 2.2 Data Quality": [
+      "infra.data_pipeline",
+      "infra.model_export",
+      "ml.data_validation"
+    ],
+    "2. Data Management & Quality: 2.4 Data Operations": [
+      "infra.model_export",
+      "ml.data_validation"
+    ],
+    "3. AI/ML Capabilities: 3.1 Model Development": [
+      "infra.data_pipeline",
+      "ml.hpo_practice",
+      "ml.training_practice"
+    ],
+    "3. AI/ML Capabilities: 3.3 MLOps Maturity": [
+      "infra.inference_endpoint",
+      "ml.experiment_tracking",
+      "ml.framework_maturity"
+    ],
+    "3. AI/ML Capabilities: 3.4 Model Governance": [
+      "ml.evaluation_practice"
+    ],
+    "4. Talent & Skills: 4.1 Technical Expertise": [
+      "code.cyclomatic_complexity_band",
+      "code.docstring_coverage_band",
+      "code.maintainability_band",
+      "code.nested_loops_band"
+    ],
+    "5. Governance & Ethics: 5.2 Regulatory Compliance": [
+      "infra.feature_engineering",
+      "infra.security_hygiene"
+    ],
+    "5. Governance & Ethics: 5.5 Transparency Practices": [
+      "code.docstring_coverage_band"
+    ],
+    "7. Cultural Readiness: 7.1 Innovation Mindset": [
+      "fs.experiment_org"
+    ],
+    "7. Cultural Readiness: 7.4 Decision Making": [
+      "fs.experiment_org"
+    ],
+    "8. Process Maturity: 8.1 Project Management": [
+      "fs.ci_cd_maturity"
+    ],
+    "8. Process Maturity: 8.2 Documentation Practices": [
+      "code.docstring_coverage_band"
+    ],
+    "8. Process Maturity: 8.3 Quality Assurance": [
+      "code.cyclomatic_complexity_band",
+      "code.maintainability_band",
+      "fs.tests_practice"
+    ],
+    "8. Process Maturity: 8.4 Operational Excellence": [
+      "code.maintainability_band",
+      "code.nested_loops_band",
+      "fs.ci_cd_maturity",
+      "fs.project_structure",
+      "ml.framework_maturity",
+      "ml.training_practice"
+    ],
+    "8. Process Maturity: 8.5 Measurement & Metrics": [
+      "ml.evaluation_practice",
+      "ml.experiment_tracking"
+    ],
+    "9. Foundation Model Operations: 9.1 Model Integration & Deployment": [
+      "infra.inference_endpoint"
+    ],
+    "9. Foundation Model Operations: 9.3 Performance Optimization": [
+      "fs.deployment_maturity"
+    ],
+    "9. Foundation Model Operations: 9.3 Scaling & Distribution": [
+      "infra.inference_endpoint"
+    ]
+  },
+  "artifact_path": "runs_code_repo_mvp/code-repo-2025-09-09T04-43-24Z.json"
+}
