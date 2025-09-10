@@ -22,9 +22,9 @@ from enterprise_systems_agent.logging_utils import setup_logger # noqa: E402
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Run Enterprise Systems agent on JSON input(s).")
-    p.add_argument("--inputs", default="data/sample_inputs", help="File or directory of JSON.")
-    p.add_argument("--out", default="data/aggregate_results.json", help="Aggregate output path.")
-    p.add_argument("--per-input-dir", default="data/Output", help="Where to write per-input JSONs.")
+    p.add_argument("--inputs", default="data/inputs/enterprise_systems_inputs", help="File or directory of JSON.")
+    p.add_argument("--out", default="data/enterprise_aggregate_results.json", help="Aggregate output path.")
+    p.add_argument("--per-input-dir", default="data/outputs/enterprise_systems_outputs", help="Where to write per-input JSONs.")
     p.add_argument("--model", default=os.getenv("OPENAI_MODEL","gpt-4o-mini"))
     p.add_argument("--temperature", type=float, default=0.0)
     return p.parse_args()

@@ -9,8 +9,8 @@ from agent_layer.enterprise_systems.snapshot_enterprise import collect_snapshot
 from agent_layer.enterprise_systems.orchestrator_enterprise import EnterpriseOrchestrator, now_utc_iso
 from data_collection_agents.enterprise_systems_agent.logging_utils import setup_logger  # NEW
 
-ARTIFACT_DIR = Path("runs_enterprise_mvp")
-LOGS_DIR = Path("logs")  # NEW
+ARTIFACT_DIR = Path("agent_layer_outputs/enterprise_systems")
+LOGS_DIR = Path("logs")
 
 
 class EnterpriseWorkflow:
