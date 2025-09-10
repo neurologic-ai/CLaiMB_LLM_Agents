@@ -70,15 +70,15 @@ ENTERPRISE_METRIC_TO_AIMRI: Dict[str, List[Dict[str, str]]] = {
 
     # ---- Integration & Data Health ----
     "integration.data_sync_latency": [
-        {"dimension": "01. Technical Infrastructure",    "subsection": "1.5 Integration Architecture"},
+        {"dimension": "01. Technical Infrastructure",    "subsection": "1.4 Integration Architecture"},
         {"dimension": "14. AI Ecosystem & External Integration", "subsection": "14.1 Customer AI Integration"},
     ],
     "api.reliability": [
-        {"dimension": "01. Technical Infrastructure",    "subsection": "1.5 Integration Architecture"},
+        {"dimension": "01. Technical Infrastructure",    "subsection": "1.4 Integration Architecture"},
         {"dimension": "13. AI Risk & Resilience",        "subsection": "13.1 Model Reliability & Robustness"},
     ],
     "integration.topology_health": [
-        {"dimension": "01. Technical Infrastructure",    "subsection": "1.5 Integration Architecture"},
+        {"dimension": "01. Technical Infrastructure",    "subsection": "1.4 Integration Architecture"},
         {"dimension": "14. AI Ecosystem & External Integration", "subsection": "14.2 Supplier & Vendor AI Collaboration"},
     ],
     "mdm.duplicate_rate": [
@@ -92,7 +92,7 @@ ENTERPRISE_METRIC_TO_AIMRI: Dict[str, List[Dict[str, str]]] = {
 
     # ---- AI Integration & Outcomes ----
     "ai.penetration": [
-        {"dimension": "03. AI/ML Capabilities",          "subsection": "3.4 Advanced Capabilities"},
+        {"dimension": "03. AI/ML Capabilities",          "subsection": "3.5 Advanced Capabilities"},
         {"dimension": "12. AI Business Value & ROI",     "subsection": "12.1 Revenue Generation & Growth"},
     ],
     "ai.outcome_uplift": [
@@ -106,8 +106,8 @@ ENTERPRISE_METRIC_TO_AIMRI: Dict[str, List[Dict[str, str]]] = {
 
     # ---- Platform Health, Change & Risk ----
     "platform.customization_debt": [
-        {"dimension": "01. Technical Infrastructure",    "subsection": "1.4 Development Environment"},
-        {"dimension": "13. AI Risk & Resilience",        "subsection": "13.2 Data Dependency Risks"},
+        {"dimension": "01. Technical Infrastructure",    "subsection": "1.3 Development Environment"},
+        {"dimension": "13. AI Risk & Resilience",        "subsection": "13.2 Data Dependability & Trust" },
     ],
     "change.failure_rate": [
         {"dimension": "08. Process Maturity",           "subsection": "8.3 Quality Assurance"},

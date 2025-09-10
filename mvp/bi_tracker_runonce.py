@@ -2,10 +2,16 @@
 from __future__ import annotations
 import os
 import json
+import sys
+from pathlib import Path
 from dotenv import load_dotenv
 
-from workflows.bi_tracker_workflow import run_workflow 
-from data_collection_agents.bi_tracker_agent.logging_utils import setup_logger
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from workflows.bi_tracker_workflow import run_workflow #noqa : E402
+from data_collection_agents.bi_tracker_agent.logging_utils import setup_logger #noqa : E402
 
 
 def main() -> None:

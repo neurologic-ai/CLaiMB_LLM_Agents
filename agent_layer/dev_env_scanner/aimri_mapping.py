@@ -33,7 +33,7 @@ CODE_REPO_METRIC_TO_AIMRI: Dict[str, List[Dict[str, str]]] = {
     ],
     "fs.env_config_maturity": [
         {"dimension": "1. Technical Infrastructure",    "subsection": "1.3 Development Environment"},
-        {"dimension": "13. AI Risk & Resilience",       "subsection": "13.2 Data & Vendor Resilience"},
+        {"dimension": "13. AI Risk & Resilience",       "subsection": "13.2 Data Dependability & Trust"},
     ],
     "fs.ci_cd_maturity": [
         {"dimension": "8. Process Maturity",            "subsection": "8.1 Project Management"},
@@ -61,7 +61,7 @@ CODE_REPO_METRIC_TO_AIMRI: Dict[str, List[Dict[str, str]]] = {
         {"dimension": "1. Technical Infrastructure",    "subsection": "1.4 Integration Architecture"},
         {"dimension": "3. AI/ML Capabilities",          "subsection": "3.3 MLOps Maturity"},
         {"dimension": "9. Foundation Model Operations", "subsection": "9.1 Model Integration & Deployment"},
-        {"dimension": "9. Foundation Model Operations", "subsection": "9.3 Scaling & Distribution"},
+        {"dimension": "9. Foundation Model Operations", "subsection": "9.5 Scaling & Distribution"},
     ],
     "infra.model_export": [
         {"dimension": "2. Data Management & Quality",   "subsection": "2.1 Data Architecture"},

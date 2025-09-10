@@ -9,12 +9,12 @@ MLOPS_METRIC_TO_AIMRI: Dict[str, List[Dict[str, str]]] = {
         {"dimension": "08. Process Maturity",            "subsection": "8.5 Measurement & Metrics"},
     ],
     "mlflow.lineage_coverage_band": [
-        {"dimension": "05. Governance & Ethics",         "subsection": "5.4 Transparency Practices"},
+        {"dimension": "05. Governance & Ethics",         "subsection": "5.5 Transparency Practices"},
         {"dimension": "02. Data Management & Quality",   "subsection": "2.3 Data Governance"},
     ],
     "mlflow.experiment_velocity_band": [
         {"dimension": "07. Cultural Readiness",          "subsection": "7.1 Innovation Mindset"},
-        {"dimension": "06. Strategic Alignment",         "subsection": "6.5 Innovation Management"},
+        {"dimension": "06. Strategic Alignment",         "subsection": "6.4 Innovation Management"},
     ],
     "mlflow.registry_hygiene_band": [
         {"dimension": "05. Governance & Ethics",         "subsection": "5.2 Regulatory Compliance"},
@@ -61,11 +61,11 @@ MLOPS_METRIC_TO_AIMRI: Dict[str, List[Dict[str, str]]] = {
         {"dimension": "03. AI/ML Capabilities",          "subsection": "3.3 MLOps Maturity"},
     ],
     "sm.experiments_lineage_band": [
-        {"dimension": "05. Governance & Ethics",         "subsection": "5.4 Transparency Practices"},
+        {"dimension": "05. Governance & Ethics",         "subsection": "5.5 Transparency Practices"},
         {"dimension": "02. Data Management & Quality",   "subsection": "2.3 Data Governance"},
     ],
     "sm.clarify_coverage_band": [
-        {"dimension": "01. Technical Infrastructure",    "subsection": "1.1 Algorithmic Fairness & Bias Mitigation"},
+        {"dimension": "11. Responsible AI & Social Impact",    "subsection": "11.1 Algorithmic Fairness & Bias Mitigation"},
         {"dimension": "05. Governance & Ethics",         "subsection": "5.3 Risk Management"},
     ],
     "sm.cost_efficiency_band": [
@@ -80,7 +80,7 @@ MLOPS_METRIC_TO_AIMRI: Dict[str, List[Dict[str, str]]] = {
     ],
     "cicd.lead_time_band": [
         {"dimension": "08. Process Maturity",            "subsection": "8.4 Operational Excellence"},
-        {"dimension": "06. Strategic Alignment",         "subsection": "6.5 Innovation Management"},
+        {"dimension": "06. Strategic Alignment",         "subsection": "6.4 Innovation Management"},
     ],
     "cicd.change_failure_rate_band": [
         {"dimension": "13. AI Risk & Resilience",        "subsection": "13.1 Model Reliability & Robustness"},

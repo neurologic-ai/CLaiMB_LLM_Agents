@@ -46,6 +46,7 @@ def _extract_metric_blocks_from_json(payload: Any) -> Iterable[Dict[str, Any]]:
 
     Accepts shapes like:
     - {"metrics": { "<id>": {...metric...}, ... }}
+    - {"results": { "<id>": {...metric...}, ... }}   # <— add this
     - { "<id>": {...metric...}, ... }  (top-level mapping)
     """
     if isinstance(payload, dict):
@@ -55,7 +56,15 @@ def _extract_metric_blocks_from_json(payload: Any) -> Iterable[Dict[str, Any]]:
             for v in m.values():
                 if _is_metric_block(v):
                     yield v
-        # shape 2: top-level keys
+
+        # shape 2: nested under "results"  <-- ADD THIS BLOCK
+        r = payload.get("results")
+        if isinstance(r, dict):
+            for v in r.values():
+                if _is_metric_block(v):
+                    yield v
+
+        # shape 3: top-level keys
         for v in payload.values():
             if _is_metric_block(v):
                 yield v
