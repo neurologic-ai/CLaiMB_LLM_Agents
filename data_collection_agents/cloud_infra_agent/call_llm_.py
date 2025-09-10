@@ -1,10 +1,12 @@
 # llm_caller.py
 from typing import Any, Dict
 
-from cloud_infra_agent.base_agents import BaseMicroAgent
-from cloud_infra_agent.metrics import build_prompt
+
 from loguru import logger
 import traceback
+
+from data_collection_agents.cloud_infra_agent.base_agents import BaseMicroAgent
+from data_collection_agents.cloud_infra_agent.metrics import build_prompt
 
 def call_llm(agent: BaseMicroAgent, metric_id: str, task_input: Dict[str, Any]) -> Dict[str, Any]:
     """

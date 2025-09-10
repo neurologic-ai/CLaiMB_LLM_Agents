@@ -11,12 +11,14 @@ from datetime import datetime, timezone
 from loguru import logger
 
 # ── your existing modules ──────────────────────────────────────────────────────
-from cloud_infra_agent.config import Input_File_For_Metric_map
-from workflows.monitor_workflow import run_workflow
+
+from data_collection_agents.cloud_infra_agent.config import Input_File_For_Metric_map
+from data_collection_agents.cloud_infra_agent.logging_utils import setup_logger, timed
+from workflows.cloud_infra_workflow import run_workflow
 
 # If your helpers live elsewhere, adjust this import accordingly.
 # Based on your snippet/logs, this path should be correct.
-from cloud_infra_agent.logging_utils import setup_logger, timed
+
 
 
 def _load_metric_files_via_map(batch_dir: str) -> Dict[str, Any]:
@@ -56,7 +58,7 @@ class CloudInfraOrchestrator:
     def __init__(
         self,
         batch_dir: str,
-        runs_dir: str = "runs",
+        runs_dir: str = "agent_layer_outputs/cloud_infra",
         *,
         log_dir: str = "logs",
         log_level: str = "INFO",
@@ -120,27 +122,27 @@ class CloudInfraOrchestrator:
 
 
 
-# Optional: simple CLI entrypoint
-if __name__ == "__main__":
-    import argparse
+# # Optional: simple CLI entrypoint
+# if __name__ == "__main__":
+#     import argparse
 
-    parser = argparse.ArgumentParser(description="Cloud Infra Orchestrator (single run)")
-    parser.add_argument("--batch-dir", required=True, help="Directory containing input JSON files")
-    parser.add_argument("--runs-dir", default="runs", help="Directory to write <run_id>.json")
-    parser.add_argument("--log-dir", default="logs", help="Directory to write per-run <run_id>.log")
-    parser.add_argument("--log-level", default="INFO", help="Log level (DEBUG, INFO, WARNING, ERROR)")
-    parser.add_argument("--serialize-logs", action="store_true", help="Write JSON-serialized logs")
-    parser.add_argument("--max-workers", type=int, default=8, help="Parallel workers for metrics")
-    parser.add_argument("--run-id", default=None, help="Override generated run id")
+#     parser = argparse.ArgumentParser(description="Cloud Infra Orchestrator (single run)")
+#     parser.add_argument("--batch-dir", required=True, help="Directory containing input JSON files")
+#     parser.add_argument("--runs-dir", default="runs", help="Directory to write <run_id>.json")
+#     parser.add_argument("--log-dir", default="logs", help="Directory to write per-run <run_id>.log")
+#     parser.add_argument("--log-level", default="INFO", help="Log level (DEBUG, INFO, WARNING, ERROR)")
+#     parser.add_argument("--serialize-logs", action="store_true", help="Write JSON-serialized logs")
+#     parser.add_argument("--max-workers", type=int, default=8, help="Parallel workers for metrics")
+#     parser.add_argument("--run-id", default=None, help="Override generated run id")
 
-    args = parser.parse_args()
+#     args = parser.parse_args()
 
-    orch = CloudInfraOrchestrator(
-        batch_dir=args.batch_dir,
-        runs_dir=args.runs_dir,
-        log_dir=args.log_dir,            # <-- per-run logs directory
-        log_level=args.log_level,
-        serialize_logs=args.serialize_logs,
-        max_workers=args.max_workers,
-    )
-    orch.run_once(run_id=args.run_id)
+#     orch = CloudInfraOrchestrator(
+#         batch_dir=args.batch_dir,
+#         runs_dir=args.runs_dir,
+#         log_dir=args.log_dir,            # <-- per-run logs directory
+#         log_level=args.log_level,
+#         serialize_logs=args.serialize_logs,
+#         max_workers=args.max_workers,
+#     )
+#     orch.run_once(run_id=args.run_id)

@@ -1,8 +1,10 @@
 # agent_layer/tool_loader.py
 import functools
 from typing import Callable, Any
-from agent_layer.validate import make_validated_metric
-from cloud_infra_agent.agent_wrappers import run_metric
+
+from agent_layer.cloud_infra_agent.validate import make_validated_metric
+from data_collection_agents.cloud_infra_agent.agent_wrappers import run_metric
+
 
 def load_function(metric_id: str) -> Callable[..., Any]:
     # make a function(ctx) that calls run_metric(ctx, metric_id)

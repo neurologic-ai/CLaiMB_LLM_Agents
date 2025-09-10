@@ -13,3 +13,7 @@ cloud_infra_agent/__pycache__
 cloud_infra_agent/__pycache__/__init__.cpython-313.pyc
 cloud_infra_agent/__pycache__/__init__.cpython-313.pyc
 agent_layer/llm_providers.py
+save_prompt.py
+GeneratedPrompts/
+runs/
+api.py

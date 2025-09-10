@@ -6,11 +6,11 @@ from textwrap import shorten
 import os, json, time
 
 from loguru import logger
-from cloud_infra_agent.logging_utils import timed
 
-from agent_layer.registry import LEVEL0, LEVEL1_DEPS, CATEGORIES
-from agent_layer.tool_loader import load_function
-from agent_layer.aimri_mapping import CLOUD_INFRA_METRIC_TO_AIMRI
+from agent_layer.cloud_infra_agent.aimri_mapping import CLOUD_INFRA_METRIC_TO_AIMRI
+from agent_layer.cloud_infra_agent.registry import CATEGORIES, LEVEL0, LEVEL1_DEPS
+from agent_layer.cloud_infra_agent.tool_loader import load_function
+from data_collection_agents.cloud_infra_agent.logging_utils import timed
 
 # ---------------------------
 # Helpers for formatting logs

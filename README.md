@@ -8,16 +8,32 @@ You can run the agent **via CLI** *or* **via API (FastAPI)**.
 ## 📦 Repository Structure
 ```text
 CLaiMB_LLM_Agents/
-├─ agent_layer/                  # Orchestrator class and helpers
-├─ cloud_infra_agent/            # Backbone metrics and utilities
-│  └─ Data/
-│     └─ Inputs/
-│        └─ Sample2/             # Example input JSONs (per-metric)
-├─ workflows/                    # monitor_workflow (L0/L1 orchestration)
-├─ logs/                         # Per-run log files
-├─ runs/                         # Per-run JSON outputs (<run_id>.json)
-├─ api.py                        # FastAPI service (run/status/list endpoints)
-├─ .env.example                  # Sample environment
+├─ agent_layer/                         
+│  └─ cloud_infra_agent/
+│     ├─ amiri_mapping.py               # AIMRI dimension mappings
+│     ├─ orchestrator.py                # CloudInfraOrchestrator (entry used by CLI/API)
+│     ├─ registry.py                    # (LEVEL0, LEVEL1 metrics)
+│     ├─ schemas.py
+│     ├─ tool_loader.py
+│     └─ validate.py     
+├─ data_collection_agents/               # Backbone "Cloud Infra Agent" (DO NOT MODIFY backbone)
+│  └─ cloud_infra_agent/
+├─ data/
+│  └─ inputs/
+│     └─ cloud_infra_inputs/
+│        └─ Sample2/                     # Example per-metric JSONs (edit to try your own)
+├─ mvp/
+│  └─ cloud_infra_runonce.py             # Simple CLI wrapper around CloudInfraOrchestrator
+├─ services/
+│  └─ cloud_infra_service.py             # FastAPI service (run/status/list endpoints)
+├─ agent_layer_outputs/
+│  └─ cloud_infra/                       # Default <run_id>.json outputs (configurable)
+├─ logs/
+│  └─ cloud_infra/                       # Default per-run logs (configurable)
+├─ workflows/
+│  └─ cloud_infra_workflow.py            # L0 fan-out, L1-after-deps execution plan
+├─ .env.example                          # Copy to .env and edit
+├─ README.md
 └─ requirements.txt
 ```
 
@@ -43,26 +59,33 @@ You have **two** supported ways to run the agent.
 
 ### Option A — CLI (recommended for local runs)
 
-The orchestrator is exposed as a CLI via `agent_layer.orchestrator`.  
-**`--batch-dir` is required** and must point to a folder containing the per‑metric JSONs (e.g., `cloud_infra_agent/Data/Inputs/Sample2`).
+The orchestrator is exposed via `mvp.cloud_infra_runonce`.
 
 ```bash
-# Basic run (writes runs/<run_id>.json and logs/<run_id>.log)
-python -m agent_layer.orchestrator   --batch-dir cloud_infra_agent/Data/Inputs/Sample2
+# Basic run (writes agent_layer_outputs/cloud_infra/<run_id>.json and logs/cloud_infra/<run_id>.log)
+python -m mvp.cloud_infra_runonce --batch-dir data/inputs/cloud_infra_inputs/Sample2
+```
 
+Common flags:
+
+```bash
+# choose output + logs folders, enable JSON logs, control workers
+python -m mvp.cloud_infra_runonce \  --batch-dir data/inputs/cloud_infra_inputs/Sample2 \  --runs-dir agent_layer_outputs/cloud_infra \  --log-dir logs/cloud_infra \  --serialize-logs \  --max-workers 8
 ```
 
 Artifacts:
-- Output JSON: `runs/<run_id>.json`
-- Log file: `logs/<run_id>.log`
+- Output JSON: `agent_layer_outputs/cloud_infra/<run_id>.json`
+- Log file: `logs/cloud_infra/<run_id>.log`
+
+---
 
 ### Option B — API (FastAPI)
 
 The API wraps the same orchestrator class. Before starting the server, set at least **`BATCH_DIR`** so the API knows where to read inputs from. You can also configure `RUNS_DIR`, `LOGS_DIR`, and an `API_KEY` for header‑based auth.
 
-
-
-uvicorn api:app --reload --host 127.0.0.1 --port 8000
+```bash
+# Start the server
+uvicorn services.cloud_infra_service:app --reload --host 127.0.0.1 --port 8000
 ```
 
 #### Endpoints
@@ -94,11 +117,11 @@ Key environment variables (used by API):
 | Variable     | Purpose                                  | Default |
 |--------------|------------------------------------------|---------|
 | `BATCH_DIR`  | Folder containing metric input JSONs      | — (required for API) |
-| `RUNS_DIR`   | Where to store `<run_id>.json` outputs     | `runs`  |
-| `LOGS_DIR`   | Where to store `<run_id>.log` files        | `logs`  |
+| `RUNS_DIR`   | Where to store `<run_id>.json` outputs     | `agent_layer_outputs/cloud_infra`  |
+| `LOGS_DIR`   | Where to store `<run_id>.log` files        | `logs/cloud_infra`  |
 | `API_KEY`    | Optional header auth for API requests      | — (required for API)   |
 
-Metric‑to‑file mapping is defined in `cloud_infra_agent/config.py` (`Input_File_For_Metric_map`).
+Metric‑to‑file mapping is defined in `data_collection_agents/cloud_infra_agent/config.py` (`Input_File_For_Metric_map`).
 
 ---
 
@@ -106,4 +129,4 @@ Metric‑to‑file mapping is defined in `cloud_infra_agent/config.py` (`Input_F
 
 1. Orchestrator loads metric inputs from `--batch-dir` (or `BATCH_DIR` for API).
 2. Level‑0 metrics execute (fan‑out), then Level‑1 metrics execute after deps.
-3. Aggregated results are written to `runs/<run_id>.json`; logs to `logs/<run_id>.log`.
+3. Aggregated results are written to `agent_layer_outputs/cloud_infra/<run_id>.json`; logs to `logs/cloud_infra/<run_id>.log`.
