@@ -50,9 +50,9 @@ CLOUD_INFRA_METRIC_TO_AIMRI: Dict[str, List[dict]] = {
         {"dimension": "02. Data Management & Quality",  "subsection": "2.4 Data Operations"},
     ],
     "lb.performance": [
+        {"dimension": "01. Technical Infrastructure",   "subsection": "1.4 Integration Architecture"},
         {"dimension": "08. Process Maturity",           "subsection": "8.3 Quality Assurance"},
         {"dimension": "08. Process Maturity",           "subsection": "8.4 Operational Excellence"},
-        {"dimension": "08. Process Maturity",           "subsection": "8.2 Reliability Engineering"},
     ],
     "storage.efficiency": [
         {"dimension": "08. Process Maturity",           "subsection": "8.4 Operational Excellence"},
@@ -65,7 +65,6 @@ CLOUD_INFRA_METRIC_TO_AIMRI: Dict[str, List[dict]] = {
     "availability.incidents": [
         {"dimension": "08. Process Maturity",           "subsection": "8.3 Quality Assurance"},
         {"dimension": "08. Process Maturity",           "subsection": "8.4 Operational Excellence"},
-        {"dimension": "08. Process Maturity",           "subsection": "8.2 Reliability Engineering"},
     ],
     "cost.idle_underutilized": [
         {"dimension": "12. AI Business Value & ROI",    "subsection": "12.2 Cost Reduction & Efficiency"},
