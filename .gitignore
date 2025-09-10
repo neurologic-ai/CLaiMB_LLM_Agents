@@ -4,3 +4,11 @@ venv/
 .env
 __pycache__/
 input_repos/
+.DS_Store
+save_prompt.py
+data_collection_agents/cloud_infra_agent/test.py
+GeneratedPrompts/
+GeneratedPrompts/compute_utilization.txt
+GeneratedPrompts/cost_allocation_quality.txt
+.gitignore
+GeneratedPrompts/cost_commit_coverage.txt

@@ -1,0 +1,1351 @@
+Metrics for Computation,Function Developed,Function Description,Input Data Sources,Input JSON,Output JSON,Prompts Used (if any),Mapping
+tagging.coverage,score_tagging_coverage,Checks table/column schema conformance across environments and datasets; flags type/nullable/key mismatches and missing columns that may break downstream jobs.,"AWS: Resource Groups Tagging API, 
+AWS Config
+Azure: Resource Graph
+GCP: Cloud Asset Inventory","{
+  ""resources"": [
+    {
+      ""id"": ""i-3"",
+      ""tags"": {
+        ""env"": ""prod"",
+        ""owner"": ""search"",
+        ""service"": ""api""
+      }
+    },
+    {
+      ""id"": ""i-4"",
+      ""tags"": {
+        ""env"": ""stage"",
+        ""owner"": ""search""
+      }
+    },
+    {
+      ""id"": ""db-3"",
+      ""tags"": {
+        ""env"": ""prod""
+      }
+    }
+  ],
+  ""required_tags"": [
+    ""env"",
+    ""owner"",
+    ""cost-center"",
+    ""service""
+  ]
+}","{
+      ""metric_id"": ""tagging.coverage"",
+      ""score"": 2,
+      ""rationale"": ""Only 0% of resources are fully tagged with all required tags. Critical tags are missing on multiple resources, including production, which poses material risks for ownership and cost tracking."",
+      ""evidence"": {
+        ""coverage_pct"": 0.0,
+        ""critical_tags_missing_on_prod"": [
+          {
+            ""id"": ""i-3"",
+            ""missing"": [
+              ""cost-center""
+            ]
+          },
+          {
+            ""id"": ""db-3"",
+            ""missing"": [
+              ""owner"",
+              ""cost-center"",
+              ""service""
+            ]
+          }
+        ],
+        ""total_resources"": 3,
+        ""fully_tagged"": 0
+      },
+      ""gaps"": [
+        ""1. Add missing 'cost-center' and 'service' tags to all resources."",
+        ""2. Ensure 'owner' tag is present on all production resources."",
+        ""3. Implement automated checks to enforce required tags at provisioning.""
+      ],
+      ""confidence"": 0.9,
+      ""aimri_mapping"": [
+        {
+          ""dimension"": ""02. Data Management & Quality"",
+          ""subsection"": ""2.3 Data Governance""
+        },
+        {
+          ""dimension"": ""02. Data Management & Quality"",
+          ""subsection"": ""2.4 Data Operations""
+        }
+      ]
+    }","""system"": (
+            f""{UNIVERSAL_PREAMBLE}\n\n""
+            ""RUBRIC:\n""
+            ""- 5: ≥95% fully tagged AND all critical tags present (env, owner)\n""
+            ""- 4: 85-94% fully tagged; critical tags >90%\n""
+            ""- 3: 70-84% fully tagged; some gaps in critical tags\n""
+            ""- 2: 50-69% fully tagged; many missing critical tags\n""
+            ""- 1: <50% fully tagged OR critical tags absent on >25% of prod resources""
+            f""{APPEND_TO_ALL_METRICS}""
+        ),
+        ""example_input"": {
+            ""resources"": [
+                {""id"": ""x"", ""tags"": {""env"": ""prod"", ""owner"": ""team"", ""cost-center"": ""CC1"", ""service"": ""api""}},
+                {""id"": ""y"", ""tags"": {""env"": ""prod"", ""owner"": ""team""}}
+            ],
+            ""required_tags"": [""env"", ""owner"", ""cost-center"", ""service""]
+        },
+        ""input_key_meanings"": {
+            ""resources"": ""List of resources to evaluate"",
+            ""resources[].id"": ""Unique resource identifier"",
+            ""resources[].tags"": ""Key/value tags on the resource"",
+            ""required_tags"": ""Array of tag keys that are mandatory for full coverage""
+        },
+        ""response_format"": UNIVERSAL_RESPONSE_FORMAT,
+        ""example_output"": {
+            ""metric_id"": ""tagging.coverage"",
+            ""score"": 3,
+            ""rationale"": ""About half the resources are fully tagged. Missing critical tags on production items make ownership and cost attribution harder."",
+            ""evidence"": {""coverage_pct"": 0.5, ""missing_examples"": [{""id"": ""y"", ""missing"": [""cost-center"", ""service""]}]},
+            ""gaps"": [
+                ""1. Enforce env/owner/cost-center/service tags in CI & provisioning""
+            ],
+            ""confidence"": 0.8
+        }","2.3 Data Governance,
+2.4 Data Operations"
+compute.utilization,score_compute_utilization,Assesses dataset timeliness versus SLAs by comparing observed update intervals and last-load timestamps; highlights stale or lagging tables.,"AWS: CloudWatch (EC2/ASG), AWS Compute Optimizer
+Azure: Azure Monitor (VM/VMSS)
+GCP: Cloud Monitoring (GCE/MIG)","{
+  ""instances"": [
+    {
+      ""id"": ""i-3"",
+      ""cpu_p95"": 0.16,
+      ""mem_p95"": 0.2,
+      ""low_util_hours_30d"": 120
+    },
+    {
+      ""id"": ""i-4"",
+      ""cpu_p95"": 0.62,
+      ""mem_p95"": 0.68,
+      ""low_util_hours_30d"": 8
+    }
+  ]
+}","{
+      ""metric_id"": ""compute.utilization"",
+      ""score"": 2,
+      ""rationale"": ""Only one of two instances is within the target 40-70% CPU/mem range, while the other is significantly underutilized. 50% of the fleet is low-util, and one instance has 120 low-util hours in 30 days, indicating material inefficiency."",
+      ""evidence"": {
+        ""in_target_pct"": 0.5,
+        ""low_util_pct"": 0.5,
+        ""worst_idle_hours"": 120,
+        ""fleet_cpu_p95"": 0.39,
+        ""fleet_mem_p95"": 0.44
+      },
+      ""gaps"": [
+        ""1. Review and rightsize or decommission underutilized instance 'i-3' to improve fleet efficiency"",
+        ""2. Implement automated monitoring to flag and address low-utilization instances regularly""
+      ],
+      ""confidence"": 0.9
+      ""aimri_mapping"": [
+        {
+          ""dimension"": ""08. Process Maturity"",
+          ""subsection"": ""8.4 Operational Excellence""
+        },
+        {
+          ""dimension"": ""01. Technical Infrastructure"",
+          ""subsection"": ""1.2 Computing Resources""
+        }
+      ]
+    }","""system"": (
+            f""{UNIVERSAL_PREAMBLE}\n\n""
+            ""RUBRIC:\n""
+            ""- 5: ≥80% instances at 40-70% CPU/mem; <10% low-util outliers\n""
+            ""- 4: 65-79% instances at 40-70% CPU/mem; 10-20% low-util outliers\n""
+            ""- 3: 50-64% instances at 40-70% CPU/mem; 20-35% low-util\n""
+            ""- 2: 30-49% instances at 40-70% CPU/mem; 36-50% low-util\n""
+            ""- 1: <30% instances at 40-70% CPU/mem OR >50% low-util (fleet largely idle)""
+            f""{APPEND_TO_ALL_METRICS}""
+        ),
+        ""example_input"": {
+            ""instances"": [
+                {""id"": ""a"", ""cpu_p95"": 0.55, ""mem_p95"": 0.6, ""low_util_hours_30d"": 5},
+                {""id"": ""b"", ""cpu_p95"": 0.1,  ""mem_p95"": 0.2, ""low_util_hours_30d"": 200}
+            ]
+        },
+        ""input_key_meanings"": {
+            ""instances"": ""List of compute instances"",
+            ""instances[].id"": ""Instance identifier"",
+            ""instances[].cpu_p95"": ""95th percentile CPU utilization (0..1)"",
+            ""instances[].mem_p95"": ""95th percentile memory utilization (0..1)"",
+            ""instances[].low_util_hours_30d"": ""Hours in last 30d where instance was below low-util threshold""
+        },
+        ""response_format"": UNIVERSAL_RESPONSE_FORMAT,
+        ""example_output"": {
+            ""metric_id"": ""compute.utilization"",
+            ""score"": 2,
+            ""rationale"": ""A large share of capacity is idle. One instance shows prolonged low utilization, pulling down overall efficiency."",
+            ""evidence"": {""idle_pct"": 0.5, ""worst_idle_hours"": 200, ""fleet_cpu_p95"": 0.325, ""fleet_mem_p95"": 0.40},
+            ""gaps"": [
+                ""1. Rightsize or stop idle instance 'b' and implement off-hours schedules""
+            ],
+            ""confidence"": 0.9
+        }",1.2 Computing Resources
+k8s.utilization,score_k8s_utilization,"Aggregates quality signals (null/duplicate rates, unique/foreign-key integrity, distribution anomalies) into a composite data-quality score.",EKS/AKS/GKE metrics APIs or Prometheus,"{
+  ""nodes"": {
+    ""cpu_p95"": 0.62,
+    ""mem_p95"": 0.55
+  },
+  ""pods"": {
+    ""cpu_req_vs_used"": 0.68,
+    ""mem_req_vs_used"": 0.63
+  },
+  ""binpack_efficiency"": 0.71,
+  ""pending_pods_p95"": 6 
+}","{
+      ""metric_id"": ""k8s.utilization"",
+      ""score"": 2,
+      ""rationale"": ""Binpack efficiency is just above the severe imbalance threshold at 0.71, but the pending pods p95 is 6, indicating a material risk of resource contention or scheduling delays. CPU requests are notably higher than actual usage (0.68), suggesting overprovisioning. These factors point to inefficiency and potential performance issues."",
+      ""evidence"": {
+        ""binpack_efficiency"": 0.71,
+        ""pending_pods_p95"": 6,
+        ""nodes_cpu_p95"": 0.62,
+        ""pods_cpu_req_vs_used"": 0.68
+      },
+      ""gaps"": [
+        ""1. Investigate causes of high pending pods (p95=6) and address scheduling bottlenecks."",
+        ""2. Review and right-size pod CPU/memory requests to better match actual usage."",
+        ""3. Monitor binpack efficiency for further improvement opportunities."",
+        ""4. Validate if node resource limits are appropriate for current workload.""
+      ],
+      ""confidence"": 0.7,
+      ""aimri_mapping"": [
+        {
+          ""dimension"": ""08. Process Maturity"",
+          ""subsection"": ""8.4 Operational Excellence""
+        }
+      ]
+    }","""system"": (
+            f""{UNIVERSAL_PREAMBLE}\n\n""
+            ""RUBRIC (nodes, requests vs usage, packing, pending):\n""
+            ""- 5: Nodes 50-70%, req≈used (>80%), binpack >0.8, pending <1\n""
+            ""- 4: Nodes 40-75%, req≈used 70-79%, binpack >0.7, pending <3\n""
+            ""- 3: Moderate imbalance: binpack 0.6-0.7 OR pending 3-5\n""
+            ""- 2: Severe imbalance: binpack 0.5-0.59 OR pending 6-10\n""
+            ""- 1: Chronic inefficiency: binpack <0.5 OR >10 pending pods""
+            f""{APPEND_TO_ALL_METRICS}""
+        ),
+        ""example_input"": {
+            ""nodes"": {""cpu_p95"": 0.6, ""mem_p95"": 0.58},
+            ""pods"": {""cpu_req_vs_used"": 0.8},
+            ""binpack_efficiency"": 0.82,
+            ""pending_pods_p95"": 1
+        },
+        ""input_key_meanings"": {
+            ""nodes.cpu_p95"": ""Aggregated 95th percentile node CPU utilization (0..1)"",
+            ""nodes.mem_p95"": ""Aggregated 95th percentile node memory utilization (0..1)"",
+            ""pods.cpu_req_vs_used"": ""Ratio of requested to actually used CPU (0..1)"",
+            ""binpack_efficiency"": ""Packing/fragmentation efficiency (0..1)"",
+            ""pending_pods_p95"": ""95th percentile of pending pods count""
+        },
+        ""response_format"": UNIVERSAL_RESPONSE_FORMAT,
+        ""example_output"": {
+            ""metric_id"": ""k8s.utilization"",
+            ""score"": 5,
+            ""rationale"": ""Requests closely match actual usage, packing is efficient, and pending work is minimal. The cluster is using resources well."",
+            ""evidence"": {""binpack_efficiency"": 0.82, ""pending_pods_p95"": 1, ""nodes_cpu_p95"": 0.60, ""pods_cpu_req_vs_used"": 0.80},
+            ""gaps"": [
+                ""1. Maintain current request/limit ratios and re-verify quarterly""
+            ],
+            ""confidence"": 0.85
+        }","8.4 Operational Excellence
+"
+scaling.effectiveness,score_autoscaling_effectiveness,"Rates adherence to governance policies (owners, classification, RBAC, PII handling, retention); identifies violations and missing metadata.",CloudWatch/Azure Monitor/Cloud Monitoring + ASG/VMSS/MIG scaling events,"{
+  ""ts_metrics"": [
+    {
+      ""ts"": ""2025-08-11T09:00:00Z"",
+      ""target_cpu"": 0.6,
+      ""actual_cpu"": 0.8
+    },
+    {
+      ""ts"": ""2025-08-11T09:02:00Z"",
+      ""target_cpu"": 0.6,
+      ""actual_cpu"": 0.72
+    },
+    {
+      ""ts"": ""2025-08-11T09:04:00Z"",
+      ""target_cpu"": 0.6,
+      ""actual_cpu"": 0.66
+    }
+  ],
+  ""scale_events"": [
+    {
+      ""ts"": ""2025-08-11T09:01:30Z"",
+      ""action"": ""scale_out"",
+      ""delta"": 1
+    }
+  ]
+}","{
+      ""metric_id"": ""scaling.effectiveness"",
+      ""score"": 2,
+      ""rationale"": ""The system missed targets on all samples, with a high violation rate and a slow median reaction time. Only one scale event was observed, and the applied delta was likely insufficient. The small sample size and lack of denominator data reduce confidence."",
+      ""evidence"": {
+        ""median_reaction_s"": 90,
+        ""target_violation_pct"": 100.0,
+        ""thrash_rate"": 0.0,
+        ""delta_error_pct"": 66.7,
+        ""events"": 1,
+        ""total_samples"": 3,
+        ""violating_samples"": 3,
+        ""first_breach_ts"": ""2025-08-11T09:00:00Z"",
+        ""first_corrective_ts"": ""2025-08-11T09:01:30Z"",
+        ""needed_delta"": 3,
+        ""applied_delta"": 1
+      },
+      ""gaps"": [
+        ""1. Only 3 samples provided; supply full 200-sample window for robust assessment"",
+        ""2. Provide denominator (replica count or capacity) to improve delta adequacy calculation"",
+        ""3. Increase scale event logging granularity to detect possible thrash or missed reactions"",
+        ""4. Review and tune scale-out step size to better match observed demand""
+      ],
+      ""confidence"": 0.4,
+      ""aimri_mapping"": [
+        {
+          ""dimension"": ""03. AI/ML Capabilities"",
+          ""subsection"": ""3.3 MLOps Maturity""
+        },
+        {
+          ""dimension"": ""08. Process Maturity"",
+          ""subsection"": ""8.4 Operational Excellence""
+        },
+        {
+          ""dimension"": ""09. Foundation Model Operations"",
+          ""subsection"": ""9.5 Scaling & Distribution""
+        }
+      ]
+    }","""system"": (
+            f""{UNIVERSAL_PREAMBLE}\n\n""
+            ""RUBRIC (reaction, target adherence, thrash, delta adequacy):\n""
+            ""- 5: Reaction median <1 min; violations <5%; thrash <5%; delta error <10%\n""
+            ""- 4: Reaction median 1-2 min; violations 5-10%; thrash <10%; delta error 10-20%\n""
+            ""- 3: Reaction median 2-5 min; violations 10-20%; thrash <20% (mild); delta error 20-35%\n""
+            ""- 2: Reaction median 5-10 min; violations 20-35%; thrash 20-35% (frequent); delta error 35-60%\n""
+            ""- 1: Reaction median >10 min; violations >35%; thrash >35% (severe); delta error >60%\n\n""
+            ""DEFINITIONS (using only provided inputs):\n""
+            ""- Preprocessing: sort ts_metrics by ts ascending; sort scale_events by ts ascending.\n""
+            ""- Target violation: |actual_cpu - target_cpu| / target_cpu > 0.05 (STRICT '>'). Violation rate = (#violating samples / #ts_metrics) * 100.\n""
+            ""- Reaction time: Identify each breach start (a violating sample whose previous sample is non-violating or absent). Reaction for a breach = seconds from breach start to the first corrective scale_event. If none after breach start, use 601s. Use MEDIAN across breaches.\n""
+            ""- Thrash: Adjacent event direction flips under 300s count as thrash.\n""
+            ""- Delta adequacy (error%): Compare applied_delta to needed_delta computed from first breach.\n\n""
+            ""SCORING STEPS: compute metrics, map to tiers, average, round; populate evidence; return ONLY JSON.""
+            f""{APPEND_TO_ALL_METRICS}""
+        ),
+        ""example_input"": {
+            ""ts_metrics"": [
+                {""ts"": ""2025-08-10T12:00:00Z"", ""target_cpu"": 0.6, ""actual_cpu"": 0.9},
+                {""ts"": ""2025-08-10T12:01:00Z"", ""target_cpu"": 0.6, ""actual_cpu"": 0.62},
+                {""ts"": ""2025-08-10T12:02:00Z"", ""target_cpu"": 0.6, ""actual_cpu"": 0.60}
+            ],
+            ""scale_events"": [
+                {""ts"": ""2025-08-10T12:00:40Z"", ""action"": ""scale_out"", ""delta"": 5},
+                {""ts"": ""2025-08-10T12:11:00Z"", ""action"": ""scale_in"", ""delta"": 1}
+            ]
+        },
+        ""input_key_meanings"": {
+            ""ts_metrics"": ""Time series of target vs actual metric (e.g., CPU)"",
+            ""ts_metrics[].ts"": ""Timestamp or sequence marker"",
+            ""ts_metrics[].target_cpu"": ""Autoscaler target (0..1)"",
+            ""ts_metrics[].actual_cpu"": ""Observed utilization (0..1)"",
+            ""scale_events"": ""List of scaling actions"",
+            ""scale_events[].ts"": ""Timestamp of the scaling action"",
+            ""scale_events[].action"": ""Action type (scale_out/scale_in)"",
+            ""scale_events[].delta"": ""Change in replica count or capacity""
+        },
+        ""response_format"": UNIVERSAL_RESPONSE_FORMAT,
+        ""example_output"": {
+            ""metric_id"": ""scaling.effectiveness"",
+            ""score"": 5,
+            ""rationale"": ""The system reacted quickly to overload, kept violations rare, avoided oscillation, and applied the right scale step."",
+            ""evidence"": {
+                ""median_reaction_s"": 40,
+                ""target_violation_pct"": 4.76,
+                ""thrash_rate"": 0.0,
+                ""delta_error_pct"": 0.0,
+                ""events"": 2,
+                ""total_samples"": 3,
+                ""violating_samples"": 1,
+                ""first_breach_ts"": ""2025-08-10T12:00:00Z"",
+                ""first_corrective_ts"": ""2025-08-10T12:00:40Z"",
+                ""needed_delta"": 5,
+                ""applied_delta"": 5
+            },
+            ""gaps"": [
+                ""1. Maintain current step sizing; monitor for oscillation under changing traffic patterns""
+            ],
+            ""confidence"": 0.8
+        }","8.4 Operational Excellence,
+9.5 Scaling & Distribution"
+db.utilization,score_db_utilization,Measures lineage coverage and depth (tables→models→dashboards) and the ability to trace data back to sources for impact analysis.,AWS RDS · Azure SQL · GCP Cloud SQL,"{
+  ""databases"": [
+    {
+      ""id"": ""db-3"",
+      ""cpu_p95"": 0.74,
+      ""connections_p95"": 0.7
+    },
+    {
+      ""id"": ""db-4"",
+      ""cpu_p95"": 0.18,
+      ""connections_p95"": 0.2
+    }
+  ]
+}","{
+      ""metric_id"": ""db.utilization"",
+      ""score"": 3,
+      ""rationale"": ""One database (db-3) is near the upper CPU threshold (p95=0.74) with high connections (0.7), while the other (db-4) is underutilized (p95=0.18). This indicates a clear imbalance and potential sizing or scaling issues."",
+      ""evidence"": {
+        ""db-3_cpu_p95"": 0.74,
+        ""db-3_connections_p95"": 0.7,
+        ""db-4_cpu_p95"": 0.18,
+        ""db-4_connections_p95"": 0.2,
+        ""fleet_cpu_p95_avg"": 0.46
+      },
+      ""gaps"": [
+        ""1. Review db-3 for potential CPU saturation and consider scaling or load redistribution"",
+        ""2. Evaluate db-4 for possible downsizing or consolidation"",
+        ""3. Collect IOPS data to assess full resource balance""
+      ],
+      ""confidence"": 0.75,
+      ""aimri_mapping"": [
+        {
+          ""dimension"": ""08. Process Maturity"",
+          ""subsection"": ""8.4 Operational Excellence""
+        },
+        {
+          ""dimension"": ""01. Technical Infrastructure"",
+          ""subsection"": ""1.2 Computing Resources""
+        },
+        {
+          ""dimension"": ""02. Data Management & Quality"",
+          ""subsection"": ""2.4 Data Operations""
+        }
+      ]
+    }","""system"": (
+            f""{UNIVERSAL_PREAMBLE}\n\n""
+            ""RUBRIC (CPU, connections, IOPS balance):\n""
+            ""- 5: 40-70% CPU, balanced connections, IOPS within limits\n""
+            ""- 4: 30-75% CPU, mostly balanced, occasional spikes\n""
+            ""- 3: 20-85% CPU with connection/IOPS imbalance at times\n""
+            ""- 2: <20% or >85% CPU frequently; recurring bottlenecks\n""
+            ""- 1: Chronically idle (<10%) or saturated (>90%) across fleet""
+            f""{APPEND_TO_ALL_METRICS}""
+        ),
+        ""example_input"": {
+            ""databases"": [
+                {""id"": ""a"", ""cpu_p95"": 0.6, ""connections_p95"": 0.5},
+                {""id"": ""b"", ""cpu_p95"": 0.1, ""connections_p95"": 0.1}
+            ]
+        },
+        ""input_key_meanings"": {
+            ""databases"": ""List of database instances"",
+            ""databases[].id"": ""Database identifier"",
+            ""databases[].cpu_p95"": ""95th percentile CPU utilization (0..1)"",
+            ""databases[].connections_p95"": ""95th percentile connection load (0..1)""
+        },
+        ""response_format"": UNIVERSAL_RESPONSE_FORMAT,
+        ""example_output"": {
+            ""metric_id"": ""db.utilization"",
+            ""score"": 3,
+            ""rationale"": ""The fleet mixes idle and moderately loaded databases, suggesting uneven sizing."",
+            ""evidence"": {""low_util_count"": 1, ""high_util_count"": 0, ""fleet_cpu_p95_avg"": 0.35},
+            ""gaps"": [
+                ""1. Downsize or consolidate idle DB 'b' and validate connection limits""
+            ],
+            ""confidence"": 0.82
+        }","1.2 Computing Resources,
+2.4 Data Operations"
+lb.performance,score_lb_performance,"Evaluates completeness of technical/business metadata: descriptions, tags, owners, classifications, and stewardship assignments.","ALB/NLB, Azure App Gateway, GCP Load Balancing metrics
+","{
+  ""load_balancers"": [
+    {
+      ""id"": ""alb-3"",
+      ""lat_p50"": 110,
+      ""lat_p95"": 160,
+      ""lat_p99"": 260,
+      ""r4xx"": 0.02,
+      ""r5xx"": 0.006,
+      ""unhealthy_minutes"": 8,
+      ""requests"": 900000
+    }
+  ],
+  ""slo"": {
+    ""p95_ms"": 180,
+    ""p99_ms"": 350,
+    ""max_5xx_rate"": 0.01
+  }
+}","{
+      ""metric_id"": ""lb.performance"",
+      ""score"": 4,
+      ""rationale"": ""The load balancer's p95 (160ms) and p99 (260ms) latencies are well within SLO thresholds (180ms and 350ms, respectively). The 5xx error rate is 0.006, below the 0.01 SLO max. However, there were 8 minutes marked unhealthy, which is a minor risk to availability but not a material breach."",
+      ""evidence"": {
+        ""breaches"": 0,
+        ""worst_lb"": ""alb-3"",
+        ""p95_ms"": 160,
+        ""p99_ms"": 260,
+        ""r5xx"": 0.006,
+        ""unhealthy_minutes"": 8,
+        ""requests"": 900000
+      },
+      ""gaps"": [
+        ""1. Investigate causes of 8 unhealthy minutes and mitigate recurrence."",
+        ""2. Continue monitoring for latency and 5xx spikes."",
+        ""3. Review health check configuration and thresholds.""
+      ],
+      ""confidence"": 0.8,
+      ""aimri_mapping"": [
+        {
+          ""dimension"": ""08. Process Maturity"",
+          ""subsection"": ""8.3 Quality Assurance""
+        },
+        {
+          ""dimension"": ""08. Process Maturity"",
+          ""subsection"": ""8.4 Operational Excellence""
+        },
+        {
+          ""dimension"": ""08. Process Maturity"",
+          ""subsection"": ""8.2 Reliability Engineering""
+        }
+      ]
+    }","""system"": (
+            f""{UNIVERSAL_PREAMBLE}\n\n""
+            ""RUBRIC (latency & 5xx vs SLO):\n""
+            ""- 5: p95/p99 well under SLO; 5xx rare; minimal unhealthy time\n""
+            ""- 4: Near SLO with small spikes; rare 5xx\n""
+            ""- 3: Periodic SLO breaches or elevated 5xx\n""
+            ""- 2: Frequent breaches or sustained 5xx\n""
+            ""- 1: Chronic SLO failures and/or major instability""
+            f""{APPEND_TO_ALL_METRICS}""
+        ),
+        ""example_input"": {
+            ""load_balancers"": [
+                {""id"": ""alb-1"", ""lat_p95"": 130, ""lat_p99"": 260, ""r5xx"": 0.003, ""unhealthy_minutes"": 2, ""requests"": 1200000}
+            ],
+            ""slo"": {""p95_ms"": 200, ""p99_ms"": 400, ""5xx_rate_max"": 0.005}
+        },
+        ""input_key_meanings"": {
+            ""load_balancers"": ""List of LBs with health/latency/5xx metrics"",
+            ""load_balancers[].id"": ""Load balancer identifier"",
+            ""load_balancers[].lat_p95"": ""p95 latency in ms"",
+            ""load_balancers[].lat_p99"": ""p99 latency in ms"",
+            ""load_balancers[].r5xx"": ""5xx error rate (0..1)"",
+            ""load_balancers[].unhealthy_minutes"": ""Minutes marked unhealthy"",
+            ""slo.p95_ms"": ""SLO threshold for p95 latency"",
+            ""slo.p99_ms"": ""SLO threshold for p99 latency"",
+            ""slo.5xx_rate_max"": ""Maximum acceptable 5xx rate""
+        },
+        ""response_format"": UNIVERSAL_RESPONSE_FORMAT,
+        ""example_output"": {
+            ""metric_id"": ""lb.performance"",
+            ""score"": 5,
+            ""rationale"": ""Latency and error rates are comfortably within SLO, and the load balancer stayed healthy almost the entire time."",
+            ""evidence"": {""breaches"": 0, ""worst_lb"": ""alb-1"", ""p95_ms"": 130, ""p99_ms"": 260, ""r5xx"": 0.003, ""requests"": 1200000},
+            ""gaps"": [
+                ""1. Maintain capacity and SLO thresholds; review monthly""
+            ],
+            ""confidence"": 0.86
+        }","8.3 Quality Assurance,
+8.4 Operational Excellence,
+
+"
+storage.efficiency,score_storage_efficiency,Checks detection and tagging of sensitive fields (PII/PHI/PCI) and verifies masking or access policies are applied consistently.,EC2 EBS + Snapshots / Azure Managed Disks + Snapshots / GCP PD + Snapshots; S3/Blob/GCS listings,"{
+  ""block_volumes"": [
+    {
+      ""id"": ""vol-31"",
+      ""attached"": true
+    },
+    {
+      ""id"": ""vol-32"",
+      ""attached"": false
+    }
+  ],
+  ""snapshots"": [
+    {
+      ""id"": ""snap-31"",
+      ""source_volume"": ""vol-31""
+    }
+  ],
+  ""objects"": [
+    {
+      ""storage_class"": ""STANDARD"",
+      ""last_modified"": ""2024-11-01T00:00:00Z""
+    }
+  ]
+}","{
+      ""metric_id"": ""storage.efficiency"",
+      ""score"": 3,
+      ""rationale"": ""There is one unattached block volume and one object in the STANDARD tier that appears stale, both indicating some avoidable waste. No orphaned snapshots are present, but the presence of unused hot storage resources should be addressed."",
+      ""evidence"": {
+        ""unattached"": 1,
+        ""orphaned_snaps"": 0,
+        ""hot_stale_objects"": 1
+      },
+      ""gaps"": [
+        ""1. Confirm if unattached volume 'vol-32' is still needed; delete if not."",
+        ""2. Review STANDARD object last modified 2024-11-01 for archival or deletion."",
+        ""3. Implement lifecycle policies to automatically move stale objects to colder storage.""
+      ],
+      ""confidence"": 0.95,
+      ""aimri_mapping"": [
+        {
+          ""dimension"": ""08. Process Maturity"",
+          ""subsection"": ""8.4 Operational Excellence""
+        },
+        {
+          ""dimension"": ""02. Data Management & Quality"",
+          ""subsection"": ""2.4 Data Operations""
+        }
+      ]
+    }","""system"": (
+            f""{UNIVERSAL_PREAMBLE}\n\n""
+            ""RUBRIC (unattached/orphaned/stale hot data):\n""
+            ""- 5: No obvious waste\n""
+            ""- 4: Minor waste\n""
+            ""- 3: Noticeable but not severe\n""
+            ""- 2: Significant avoidable cost\n""
+            ""- 1: Systemic waste across tiers""
+            f""{APPEND_TO_ALL_METRICS}""
+        ),
+        ""example_input"": {
+            ""block_volumes"": [{""id"": ""v"", ""attached"": False}],
+            ""snapshots"": [{""id"": ""s"", ""source_volume"": None}],
+            ""objects"": [{""storage_class"": ""STANDARD"", ""last_modified"": ""2024-01-01T00:00:00Z""}]
+        },
+        ""input_key_meanings"": {
+            ""block_volumes"": ""List of block volumes and their attachment state"",
+            ""block_volumes[].id"": ""Volume identifier"",
+            ""block_volumes[].attached"": ""Boolean attachment flag"",
+            ""snapshots"": ""List of snapshots and their source volume linkage"",
+            ""snapshots[].source_volume"": ""Volume ID if snapshot has a valid source, else null"",
+            ""objects"": ""Object storage items"",
+            ""objects[].storage_class"": ""Storage tier/class"",
+            ""objects[].last_modified"": ""Timestamp of last modification/access""
+        },
+        ""response_format"": UNIVERSAL_RESPONSE_FORMAT,
+        ""example_output"": {
+            ""metric_id"": ""storage.efficiency"",
+            ""score"": 2,
+            ""rationale"": ""There are unattached volumes, orphaned snapshots, and stale objects kept on the hot tier — all adding avoidable cost."",
+            ""evidence"": {""unattached"": 1, ""orphaned_snaps"": 1, ""hot_stale_objects"": 1},
+            ""gaps"": [
+                ""1. Delete orphaned snapshots"",
+                ""2. Reattach or remove unattached volumes"",
+                ""3. Apply lifecycle policies to move stale objects to infrequent access""
+            ],
+            ""confidence"": 0.85
+        }","8.4 Operational Excellence,
+2.4 Data Operations"
+iac.coverage_drift,score_iac_coverage_drift,Detects redundant/duplicated datasets or metrics that inflate cost and create confusion; recommends consolidation opportunities.,Terraform states/Cloud catalogs; Azure Policy compliance; GCP Org Policy,"{
+  ""inventory"": [
+    { ""id"": ""i-3""},
+    {""id"": ""i-4""},
+    {""id"": ""db-3""},
+    {""id"": ""db-4""}
+  ],
+  ""iac_index"": {
+    ""i-3"": true,
+    ""i-4"": false,
+    ""db-3"": true,
+    ""db-4"": false
+  },
+  ""policy_findings"": [
+    {
+      ""severity"": ""high""
+    }
+  ]
+}","{
+      ""metric_id"": ""iac.coverage_drift"",
+      ""score"": 3,
+      ""rationale"": ""IaC coverage is 50% (2 of 4 resources managed), and there is one high-severity drift finding. This presents clear risks that need to be addressed to improve infrastructure consistency and security."",
+      ""evidence"": {
+        ""coverage_pct"": 0.5,
+        ""high_critical"": 1
+      },
+      ""gaps"": [
+        ""1. Onboard the 2 unmanaged resources (i-4, db-4) to IaC management"",
+        ""2. Investigate and remediate the high-severity drift finding""
+      ],
+      ""confidence"": 0.9,
+      ""aimri_mapping"": [
+        {
+          ""dimension"": ""03. AI/ML Capabilities"",
+          ""subsection"": ""3.3 MLOps Maturity""
+        },
+        {
+          ""dimension"": ""08. Process Maturity"",
+          ""subsection"": ""8.4 Operational Excellence""
+        }
+      ]
+    }","""system"": (
+            f""{UNIVERSAL_PREAMBLE}\n\n""
+            ""RUBRIC (coverage & drift severity):\n""
+            ""- 5: ≥95% IaC-managed; no high/critical drift\n""
+            ""- 4: 85-94% IaC-managed; minor drift\n""
+            ""- 3: 70-84% IaC-managed OR some high drifts\n""
+            ""- 2: 50-69% IaC-managed OR multiple high/critical drifts\n""
+            ""- 1: <50% IaC-managed OR widespread critical drift""
+            f""{APPEND_TO_ALL_METRICS}""
+        ),
+        ""example_input"": {
+            ""inventory"": [{""id"": ""a""}, {""id"": ""b""}],
+            ""iac_index"": {""a"": True, ""b"": False},
+            ""policy_findings"": [{""severity"": ""high""}]
+        },
+        ""input_key_meanings"": {
+            ""inventory"": ""List of resources in scope"",
+            ""inventory[].id"": ""Resource identifier"",
+            ""iac_index"": ""Map of resource id → whether managed by IaC"",
+            ""policy_findings"": ""List of drift/security/policy issues"",
+            ""policy_findings[].severity"": ""Severity level (e.g., high, critical)""
+        },
+        ""response_format"": UNIVERSAL_RESPONSE_FORMAT,
+        ""example_output"": {
+            ""metric_id"": ""iac.coverage_drift"",
+            ""score"": 3,
+            ""rationale"": ""IaC coverage is near half, and there is at least one high-severity drift to address."",
+            ""evidence"": {""coverage_pct"": 0.5, ""high_critical"": 1},
+            ""gaps"": [
+                ""1. Onboard unmanaged resources to Terraform"",
+                ""2. Remediate high-severity drift findings first""
+            ],
+            ""confidence"": 0.8
+        }",8.4 Operational Excellence
+availability.incidents,score_availability_incidents,"Verifies backup schedules, retention, and tested recovery; summarizes RPO/RTO readiness and recent restore outcomes.",PagerDuty/Jira/ServiceNow incidents + SLO metrics,"{
+  ""incidents"": [
+    {
+      ""sev"": 2,
+      ""opened"": ""2025-08-06T10:00:00Z"",
+      ""resolved"": ""2025-08-06T12:00:00Z""
+    }
+  ],
+  ""slo_breaches"": [
+    {
+      ""hours"": 1.4
+    }
+  ],
+  ""slo"": {
+    ""objective"": ""availability"",
+    ""target"": 0.995
+  }
+}","{
+      ""metric_id"": ""availability.incidents"",
+      ""score"": 4,
+      ""rationale"": ""There was one Sev2 (major) incident in the window, with a mean time to resolve (MTTR) of 2.0 hours and 1.4 hours of SLO breach. This meets the target for incident frequency but MTTR is above the ideal threshold, and there are minor SLO breach hours to address."",
+      ""evidence"": {
+        ""sev12_30d"": 1,
+        ""mttr_h"": 2.0,
+        ""slo_breach_hours"": 1.4,
+        ""slo_target"": 0.995
+      },
+      ""gaps"": [
+        ""1. Confirm if any Sev1 incidents occurred outside the provided sample."",
+        ""2. Review root cause and mitigation steps for the Sev2 incident to reduce MTTR below 2 hours."",
+        ""3. Analyze SLO breach causes and implement preventive measures.""
+      ],
+      ""confidence"": 0.8,
+      ""aimri_mapping"": [
+        {
+          ""dimension"": ""08. Process Maturity"",
+          ""subsection"": ""8.3 Quality Assurance""
+        },
+        {
+          ""dimension"": ""08. Process Maturity"",
+          ""subsection"": ""8.4 Operational Excellence""
+        },
+        {
+          ""dimension"": ""08. Process Maturity"",
+          ""subsection"": ""8.2 Reliability Engineering""
+        }
+      ]
+    }","""system"": (
+            f""{UNIVERSAL_PREAMBLE}\n\n""
+            ""RUBRIC (Sev1/2, MTTR, SLO breach hours):\n""
+            ""- 5: 0 Sev1/2, MTTR <1h, no SLO breaches\n""
+            ""- 4: ≤1 Sev2, MTTR 1-2h, minor breach hours\n""
+            ""- 3: Some incidents, MTTR 2-4h, breaches present\n""
+            ""- 2: Frequent incidents or MTTR 4-8h\n""
+            ""- 1: Severe/frequent incidents, MTTR >8h""
+            f""{APPEND_TO_ALL_METRICS}""
+        ),
+        ""example_input"": {
+            ""incidents"": [{""sev"": 2, ""opened"": ""t0"", ""resolved"": ""t1""}],
+            ""slo_breaches"": [{""hours"": 1.0}],
+            ""slo"": {""objective"": ""availability"", ""target"": 0.995}
+        },
+        ""input_key_meanings"": {
+            ""incidents"": ""Array of incident records in the scoring window"",
+            ""incidents[].sev"": ""Severity level (1=critical, 2=major, 3=minor, etc.)"",
+            ""incidents[].opened"": ""Timestamp when incident started"",
+            ""incidents[].resolved"": ""Timestamp when incident was resolved"",
+            ""slo_breaches"": ""Array of SLO violations observed"",
+            ""slo_breaches[].hours"": ""Total hours of breach for that occurrence"",
+            ""slo"": ""Definition of the service-level objective applied"",
+            ""slo.objective"": ""The type of objective (e.g., 'availability', 'latency')"",
+            ""slo.target"": ""Numerical target for compliance (e.g., 0.995 = 99.5%)""
+        },
+        ""response_format"": UNIVERSAL_RESPONSE_FORMAT,
+        ""example_output"": {
+            ""metric_id"": ""availability.incidents"",
+            ""score"": 4,
+            ""rationale"": ""There was a single major incident that was resolved quickly with limited SLO breach time."",
+            ""evidence"": {""sev12_30d"": 1, ""mttr_h"": 1.0, ""slo_breach_hours"": 1.0, ""slo_target"": 0.995},
+            ""gaps"": [
+                ""1. Review post-mortem for mitigations and confirm alert thresholds""
+            ],
+            ""confidence"": 0.85
+        }","8.3 Quality Assurance,
+8.4 Operational Excellence,
+8.2 Reliability Engineering"
+cost.idle_underutilized,score_cost_idle_underutilized,"Assesses encryption in transit/at rest, network exposure, RBAC hygiene, and key rotation posture for warehouses/lakes.",AWS: CUR/Cost Explorer; Azure: Cost Management Export; GCP: Billing export (BigQuery/CSV),"{
+  ""cost_rows"": [
+    {
+      ""resource_id"": ""i-3"",
+      ""cost"": 220
+    },
+    {
+      ""resource_id"": ""i-4"",
+      ""cost"": 260
+    }
+  ],
+  ""instances"": [
+    {
+      ""id"": ""i-3"",
+      ""cpu_p95"": 0.16,
+      ""mem_p95"": 0.2
+    },
+    {
+      ""id"": ""i-4"",
+      ""cpu_p95"": 0.62,
+      ""mem_p95"": 0.68
+    }
+  ]
+}","{
+      ""metric_id"": ""cost.idle_underutilized"",
+      ""score"": 2,
+      ""rationale"": ""Idle resources represent 45.8% of total spend, primarily due to instance 'i-3' with low CPU and memory utilization. This indicates significant waste and material risks to cost efficiency."",
+      ""evidence"": {
+        ""idle_cost"": 220,
+        ""idle_pct"": 0.458,
+        ""total_cost"": 480
+      },
+      ""gaps"": [
+        ""1. Review and decommission or rightsize idle instance 'i-3' (cpu_p95: 0.16, mem_p95: 0.2)"",
+        ""2. Implement automated scheduling or scaling for underutilized resources""
+      ],
+      ""confidence"": 0.95,
+      ""aimri_mapping"": [
+        {
+          ""dimension"": ""12. AI Business Value & ROI"",
+          ""subsection"": ""12.2 Cost Reduction & Efficiency""
+        },
+        {
+          ""dimension"": ""08. Process Maturity"",
+          ""subsection"": ""8.4 Operational Excellence""
+        }
+      ]
+    }","""system"": (
+            f""{UNIVERSAL_PREAMBLE}\n\n""
+            ""RUBRIC (idle spend share):\n""
+            ""- 5: Idle <2% of total spend\n""
+            ""- 4: Idle 2-5% of total spend\n""
+            ""- 3: Idle 5-10% of total spend\n""
+            ""- 2: Idle 10-20% of total spend\n""
+            ""- 1: Idle >20%""
+            f""{APPEND_TO_ALL_METRICS}""
+        ),
+        ""example_input"": {
+            ""cost_rows"": [
+                {""resource_id"": ""a"", ""cost"": 100},
+                {""resource_id"": ""b"", ""cost"": 100}
+            ],
+            ""instances"": [
+                {""id"": ""a"", ""cpu_p95"": 0.05, ""mem_p95"": 0.07},
+                {""id"": ""b"", ""cpu_p95"": 0.6,  ""mem_p95"": 0.5}
+            ]
+        },
+        ""input_key_meanings"": {
+            ""cost_rows"": ""List of resource-level cost entries"",
+            ""cost_rows[].resource_id"": ""ID matching an instance or resource"",
+            ""cost_rows[].cost"": ""Cost amount (currency units)"",
+            ""instances"": ""List of instances with utilization"",
+            ""instances[].id"": ""Instance identifier"",
+            ""instances[].cpu_p95"": ""95th percentile CPU (0..1)"",
+            ""instances[].mem_p95"": ""95th percentile memory (0..1)""
+        },
+        ""response_format"": UNIVERSAL_RESPONSE_FORMAT,
+        ""example_output"": {
+            ""metric_id"": ""cost.idle_underutilized"",
+            ""score"": 2,
+            ""rationale"": ""Idle resources account for a large share of spend, driven by persistently underutilized instances."",
+            ""evidence"": {""idle_cost"": 100, ""idle_pct"": 0.5, ""total_cost"": 200},
+            ""gaps"": [
+                ""1. Stop or downsize idle instance 'a' and apply off-hours schedules""
+            ],
+            ""confidence"": 0.88
+        }","12.2 Cost Reduction & Efficiency,
+8.4 Operational Excellence"
+cost.commit_coverage,score_commitment_coverage,"Computes ETL/ELT success ratio over the window, including retries and failures; surfaces flaky or failing jobs.","AWS: RIs & Savings Plans
+Azure: RI/Savings Plan
+GCP: Committed Use Discounts
+","{
+  ""commit_inventory"": [
+    {
+      ""commit_usd_hour"": 40.0
+    }
+  ],
+  ""usage"": [
+    {
+      ""used_usd_hour"": 30.0,
+      ""hours"": 720
+    }
+  ]
+}","{
+      ""metric_id"": ""cost.commit_coverage"",
+      ""score"": 3,
+      ""rationale"": ""Commitment coverage is 75%, with 25% of committed spend unused. This indicates clear risks due to underutilization of commitments, and optimization is needed to reduce waste."",
+      ""evidence"": {
+        ""coverage_pct"": 0.75,
+        ""waste_usd"": 7200
+      },
+      ""gaps"": [
+        ""1. Analyze usage patterns to better align commitments with actual demand"",
+        ""2. Adjust future commitment purchases to reduce unused capacity"",
+        ""3. Investigate if workloads can be shifted to increase commitment utilization""
+      ],
+      ""confidence"": 1.0,
+      ""aimri_mapping"": [
+        {
+          ""dimension"": ""12. AI Business Value & ROI"",
+          ""subsection"": ""12.2 Cost Reduction & Efficiency""
+        },
+        {
+          ""dimension"": ""08. Process Maturity"",
+          ""subsection"": ""8.4 Operational Excellence""
+        }
+      ]
+    }","""system"": (
+            f""{UNIVERSAL_PREAMBLE}\n\n""
+            ""RUBRIC (coverage & unused %):\n""
+            ""- 5: ≥95% coverage AND <5% unused commitment\n""
+            ""- 4: 85-94% coverage AND 5-10% unused commitment\n""
+            ""- 3: 70-84% coverage AND 11-20% unused commitment\n""
+            ""- 2: 50-69% coverage OR 21-30% unused commitment\n""
+            ""- 1: <50% coverage OR >30% unused commitment""
+            f""{APPEND_TO_ALL_METRICS}""
+        ),
+        ""example_input"": {
+            ""commit_inventory"": [{""commit_usd_hour"": 2.0}],
+            ""usage"": [{""used_usd_hour"": 1.8, ""hours"": 720}]
+        },
+        ""input_key_meanings"": {
+            ""commit_inventory"": ""List of commitment SKUs/terms"",
+            ""commit_inventory[].commit_usd_hour"": ""Hourly committed spend capacity"",
+            ""usage"": ""List of usage entries for coverage calc"",
+            ""usage[].used_usd_hour"": ""Hourly spend that was actually used"",
+            ""usage[].hours"": ""Hours in the period""
+        },
+        ""response_format"": UNIVERSAL_RESPONSE_FORMAT,
+        ""example_output"": {
+            ""metric_id"": ""cost.commit_coverage"",
+            ""score"": 4,
+            ""rationale"": ""Commitment coverage is around ninety percent with a small amount of unused capacity."",
+            ""evidence"": {""coverage_pct"": 0.90, ""waste_usd"": 144},
+            ""gaps"": [
+                ""1. Refine commitment mix to reduce ~10% unused commitments""
+            ],
+            ""confidence"": 0.9
+        }","12.2 Cost Reduction & Efficiency,
+8.4 Operational Excellence"
+cost.allocation_quality,score_cost_allocation_quality,Measures end-to-end pipeline latency and throughput versus targets; highlights bottlenecks and queueing.,Billing export with tags/labels/resourceIds,"{
+  ""cost_rows"": [
+    {
+      ""cost"": 220,
+      ""tags"": {
+        ""env"": ""prod""
+      }
+    },
+    {
+      ""cost"": 260,
+      ""tags"": {}
+    }
+  ]
+}","{
+      ""metric_id"": ""cost.allocation_quality"",
+      ""score"": 2,
+      ""rationale"": ""Only 220 out of 480 total cost (45.8%) is attributable via tags, with the remainder lacking any tags for allocation. This is well below the target threshold and presents material risks for cost accountability."",
+      ""evidence"": {
+        ""attributable_pct"": 0.458
+      },
+      ""gaps"": [
+        ""1. Require tagging (at minimum 'env' and 'owner') on all resources incurring costs."",
+        ""2. Backfill missing tags for existing untagged cost rows."",
+        ""3. Implement automated checks to prevent untagged resources from incurring costs.""
+      ],
+      ""confidence"": 0.8,
+      ""aimri_mapping"": [
+        {
+          ""dimension"": ""02. Data Management & Quality"",
+          ""subsection"": ""2.3 Data Governance""
+        },
+        {
+          ""dimension"": ""12. AI Business Value & ROI"",
+          ""subsection"": ""12.2 Cost Reduction & Efficiency""
+        }
+      ]
+    }","""system"": (
+            f""{UNIVERSAL_PREAMBLE}\n\n""
+            ""RUBRIC (cost-weighted attribution):\n""
+            ""- 5: ≥95% costs attributable\n""
+            ""- 4: 90-94% costs attributable\n""
+            ""- 3: 75-89% costs attributable\n""
+            ""- 2: 50-74% costs attributable\n""
+            ""- 1: <50% costs attributable""
+            f""{APPEND_TO_ALL_METRICS}""
+        ),
+        ""example_input"": {
+            ""cost_rows"": [
+                {""cost"": 100, ""tags"": {""env"": ""prod"", ""owner"": ""search""}},
+                {""cost"": 100, ""tags"": {}}
+            ]
+        },
+        ""input_key_meanings"": {
+            ""cost_rows"": ""List of cost line items"",
+            ""cost_rows[].cost"": ""Cost amount (currency units)"",
+            ""cost_rows[].tags"": ""Tag dictionary on the cost row used for attribution""
+        },
+        ""response_format"": UNIVERSAL_RESPONSE_FORMAT,
+        ""example_output"": {
+            ""metric_id"": ""cost.allocation_quality"",
+            ""score"": 3,
+            ""rationale"": ""Only half of the spend can be attributed due to missing tags on many cost lines."",
+            ""evidence"": {""attributable_pct"": 0.5},
+            ""gaps"": [
+                ""1. Enforce owner/env tagging on all cost lines and backfill missing owners""
+            ],
+            ""confidence"": 0.87
+        }"," 2.3 Data Governance,
+12.2 Cost Reduction & Efficiency
+
+"
+security.public_exposure,score_security_public_exposure,"Analyzes compute/warehouse utilization, auto-suspend/auto-scale settings, and credit consumption efficiency.","AWS: EC2, ELB, S3 ACLs/BucketPolicy, Security Groups 
+Azure: NSGs, Public IPs, Storage
+GCP: Firewall rules, Buckets","{
+  ""network_policies"": [
+    {
+      ""rule"": ""0.0.0.0/22:443""
+    }
+  ],
+  ""storage_acls"": [],
+  ""inventory"": [
+    {
+      ""id"": ""i-3"",
+      ""public_ip"": false
+    }
+  ]
+}","{
+      ""metric_id"": ""security.public_exposure"",
+      ""score"": 3,
+      ""rationale"": ""There is an open ingress rule allowing 0.0.0.0/22 on port 443, which is less risky than full 0.0.0.0/0 but still exposes services broadly. No public buckets or public IPs are present, reducing overall risk, but the open rule should be reviewed for necessity and scope."",
+      ""evidence"": {
+        ""open_fw_rules"": 1,
+        ""public_buckets"": 0,
+        ""public_ips"": 0
+      },
+      ""gaps"": [
+        ""1. Confirm if 0.0.0.0/22:443 exposure is required and restrict to known IP ranges if possible"",
+        ""2. Provide environment tags for network rules to assess prod vs non-prod risk"",
+        ""3. Review asset sensitivity to ensure no sensitive workloads are exposed""
+      ],
+      ""confidence"": 0.7,
+      ""aimri_mapping"": [
+        {
+          ""dimension"": ""01. Technical Infrastructure"",
+          ""subsection"": ""1.5 Security Infrastructure""
+        }
+      ]
+    }","""system"": (
+            f""{UNIVERSAL_PREAMBLE}\n\n""
+            ""RUBRIC (open ingress, public IPs/buckets):\n""
+            ""- 5: No public buckets; no 0.0.0.0/0 on sensitive ports; minimal public IPs\n""
+            ""- 4: Minor/properly approved exceptions in non-prod\n""
+            ""- 3: Some risky rules or public buckets with controls\n""
+            ""- 2: Multiple unnecessary exposures\n""
+            ""- 1: Widespread exposure of sensitive prod assets""
+            f""{APPEND_TO_ALL_METRICS}""
+        ),
+        ""example_input"": {
+            ""network_policies"": [{""rule"": ""0.0.0.0/0:22""}],
+            ""storage_acls"": [{""bucket"": ""ml-prod"", ""public"": True}],
+            ""inventory"": [{""id"": ""i-9zzz"", ""public_ip"": True}]
+        },
+        ""input_key_meanings"": {
+            ""network_policies"": ""Array of ingress/SG/firewall rules in scope."",
+            ""network_policies[].rule"": ""CIDR:port or CIDR:port-range"",
+            ""network_policies[].proto"": ""Optional protocol (default tcp)."",
+            ""network_policies[].env"": ""Optional environment tag for risk weighting."",
+            ""storage_acls"": ""Array of object-storage ACLs/policies evaluated for public access."",
+            ""storage_acls[].bucket"": ""Bucket/container identifier."",
+            ""storage_acls[].public"": ""True if bucket/objects are publicly listable or readable."",
+            ""storage_acls[].exception_approved"": ""True if a documented exception exists."",
+            ""inventory"": ""Array of assets with exposure attributes."",
+            ""inventory[].id"": ""Asset identifier."",
+            ""inventory[].public_ip"": ""True if asset has a public IP."",
+            ""inventory[].sensitive"": ""True if asset handles prod/PII/regulated data.""
+        },
+        ""response_format"": UNIVERSAL_RESPONSE_FORMAT,
+        ""example_output"": {
+            ""metric_id"": ""security.public_exposure"",
+            ""score"": 2,
+            ""rationale"": ""Public SSH access, a public bucket, and exposed public IPs increase the attack surface and risk."",
+            ""evidence"": {""open_fw_rules"": 1, ""public_buckets"": 1, ""public_ips"": 1},
+            ""gaps"": [
+                ""1. Restrict SSH to corporate CIDRs"",
+                ""2. Make the public bucket private or enforce tighter object ACLs"",
+                ""3. Remove public IPs from production workloads where not required""
+            ],
+            ""confidence"": 0.88
+        }",1.5 Security Infrastructure
+security.encryption,score_security_encryption,"Summarizes query performance (latency, scan volume, cache hit rate) and identifies costly/slow patterns.",EBS/Managed Disks/PD attributes; S3/GCS/Azure Blob encryption settings; LB TLS policy,"{
+  ""resources"": [
+    {
+      ""id"": ""vol-31"",
+      ""encrypted_at_rest"": true
+    },
+    {
+      ""id"": ""lb-31"",
+      ""type"": ""load_balancer"",
+      ""tls_policy"": ""TLS1.2""
+    }
+  ]
+}","{
+      ""metric_id"": ""security.encryption"",
+      ""score"": 4,
+      ""rationale"": ""All resources are encrypted at rest or use TLS 1.2, meeting the target for encryption and modern TLS. However, the TLS policy is not specified as 'modern', and resource type is missing for one entry, introducing minor uncertainty."",
+      ""evidence"": {
+        ""at_rest_pct"": 1.0,
+        ""tls_1_2_endpoints"": 1,
+        ""legacy_tls_endpoints"": 0
+      },
+      ""gaps"": [
+        ""1. Confirm that 'TLS1.2' policy on lb-31 enforces modern ciphers and does not allow legacy protocols"",
+        ""2. Specify resource type for vol-31 to ensure correct assessment"",
+        ""3. Review all endpoints for explicit TLS policy versioning (e.g., TLS1.2-2019-Modern)""
+      ],
+      ""confidence"": 0.9,
+      ""aimri_mapping"": [
+        {
+          ""dimension"": ""01. Technical Infrastructure"",
+          ""subsection"": ""1.5 Security Infrastructure""
+        }
+      ]
+    }","""system"": (
+            f""{UNIVERSAL_PREAMBLE}\n\n""
+            ""RUBRIC (at-rest encryption & TLS policy):\n""
+            ""- 5: ~100% encrypted; all endpoints TLS 1.2+ modern\n""
+            ""- 4: 90-99% encrypted; minor TLS gaps\n""
+            ""- 3: 70-89% encrypted; some legacy TLS\n""
+            ""- 2: 50-69% encrypted; several legacy endpoints\n""
+            ""- 1: <50% encrypted; widespread legacy TLS""
+            f""{APPEND_TO_ALL_METRICS}""
+        ),
+        ""example_input"": {
+            ""resources"": [
+                {""id"": ""vol-1"", ""type"": ""block_volume"", ""encrypted_at_rest"": True},
+                {""id"": ""alb-1"", ""type"": ""load_balancer"", ""tls_policy"": ""TLS1.2-2019-Modern""}
+            ]
+        },
+        ""input_key_meanings"": {
+            ""resources"": ""Array of storage or network resources to check for encryption/TLS compliance."",
+            ""resources[].id"": ""Unique identifier for the resource."",
+            ""resources[].type"": ""Type of resource (e.g., 'block_volume', 'object_bucket', 'load_balancer')."",
+            ""resources[].encrypted_at_rest"": ""True if data is encrypted at rest (for storage resources)."",
+            ""resources[].tls_policy"": ""TLS/SSL security policy enforced on endpoints.""
+        },
+        ""response_format"": UNIVERSAL_RESPONSE_FORMAT,
+        ""example_output"": {
+            ""metric_id"": ""security.encryption"",
+            ""score"": 2,
+            ""rationale"": ""Encryption is inconsistent and at least one endpoint uses legacy TLS, which elevates risk."",
+            ""evidence"": {""at_rest_pct"": 0.66, ""legacy_tls_endpoints"": 1},
+            ""gaps"": [
+                ""1. Enable encryption on remaining volumes"",
+                ""2. Upgrade LB security policy to modern TLS 1.2+""
+            ],
+            ""confidence"": 0.86
+        }",1.5 Security Infrastructure
+security.iam_risk,score_security_iam,Estimates analytics adoption from query and dashboard access patterns; highlights growth or decline versus previous periods.," AWS IAM (users, mfa, access keys age), Azure Entra ID + PIM, GCP IAM policy analyzer","{
+  ""users"": [
+    {
+      ""name"": ""carol"",
+      ""mfa_enabled"": true
+    },
+    {
+      ""name"": ""dave"",
+      ""mfa_enabled"": false
+    }
+  ],
+  ""keys"": [
+    {
+      ""user"": ""carol"",
+      ""age_days"": 50
+    }
+  ],
+  ""policies"": []
+}","{
+      ""metric_id"": ""security.iam_risk"",
+      ""score"": 3,
+      ""rationale"": ""One out of two users (50%) does not have MFA enabled, which is a clear risk. No access keys are older than 90 days, and there are no policies provided to assess for wildcard admin. The lack of policy data limits the assessment of overly permissive access."",
+      ""evidence"": {
+        ""users_without_mfa"": 1,
+        ""total_users"": 2,
+        ""old_keys"": 0,
+        ""overly_permissive_principals"": ""unknown""
+      },
+      ""gaps"": [
+        ""1. Require MFA for all users, especially dave"",
+        ""2. Provide IAM policy data to assess for wildcard or overly permissive access""
+      ],
+      ""confidence"": 0.7,
+      ""aimri_mapping"": [
+        {
+          ""dimension"": ""01. Technical Infrastructure"",
+          ""subsection"": ""1.5 Security Infrastructure""
+        }
+      ]
+    }","""system"": (
+            f""{UNIVERSAL_PREAMBLE}\n\n""
+            ""RUBRIC (MFA, key age, permissive policies):\n""
+            ""- 5: 0 users without MFA; no keys >90d; no wildcard admin\n""
+            ""- 4: Minor exceptions in non-prod\n""
+            ""- 3: Some exceptions across accounts\n""
+            ""- 2: Many exceptions; several wildcard policies\n""
+            ""- 1: Systemic issues (no MFA, wildcard admin in prod)""
+            f""{APPEND_TO_ALL_METRICS}""
+        ),
+        ""example_input"": {
+            ""users"": [{""name"": ""a"",""mfa_enabled"": False}],
+            ""keys"": [{ ""user"": ""user"",""age_days"": 120}],
+            ""policies"": [{""actions"": [""*""], ""resources"": [""*""]}]
+        },
+        ""input_key_meanings"": {
+            ""users"": ""IAM user accounts in scope."",
+            ""users[].name"": ""Username or identifier."",
+            ""users[].mfa_enabled"": ""True if MFA is enabled."",
+            ""keys"": ""IAM access keys or service keys."",
+            ""keys[].user"": ""User/service account the key belongs to."",
+            ""keys[].age_days"": ""Age of the key in days."",
+            ""policies"": ""IAM policies being evaluated."",
+            ""policies[].actions"": ""List of actions permitted."",
+            ""policies[].resources"": ""List of resources covered.""
+        },
+        ""response_format"": UNIVERSAL_RESPONSE_FORMAT,
+        ""example_output"": {
+            ""metric_id"": ""security.iam_risk"",
+            ""score"": 2,
+            ""rationale"": ""Several basic controls are missing: some users lack MFA, old keys are still active, and a wildcard admin policy exists."",
+            ""evidence"": {""users_without_mfa"": 1, ""old_keys"": 1, ""overly_permissive_principals"": 1},
+            ""gaps"": [
+                ""1. Enforce MFA for all users immediately"",
+                ""2. Replace wildcard admin with least-privilege roles""
+            ],
+            ""confidence"": 0.87
+        }",1.5 Security Infrastructure
+security.vuln_patch,score_security_vuln_patch,,AWS Systems Manager/Inspector; Azure Defender/Update Mgmt; GCP OS Config + SCC,"{
+  ""findings"": [
+    {
+      ""severity"": ""HIGH"",
+      ""resolved"": true
+    },
+    {
+      ""severity"": ""HIGH"",
+      ""resolved"": false
+    }
+  ],
+  ""patch_status"": {
+    ""agent_coverage_pct"": 0.82,
+    ""avg_patch_age_days"": 26
+  },
+  ""denominators"": {
+    ""total_assets"": 260,
+    ""scanned_assets"": 230
+  },
+  ""patch_sla_days"": {
+    ""critical"": 7,
+    ""high"": 21
+  }
+}","{
+      ""metric_id"": ""security.vuln_patch"",
+      ""score"": 2,
+      ""rationale"": ""Patch agent coverage is 82%, below the 85% threshold, and average patch age is 26 days, exceeding the 21-day target. No critical vulnerabilities are reported, but there is at least one unresolved high severity finding. These factors indicate material risks and missed targets."",
+      ""evidence"": {
+        ""critical_open"": 0,
+        ""high_open"": 1,
+        ""agent_coverage_pct"": 0.82,
+        ""avg_patch_age_days"": 26,
+        ""scanned_assets"": 230,
+        ""total_assets"": 260
+      },
+      ""gaps"": [
+        ""1. Raise patch agent coverage to at least 90% by enrolling missing assets."",
+        ""2. Reduce average patch age below 21 days to meet target."",
+        ""3. Remediate open high severity vulnerabilities promptly."",
+        ""4. Confirm no critical vulnerabilities are present in the full asset population.""
+      ],
+      ""confidence"": 0.7,
+      ""aimri_mapping"": [
+        {
+          ""dimension"": ""01. Technical Infrastructure"",
+          ""subsection"": ""1.5 Security Infrastructure""
+        }
+      ]
+    }","        ""system"": (
+            f""{UNIVERSAL_PREAMBLE}\n\n""
+            ""RUBRIC (coverage, patch latency, criticals):\n""
+            ""- 5: ≥95% coverage, avg patch age <14d, 0 critical open\n""
+            ""- 4: ≥90% coverage, avg age <21d, few highs\n""
+            ""- 3: Some criticals open OR avg age 21-35d\n""
+            ""- 2: Multiple criticals; coverage <85% OR age 35-60d\n""
+            ""- 1: Chronic exposure; coverage <70% OR age >60d""
+            f""{APPEND_TO_ALL_METRICS}""
+        ),
+        ""example_input"": {
+            ""findings"": [{""severity"": ""CRITICAL"", ""resolved"": False}],
+            ""patch_status"": {
+                ""agent_coverage_pct"": 0.9,
+                ""avg_patch_age_days"": 30,
+                ""sla"": {""critical_days"": 7, ""high_days"": 30}
+            },
+            ""denominators"": {""total_assets"": 420, ""scanned_assets"": 403}
+        },
+        ""input_key_meanings"": {
+            ""findings"": ""Vulnerability findings in scope."",
+            ""findings[].severity"": ""Severity (CRITICAL, HIGH, MEDIUM, LOW)."",
+            ""findings[].resolved"": ""True if remediated."",
+            ""patch_status"": ""Patch coverage/latency metrics."",
+            ""patch_status.agent_coverage_pct"": ""Fraction of assets with patch agent reporting (0..1)."",
+            ""patch_status.avg_patch_age_days"": ""Average age (days) of applied patches since release."",
+            ""patch_status.sla"": ""Patch SLAs for severity classes."",
+            ""denominators.total_assets"": ""Total assets in environment."",
+            ""denominators.scanned_assets"": ""Assets successfully scanned/covered.""
+        },
+        ""response_format"": UNIVERSAL_RESPONSE_FORMAT,
+        ""example_output"": {
+            ""metric_id"": ""security.vuln_patch"",
+            ""score"": 3,
+            ""rationale"": ""One critical vulnerability remains open. Coverage is close to target but patching is somewhat delayed."",
+            ""evidence"": {
+                ""critical_open"": 1,
+                ""agent_coverage_pct"": 0.90,
+                ""avg_patch_age_days"": 30,
+                ""sla"": {""critical_days"": 7, ""high_days"": 30},
+                ""scanned_assets"": 403,
+                ""total_assets"": 420
+            },
+            ""gaps"": [
+                ""1. Patch critical CVEs on internet-exposed assets within 48 hours"",
+                ""2. Increase patch agent coverage from 90% to 95% across missing subnets""
+            ],
+            ""confidence"": 0.78
+        }",1.5 Security Infrastructure
