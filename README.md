@@ -41,7 +41,7 @@
 ### **1. Run the Agent using main.py (Recommended)**
 
 ```sh
-python -m mvp.main
+python -m mvp.DataPlatform_run_once.py
 ```
 - This will scan all input data in DAG like structure and writes results to `runs_mvp_scanner/run_<timestamp>.json`.
 
@@ -105,7 +105,7 @@ ClaimbAI/
 |
 ├── mvp/
 |   └──  AGENT_DATA_PLATFORM_ANALYZER
-|        └── main.py                         # CLI entrypoint                 
+|        └── DataPlatform_run_once.py        # CLI entrypoint                 
 ├── .env                                     # OPENAI_API_KEY
 ├── requirements.txt
 └── README.md                                # this file               
