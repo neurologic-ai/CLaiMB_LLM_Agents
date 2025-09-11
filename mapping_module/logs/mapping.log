@@ -34,3 +34,59 @@ Traceback (most recent call last):
   File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module2/mapper.py", line 31, in elaborate
     out = self.agent.call(system=sys, user=user, expect_json=True)
 AttributeError: '_AdapterAgent' object has no attribute 'call'
+2025-09-11 21:34:51.090 | INFO     | __main__:main:124 - Single-agent mode: cloud_infra.yaml
+2025-09-11 21:34:51.091 | INFO     | mapping_module.mapper:process_yaml:99 - Processing YAML: /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/metric_descriptions/cloud_infra.yaml
+2025-09-11 21:34:51.093 | ERROR    | __main__:main:138 - Failed to process /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/metric_descriptions/cloud_infra.yaml: OPENAI_API_KEY is not set.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/run_mapping_batch.py", line 142, in <module>
+    main()
+> File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/run_mapping_batch.py", line 136, in main
+    process_yaml(yf, aimri_path, out_dir, model=args.model)
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/mapper.py", line 113, in process_yaml
+    elaborated = elaborator.elaborate(m)
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/mapper.py", line 42, in elaborate
+    out = self.agent.call(system=sys, user=user, expect_json=True)
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/mapper.py", line 24, in call
+    text = self._call_llm(prompt=user, system_prompt=system, max_tokens=max_tokens)
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/base_agent.py", line 33, in _call_llm
+    client = self._get_client()
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/base_agent.py", line 27, in _get_client
+    raise RuntimeError("OPENAI_API_KEY is not set.")
+RuntimeError: OPENAI_API_KEY is not set.
+2025-09-11 21:40:37.048 | INFO     | __main__:main:124 - Single-agent mode: cloud_infra.yaml
+2025-09-11 21:40:37.048 | INFO     | mapping_module.mapper:process_yaml:94 - Processing YAML: /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/metric_descriptions/cloud_infra.yaml
+2025-09-11 21:40:37.050 | ERROR    | __main__:main:138 - Failed to process /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/metric_descriptions/cloud_infra.yaml: OPENAI_API_KEY is not set.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/run_mapping_batch.py", line 142, in <module>
+    main()
+> File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/run_mapping_batch.py", line 136, in main
+    process_yaml(yf, aimri_path, out_dir, model=args.model)
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/mapper.py", line 108, in process_yaml
+    elaborated = elaborator.elaborate(m)
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/mapper.py", line 37, in elaborate
+    out = self.agent.call(system=sys, user=user, expect_json=True)
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/mapper.py", line 22, in call
+    text = self._call_llm(prompt=user, system_prompt=system, max_tokens=max_tokens)
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/base_agent.py", line 33, in _call_llm
+    client = self._get_client()
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/base_agent.py", line 27, in _get_client
+    raise RuntimeError("OPENAI_API_KEY is not set.")
+RuntimeError: OPENAI_API_KEY is not set.
+2025-09-11 21:41:59.956 | INFO     | __main__:main:124 - Single-agent mode: cloud_infra.yaml
+2025-09-11 21:41:59.957 | INFO     | mapping_module.mapper:process_yaml:98 - Processing YAML: /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/metric_descriptions/cloud_infra.yaml
+2025-09-11 21:44:35.905 | INFO     | mapping_module.mapper:process_yaml:121 - Wrote /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/outputs/cloud_infra.py
+2025-09-11 21:46:17.075 | INFO     | __main__:main:124 - Single-agent mode: bi_tracker.yaml
+2025-09-11 21:46:17.075 | INFO     | mapping_module.mapper:process_yaml:98 - Processing YAML: /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/metric_descriptions/bi_tracker.yaml
+2025-09-11 21:48:41.273 | INFO     | mapping_module.mapper:process_yaml:121 - Wrote /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/outputs/bi_tracker.py
+2025-09-11 21:49:55.132 | INFO     | __main__:main:124 - Single-agent mode: enterprise_system.yaml
+2025-09-11 21:49:55.132 | INFO     | mapping_module.mapper:process_yaml:98 - Processing YAML: /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/metric_descriptions/enterprise_system.yaml
+2025-09-11 21:53:21.888 | INFO     | mapping_module.mapper:process_yaml:121 - Wrote /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/outputs/enterprise_system.py
+2025-09-12 01:46:54.499 | INFO     | __main__:main:79 - Single-agent mode: code_repo.yaml
+2025-09-12 01:46:54.499 | INFO     | mapping_module.mapper:process_yaml:99 - Processing YAML: /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/metric_descriptions/code_repo.yaml
+2025-09-12 01:50:33.121 | INFO     | mapping_module.mapper:process_yaml:122 - Wrote /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/outputs/code_repo.py
+2025-09-12 02:28:00.718 | INFO     | __main__:main:79 - Single-agent mode: code_repo.yaml
+2025-09-12 02:28:00.718 | INFO     | mapping_module.mapper:process_yaml:99 - Processing YAML: /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/metric_descriptions/code_repo.yaml

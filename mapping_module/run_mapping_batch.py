@@ -1,54 +1,9 @@
-# from __future__ import annotations
-# import argparse
-# from pathlib import Path
-# from loguru import logger
-
-# from .logging_utils import setup_logger
-# from .mapper import process_yaml
-
-# def main() -> None:
-#     p = argparse.ArgumentParser(description="Run AIMRI mapping for all metric YAMLs.")
-#     p.add_argument("--project-root", default=Path(__file__).resolve().parents[0], help="Project root containing aimri_points.json and metric_descriptions/")
-#     p.add_argument("--aimri", default=None, help="Path to aimri_points.json (default: <root>/aimri_points.json)")
-#     p.add_argument("--metrics-dir", default=None, help="Directory containing YAMLs (default: <root>/metric_descriptions)")
-#     p.add_argument("--out-dir", default=None, help="Output dir (default: <root>/outputs)")
-#     p.add_argument("--model", default="gpt-4o-mini", help="OpenAI model name")
-#     args = p.parse_args()
-
-#     root = Path(str(args.project_root))
-#     aimri_path = Path(args.aimri) if args.aimri else root / "aimri_points.json"
-#     metrics_dir = Path(args.metrics_dir) if args.metrics_dir else root / "metric_descriptions"
-#     out_dir = Path(args.out_dir) if args.out_dir else root / "outputs"
-
-#     setup_logger(root / "logs" / "mapping.log", level="INFO")
-
-#     if not aimri_path.exists():
-#         raise FileNotFoundError(f"AIMRI file not found: {aimri_path}")
-#     if not metrics_dir.exists():
-#         raise FileNotFoundError(f"metrics dir not found: {metrics_dir}")
-#     out_dir.mkdir(parents=True, exist_ok=True)
-
-#     yaml_files = sorted([p for p in metrics_dir.glob("*.yaml")])
-#     if not yaml_files:
-#         logger.warning("No YAML files found.")
-#         return
-
-#     for yf in yaml_files:
-#         try:
-#             process_yaml(yf, aimri_path, out_dir, model=args.model)
-#         except Exception as e:
-#             logger.exception(f"Failed to process {yf}: {e}")
-
-# if __name__ == "__main__":
-#     main()
-
-
 from __future__ import annotations
 import argparse
 from pathlib import Path
 from loguru import logger
 
-from .logging_utils import setup_logger
+# from .logging_utils import setup_logger
 from .mapper import process_yaml
 
 
@@ -95,7 +50,7 @@ def main() -> None:
     metrics_dir = Path(args.metrics_dir).resolve() if args.metrics_dir else default_metrics_dir
     out_dir = Path(args.out_dir).resolve() if args.out_dir else default_out_dir
 
-    setup_logger(logs_dir / "mapping.log", level="INFO")
+    # setup_logger(logs_dir / "mapping.log", level="INFO")
 
     # Validate anchor files/dirs
     if not aimri_path.exists():

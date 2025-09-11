@@ -32,10 +32,20 @@ ELABORATE_SYSTEM_ENTERPRISE = (
     "Avoid implementation details; Return only JSON."
 )
 
+ELABORATE_SYSTEM_CODE_REPO = (
+    "You are a senior software engineering and MLOps reviewer. "
+    "Your task is to expand a short metric description into a clear, domain-grounded explanation "
+    "for code repositories and ML engineering workflows. "
+    "Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. "
+    "Avoid implementation details, thresholds, or tool-specific commands. "
+    "Be neutral and factual. Return only JSON."
+)
+
 ELABORATE_SYSTEMS: Dict[str, str] = {
     "cloud_infra": ELABORATE_SYSTEM_CLOUD,
     "bi_tracker": ELABORATE_SYSTEM_BI,
     "enterprise_system": ELABORATE_SYSTEM_ENTERPRISE,
+    "code_repo": ELABORATE_SYSTEM_CODE_REPO
 }
 
 def get_elaborate_system(agent_key: str) -> str:
@@ -50,10 +60,25 @@ MAP_SYSTEM_GENERIC = (
     "Return only JSON."
 )
 
-def get_map_system(agent_key: str) -> str:
-    # Agent key is accepted for future specialization, but we intentionally avoid bias here.
-    return MAP_SYSTEM_GENERIC
+MAP_SYSTEM_CODE_REPO = (
+    "You are mapping code-repository metrics to AIMRI points using domain knowledge only. "
+    "Do not bias toward any AIMRI category. "
+    "Select the best 1–5 matches by semantic proximity and scope. "
+    "Rank by relevance and apply an elbow cutoff if confidence drops. "
+    "For each selection, provide a confidence in [0,1] and a one-sentence rationale. "
+    "Return only JSON."
+)
 
+MAP_SYSTEMS: Dict[str, str] = {
+    # "cloud_infra": MAP_SYSTEM_CLOUD,
+    # "bi_tracker": MAP_SYSTEM_BI,
+    # "enterprise_system": MAP_SYSTEM_ENTERPRISE,
+    "code_repo": MAP_SYSTEM_CODE_REPO
+}
+
+def get_map_system(agent_key: str) -> str:
+    return MAP_SYSTEMS.get(agent_key, MAP_SYSTEM_GENERIC)
+    
 # ---------- User Prompts ----------
 
 def elaborate_user(metric_id: str, name: str, description: str) -> str:
@@ -65,7 +90,7 @@ Short description: {description}
 Return a STRICT JSON with keys:
 - metric_id (string)
 - name (string)
-- elaborated_description (string: 2-4 crisp sentences focusing on WHAT is measured and scope/boundaries)
+- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)
 """
 
 def map_user(metric_id: str, name: str, elaborated: str, aimri_catalog: List[Dict[str, str]]) -> str:

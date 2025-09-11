@@ -12,3 +12,5 @@ GeneratedPrompts/compute_utilization.txt
 GeneratedPrompts/cost_allocation_quality.txt
 .gitignore
 GeneratedPrompts/cost_commit_coverage.txt
+mapping_module/logs
+mapping_module/logging_utils.py

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
 from pathlib import Path
 from loguru import logger
 
@@ -8,13 +8,24 @@ from .io_utils import load_aimri_points, load_metric_yaml, ensure_dir, write_pyt
 from . import prompts
 # --- add near the top of mapper.py, after imports ---
 from .base_agent import BaseMicroAgent
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+api_key=os.getenv("OPENAI_API_KEY")
 
 class _AdapterAgent(BaseMicroAgent):
-    """Thin concrete wrapper so we can instantiate the LLM client without touching the backbone."""
-    def evaluate(self, *args, **kwargs):
-        # Not used in this pipeline; required to satisfy ABC
+    """Concrete wrapper exposing .call(...) while using env OPENAI_API_KEY via BaseMicroAgent."""
+    def __init__(self, model: str = "gpt-4o-mini"):
+        super().__init__(model=model,api_key=api_key)  # DO NOT pass api_key; BaseMicroAgent will use env
+
+    def evaluate(self, code_snippets: List[str], context: Optional[Dict] = None) -> Dict[str, Any]:
+        # Not used by this pipeline; required to satisfy ABC.
         return {}
 
+    def call(self, *, system: str, user: str, expect_json: bool = False, max_tokens: int = 900):
+        text = self._call_llm(prompt=user, system_prompt=system, max_tokens=max_tokens)
+        return self._parse_json_response(text) if expect_json else text
 
 class DescriptionElaborator:
     def __init__(self, model: str = "gpt-4o-mini", agent_key: str = "generic"):
