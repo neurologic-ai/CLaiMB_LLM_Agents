@@ -293,3 +293,214 @@
     "overall_score_1to5": 2.73
   }
 }
+2025-09-11 17:21:29.498 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - ===== Starting Data Platform Analyzer run =====
+2025-09-11 17:21:29.500 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Running level0 metrics in parallel: ['check_schema_consistency', 'evaluate_data_freshness', 'evaluate_governance_compliance', 'evaluate_data_lineage', 'evaluate_metadata_coverage', 'evaluate_sensitive_tagging', 'evaluate_duplication', 'evaluate_backup_recovery', 'evaluate_security_config', 'evaluate_resource_utilization', 'assess_query_performance']
+2025-09-11 17:21:29.501 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: check_schema_consistency
+2025-09-11 17:21:29.501 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_data_freshness
+2025-09-11 17:21:29.502 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_governance_compliance
+2025-09-11 17:21:29.502 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_data_lineage
+2025-09-11 17:21:29.503 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_metadata_coverage
+2025-09-11 17:21:29.503 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_sensitive_tagging
+2025-09-11 17:21:29.504 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_duplication
+2025-09-11 17:21:29.508 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_backup_recovery
+2025-09-11 17:21:32.021 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_data_lineage
+2025-09-11 17:21:32.022 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_security_config
+2025-09-11 17:21:32.022 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_data_lineage -> score 1
+2025-09-11 17:21:32.299 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_duplication
+2025-09-11 17:21:32.301 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: check_schema_consistency
+2025-09-11 17:21:32.301 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_resource_utilization
+2025-09-11 17:21:32.301 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_duplication -> score 5
+2025-09-11 17:21:32.302 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: assess_query_performance
+2025-09-11 17:21:32.306 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed check_schema_consistency -> score 5
+2025-09-11 17:21:32.944 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_metadata_coverage
+2025-09-11 17:21:32.945 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_metadata_coverage -> score 5
+2025-09-11 17:21:33.644 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_data_freshness
+2025-09-11 17:21:33.645 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_data_freshness -> score 1
+2025-09-11 17:21:34.145 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: assess_query_performance
+2025-09-11 17:21:34.146 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed assess_query_performance -> score 5
+2025-09-11 17:21:34.277 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_security_config
+2025-09-11 17:21:34.278 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_security_config -> score 5
+2025-09-11 17:21:34.573 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_governance_compliance
+2025-09-11 17:21:34.574 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_governance_compliance -> score 4
+2025-09-11 17:21:34.609 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_sensitive_tagging
+2025-09-11 17:21:34.611 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_sensitive_tagging -> score 1
+2025-09-11 17:21:35.105 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_backup_recovery
+2025-09-11 17:21:35.106 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_backup_recovery -> score 4
+2025-09-11 17:21:36.455 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_resource_utilization
+2025-09-11 17:21:36.455 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_resource_utilization -> score 1
+2025-09-11 17:21:36.458 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Running level1 metrics in parallel (each receives only its dependencies' outputs): ['evaluate_data_quality', 'compute_pipeline_success_rate', 'compute_pipeline_latency_throughput', 'compute_analytics_adoption']
+2025-09-11 17:21:36.458 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_data_quality
+2025-09-11 17:21:36.460 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: compute_pipeline_success_rate
+2025-09-11 17:21:36.462 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: compute_pipeline_latency_throughput
+2025-09-11 17:21:36.464 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: compute_analytics_adoption
+2025-09-11 17:21:40.802 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: compute_pipeline_success_rate
+2025-09-11 17:21:40.803 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed compute_pipeline_success_rate -> score 1
+2025-09-11 17:21:40.823 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_data_quality
+2025-09-11 17:21:40.823 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_data_quality -> score 1
+2025-09-11 17:21:42.213 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: compute_pipeline_latency_throughput
+2025-09-11 17:21:42.214 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed compute_pipeline_latency_throughput -> score 1
+2025-09-11 17:21:42.267 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: compute_analytics_adoption
+2025-09-11 17:21:42.268 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed compute_analytics_adoption -> score 1
+2025-09-11 17:21:42.274 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Run persisted to agent_layer_output\AGENT_DATA_PLATFORM_ANALYZER\run_1757591502.json
+2025-09-11 17:21:42.275 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - ===== Completed Data Platform Analyzer run in 12.78 seconds =====
+2025-09-11 17:21:42.275 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Summary: {
+  "summary": {
+    "per_category_1to5": {
+      "Development Maturity": 3.0,
+      "Innovation Pipeline": 2.33
+    },
+    "overall_score_1to5": 2.73
+  }
+}
+2025-09-11 17:26:07.557 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - ===== Starting Data Platform Analyzer run =====
+2025-09-11 17:26:07.557 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Running level0 metrics in parallel: ['check_schema_consistency', 'evaluate_data_freshness', 'evaluate_governance_compliance', 'evaluate_data_lineage', 'evaluate_metadata_coverage', 'evaluate_sensitive_tagging', 'evaluate_duplication', 'evaluate_backup_recovery', 'evaluate_security_config', 'evaluate_resource_utilization', 'assess_query_performance']
+2025-09-11 17:26:07.559 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: check_schema_consistency
+2025-09-11 17:26:07.559 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_data_freshness
+2025-09-11 17:26:07.560 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_governance_compliance
+2025-09-11 17:26:07.560 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_data_lineage
+2025-09-11 17:26:07.561 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_metadata_coverage
+2025-09-11 17:26:07.561 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_sensitive_tagging
+2025-09-11 17:26:07.562 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_backup_recovery
+2025-09-11 17:26:07.561 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_duplication
+2025-09-11 17:26:09.611 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_duplication
+2025-09-11 17:26:09.611 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_security_config
+2025-09-11 17:26:09.611 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_duplication -> score 5
+2025-09-11 17:26:09.877 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_metadata_coverage
+2025-09-11 17:26:09.878 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_resource_utilization
+2025-09-11 17:26:09.878 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_metadata_coverage -> score 5
+2025-09-11 17:26:11.287 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_data_freshness
+2025-09-11 17:26:11.287 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: assess_query_performance
+2025-09-11 17:26:11.288 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_data_freshness -> score 1
+2025-09-11 17:26:11.487 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_governance_compliance
+2025-09-11 17:26:11.488 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_governance_compliance -> score 4
+2025-09-11 17:26:12.816 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_security_config
+2025-09-11 17:26:12.817 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_security_config -> score 5
+2025-09-11 17:26:13.213 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: assess_query_performance
+2025-09-11 17:26:13.214 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed assess_query_performance -> score 5
+2025-09-11 17:26:13.508 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_backup_recovery
+2025-09-11 17:26:13.509 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_backup_recovery -> score 4
+2025-09-11 17:26:13.867 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: check_schema_consistency
+2025-09-11 17:26:13.868 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed check_schema_consistency -> score 5
+2025-09-11 17:26:14.213 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_resource_utilization
+2025-09-11 17:26:14.214 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_resource_utilization -> score 1
+2025-09-11 17:26:14.668 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_data_lineage
+2025-09-11 17:26:14.669 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_data_lineage -> score 1
+2025-09-11 17:26:16.589 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_sensitive_tagging
+2025-09-11 17:26:16.590 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_sensitive_tagging -> score 1
+2025-09-11 17:26:16.592 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Running level1 metrics in parallel (each receives only its dependencies' outputs): ['evaluate_data_quality', 'compute_pipeline_success_rate', 'compute_pipeline_latency_throughput', 'compute_analytics_adoption']
+2025-09-11 17:26:16.593 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_data_quality
+2025-09-11 17:26:16.597 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: compute_pipeline_success_rate
+2025-09-11 17:26:16.598 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: compute_pipeline_latency_throughput
+2025-09-11 17:26:16.603 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: compute_analytics_adoption
+2025-09-11 17:26:20.371 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: compute_analytics_adoption
+2025-09-11 17:26:20.372 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed compute_analytics_adoption -> score 1
+2025-09-11 17:26:20.546 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: compute_pipeline_latency_throughput
+2025-09-11 17:26:20.547 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed compute_pipeline_latency_throughput -> score 1
+2025-09-11 17:26:20.902 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: compute_pipeline_success_rate
+2025-09-11 17:26:20.903 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed compute_pipeline_success_rate -> score 1
+2025-09-11 17:26:21.280 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_data_quality
+2025-09-11 17:26:21.281 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_data_quality -> score 1
+2025-09-11 17:26:21.286 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Run persisted to agent_layer_output\AGENT_DATA_PLATFORM_ANALYZER\run_1757591781.json
+2025-09-11 17:26:21.287 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - ===== Completed Data Platform Analyzer run in 13.73 seconds =====
+2025-09-11 17:26:21.287 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Summary: {
+  "summary": {
+    "per_category_1to5": {
+      "Development Maturity": 3.0,
+      "Innovation Pipeline": 2.33
+    },
+    "overall_score_1to5": 2.73
+  }
+}
+2025-09-11 17:30:23.112 | INFO     | __main__:map_metrics_to_aimri:91 - Starting mapping of evaluation metrics to AIMRI points.
+2025-09-11 17:30:23.113 | INFO     | __main__:process_metric:53 - Processing metric: check_schema_consistency
+2025-09-11 17:30:23.113 | INFO     | __main__:process_metric:53 - Processing metric: evaluate_data_freshness
+2025-09-11 17:30:23.114 | INFO     | __main__:process_metric:53 - Processing metric: evaluate_governance_compliance
+2025-09-11 17:30:23.114 | INFO     | __main__:process_metric:53 - Processing metric: evaluate_data_quality
+2025-09-11 17:30:23.114 | INFO     | __main__:process_metric:53 - Processing metric: evaluate_data_lineage
+2025-09-11 17:30:34.546 | INFO     | __main__:process_metric:87 - Mapped evaluate_data_quality to AIMRI points: ['2.2', '5.2', '8.5']
+2025-09-11 17:30:34.547 | INFO     | __main__:process_metric:53 - Processing metric: evaluate_metadata_coverage
+2025-09-11 17:30:36.224 | INFO     | __main__:process_metric:87 - Mapped evaluate_governance_compliance to AIMRI points: ['2.3', '5.2', '9.4']
+2025-09-11 17:30:36.225 | INFO     | __main__:process_metric:53 - Processing metric: evaluate_sensitive_tagging
+2025-09-11 17:30:38.255 | INFO     | __main__:process_metric:87 - Mapped evaluate_data_freshness to AIMRI points: ['2.4', '3.3', '13.2']
+2025-09-11 17:30:38.256 | INFO     | __main__:process_metric:53 - Processing metric: evaluate_duplication
+2025-09-11 17:30:40.153 | INFO     | __main__:process_metric:87 - Mapped evaluate_data_lineage to AIMRI points: ['2.3', '2.4', '5.2']
+2025-09-11 17:30:40.154 | INFO     | __main__:process_metric:53 - Processing metric: evaluate_backup_recovery
+2025-09-11 17:30:40.236 | INFO     | __main__:process_metric:87 - Mapped check_schema_consistency to AIMRI points: ['2.4', '3.3', '8.5']
+2025-09-11 17:30:40.237 | INFO     | __main__:process_metric:53 - Processing metric: evaluate_security_config
+2025-09-11 17:30:48.025 | INFO     | __main__:process_metric:87 - Mapped evaluate_metadata_coverage to AIMRI points: ['2.3', '2.5', '8.2']
+2025-09-11 17:30:48.026 | INFO     | __main__:process_metric:53 - Processing metric: compute_pipeline_success_rate
+2025-09-11 17:30:48.087 | INFO     | __main__:process_metric:87 - Mapped evaluate_duplication to AIMRI points: ['1.2', '2.2', '3.3']
+2025-09-11 17:30:48.088 | INFO     | __main__:process_metric:53 - Processing metric: compute_pipeline_latency_throughput
+2025-09-11 17:30:49.425 | INFO     | __main__:process_metric:87 - Mapped evaluate_backup_recovery to AIMRI points: ['2.4', '3.3', '13.4']
+2025-09-11 17:30:49.426 | INFO     | __main__:process_metric:53 - Processing metric: evaluate_resource_utilization
+2025-09-11 17:30:49.986 | INFO     | __main__:process_metric:87 - Mapped evaluate_sensitive_tagging to AIMRI points: ['2.2', '5.2', '11.3']
+2025-09-11 17:30:49.986 | INFO     | __main__:process_metric:53 - Processing metric: assess_query_performance
+2025-09-11 17:30:53.434 | INFO     | __main__:process_metric:87 - Mapped evaluate_security_config to AIMRI points: ['1.5', '2.4', '13.5']
+2025-09-11 17:30:53.435 | INFO     | __main__:process_metric:53 - Processing metric: compute_analytics_adoption
+2025-09-11 17:31:00.313 | INFO     | __main__:process_metric:87 - Mapped assess_query_performance to AIMRI points: ['2.4', '3.3', '8.5']
+2025-09-11 17:31:01.180 | INFO     | __main__:process_metric:87 - Mapped compute_pipeline_latency_throughput to AIMRI points: ['1.2', '3.3', '8.5']
+2025-09-11 17:31:01.587 | INFO     | __main__:process_metric:87 - Mapped compute_pipeline_success_rate to AIMRI points: ['1.2', '2.4', '3.3']
+2025-09-11 17:31:05.644 | INFO     | __main__:process_metric:87 - Mapped evaluate_resource_utilization to AIMRI points: ['1.2', '3.3', '12.2']
+2025-09-11 17:31:09.630 | INFO     | __main__:process_metric:87 - Mapped compute_analytics_adoption to AIMRI points: ['2.5', '7.4', '8.5']
+2025-09-11 17:31:09.632 | INFO     | __main__:map_metrics_to_aimri:112 - Completed mapping all metrics.
+2025-09-11 17:31:09.636 | INFO     | __main__:save_mapping_to_file:121 - Saved mapping to 'agent_layer\AGENT_DATA_PLATFORM_ANALYZER\aimri_mapping.py'.
+2025-09-11 17:31:09.636 | INFO     | __main__:<module>:126 - All done.
+2025-09-11 17:32:50.525 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - ===== Starting Data Platform Analyzer run =====
+2025-09-11 17:32:50.526 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Running level0 metrics in parallel: ['check_schema_consistency', 'evaluate_data_freshness', 'evaluate_governance_compliance', 'evaluate_data_lineage', 'evaluate_metadata_coverage', 'evaluate_sensitive_tagging', 'evaluate_duplication', 'evaluate_backup_recovery', 'evaluate_security_config', 'evaluate_resource_utilization', 'assess_query_performance']
+2025-09-11 17:32:50.527 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: check_schema_consistency
+2025-09-11 17:32:50.528 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_data_freshness
+2025-09-11 17:32:50.529 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_governance_compliance
+2025-09-11 17:32:50.529 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_data_lineage
+2025-09-11 17:32:50.530 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_metadata_coverage
+2025-09-11 17:32:50.530 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_sensitive_tagging
+2025-09-11 17:32:50.531 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_duplication
+2025-09-11 17:32:50.531 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_backup_recovery
+2025-09-11 17:32:52.792 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: check_schema_consistency
+2025-09-11 17:32:52.792 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_security_config
+2025-09-11 17:32:52.793 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed check_schema_consistency -> score 5
+2025-09-11 17:32:54.700 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_duplication
+2025-09-11 17:32:54.701 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_resource_utilization
+2025-09-11 17:32:54.702 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_duplication -> score 5
+2025-09-11 17:32:54.979 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_governance_compliance
+2025-09-11 17:32:54.980 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: assess_query_performance
+2025-09-11 17:32:54.980 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_governance_compliance -> score 4
+2025-09-11 17:32:55.061 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_metadata_coverage
+2025-09-11 17:32:55.062 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_metadata_coverage -> score 5
+2025-09-11 17:32:55.877 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_security_config
+2025-09-11 17:32:55.878 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_security_config -> score 5
+2025-09-11 17:32:56.990 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_data_lineage
+2025-09-11 17:32:56.992 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_data_lineage -> score 1
+2025-09-11 17:32:57.216 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_backup_recovery
+2025-09-11 17:32:57.217 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_backup_recovery -> score 4
+2025-09-11 17:32:57.220 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_sensitive_tagging
+2025-09-11 17:32:57.221 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_sensitive_tagging -> score 1
+2025-09-11 17:32:57.484 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_data_freshness
+2025-09-11 17:32:57.485 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_data_freshness -> score 1
+2025-09-11 17:32:58.564 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: assess_query_performance
+2025-09-11 17:32:58.564 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed assess_query_performance -> score 5
+2025-09-11 17:32:59.542 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_resource_utilization
+2025-09-11 17:32:59.543 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_resource_utilization -> score 1
+2025-09-11 17:32:59.546 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Running level1 metrics in parallel (each receives only its dependencies' outputs): ['evaluate_data_quality', 'compute_pipeline_success_rate', 'compute_pipeline_latency_throughput', 'compute_analytics_adoption']
+2025-09-11 17:32:59.548 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: evaluate_data_quality
+2025-09-11 17:32:59.552 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: compute_pipeline_success_rate
+2025-09-11 17:32:59.554 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: compute_pipeline_latency_throughput
+2025-09-11 17:32:59.558 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Starting metric evaluation: compute_analytics_adoption
+2025-09-11 17:33:02.702 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: compute_analytics_adoption
+2025-09-11 17:33:02.703 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed compute_analytics_adoption -> score 1
+2025-09-11 17:33:03.043 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: compute_pipeline_success_rate
+2025-09-11 17:33:03.044 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed compute_pipeline_success_rate -> score 1
+2025-09-11 17:33:04.124 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: compute_pipeline_latency_throughput
+2025-09-11 17:33:04.125 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed compute_pipeline_latency_throughput -> score 1
+2025-09-11 17:33:04.230 | DEBUG    | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:79 - Completed metric evaluation: evaluate_data_quality
+2025-09-11 17:33:04.231 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Completed evaluate_data_quality -> score 1
+2025-09-11 17:33:04.237 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Run persisted to agent_layer_output\AGENT_DATA_PLATFORM_ANALYZER\run_1757592184.json
+2025-09-11 17:33:04.238 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - ===== Completed Data Platform Analyzer run in 13.71 seconds =====
+2025-09-11 17:33:04.238 | INFO     | workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner:_log:73 - Summary: {
+  "summary": {
+    "per_category_1to5": {
+      "Development Maturity": 3.0,
+      "Innovation Pipeline": 2.33
+    },
+    "overall_score_1to5": 2.73
+  }
+}

@@ -45,7 +45,13 @@ python -m mvp.DataPlatform_run_once.py
 ```
 - This will scan all input data in DAG like structure and writes results to `runs_mvp_scanner/run_<timestamp>.json`.
 
-### **2. Run the FastAPI Endpoints**
+### **2. Update the Mappings using LLM**
+
+```sh
+python -m agent_layer.AGENT_DATA_PLATFORM_ANALYZER.update
+```
+
+### **3. Run the FastAPI Endpoints**
 
 ```sh
 uvicorn services.AGENT_DATA_PLATFORM_ANALYZER.fastapi_data_platform_agent:app --reload
