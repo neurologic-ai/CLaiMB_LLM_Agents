@@ -1,0 +1,32 @@
+2025-09-11 19:58:06.375 | INFO     | __main__:map_metrics_to_aimri:91 - Starting mapping of evaluation metrics to AIMRI points.
+2025-09-11 19:58:06.376 | INFO     | __main__:process_metric:53 - Processing metric: mlflow.experiment_completeness_band
+2025-09-11 19:58:06.376 | INFO     | __main__:process_metric:53 - Processing metric: mlflow.lineage_coverage_band
+2025-09-11 19:58:06.377 | INFO     | __main__:process_metric:53 - Processing metric: mlflow.experiment_velocity_band
+2025-09-11 19:58:06.378 | INFO     | __main__:process_metric:53 - Processing metric: mlflow.registry_hygiene_band
+2025-09-11 19:58:06.378 | INFO     | __main__:process_metric:53 - Processing metric: mlflow.validation_artifacts_band
+2025-09-11 19:58:21.060 | INFO     | __main__:process_metric:87 - Mapped mlflow.experiment_completeness_band to AIMRI points: ['3.3', '8.5', '9.1']
+2025-09-11 19:58:21.062 | INFO     | __main__:process_metric:53 - Processing metric: mlflow.reproducibility_band
+2025-09-11 19:58:22.453 | INFO     | __main__:process_metric:87 - Mapped mlflow.registry_hygiene_band to AIMRI points: ['3.3', '3.4', '8.5']
+2025-09-11 19:58:22.454 | INFO     | __main__:process_metric:53 - Processing metric: aml.endpoint_slo_band
+2025-09-11 19:58:24.698 | INFO     | __main__:process_metric:87 - Mapped mlflow.validation_artifacts_band to AIMRI points: ['3.3', '3.4', '8.5']
+2025-09-11 19:58:24.698 | INFO     | __main__:process_metric:53 - Processing metric: aml.jobs_flow_band
+2025-09-11 19:58:24.775 | INFO     | __main__:process_metric:87 - Mapped mlflow.lineage_coverage_band to AIMRI points: ['2.2', '3.3', '8.5']
+2025-09-11 19:58:24.776 | INFO     | __main__:process_metric:53 - Processing metric: aml.monitoring_coverage_band
+2025-09-11 19:58:25.815 | INFO     | __main__:process_metric:87 - Mapped mlflow.experiment_velocity_band to AIMRI points: ['3.3', '8.5', '9.1']
+2025-09-11 19:58:25.816 | INFO     | __main__:process_metric:53 - Processing metric: aml.registry_governance_band
+2025-09-11 19:58:32.614 | INFO     | __main__:process_metric:87 - Mapped aml.endpoint_slo_band to AIMRI points: ['3.2', '3.3', '13.1']
+2025-09-11 19:58:32.615 | INFO     | __main__:process_metric:53 - Processing metric: aml.cost_correlation_band
+2025-09-11 19:58:34.445 | INFO     | __main__:process_metric:87 - Mapped aml.registry_governance_band to AIMRI points: ['1.5', '3.4', '9.4']
+2025-09-11 19:58:34.446 | INFO     | __main__:process_metric:53 - Processing metric: sm.endpoint_slo_scaling_band
+2025-09-11 19:58:34.498 | INFO     | __main__:process_metric:87 - Mapped mlflow.reproducibility_band to AIMRI points: ['3.3', '8.5', '13.1']
+2025-09-11 19:58:34.498 | INFO     | __main__:process_metric:53 - Processing metric: sm.pipeline_flow_band
+2025-09-11 19:58:37.195 | INFO     | __main__:process_metric:87 - Mapped aml.jobs_flow_band to AIMRI points: ['3.3', '2.4', '8.5']
+2025-09-11 19:58:37.196 | INFO     | __main__:process_metric:53 - Processing metric: sm.experiments_lineage_band
+2025-09-11 19:58:37.373 | INFO     | __main__:process_metric:87 - Mapped aml.monitoring_coverage_band to AIMRI points: ['2.2', '3.3', '8.5']
+2025-09-11 19:58:44.519 | INFO     | __main__:process_metric:87 - Mapped sm.pipeline_flow_band to AIMRI points: ['2.4', '3.3', '8.5']
+2025-09-11 19:58:44.614 | INFO     | __main__:process_metric:87 - Mapped aml.cost_correlation_band to AIMRI points: ['3.3', '8.5', '12.2']
+2025-09-11 19:58:45.333 | INFO     | __main__:process_metric:87 - Mapped sm.endpoint_slo_scaling_band to AIMRI points: ['3.3', '9.5', '8.5']
+2025-09-11 19:58:49.461 | INFO     | __main__:process_metric:87 - Mapped sm.experiments_lineage_band to AIMRI points: ['3.3', '8.5', '9.1']
+2025-09-11 19:58:49.463 | INFO     | __main__:map_metrics_to_aimri:112 - Completed mapping all metrics.
+2025-09-11 19:58:49.468 | INFO     | __main__:save_mapping_to_file:121 - Saved mapping to 'agent_layer\ml_ops_agent\aimri_mapping.py'.
+2025-09-11 19:58:49.468 | INFO     | __main__:<module>:126 - All done.

@@ -1,0 +1,117 @@
+import json
+from typing import List, Dict
+
+class AimriData:
+    def __init__(self):
+        self.aimri_points: List[Dict[str, str]] = [
+            {"id":"1.1","category":"Technical Infrastructure","name":"Cloud Computing Capabilities"},
+            {"id":"1.2","category":"Technical Infrastructure","name":"Computing Resources"},
+            {"id":"1.3","category":"Technical Infrastructure","name":"Development Environment"},
+            {"id":"1.4","category":"Technical Infrastructure","name":"Integration Architecture"},
+            {"id":"1.5","category":"Technical Infrastructure","name":"Security Infrastructure"},
+            {"id":"2.1","category":"Data Management & Quality","name":"Data Architecture"},
+            {"id":"2.2","category":"Data Management & Quality","name":"Data Quality"},
+            {"id":"2.3","category":"Data Management & Quality","name":"Data Governance"},
+            {"id":"2.4","category":"Data Management & Quality","name":"Data Operations"},
+            {"id":"2.5","category":"Data Management & Quality","name":"Data Accessibility"},
+            {"id":"3.1","category":"AI/ML Capabilities","name":"Model Development"},
+            {"id":"3.2","category":"AI/ML Capabilities","name":"Production Deployment"},
+            {"id":"3.3","category":"AI/ML Capabilities","name":"MLOps Maturity"},
+            {"id":"3.4","category":"AI/ML Capabilities","name":"Model Governance"},
+            {"id":"3.5","category":"AI/ML Capabilities","name":"Advanced Capabilities"},
+            {"id":"4.1","category":"Talent & Skills","name":"Technical Expertise"},
+            {"id":"4.2","category":"Talent & Skills","name":"Domain Knowledge"},
+            {"id":"4.3","category":"Talent & Skills","name":"Team Structure"},
+            {"id":"4.4","category":"Talent & Skills","name":"Training & Development"},
+            {"id":"4.5","category":"Talent & Skills","name":"Recruitment & Retention"},
+            {"id":"5.1","category":"Governance & Ethics","name":"Ethical Framework"},
+            {"id":"5.2","category":"Governance & Ethics","name":"Regulatory Compliance"},
+            {"id":"5.3","category":"Governance & Ethics","name":"Risk Management"},
+            {"id":"5.4","category":"Governance & Ethics","name":"Accountability Structure"},
+            {"id":"5.5","category":"Governance & Ethics","name":"Transparency Practices"},
+            {"id":"6.1","category":"Strategic Alignment","name":"Business Integration"},
+            {"id":"6.2","category":"Strategic Alignment","name":"Leadership Support"},
+            {"id":"6.3","category":"Strategic Alignment","name":"Investment Strategy"},
+            {"id":"6.4","category":"Strategic Alignment","name":"Innovation Management"},
+            {"id":"6.5","category":"Strategic Alignment","name":"Partnership Ecosystem"},
+            {"id":"7.1","category":"Cultural Readiness","name":"Innovation Mindset"},
+            {"id":"7.2","category":"Cultural Readiness","name":"Change Management"},
+            {"id":"7.3","category":"Cultural Readiness","name":"Collaboration Culture"},
+            {"id":"7.4","category":"Cultural Readiness","name":"Decision Making"},
+            {"id":"7.5","category":"Cultural Readiness","name":"Learning Environment"},
+            {"id":"8.1","category":"Process Maturity","name":"Project Management"},
+            {"id":"8.2","category":"Process Maturity","name":"Documentation Practices"},
+            {"id":"8.3","category":"Process Maturity","name":"Quality Assurance"},
+            {"id":"8.4","category":"Process Maturity","name":"Operational Excellence"},
+            {"id":"8.5","category":"Process Maturity","name":"Measurement & Metrics"},
+            {"id":"9.1","category":"Foundation Model Operations","name":"Model Integration & Deployment"},
+            {"id":"9.2","category":"Foundation Model Operations","name":"Domain Adaptation & Fine-tuning"},
+            {"id":"9.3","category":"Foundation Model Operations","name":"Performance Optimization"},
+            {"id":"9.4","category":"Foundation Model Operations","name":"Risk & Compliance Management"},
+            {"id":"9.5","category":"Foundation Model Operations","name":"Scaling & Distribution"},
+            {"id":"10.1","category":"Generative AI Capabilities","name":"Multi-Modal Generation"},
+            {"id":"10.2","category":"Generative AI Capabilities","name":"Quality Control & Validation"},
+            {"id":"10.3","category":"Generative AI Capabilities","name":"Creative Workflow Integration"},
+            {"id":"10.4","category":"Generative AI Capabilities","name":"Custom Generation Control"},
+            {"id":"10.5","category":"Generative AI Capabilities","name":"Domain-Specific Generation"},
+            {"id":"11.1","category":"Responsible AI & Social Impact","name":"Algorithmic Fairness & Bias Mitigation"},
+            {"id":"11.2","category":"Responsible AI & Social Impact","name":"Explainability & Interpretability"},
+            {"id":"11.3","category":"Responsible AI & Social Impact","name":"Privacy & Data Protection"},
+            {"id":"11.4","category":"Responsible AI & Social Impact","name":"Societal Impact Assessment"},
+            {"id":"11.5","category":"Responsible AI & Social Impact","name":"Human-AI Collaboration"},
+            {"id":"12.1","category":"AI Business Value & ROI","name":"Revenue Generation & Growth"},
+            {"id":"12.2","category":"AI Business Value & ROI","name":"Cost Reduction & Efficiency"},
+            {"id":"12.3","category":"AI Business Value & ROI","name":"Customer Experience Enhancement"},
+            {"id":"12.4","category":"AI Business Value & ROI","name":"Innovation & Product Development"},
+            {"id":"12.5","category":"AI Business Value & ROI","name":"Competitive Advantage & Market Position"},
+            {"id":"13.1","category":"AI Risk & Resilience","name":"Model Reliability & Robustness"},
+            {"id":"13.2","category":"AI Risk & Resilience","name":"Data Dependency & Availability"},
+            {"id":"13.3","category":"AI Risk & Resilience","name":"Vendor & Technology Risks"},
+            {"id":"13.4","category":"AI Risk & Resilience","name":"Operational Continuity"},
+            {"id":"13.5","category":"AI Risk & Resilience","name":"Regulatory & Legal Compliance"},
+            {"id":"14.1","category":"AI Ecosystem & External Integration","name":"Customer AI Integration"},
+            {"id":"14.2","category":"AI Ecosystem & External Integration","name":"Supplier & Vendor AI Collaboration"},
+            {"id":"14.3","category":"AI Ecosystem & External Integration","name":"Industry Standards & Consortiums"},
+            {"id":"14.4","category":"AI Ecosystem & External Integration","name":"Academic & Research Partnerships"},
+            {"id":"14.5","category":"AI Ecosystem & External Integration","name":"Regulatory & Policy Engagement"},
+            {"id":"15.1","category":"AI Leadership & Vision","name":"AI Strategy & Roadmap"},
+            {"id":"15.2","category":"AI Leadership & Vision","name":"Executive AI Literacy"},
+            {"id":"15.3","category":"AI Leadership & Vision","name":"Organizational Transformation"},
+            {"id":"15.4","category":"AI Leadership & Vision","name":"Future-Proofing & Adaptability"},
+            {"id":"15.5","category":"AI Leadership & Vision","name":"Thought Leadership & Industry Influence"}
+        ]
+
+        self.evaluation_metrics: List[str] = [
+        "mlflow.experiment_completeness_band",
+        "mlflow.lineage_coverage_band",
+        "mlflow.experiment_velocity_band",
+        "mlflow.registry_hygiene_band",
+        "mlflow.validation_artifacts_band",
+        "mlflow.reproducibility_band",
+        "aml.endpoint_slo_band",
+        "aml.jobs_flow_band",
+        "aml.monitoring_coverage_band",
+        "aml.registry_governance_band",
+        "aml.cost_correlation_band",
+        "sm.endpoint_slo_scaling_band",
+        "sm.pipeline_flow_band",
+        "sm.experiments_lineage_band"
+        ]
+
+    def get_aimri_points(self) -> List[Dict[str, str]]:
+        return self.aimri_points
+
+    def get_evaluation_metrics(self) -> List[str]:
+        return self.evaluation_metrics
+
+    def to_json(self) -> str:
+        return json.dumps({
+            "aimri_points": self.aimri_points,
+            "evaluation_metrics": self.evaluation_metrics
+        }, indent=2)
+
+
+# Example usage:
+if __name__ == "__main__":
+    data = AimriData()
+    print(data.to_json())

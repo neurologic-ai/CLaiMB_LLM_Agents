@@ -1,0 +1,121 @@
+2025-09-11 19:59:51.878 | INFO     | agent_layer.ml_ops_agent.orchestrator_mlops:run:67 - [mlops-2025-09-11T14-29-51Z] Starting MLOps orchestrator run
+2025-09-11 19:59:51.879 | INFO     | agent_layer.ml_ops_agent.orchestrator_mlops:run:72 - [mlops-2025-09-11T14-29-51Z] Executing wave with 17 metrics: aml.cost_correlation_band, aml.jobs_flow_band, aml.monitoring_coverage_band, aml.registry_governance_band, cicd.change_failure_rate_band, cicd.deploy_frequency_band, cicd.lead_time_band, cicd.policy_gates_band, mlflow.experiment_completeness_band, mlflow.experiment_velocity_band, mlflow.lineage_coverage_band, mlflow.registry_hygiene_band, mlflow.reproducibility_band, mlflow.validation_artifacts_band, sm.clarify_coverage_band, sm.experiments_lineage_band, sm.pipeline_flow_band
+2025-09-11 19:59:52.279 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.aml.cost_correlation_band
+2025-09-11 19:59:52.281 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.aml.jobs_flow_band
+2025-09-11 19:59:52.283 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.cicd.change_failure_rate_band
+2025-09-11 19:59:52.283 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.aml.registry_governance_band
+2025-09-11 19:59:52.282 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.aml.monitoring_coverage_band
+2025-09-11 19:59:52.284 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.cicd.deploy_frequency_band
+2025-09-11 19:59:52.285 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.cicd.lead_time_band
+2025-09-11 19:59:52.286 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.cicd.policy_gates_band
+2025-09-11 19:59:52.287 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.mlflow.experiment_completeness_band
+2025-09-11 19:59:52.288 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.mlflow.experiment_velocity_band
+2025-09-11 19:59:52.289 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.mlflow.registry_hygiene_band
+2025-09-11 19:59:52.288 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.mlflow.lineage_coverage_band
+2025-09-11 19:59:52.305 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 19:59:52.314 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 19:59:52.319 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 19:59:52.321 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 19:59:52.321 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 19:59:52.322 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 19:59:52.324 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 19:59:52.340 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 19:59:52.341 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 19:59:52.349 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 19:59:52.355 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 19:59:52.357 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 19:59:59.635 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (7293.34 ms)
+2025-09-11 19:59:59.635 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.aml.cost_correlation_band (7355.94 ms)
+2025-09-11 19:59:59.636 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [aml.cost_correlation_band] band=5 | rationale=The cost join rate is excellent at 0.93, and the coverage is comprehensive with 'tags+resourceId', indicating stable attribution. This combination reflects a strong performance in cost attribution.
+2025-09-11 19:59:59.637 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.mlflow.reproducibility_band
+2025-09-11 19:59:59.672 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 20:00:02.099 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (9777.93 ms)
+2025-09-11 20:00:02.101 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.mlflow.lineage_coverage_band (9812.14 ms)
+2025-09-11 20:00:02.102 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [mlflow.lineage_coverage_band] band=4 | rationale=All metrics are above 0.85, with pct_git_sha and pct_env_files at 0.90+, but pct_data_ref at 0.86 is the limiting factor for a higher band.
+2025-09-11 20:00:02.103 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:766 - [mlflow.lineage_coverage_band] flags=['data_ref_coverage']
+2025-09-11 20:00:02.104 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:768 - [mlflow.lineage_coverage_band] gaps=['Data references at 0.86 block a higher band → log dataset version/hash via a pre-run hook → raise pct_data_ref to ≥0.90 (unlocks band 5).']
+2025-09-11 20:00:02.107 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.mlflow.validation_artifacts_band
+2025-09-11 20:00:02.152 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 20:00:02.575 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (10260.96 ms)
+2025-09-11 20:00:02.576 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.mlflow.registry_hygiene_band (10286.66 ms)
+2025-09-11 20:00:02.577 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [mlflow.registry_hygiene_band] band=4 | rationale=All metrics meet the minimum requirements for band 4, with good approval rates and acceptable latency; however, the presence of one rollback prevents achieving band 5.
+2025-09-11 20:00:02.578 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:766 - [mlflow.registry_hygiene_band] flags=['rollback_present']
+2025-09-11 20:00:02.579 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:768 - [mlflow.registry_hygiene_band] gaps=['One recent rollback limits confidence → add pre-deploy shadow tests and tighten rollback criteria → keep rollbacks_30d at 0 (unlocks band 5).']
+2025-09-11 20:00:02.581 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.sm.clarify_coverage_band
+2025-09-11 20:00:02.634 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 20:00:03.448 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (11091.16 ms)
+2025-09-11 20:00:03.449 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.aml.monitoring_coverage_band (11167.02 ms)
+2025-09-11 20:00:03.450 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [aml.monitoring_coverage_band] band=5 | rationale=Monitoring is enabled, and the median time to acknowledge alerts is excellent at 1.2 hours, which is well below the 2-hour threshold.
+2025-09-11 20:00:03.452 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.sm.experiments_lineage_band
+2025-09-11 20:00:03.497 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 20:00:04.376 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (12053.94 ms)
+2025-09-11 20:00:04.377 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.cicd.deploy_frequency_band (12092.80 ms)
+2025-09-11 20:00:04.378 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [cicd.deploy_frequency_band] band=4 | rationale=The frequency of deployments is good, averaging just over 5 per week, but the number of services is at the upper limit, which restricts the per-service rate. This results in a per-service rate of approximately 0.74, which is below the threshold for band 5.
+2025-09-11 20:00:04.379 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:768 - [cicd.deploy_frequency_band] gaps=['per-service rate is below threshold → increase deployments or reduce services → achieve freq_per_week ≥ 5 with ≤ 7 services (unlocks band 5)']
+2025-09-11 20:00:04.381 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.sm.pipeline_flow_band
+2025-09-11 20:00:04.420 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 20:00:04.754 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (12405.51 ms)
+2025-09-11 20:00:04.756 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.cicd.policy_gates_band (12469.71 ms)
+2025-09-11 20:00:04.757 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [cicd.policy_gates_band] band=5 | rationale=All required checks are present and have passed successfully before deployment, indicating a robust CI/CD process.
+2025-09-11 20:00:05.400 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (13094.28 ms)
+2025-09-11 20:00:05.400 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.cicd.change_failure_rate_band (13117.07 ms)
+2025-09-11 20:00:05.401 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [cicd.change_failure_rate_band] band=5 | rationale=Both the change failure rate (CFR) at 0.11 and the rollbacks in the last 30 days at 3 are well within the excellent band limits.
+2025-09-11 20:00:05.698 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (13374.36 ms)
+2025-09-11 20:00:05.700 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.mlflow.experiment_velocity_band (13411.98 ms)
+2025-09-11 20:00:05.701 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [mlflow.experiment_velocity_band] band=5 | rationale=Both the monthly improvement rate and the number of experiments per week exceed the thresholds for band 5, indicating a strong performance in experimentation and improvement. The consistent upward trend in scores further supports this assessment.
+2025-09-11 20:00:06.142 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (13787.48 ms)
+2025-09-11 20:00:06.143 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.cicd.lead_time_band (13858.76 ms)
+2025-09-11 20:00:06.145 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [cicd.lead_time_band] band=4 | rationale=p50 < 8h and p95 < 24h meet band-4; p50 > 4h blocks band-5.
+2025-09-11 20:00:06.146 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:768 - [cicd.lead_time_band] gaps=['p50 at 6.8h prevents band-5 → shard tests and cache dependencies → reduce p50 ≤4h (unlocks band 5).']
+2025-09-11 20:00:06.638 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (6965.21 ms)
+2025-09-11 20:00:06.639 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.mlflow.reproducibility_band (7001.73 ms)
+2025-09-11 20:00:06.640 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [mlflow.reproducibility_band] band=4 | rationale=The match rate is strong at 0.88, indicating good reproducibility, but there is a minor signature conflict present that prevents a higher band.
+2025-09-11 20:00:06.641 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:766 - [mlflow.reproducibility_band] flags=['conflicts_present']
+2025-09-11 20:00:06.642 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:768 - [mlflow.reproducibility_band] gaps=["Signature conflict on 'sigA' → review model versioning and ensure consistent environments → remove conflict occurrences and lift match_rate ≥0.95 (unlocks band 5)."]
+2025-09-11 20:00:09.289 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (16969.61 ms)
+2025-09-11 20:00:09.290 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.mlflow.experiment_completeness_band (17003.56 ms)
+2025-09-11 20:00:09.291 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [mlflow.experiment_completeness_band] band=3 | rationale=Parameter logging is strong at 0.92, and tags are also good at 0.90, but the overall completeness at 0.82 and metrics at 0.88 are limiting factors.
+2025-09-11 20:00:09.292 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:766 - [mlflow.experiment_completeness_band] flags=['pct_all_low']
+2025-09-11 20:00:09.293 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:768 - [mlflow.experiment_completeness_band] gaps=['Overall completeness at 0.82 limits the band → ensure all runs have complete logging of parameters, metrics, tags, and artifacts → raise pct_all to ≥0.85 (unlocks band 4).']
+2025-09-11 20:00:09.608 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (7456.73 ms)
+2025-09-11 20:00:09.609 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.mlflow.validation_artifacts_band (7502.53 ms)
+2025-09-11 20:00:09.610 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [mlflow.validation_artifacts_band] band=3 | rationale=The validation JSON coverage is strong at 0.88, but the SHAP and bias report percentages are below 0.80, which limits the overall band.
+2025-09-11 20:00:09.611 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:766 - [mlflow.validation_artifacts_band] flags=['bias_coverage_low', 'shap_coverage_low']
+2025-09-11 20:00:09.611 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:768 - [mlflow.validation_artifacts_band] gaps=['SHAP coverage at 0.84 → implement SHAP file generation in all runs → raise pct_with_shap to ≥0.85 (unlocks band 4).', 'Bias report at 0.72 → integrate a bias evaluation step in the pipeline → raise pct_with_bias_report to ≥0.80 (unlocks band 4).']
+2025-09-11 20:00:10.055 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (7420.99 ms)
+2025-09-11 20:00:10.056 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.sm.clarify_coverage_band (7475.10 ms)
+2025-09-11 20:00:10.057 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [sm.clarify_coverage_band] band=4 | rationale=Both metrics are above 0.80, indicating good coverage in bias reporting and explainability. The combination of these metrics supports a strong band rating.
+2025-09-11 20:00:10.788 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (7291.02 ms)
+2025-09-11 20:00:10.789 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.sm.experiments_lineage_band (7336.98 ms)
+2025-09-11 20:00:10.789 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [sm.experiments_lineage_band] band=4 | rationale=All lineage metrics are above 0.85 with two metrics at or above 0.90; however, the code reference at 0.9 prevents achieving band 5.
+2025-09-11 20:00:10.790 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:768 - [sm.experiments_lineage_band] gaps=['Code ref at 0.9 limits band-5 → ensure all code references are consistently documented in every experiment → raise pct_code_ref to ≥0.95 (unlocks band 5).']
+2025-09-11 20:00:12.154 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (19832.24 ms)
+2025-09-11 20:00:12.154 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.aml.registry_governance_band (19871.68 ms)
+2025-09-11 20:00:12.155 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [aml.registry_governance_band] band=4 | rationale=All metrics are above the band-3 thresholds, and the median transition time is acceptable. However, the pct_staged is below the band-5 requirement.
+2025-09-11 20:00:12.155 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:768 - [aml.registry_governance_band] gaps=['Staging coverage at 0.83 <0.90 → enforce stage on register policy → raise pct_staged to ≥0.90 (unlocks band 5).', 'Latency at 60h prevents band-5 → parallelize QA and security gates → reduce median_transition_h to <48h (unlocks band 5).']
+2025-09-11 20:00:13.763 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (9343.23 ms)
+2025-09-11 20:00:13.764 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.sm.pipeline_flow_band (9382.83 ms)
+2025-09-11 20:00:13.765 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [sm.pipeline_flow_band] band=4 | rationale=The success rate is strong at 0.96, and the retry rate is within acceptable limits. However, the promotion time of 12 hours is at the upper limit for band 4, preventing a higher rating.
+2025-09-11 20:00:13.766 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:768 - [sm.pipeline_flow_band] gaps=['Promotion latency at 12h → automate risk sign-off and bake validation into CI → reduce promotion_time_h to ≤8h (unlocks band 5).', 'p95 at 42min → parallelize feature gen and cache heavy steps → keep p95 ≤30min (reinforces band 5).']
+2025-09-11 20:00:14.158 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (21818.11 ms)
+2025-09-11 20:00:14.159 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.aml.jobs_flow_band (21878.33 ms)
+2025-09-11 20:00:14.160 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [aml.jobs_flow_band] band=3 | rationale=Success rate is below 0.95, which limits the band; p95 duration and lead time are acceptable but could be improved.
+2025-09-11 20:00:14.161 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:768 - [aml.jobs_flow_band] gaps=['Success at 0.94 is the limiter → implement retry mechanisms and optimize resource allocation → raise success_rate to ≥0.95 (unlocks band 4).', 'Lead-time at 6.4h is acceptable but improvable → streamline job scheduling and resource management → target ≤4h (pushes toward band 5 when success is ≥0.98).']
+2025-09-11 20:00:14.165 | INFO     | agent_layer.ml_ops_agent.orchestrator_mlops:run:72 - [mlops-2025-09-11T14-29-51Z] Executing wave with 3 metrics: aml.endpoint_slo_band, sm.cost_efficiency_band, sm.endpoint_slo_scaling_band
+2025-09-11 20:00:14.168 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.aml.endpoint_slo_band
+2025-09-11 20:00:14.171 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.sm.cost_efficiency_band
+2025-09-11 20:00:14.174 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: metric.sm.endpoint_slo_scaling_band
+2025-09-11 20:00:14.229 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 20:00:14.231 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 20:00:14.231 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:39 - ▶️ start: LLM.call
+2025-09-11 20:00:16.558 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (2328.67 ms)
+2025-09-11 20:00:16.559 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.sm.cost_efficiency_band (2388.37 ms)
+2025-09-11 20:00:16.560 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [sm.cost_efficiency_band] band=5 | rationale=All metrics are well within the excellent range: serving cost, training cost, GPU headroom, and idle ratio are all optimal. This indicates efficient resource utilization and cost management.
+2025-09-11 20:00:17.421 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (3189.54 ms)
+2025-09-11 20:00:17.422 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.aml.endpoint_slo_band (3253.36 ms)
+2025-09-11 20:00:17.423 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [aml.endpoint_slo_band] band=5 | rationale=All measured dimensions exceed SLOs with healthy margins. Availability is above the target, p95 latency is well below the target, and error rate is significantly lower than the target.
+2025-09-11 20:00:17.634 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: LLM.call (3402.84 ms)
+2025-09-11 20:00:17.635 | INFO     | data_collection_agents.ml_ops_agent.logging_utils:timed:43 - ✅ done: metric.sm.endpoint_slo_scaling_band (3461.49 ms)
+2025-09-11 20:00:17.636 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:764 - [sm.endpoint_slo_scaling_band] band=4 | rationale=Availability, error rate, p95 latency, and median reaction time all meet band-4 thresholds, indicating strong performance. However, the max RPS at SLO is slightly below the required threshold for band 5.
+2025-09-11 20:00:17.637 | INFO     | data_collection_agents.ml_ops_agent.llm_engine:grade_metric:768 - [sm.endpoint_slo_scaling_band] gaps=['Max RPS at 950 < 800 → optimize resource allocation and load balancing → raise max_rps_at_slo to ≥800 (unlocks band 5).']
+2025-09-11 20:00:17.641 | INFO     | agent_layer.ml_ops_agent.orchestrator_mlops:run:103 - [mlops-2025-09-11T14-29-51Z] Finished. Artifact written: agent_layer_outputs\mlops_monitor\mlops-2025-09-11T14-29-51Z.json

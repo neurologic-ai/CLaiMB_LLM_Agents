@@ -83,8 +83,13 @@ uvicorn services.mlops_service:app --reload --port 8080
 ```sh
 python data_collection_agents/ml_ops_agent/main.py
 ```
+### **4. Update the Mappings using LLM**
 
-### **4. View Results**
+```sh
+python -m agent_layer.ml_ops_agent.update
+```
+
+### **5. View Results**
 
 - **Agent layer results:**  
   `agent_layer_output/` (Agent results)
@@ -128,7 +133,9 @@ ClaimbAI/
 │        ├── orchestrator_mlops.py          # BIOrchestrator (class-based runner)
 │        ├── tool_loader_mlops.py           # Metric → scorer mapping
 │        ├── registry_mlops.py              # DAG (LEVEL0, LEVEL1 metrics)
-│        ├── route_mlopsr.py              
+│        ├── route_mlopsr.py  
+│        ├── update.py                # Updates the aimri mappings
+│        ├── map_db.py                # Contains the list of functions as well as the list of AIMRI parameters.            
 │        └── aimri_mapping.py         # AIMRI dimension mappings
 │ 
 ├── agent_layer_output/          # Agent outputs
