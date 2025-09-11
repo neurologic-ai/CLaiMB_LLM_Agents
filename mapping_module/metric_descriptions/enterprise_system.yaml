@@ -1,0 +1,100 @@
+metrics:
+  - id: process.automation.coverage
+    name: Process Automation Coverage
+    function: compute_process_automation_coverage
+    description: "Evaluates the extent of automation across enterprise workflows, highlighting areas where manual intervention still dominates and automation opportunities exist."
+
+  - id: workflow.sla_adherence
+    name: Workflow SLA Adherence
+    function: compute_workflow_sla_adherence
+    description: "Measures how consistently workflows meet defined SLAs; flags delays and violations to surface operational risk."
+
+  - id: sales.lead_to_oppty_cycle_time
+    name: Lead-to-Opportunity Cycle Time
+    function: compute_lead_to_oppty_cycle_time
+    description: "Tracks average duration to convert a sales lead into an opportunity, identifying inefficiencies in pipeline progression."
+
+  - id: itsm.case_resolution_time
+    name: ITSM Case Resolution Time
+    function: compute_case_resolution_time
+    description: "Calculates the average time to resolve IT service cases, assessing support efficiency and responsiveness."
+
+  - id: itsm.incident_reopen_rate
+    name: ITSM Incident Reopen Rate
+    function: compute_incident_reopen_rate
+    description: "Monitors the percentage of incidents reopened after closure, signaling fix quality and robustness of remediation."
+
+  - id: hr.onboarding_cycle_time
+    name: HR Onboarding Cycle Time
+    function: compute_hr_onboarding_cycle_time
+    description: "Measures the time taken to onboard new employees, highlighting efficiency of HR workflows and IT provisioning."
+
+  - id: sap.procure_to_pay_cycle
+    name: Procure-to-Pay Cycle Time (SAP)
+    function: compute_procure_to_pay_cycle
+    description: "Assesses the average time for procure-to-pay transactions, indicating process maturity across procurement and finance."
+
+  - id: q2c.throughput
+    name: Quote-to-Cash Throughput
+    function: compute_q2c_throughput
+    description: "Evaluates throughput and speed of the quote-to-cash process, capturing efficiency in order-to-revenue execution."
+
+  - id: backlog.aging
+    name: Backlog Aging
+    function: compute_backlog_aging
+    description: "Tracks the age distribution of unresolved backlog items (tickets, requests, features), flagging operational bottlenecks."
+
+  - id: rpa.success_rate
+    name: RPA Success Rate
+    function: compute_rpa_success_rate
+    description: "Calculates execution success rate of RPA bots to identify automation reliability issues and candidates for stabilization."
+
+  - id: integration.data_sync_latency
+    name: Data Sync Latency
+    function: compute_data_sync_latency
+    description: "Measures latency between data synchronization events across integrated systems, flagging potential consistency risks."
+
+  - id: api.reliability
+    name: API Reliability
+    function: compute_api_reliability
+    description: "Assesses API uptime, error rates, and response consistency to measure reliability of integration layers."
+
+  - id: integration.topology_health
+    name: Integration Topology Health
+    function: compute_integration_topology_health
+    description: "Evaluates health and connectivity of the system integration topology, highlighting weak or failing integration nodes."
+
+  - id: mdm.duplicate_rate
+    name: MDM Duplicate Rate
+    function: compute_duplicate_record_rate
+    description: "Measures the rate of duplicate master data records across systems, highlighting quality gaps in MDM governance."
+
+  - id: dq.exceptions_rate
+    name: Data Quality Exceptions Rate
+    function: compute_dq_exceptions_rate
+    description: "Tracks the frequency of exceptions raised by data quality rules, identifying recurring data hygiene or governance issues."
+
+  - id: ai.penetration
+    name: AI Penetration
+    function: compute_ai_penetration
+    description: "Quantifies extent of AI adoption across enterprise workflows, highlighting penetration depth and coverage by domain."
+
+  - id: ai.outcome_uplift
+    name: AI Outcome Uplift
+    function: compute_ai_outcome_uplift
+    description: "Estimates uplift in business outcomes attributable to AI interventions (efficiency, revenue, or CX improvements)."
+
+  - id: ai.governance_coverage
+    name: AI Governance Coverage
+    function: compute_ai_governance_coverage
+    description: "Evaluates coverage of AI governance policies (ethics, compliance, monitoring), flagging missing safeguards."
+
+  - id: platform.customization_debt
+    name: Platform Customization Debt Index
+    function: compute_customization_debt_index
+    description: "Assesses accumulated technical debt from platform customizations, highlighting risks to upgradeability and flexibility."
+
+  - id: change.failure_rate
+    name: Change Failure Rate
+    function: compute_change_failure_rate
+    description: "Calculates the percentage of failed system changes or releases, indicating stability and change management maturity."

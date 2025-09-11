@@ -1,126 +1,112 @@
 from __future__ import annotations
-import json
-from dataclasses import dataclass
-from typing import List, Dict, Any, Optional
+from typing import Dict, List, Any
 from pathlib import Path
-import yaml
+from loguru import logger
 
-from data_collection_agents.enterprise_systems_agent.base_agent import BaseMicroAgent
-from mapping_module.prompts import ELABORATE_SYSTEM, MAP_SYSTEM, MAP_USER_TEMPLATE
+from .base_agent import BaseMicroAgent
+from .io_utils import load_aimri_points, load_metric_yaml, ensure_dir, write_python_mapping, var_name_for_agent, build_labels
+from . import prompts
+# --- add near the top of mapper.py, after imports ---
+from .base_agent import BaseMicroAgent
 
-
-
-
-@dataclass
-class AimriPoint:
-    id: str
-    name: str
-    dimension: str
-    aliases: List[str]
-
-
-def load_taxonomy(path: str) -> List[AimriPoint]:
-    data = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
-    pts: List[AimriPoint] = []
-    for p in data.get("points", []):
-        pts.append(
-            AimriPoint(
-                id=str(p["id"]),
-                name=p["name"],
-                dimension=p.get("dimension", ""),
-                aliases=[a.lower() for a in (p.get("aliases") or [])],
-            )
-        )
-    return pts
+class _AdapterAgent(BaseMicroAgent):
+    """Thin concrete wrapper so we can instantiate the LLM client without touching the backbone."""
+    def evaluate(self, *args, **kwargs):
+        # Not used in this pipeline; required to satisfy ABC
+        return {}
 
 
-def _compact_taxonomy(points: List[AimriPoint]) -> str:
-    # Provide only essentials to the model for determinism & lower token usage
-    minimal = [{"id": p.id, "name": p.name, "aliases": p.aliases} for p in points]
-    return json.dumps(minimal, ensure_ascii=False, separators=(",", ":"))
+class DescriptionElaborator:
+    def __init__(self, model: str = "gpt-4o-mini", agent_key: str = "generic"):
+        # self.agent = BaseMicroAgent(model=model)
+        self.agent = _AdapterAgent(model=model)
+        self.agent_key = agent_key
 
+    def elaborate(self, metric: Dict[str, Any]) -> str:
+        metric_id = metric.get("id","?")
+        name = metric.get("name","")
+        desc = metric.get("description","")
+        sys = prompts.get_elaborate_system(self.agent_key)
+        user = prompts.elaborate_user(metric_id, name, desc)
+        out = self.agent.call(system=sys, user=user, expect_json=True)
+        logger.debug(out)
+        if isinstance(out, dict):
+            return out.get("elaborated_description", desc or name)
+        return str(out).strip() or desc or name
 
-class AimriMapperAgent(BaseMicroAgent):
-    """
-    Uses BaseMicroAgent._call_llm for a 2-hop flow:
-      1) Elaborate each metric's short description.
-      2) Ask for top-3 AIMRI points with confidences (strict JSON).
-    """
+class AimriMapper:
+    def __init__(self, aimri_points: List[Dict[str, str]], model: str = "gpt-4o-mini", agent_key: str = "generic"):
+        # self.agent = BaseMicroAgent(model=model)
+        self.agent = _AdapterAgent(model=model)
+        self._index: Dict[str, Dict[str, str]] = {p["id"]: p for p in aimri_points}
+        self.agent_key = agent_key
 
-    def __init__(
-        self,
-        taxonomy_path: str = "configs/aimri_points.yaml",
-        model_elaborate: str = "gpt-4o-mini",
-        model_map: str = "gpt-4o-mini",
-        temperature_elab: float = 0.2,
-        temperature_map: float = 0.0,
-        api_key: Optional[str] = None,
-    ):
-        super().__init__(model=model_map, temperature=temperature_map, api_key=api_key)
-        self.taxonomy_path = taxonomy_path
-        self.points = load_taxonomy(taxonomy_path)
-        self.model_elaborate = model_elaborate
-        self.temperature_elab = temperature_elab
+    def map_metric(self, metric_id: str, name: str, elaborated: str) -> List[Dict[str,str]]:
+        sys = prompts.get_map_system(self.agent_key)
+        catalog = list(self._index.values())
+        user = prompts.map_user(metric_id, name, elaborated, catalog)
+        result = self.agent.call(system=sys, user=user, expect_json=True)
 
-    # ---- Hop 1: elaborate the metric description ----
-    def elaborate_metric(self, metric_id: str, short_desc: str) -> str:
-        user_prompt = f"Metric: {metric_id}\nShort blurb:\n{short_desc}\n\nExpand now."
-        # temporarily change model/temperature for elaboration
-        prev_model, prev_temp = self.model, self.temperature
-        self.model, self.temperature = self.model_elaborate, self.temperature_elab
-        out = self._call_llm(prompt=user_prompt, system_prompt=ELABORATE_SYSTEM, max_tokens=450)
-        self.model, self.temperature = prev_model, prev_temp
-        return (out or "").strip()
+        # Expected shape:
+        # {"metric_id": "...", "mappings": [{"dimension": "...", "subsection": "...", "confidence": 0.0, "rationale": "..."}]}
+        mappings: List[Dict[str,str]] = []
+        if isinstance(result, dict):
+            raw = result.get("mappings") or []
+            # Sort by confidence desc if present
+            try:
+                raw = sorted(raw, key=lambda x: float(x.get("confidence", 0.0)), reverse=True)
+            except Exception:
+                pass
+            # Log confidence & rationale, but DO NOT change output format
+            for entry in raw:
+                dim = entry.get("dimension")
+                sub = entry.get("subsection")
+                conf = entry.get("confidence")
+                rat = entry.get("rationale")
+                if conf is not None or rat is not None:
+                    logger.debug(f"[{metric_id}] candidate: {dim} / {sub} | conf={conf} | why={rat}")
+                if dim and sub:
+                    mappings.append({"dimension": dim, "subsection": sub})
+        if not mappings:
+            text = str(result)
+            hinted_ids = []
+            for k in self._index.keys():
+                if k in text:
+                    hinted_ids.append(k)
+            hinted_ids = hinted_ids[:5]
+            for hid in hinted_ids:
+                dim, sub = build_labels(self._index[hid])
+                mappings.append({"dimension": dim, "subsection": sub})
+        return mappings[:5]
 
-    # ---- Hop 2: ask for top-3 AIMRI mappings ----
-    def map_elaborated(self, elaborated: str) -> List[Dict[str, Any]]:
-        tax_str = _compact_taxonomy(self.points)
-        user_prompt = MAP_USER_TEMPLATE.replace("{{TAXONOMY}}", tax_str).replace("{{DESC}}", elaborated)
-        raw = self._call_llm(prompt=user_prompt, system_prompt=MAP_SYSTEM, max_tokens=500)
-        try:
-            data = self._parse_json_response(raw)
-            items = data.get("mappings", []) if isinstance(data, dict) else []
-        except Exception:
-            items = []
+def process_yaml(
+    yaml_path: str | Path,
+    aimri_path: str | Path,
+    out_dir: str | Path,
+    model: str = "gpt-4o-mini"
+) -> Path:
+    logger.info(f"Processing YAML: {yaml_path}")
+    aimri = load_aimri_points(aimri_path)
+    metrics = load_metric_yaml(yaml_path)
 
-        # validate IDs and enrich with dimension/name from taxonomy
-        by_id = {p.id: p for p in self.points}
-        results: List[Dict[str, Any]] = []
-        for it in items[:3]:
-            pid = str(it.get("point_id", "")).strip()
-            if pid in by_id:
-                p = by_id[pid]
-                results.append(
-                    {
-                        "point_id": p.id,
-                        "point_name": p.name,
-                        "dimension": p.dimension,
-                        "confidence": round(float(it.get("confidence", 0.0)), 3),
-                        "rationale": (it.get("rationale", "") or "")[:500],
-                    }
-                )
-        results.sort(key=lambda r: r["confidence"], reverse=True)
-        return results[:3]
+    agent_key = Path(yaml_path).stem  # cloud_infra / bi_tracker / enterprise_system
+    elaborator = DescriptionElaborator(model=model, agent_key=agent_key)
+    mapper = AimriMapper(aimri, model=model, agent_key=agent_key)
 
-    # ---- Public single-call API used by your orchestrator/batch ----
-    def map_metric(self, metric_id: str, short_desc: str) -> Dict[str, Any]:
-        elaborated = self.elaborate_metric(metric_id, short_desc)
-        mappings = self.map_elaborated(elaborated)
-        return {
-            "metric_id": metric_id,
-            "elaborated_description": elaborated,
-            "mappings": mappings,
-        }
+    out_map: Dict[str, List[Dict[str,str]]] = {}
+    for m in metrics:
+        mid = m.get("id")
+        if not mid:
+            continue
+        name = m.get("name","")
+        elaborated = elaborator.elaborate(m)
+        mappings = mapper.map_metric(mid, name, elaborated)
+        out_map[mid] = mappings
+        logger.debug(f"{mid} → {mappings}")
 
-    # ---- Optional: batch API expected by your BaseMicroAgent interface ----
-    def evaluate(self, code_snippets: List[str], context: Optional[Dict] = None) -> Dict[str, Any]:
-        """
-        Here we treat each 'code_snippet' as a metric short description string.
-        context can carry: metric_ids (same length), taxonomy_path override, etc.
-        """
-        metric_ids = (context or {}).get("metric_ids", [])
-        out: List[Dict[str, Any]] = []
-        for i, desc in enumerate(code_snippets):
-            mid = metric_ids[i] if i < len(metric_ids) else f"metric_{i+1}"
-            out.append(self.map_metric(mid, desc))
-        return {"results": out}
+    var_name = var_name_for_agent(agent_key)
+    ensure_dir(out_dir)
+    out_path = Path(out_dir) / f"{agent_key}.py"
+    write_python_mapping(out_path, var_name, out_map)
+    logger.info(f"Wrote {out_path}")
+    return out_path

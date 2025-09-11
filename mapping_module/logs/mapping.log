@@ -1,0 +1,36 @@
+2025-09-11 20:40:38.273 | INFO     | __main__:main:124 - Single-agent mode: cloud_infra.yaml
+2025-09-11 20:40:38.273 | INFO     | mapping_module2.mapper:process_yaml:76 - Processing YAML: /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module2/metric_descriptions/cloud_infra.yaml
+2025-09-11 20:40:38.276 | ERROR    | __main__:main:138 - Failed to process /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module2/metric_descriptions/cloud_infra.yaml: Can't instantiate abstract class BaseMicroAgent without an implementation for abstract method 'evaluate'
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module2/run_mapping_batch.py", line 142, in <module>
+    main()
+> File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module2/run_mapping_batch.py", line 136, in main
+    process_yaml(yf, aimri_path, out_dir, model=args.model)
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module2/mapper.py", line 81, in process_yaml
+    elaborator = DescriptionElaborator(model=model, agent_key=agent_key)
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module2/mapper.py", line 12, in __init__
+    self.agent = BaseMicroAgent(model=model)
+TypeError: Can't instantiate abstract class BaseMicroAgent without an implementation for abstract method 'evaluate'
+2025-09-11 20:43:38.964 | INFO     | __main__:main:124 - Single-agent mode: cloud_infra.yaml
+2025-09-11 20:43:38.964 | INFO     | mapping_module2.mapper:process_yaml:87 - Processing YAML: /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module2/metric_descriptions/cloud_infra.yaml
+2025-09-11 20:43:38.967 | INFO     | mapping_module2.mapper:process_yaml:110 - Wrote /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module2/outputs/cloud_infra.py
+2025-09-11 20:51:56.102 | INFO     | __main__:main:124 - Single-agent mode: cloud_infra.yaml
+2025-09-11 20:51:56.103 | INFO     | mapping_module2.mapper:process_yaml:88 - Processing YAML: /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module2/metric_descriptions/cloud_infra.yaml
+2025-09-11 20:51:56.106 | INFO     | mapping_module2.mapper:process_yaml:111 - Wrote /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module2/outputs/cloud_infra.py
+2025-09-11 21:17:44.024 | INFO     | __main__:main:124 - Single-agent mode: cloud_infra.yaml
+2025-09-11 21:17:44.025 | INFO     | mapping_module2.mapper:process_yaml:88 - Processing YAML: /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module2/metric_descriptions/cloud_infra.yaml
+2025-09-11 21:17:44.027 | ERROR    | __main__:main:138 - Failed to process /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module2/metric_descriptions/cloud_infra.yaml: '_AdapterAgent' object has no attribute 'call'
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module2/run_mapping_batch.py", line 142, in <module>
+    main()
+> File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module2/run_mapping_batch.py", line 136, in main
+    process_yaml(yf, aimri_path, out_dir, model=args.model)
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module2/mapper.py", line 102, in process_yaml
+    elaborated = elaborator.elaborate(m)
+  File "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module2/mapper.py", line 31, in elaborate
+    out = self.agent.call(system=sys, user=user, expect_json=True)
+AttributeError: '_AdapterAgent' object has no attribute 'call'

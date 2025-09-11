@@ -1,58 +1,141 @@
-import csv
-import json
-import os
-import sys
+# from __future__ import annotations
+# import argparse
+# from pathlib import Path
+# from loguru import logger
+
+# from .logging_utils import setup_logger
+# from .mapper import process_yaml
+
+# def main() -> None:
+#     p = argparse.ArgumentParser(description="Run AIMRI mapping for all metric YAMLs.")
+#     p.add_argument("--project-root", default=Path(__file__).resolve().parents[0], help="Project root containing aimri_points.json and metric_descriptions/")
+#     p.add_argument("--aimri", default=None, help="Path to aimri_points.json (default: <root>/aimri_points.json)")
+#     p.add_argument("--metrics-dir", default=None, help="Directory containing YAMLs (default: <root>/metric_descriptions)")
+#     p.add_argument("--out-dir", default=None, help="Output dir (default: <root>/outputs)")
+#     p.add_argument("--model", default="gpt-4o-mini", help="OpenAI model name")
+#     args = p.parse_args()
+
+#     root = Path(str(args.project_root))
+#     aimri_path = Path(args.aimri) if args.aimri else root / "aimri_points.json"
+#     metrics_dir = Path(args.metrics_dir) if args.metrics_dir else root / "metric_descriptions"
+#     out_dir = Path(args.out_dir) if args.out_dir else root / "outputs"
+
+#     setup_logger(root / "logs" / "mapping.log", level="INFO")
+
+#     if not aimri_path.exists():
+#         raise FileNotFoundError(f"AIMRI file not found: {aimri_path}")
+#     if not metrics_dir.exists():
+#         raise FileNotFoundError(f"metrics dir not found: {metrics_dir}")
+#     out_dir.mkdir(parents=True, exist_ok=True)
+
+#     yaml_files = sorted([p for p in metrics_dir.glob("*.yaml")])
+#     if not yaml_files:
+#         logger.warning("No YAML files found.")
+#         return
+
+#     for yf in yaml_files:
+#         try:
+#             process_yaml(yf, aimri_path, out_dir, model=args.model)
+#         except Exception as e:
+#             logger.exception(f"Failed to process {yf}: {e}")
+
+# if __name__ == "__main__":
+#     main()
+
+
+from __future__ import annotations
 import argparse
 from pathlib import Path
+from loguru import logger
 
-from mapping_module.mapper import AimriMapperAgent
-from dotenv import load_dotenv
-load_dotenv()
+from .logging_utils import setup_logger
+from .mapper import process_yaml
 
-api_key = os.getenv("OPENAI_API_KEY")
 
-def main():
-    parser = argparse.ArgumentParser(description="Run AIMRI mapping for metrics CSV")
-    parser.add_argument(
-        "--csv",
-        default="mapping_module/csv/metrics.csv",
-        help="Path to input CSV (default: csv/metrics.csv)",
+def _anchors() -> tuple[Path, Path, Path, Path]:
+    """
+    Anchor all defaults relative to this file's directory:
+      <pkg_dir>/aimri_points.json
+      <pkg_dir>/metric_descriptions/
+      <pkg_dir>/outputs/
+      <pkg_dir>/logs/
+    """
+    pkg_dir = Path(__file__).resolve().parent
+    aimri_path = pkg_dir / "aimri_points.json"
+    metrics_dir = pkg_dir / "metric_descriptions"
+    out_dir = pkg_dir / "outputs"
+    logs_dir = pkg_dir / "logs"
+    return aimri_path, metrics_dir, out_dir, logs_dir
+
+
+def main() -> None:
+    p = argparse.ArgumentParser(
+        description="Run AIMRI mapping for metric YAMLs (single file, single agent, or batch). "
+                    "All paths are anchored relative to this script's directory."
     )
-    parser.add_argument(
-        "--taxonomy",
-        default="mapping_module/aimri_points.yaml",
-        help="Path to AIMRI taxonomy YAML (default: mapping_module/aimri_points.yaml)",
-    )
-    parser.add_argument(
-        "--outdir",
-        default="mapping_module/outputs",
-        help="Folder for outputs (default: outputs/)",
-    )
+    # Optional overrides if you ever need them
+    p.add_argument("--aimri", default=None, help="Override path to aimri_points.json")
+    p.add_argument("--metrics-dir", default=None, help="Override directory containing YAMLs")
+    p.add_argument("--out-dir", default=None, help="Override output directory")
+    p.add_argument("--model", default="gpt-4o-mini", help="OpenAI model name")
 
-    args = parser.parse_args()
+    # Single-target options (mutually exclusive)
+    group = p.add_mutually_exclusive_group()
+    group.add_argument("--file", default=None,
+                       help="Process a specific YAML file (absolute or relative). Overrides --agent and batch.")
+    group.add_argument("--agent", default=None,
+                       help="Process a specific agent by stem name (e.g., 'cloud_infra' -> cloud_infra.yaml).")
 
-    in_csv = Path(args.csv)
-    taxonomy_yaml = Path(args.taxonomy)
-    out_dir = Path(args.outdir)
+    args = p.parse_args()
+
+    # Anchors (relative to this script)
+    default_aimri, default_metrics_dir, default_out_dir, logs_dir = _anchors()
+
+    aimri_path = Path(args.aimri).resolve() if args.aimri else default_aimri
+    metrics_dir = Path(args.metrics_dir).resolve() if args.metrics_dir else default_metrics_dir
+    out_dir = Path(args.out_dir).resolve() if args.out_dir else default_out_dir
+
+    setup_logger(logs_dir / "mapping.log", level="INFO")
+
+    # Validate anchor files/dirs
+    if not aimri_path.exists():
+        raise FileNotFoundError(f"AIMRI file not found: {aimri_path}")
+    if not metrics_dir.exists():
+        raise FileNotFoundError(f"metrics dir not found: {metrics_dir}")
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # output file name based on csv name
-    out_name = f"{in_csv.stem}_output.json"
-    out_path = out_dir / out_name
+    # Resolve targets
+    yaml_files: list[Path] = []
 
-    agent = AimriMapperAgent(taxonomy_path=str(taxonomy_yaml),api_key=api_key)
-    results = []
+    if args.file:
+        target = Path(args.file).resolve()
+        if not target.exists():
+            raise FileNotFoundError(f"--file not found: {target}")
+        if target.suffix.lower() != ".yaml":
+            raise ValueError(f"--file must be a .yaml file: {target}")
+        yaml_files = [target]
+        logger.info(f"Single-file mode: {target}")
 
-    with in_csv.open(newline="", encoding="utf-8") as f:
-        for row in csv.DictReader(f):
-            metric_id = row["Metrics for Computation"].strip()
-            short_desc = row["Function Description"].strip()
-            results.append(agent.map_metric(metric_id, short_desc))
+    elif args.agent:
+        candidate = (metrics_dir / f"{args.agent}.yaml").resolve()
+        if not candidate.exists():
+            raise FileNotFoundError(f"--agent '{args.agent}' not found at: {candidate}")
+        yaml_files = [candidate]
+        logger.info(f"Single-agent mode: {candidate.name}")
 
-    with out_path.open("w", encoding="utf-8") as f:
-        json.dump(results, f, indent=2, ensure_ascii=False)
+    else:
+        yaml_files = sorted(metrics_dir.glob("*.yaml"))
+        if not yaml_files:
+            logger.warning(f"No YAML files found in {metrics_dir}.")
+            return
+        logger.info(f"Batch mode: {len(yaml_files)} YAML(s) under {metrics_dir}")
 
-    print(f"✅ Done. Output written to {out_path}")
+    # Process
+    for yf in yaml_files:
+        try:
+            process_yaml(yf, aimri_path, out_dir, model=args.model)
+        except Exception as e:
+            logger.exception(f"Failed to process {yf}: {e}")
 
 
 if __name__ == "__main__":

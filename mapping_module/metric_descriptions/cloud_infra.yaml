@@ -1,0 +1,64 @@
+metrics:
+  - id: tagging.coverage
+    name: Tagging Coverage
+    description: "Resources: % with required business tags (env, owner, cost-center, service)."
+
+  - id: compute.utilization
+    name: Compute Utilization
+    description: "Compute fleet: proportion of VM/instance capacity utilized."
+
+  - id: k8s.utilization
+    name: Kubernetes Utilization
+    description: "Kubernetes clusters: efficiency of node/pod resource use."
+
+  - id: scaling.effectiveness
+    name: Scaling Effectiveness
+    description: "Autoscaling: timeliness and adequacy of scaling actions versus target load."
+
+  - id: db.utilization
+    name: Database Utilization
+    description: "Databases: utilization level across instances (compute/connections)."
+
+  - id: lb.performance
+    name: Load Balancer Performance
+    description: "Load balancers: request latency and error rates versus SLOs."
+
+  - id: storage.efficiency
+    name: Storage Efficiency
+    description: "Storage: amount of avoidable/wasteful capacity (unattached, orphaned, stale hot‑tier)."
+
+  - id: iac.coverage_drift
+    name: IaC Coverage & Drift
+    description: "IaC: coverage of managed resources and extent of configuration drift."
+
+  - id: availability.incidents
+    name: Availability Incidents
+    description: "Services: Sev1/2 incident count, mean time to restore, and SLO‑breach hours."
+
+  - id: cost.idle_underutilized
+    name: Cost – Idle/Underutilized
+    description: "Cloud spend: share attributable to idle/underutilized resources."
+
+  - id: cost.commit_coverage
+    name: Cost – Commit Coverage
+    description: "Commitments: share of eligible usage covered and unused commitment."
+
+  - id: cost.allocation_quality
+    name: Cost – Allocation Quality
+    description: "Cloud spend: share correctly attributed to teams/services."
+
+  - id: security.public_exposure
+    name: Security – Public Exposure
+    description: "Assets: degree of public internet exposure on sensitive services (open ingress, public buckets, public IPs)."
+
+  - id: security.encryption
+    name: Security – Encryption
+    description: "Assets/endpoints: adoption of encryption at rest and modern TLS."
+
+  - id: security.iam_risk
+    name: Security – IAM Risk
+    description: "IAM: prevalence of weak identity controls (missing MFA, aged keys, overbroad permissions)."
+
+  - id: security.vuln_patch
+    name: Security – Vulnerability & Patch Hygiene
+    description: "Fleet: vulnerability backlog and patch timeliness versus SLAs."

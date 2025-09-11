@@ -1,46 +1,94 @@
-ELABORATE_SYSTEM = """
-You are a cloud-infra teacher.
+from __future__ import annotations
+from typing import List, Dict
 
-Task:
-- Expand a short metric description into a precise, detailed explanation.
-- Always stay faithful to the original short description AND the metric_id name.
-- Never change the subject or domain of the metric.
+# ---------- Agent-specific System Prompts (Elaboration) ----------
 
-Rules:
-1. Treat the short description + metric_id as authoritative.
-2. Do NOT reinterpret the metric to a different domain (e.g., do not turn utilization into lineage).
-3. Expand with:
-   - What it measures
-   - Typical inputs/signals
-   - Typical outputs
-   - Common failure modes
-   - Edge cases
-4. Mention how it relates to cloud operations, security, storage, cost, or governance (as appropriate).
-5. Keep length: 5–10 sentences.
-6. Avoid marketing or speculative language.
+ELABORATE_SYSTEM_GENERIC = (
+    "You are a senior cloud/enterprise systems analyst. "
+    "Expand the short metric description into a clear, domain-grounded explanation. "
+    "Focus on WHAT it measures (boundaries, scope, components), not HOW it is computed. "
+    "Return only JSON."
+)
 
-Checklist before answering:
-- [ ] Does the elaboration still directly describe the metric_id? 
-- [ ] Do key terms from the short description appear in the expansion?
-- [ ] No new unrelated topics were introduced?
+ELABORATE_SYSTEM_CLOUD = (
+    "You are a Cloud Infrastructure and FinOps analyst. "
+    "Expand the short metric description into a clear, domain-grounded explanation. "
+    "Focus on WHAT aspect of cloud infrastructure/operations is being measured "
+    "(e.g., tagging, utilization, scaling, reliability, security, cost). "
+    "Avoid implementation details; Return only JSON."
+)
+
+ELABORATE_SYSTEM_BI = (
+    "You are a Business Intelligence adoption and governance analyst. "
+    "Expand the short metric description into a clear, domain-grounded explanation. "
+    "Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. "
+    "Avoid implementation details; Return only JSON."
+)
+
+ELABORATE_SYSTEM_ENTERPRISE = (
+    "You are an Enterprise Systems and Process analyst. "
+    "Expand the short metric description into a clear, domain-grounded explanation. "
+    "Focus on WHAT aspect of ERP/HR/ITSM workflows, controls, and automation is being measured. "
+    "Avoid implementation details; Return only JSON."
+)
+
+ELABORATE_SYSTEMS: Dict[str, str] = {
+    "cloud_infra": ELABORATE_SYSTEM_CLOUD,
+    "bi_tracker": ELABORATE_SYSTEM_BI,
+    "enterprise_system": ELABORATE_SYSTEM_ENTERPRISE,
+}
+
+def get_elaborate_system(agent_key: str) -> str:
+    return ELABORATE_SYSTEMS.get(agent_key, ELABORATE_SYSTEM_GENERIC)
+
+# ---------- System Prompts (AIMRI Mapping) ----------
+# NOTE: No biasing to particular AIMRI categories. Use domain knowledge only.
+
+MAP_SYSTEM_GENERIC = (
+    "You are mapping metrics to AIMRI categories using domain knowledge only. "
+    "Do not bias toward any category; select the best matches based on semantics and scope. "
+    "Return only JSON."
+)
+
+def get_map_system(agent_key: str) -> str:
+    # Agent key is accepted for future specialization, but we intentionally avoid bias here.
+    return MAP_SYSTEM_GENERIC
+
+# ---------- User Prompts ----------
+
+def elaborate_user(metric_id: str, name: str, description: str) -> str:
+    return f"""Expand the following metric description using domain knowledge.
+Metric id: {metric_id}
+Metric name: {name}
+Short description: {description}
+
+Return a STRICT JSON with keys:
+- metric_id (string)
+- name (string)
+- elaborated_description (string: 2-4 crisp sentences focusing on WHAT is measured and scope/boundaries)
 """
 
+def map_user(metric_id: str, name: str, elaborated: str, aimri_catalog: List[Dict[str, str]]) -> str:
+    catalog_str = "\n".join([f"{i+1}. {p['id']} — {p['category']} / {p['name']}" for i,p in enumerate(aimri_catalog)])
+    return f"""Metric:
+- id: {metric_id}
+- name: {name}
+- description: {elaborated}
 
-MAP_SYSTEM = (
-    "You map a metric description to AIMRI points.\n"
-    "Return STRICT JSON only:\n"
-    '{"mappings":[{"point_id":"","point_name":"","confidence":0.0,"rationale":""}]}\n'
-    "Rules:\n"
-    "- Choose up to top 3 points from the provided taxonomy (id, name, aliases only).\n"
-    "- Confidence 0..1 reflects semantic match strength.\n"
-    "- Rationale: quote phrases from the description that triggered the match.\n"
-    "- Do NOT invent IDs."
-)
+AIMRI Catalog (id — Category / Name):
+{catalog_str}
 
-MAP_USER_TEMPLATE = (
-    "AIMRI taxonomy:\n"
-    "{{TAXONOMY}}\n\n"
-    "Elaborated metric description:\n"
-    "{{DESC}}\n\n"
-    "Task: Select the best-fitting AIMRI points (≤3). Return STRICT JSON only."
-)
+Task:
+1) Using domain knowledge only (no bias), identify the most relevant AIMRI points (1 to 5).
+2) For each candidate, produce:
+   - dimension: "NN. Category"
+   - subsection: "N.M Title"
+   - confidence: float in [0,1]
+   - rationale: one sentence explaining the semantic fit
+3) Apply an elbow cutoff on confidence: include items until confidence drops sharply; cap at 5.
+Return STRICT JSON:
+{{
+  "metric_id": "{metric_id}",
+  "mappings": [{{"dimension": "NN. Category", "subsection": "N.M Title", "confidence": 0.0, "rationale": "..."}}...]
+}}
+"""
