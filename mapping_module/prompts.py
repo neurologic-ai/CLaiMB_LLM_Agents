@@ -117,3 +117,49 @@ Return STRICT JSON:
   "mappings": [{{"dimension": "NN. Category", "subsection": "N.M Title", "confidence": 0.0, "rationale": "..."}}...]
 }}
 """
+# --- PATCH START: canonicalize AIMRI catalog in the user prompt (no output schema changes) ---
+def map_user(metric_id: str, name: str, elaborated: str, aimri_catalog: List[Dict[str, str]]) -> str:
+    # Build a clean, machine-readable catalog: no slashes/emdashes.
+    # Example record:
+    # {"id":"8.3","dimension":"08. Process Maturity","subsection":"8.3 Quality Assurance"}
+    def _records():
+        recs = []
+        for p in aimri_catalog:
+            ident = p["id"].strip()
+            category = p["category"].strip()
+            subname = p["name"].strip()
+            major = int(float(ident.split(".")[0]))
+            recs.append({
+                "id": ident,
+                "dimension": f"{major:02d}. {category}",
+                "subsection": f"{ident} {subname}",
+            })
+        return recs
+
+    # Local import avoids adding a top-level dependency change
+    import json as _json
+    catalog_json = _json.dumps(_records(), ensure_ascii=False, indent=2)
+
+    return f"""Metric:
+- id: {metric_id}
+- name: {name}
+- description: {elaborated}
+
+AIMRI_CATALOG (canonical JSON for reference):
+```json
+{catalog_json}
+
+Task:
+1) Using domain knowledge only (no bias), identify the most relevant AIMRI points (1 to 5).
+2) For each candidate, produce:
+   - dimension: "NN. Category"
+   - subsection: "N.M Title"
+   - confidence: float in [0,1]
+   - rationale: one sentence explaining the semantic fit
+3) Apply an elbow cutoff on confidence: include items until confidence drops sharply; cap at 5.
+Return STRICT JSON:
+{{
+  "metric_id": "{metric_id}",
+  "mappings": [{{"dimension": "NN. Category", "subsection": "N.M Title", "confidence": 0.0, "rationale": "..."}}...]
+}}
+"""

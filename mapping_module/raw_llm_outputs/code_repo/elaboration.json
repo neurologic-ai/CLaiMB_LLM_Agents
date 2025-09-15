@@ -1,0 +1,270 @@
+{
+  "agent": "code_repo",
+  "kind": "elaboration",
+  "items": [
+    {
+      "metric_id": "code.cyclomatic_complexity_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: code.cyclomatic_complexity_band\nMetric name: Cyclomatic Complexity Band\nShort description: Evaluates function/method complexity across the repo; flags excessive branching or deep nesting that reduces maintainability.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "code.cyclomatic_complexity_band",
+        "name": "Cyclomatic Complexity Band",
+        "elaborated_description": "The Cyclomatic Complexity Band metric assesses the complexity of functions and methods within a code repository by measuring the number of linearly independent paths through the code. It identifies areas of excessive branching, such as multiple conditional statements and loops, which can lead to convoluted logic and hinder code readability. This metric is particularly relevant for evaluating maintainability, as higher complexity often correlates with increased difficulty in understanding, testing, and modifying the code. The scope of this metric encompasses all functions and methods, providing a comprehensive view of the codebase's structural complexity. By flagging instances of deep nesting and intricate control flow, it helps developers pinpoint sections of code that may require refactoring to enhance clarity and maintainability."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "code.maintainability_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: code.maintainability_band\nMetric name: Maintainability Band\nShort description: Assesses maintainability index of the codebase; highlights readability, cohesion, and modularity gaps.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "code.maintainability_band",
+        "name": "Maintainability Band",
+        "elaborated_description": "The Maintainability Band metric evaluates the maintainability index of a codebase, focusing on key attributes such as readability, cohesion, and modularity. Readability assesses how easily a developer can understand the code, which is crucial for onboarding and collaboration. Cohesion measures how closely related the functionalities within a module are, indicating how well the code is organized. Modularity evaluates the degree to which the code is divided into distinct components, which can enhance reusability and simplify testing. By identifying gaps in these areas, the metric provides insights into potential refactoring opportunities and overall code quality."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "code.docstring_coverage_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: code.docstring_coverage_band\nMetric name: Docstring Coverage Band\nShort description: Measures docstring coverage and quality across functions/classes; flags missing or incomplete documentation.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "code.docstring_coverage_band",
+        "name": "Docstring Coverage Band",
+        "elaborated_description": "The Docstring Coverage Band metric evaluates the presence and quality of docstrings within functions and classes in a codebase. It measures the extent to which these elements are documented, identifying areas where documentation is missing or incomplete. This metric encompasses all public and private methods and classes, ensuring a comprehensive assessment of the code's documentation practices. It serves as an indicator of code maintainability and usability, as well-documented code is easier for developers to understand and use. By flagging insufficient documentation, this metric encourages adherence to best practices in software development and promotes clearer communication within teams."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "code.nested_loops_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: code.nested_loops_band\nMetric name: Nested Loops Band\nShort description: Detects deeply nested loops and control structures; identifies areas needing refactor to improve efficiency.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "code.nested_loops_band",
+        "name": "Nested Loops Band",
+        "elaborated_description": "The Nested Loops Band metric measures the presence and depth of nested loops and control structures within code repositories. It identifies segments of code where loops are embedded within other loops, which can lead to increased computational complexity and reduced performance. This metric focuses on the structural aspects of the code, highlighting areas that may require refactoring to enhance efficiency and maintainability. By analyzing the nesting levels, it provides insights into potential bottlenecks in execution time and resource utilization. The scope includes all types of loops and control structures, such as 'for', 'while', and 'if' statements, across various programming languages."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "repo.tests_presence",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: repo.tests_presence\nMetric name: Tests Presence & Coverage\nShort description: Detects presence and quality of test files and coverage; rates robustness of testing practices.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "repo.tests_presence",
+        "name": "Tests Presence & Coverage",
+        "elaborated_description": "This metric evaluates the existence and quality of test files within a code repository, providing insights into the robustness of the testing practices employed. It measures whether unit tests, integration tests, and end-to-end tests are present, as well as the extent to which the codebase is covered by these tests. The metric also assesses the quality of the tests, including factors such as the clarity of test cases and the effectiveness of assertions. By analyzing both the presence of tests and their coverage, this metric helps identify potential gaps in testing that could lead to undetected bugs or vulnerabilities. Overall, it serves as an indicator of the reliability and maintainability of the software being developed."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "repo.env_config_hygiene",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: repo.env_config_hygiene\nMetric name: Environment & Config Hygiene\nShort description: Checks existence and quality of dependency/environment files (requirements.txt, pyproject.toml, etc.); flags inconsistencies.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "repo.env_config_hygiene",
+        "name": "Environment & Config Hygiene",
+        "elaborated_description": "The Environment & Config Hygiene metric evaluates the presence and quality of essential dependency and environment configuration files within a code repository. This includes files such as requirements.txt, pyproject.toml, and other relevant configuration documents that define the software's runtime environment. The metric assesses whether these files are complete, consistent, and up-to-date, ensuring that all necessary dependencies are specified and that there are no conflicting versions. It also flags any discrepancies between different environment files that could lead to issues during deployment or execution. By maintaining high environment and config hygiene, teams can enhance reproducibility, reduce integration problems, and streamline the onboarding process for new developers."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "repo.cicd_presence",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: repo.cicd_presence\nMetric name: CI/CD Presence & Quality\nShort description: Evaluates presence and quality of CI/CD workflows; highlights automation gaps in build/test/deploy.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "repo.cicd_presence",
+        "name": "CI/CD Presence & Quality",
+        "elaborated_description": "This metric assesses the existence and effectiveness of Continuous Integration and Continuous Deployment (CI/CD) workflows within a code repository. It measures whether automated processes for building, testing, and deploying code are implemented and functioning as intended. The scope includes evaluating the completeness of these workflows, identifying any missing automation steps that could hinder development efficiency. Additionally, it highlights the quality of the existing CI/CD practices, such as the reliability of automated tests and the speed of deployment processes. By analyzing these factors, the metric provides insights into potential automation gaps that could impact software delivery and operational performance."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "repo.deployment_readiness",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: repo.deployment_readiness\nMetric name: Deployment Readiness\nShort description: Analyzes deployment scripts and automation; assesses readiness for reliable rollouts and rollback.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "repo.deployment_readiness",
+        "name": "Deployment Readiness",
+        "elaborated_description": "Deployment Readiness measures the effectiveness and reliability of deployment scripts and automation processes within a code repository. It evaluates the completeness and correctness of the scripts that facilitate the deployment of applications, ensuring that they can be executed without errors. This metric also assesses the mechanisms in place for rolling back deployments in case of failures, which is critical for maintaining system stability. The scope includes both the automation tools used and the configuration settings that govern deployment behavior. Typical signals include the presence of automated tests, version control practices, and documentation related to deployment procedures."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "repo.experiments_management",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: repo.experiments_management\nMetric name: Experiments Management\nShort description: Inspects repo for experiment directories/configs; rates standardization and reproducibility of ML experimentation.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "repo.experiments_management",
+        "name": "Experiments Management",
+        "elaborated_description": "The Experiments Management metric evaluates the organization and standardization of machine learning experiments within a code repository. It inspects the presence and structure of experiment directories and configuration files, which are essential for tracking and reproducing experiments. This metric focuses on the clarity and consistency of naming conventions, the use of version control for experiment configurations, and the documentation of experimental setups. By assessing these aspects, the metric provides insights into the reproducibility of results and the ease with which other team members can understand and replicate experiments. A well-managed experiments framework is crucial for collaborative ML projects, ensuring that findings can be reliably reproduced and built upon."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "repo.project_structure",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: repo.project_structure\nMetric name: Project Structure & Docs\nShort description: Reviews overall repo structure and documentation; flags missing READMEs, inconsistent layout, or weak contribution guidelines.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "repo.project_structure",
+        "name": "Project Structure & Docs",
+        "elaborated_description": "This metric evaluates the organization and documentation quality of a code repository. It measures the presence and completeness of essential documentation files, such as README files, which provide critical information about the project, including its purpose, installation instructions, and usage guidelines. Additionally, it assesses the consistency of the directory layout, ensuring that files and folders are logically arranged and easily navigable. The metric also reviews the clarity and comprehensiveness of contribution guidelines, which are vital for onboarding new contributors and maintaining project standards. Overall, this metric aims to ensure that the repository is user-friendly and accessible to both developers and potential contributors."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "parallel_patterns",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: parallel_patterns\nMetric name: Parallel & Concurrency Patterns\nShort description: Assesses use of concurrency libraries (threading, asyncio, Ray); flags unsafe or inefficient parallel patterns.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "parallel_patterns",
+        "name": "Parallel & Concurrency Patterns",
+        "elaborated_description": "This metric evaluates the implementation of concurrency and parallelism within code repositories, specifically focusing on the use of libraries such as threading, asyncio, and Ray. It identifies patterns that may lead to unsafe execution, such as race conditions or deadlocks, as well as inefficient use of resources that could hinder performance. The scope includes both the detection of proper usage of concurrency constructs and the identification of anti-patterns that could degrade system reliability or efficiency. By analyzing the code for these patterns, the metric provides insights into the robustness and scalability of the software, particularly in multi-threaded or distributed environments. This assessment is crucial for ensuring that applications can handle concurrent operations effectively without compromising safety or performance."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "inference_endpoint",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: inference_endpoint\nMetric name: Inference Endpoint Quality\nShort description: Reviews serving endpoints (FastAPI/Flask/gRPC); checks for validation, error handling, and health/readiness probes.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "inference_endpoint",
+        "name": "Inference Endpoint Quality",
+        "elaborated_description": "Inference Endpoint Quality measures the robustness and reliability of serving endpoints used for deploying machine learning models, such as those built with FastAPI, Flask, or gRPC. This metric evaluates the effectiveness of input validation mechanisms to ensure that only properly formatted data is processed, thereby preventing potential errors during inference. It also assesses the implementation of error handling strategies, which are crucial for managing unexpected issues and providing meaningful feedback to users. Additionally, the metric includes an examination of health and readiness probes, which are essential for monitoring the operational status of the endpoints and ensuring they are ready to handle requests. Overall, this metric provides insights into the operational integrity and user experience of machine learning inference services."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "model_export",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: model_export\nMetric name: Model Export Practices\nShort description: Evaluates model export practices (ONNX, TorchScript, TF SavedModel); checks versioning, metadata, and portability.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "model_export",
+        "name": "Model Export Practices",
+        "elaborated_description": "This metric evaluates the practices surrounding the export of machine learning models, focusing on formats such as ONNX, TorchScript, and TensorFlow SavedModel. It assesses the completeness and accuracy of versioning information, ensuring that models can be reliably tracked and reproduced over time. Additionally, the metric examines the inclusion of relevant metadata, which provides context about the model's training data, architecture, and intended use cases. Portability is also a key aspect, measuring the model's ability to be deployed across different platforms and environments without compatibility issues. Overall, this metric aims to ensure that exported models are robust, well-documented, and ready for integration into production systems."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "data_pipeline",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: data_pipeline\nMetric name: Data Pipeline Engineering\nShort description: Examines data pipeline definitions (Airflow, Prefect, Kedro); highlights lack of retries, alerts, or observability.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "data_pipeline",
+        "name": "Data Pipeline Engineering",
+        "elaborated_description": "This metric evaluates the definitions and configurations of data pipelines implemented using orchestration tools such as Airflow, Prefect, and Kedro. It focuses on identifying critical aspects of pipeline robustness, including the presence of retry mechanisms, alerting systems, and observability features. The scope includes assessing how well these pipelines can handle failures, notify stakeholders of issues, and provide insights into their operational performance. By highlighting deficiencies in these areas, the metric aims to ensure that data pipelines are resilient and maintainable. The evaluation is limited to the structural and functional attributes of the pipeline definitions, rather than their execution or performance metrics."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "feature_engineering",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: feature_engineering\nMetric name: Feature Engineering Hygiene\nShort description: Reviews feature engineering code for reproducibility and parity between training and serving.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "feature_engineering",
+        "name": "Feature Engineering Hygiene",
+        "elaborated_description": "Feature Engineering Hygiene measures the quality and consistency of the feature engineering processes used in machine learning workflows. It focuses on ensuring that the features created during the training phase are reproducible and match those used during model serving or inference. This metric evaluates the code for adherence to best practices that promote reproducibility, such as version control of feature definitions and consistent data preprocessing steps. Additionally, it assesses the parity between training and serving environments to prevent discrepancies that could lead to model performance degradation. By monitoring this metric, teams can identify potential issues that may arise from feature drift or misalignment, ultimately supporting the reliability and robustness of deployed models."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "security_hygiene",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: security_hygiene\nMetric name: Security Hygiene\nShort description: Scans for security hygiene issues (secrets in code, weak crypto, missing access controls); flags risks.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "security_hygiene",
+        "name": "Security Hygiene",
+        "elaborated_description": "The Security Hygiene metric assesses the overall security posture of a codebase by identifying potential vulnerabilities and risks. It specifically scans for issues such as hardcoded secrets, which can expose sensitive information, and weak cryptographic practices that may compromise data integrity and confidentiality. Additionally, it evaluates the presence of access controls to ensure that appropriate permissions are enforced, thereby preventing unauthorized access to resources. This metric serves as an indicator of the security practices adopted within the development workflow and highlights areas that require remediation. By flagging these risks, it helps teams prioritize security improvements and maintain a robust security framework."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "ml.framework_maturity",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: ml.framework_maturity\nMetric name: ML Framework Maturity\nShort description: Assesses maturity of ML framework usage (PyTorch, TensorFlow, scikit-learn); checks for idiomatic and consistent patterns.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "ml.framework_maturity",
+        "name": "ML Framework Maturity",
+        "elaborated_description": "The ML Framework Maturity metric evaluates the level of proficiency and adherence to best practices in the usage of machine learning frameworks such as PyTorch, TensorFlow, and scikit-learn. It measures the consistency and idiomatic application of framework-specific patterns, which can indicate a deeper understanding of the framework's capabilities and limitations. This metric encompasses aspects such as code organization, use of built-in functions, and alignment with community standards. By assessing these factors, the metric provides insights into the robustness and maintainability of the machine learning codebase. A higher maturity level suggests a more effective and efficient implementation of machine learning solutions."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "ml.experiment_tracking",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: ml.experiment_tracking\nMetric name: Experiment Tracking\nShort description: Inspects logging/tracking (MLflow, Weights & Biases); evaluates completeness of parameter, metric, and artifact tracking.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "ml.experiment_tracking",
+        "name": "Experiment Tracking",
+        "elaborated_description": "Experiment Tracking measures the effectiveness and thoroughness of logging and tracking activities within machine learning workflows. It evaluates the completeness of recorded parameters, metrics, and artifacts associated with each experiment, ensuring that all relevant information is captured for reproducibility and analysis. This metric encompasses various aspects of experiment management, including the consistency of data logged across different runs and the clarity of the relationships between parameters and outcomes. It is crucial for understanding model performance, facilitating comparisons between different experiments, and enabling informed decision-making in model development. The scope includes tools commonly used for tracking, such as MLflow and Weights & Biases, but is not limited to them, as the principles of effective tracking apply broadly across different platforms."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "ml.hpo_practice",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: ml.hpo_practice\nMetric name: Hyperparameter Optimization Practice\nShort description: Reviews hyperparameter tuning setup (Optuna, Ray Tune); checks reproducibility and persistence of best configs.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "ml.hpo_practice",
+        "name": "Hyperparameter Optimization Practice",
+        "elaborated_description": "This metric evaluates the practices surrounding hyperparameter tuning in machine learning workflows, specifically focusing on frameworks such as Optuna and Ray Tune. It measures the effectiveness of the hyperparameter optimization setup, including the strategies employed for searching the hyperparameter space and the methodologies used to assess model performance. Additionally, the metric assesses the reproducibility of the tuning process, ensuring that the same hyperparameter configurations can yield consistent results across different runs. It also examines the persistence of the best configurations, verifying that optimal hyperparameters are documented and can be reliably retrieved for future use. Overall, this metric provides insights into the robustness and reliability of hyperparameter optimization practices within machine learning projects."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "ml.data_validation",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: ml.data_validation\nMetric name: Data Validation\nShort description: Analyzes schema/range/drift validation in pipelines; highlights missing quality gates or CI integration.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "ml.data_validation",
+        "name": "Data Validation",
+        "elaborated_description": "Data Validation measures the integrity and quality of data as it flows through machine learning pipelines. It focuses on three primary aspects: schema validation, which checks if the data conforms to the expected structure; range validation, which ensures that the data values fall within predefined acceptable limits; and drift validation, which identifies shifts in data distribution over time that may affect model performance. This metric highlights any missing quality gates that should be implemented to ensure data reliability. Additionally, it assesses the integration of continuous integration (CI) practices to automate data quality checks. Overall, Data Validation serves as a critical checkpoint to maintain high standards of data quality throughout the ML workflow."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "ml.training_practice",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: ml.training_practice\nMetric name: Training Practice\nShort description: Reviews training workflows for reproducibility, config-driven runs, checkpointing, and restart capability.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "ml.training_practice",
+        "name": "Training Practice",
+        "elaborated_description": "The Training Practice metric evaluates the robustness and reliability of machine learning training workflows. It measures the extent to which these workflows support reproducibility, ensuring that experiments can be consistently replicated under the same conditions. This metric also assesses the use of configuration-driven runs, which facilitate the management of hyperparameters and settings through structured configurations. Additionally, it considers the implementation of checkpointing mechanisms that allow for the saving of model states during training, enabling recovery from interruptions. Finally, the metric examines the capability for restarting training processes, which is crucial for long-running experiments or when resources are limited."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "ml.evaluation_practice",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior software engineering and MLOps reviewer. Your task is to expand a short metric description into a clear, domain-grounded explanation for code repositories and ML engineering workflows. Clarify WHAT is measured (scope, boundaries, typical signals), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: ml.evaluation_practice\nMetric name: Evaluation Practice\nShort description: Evaluates evaluation methodology; checks breadth of metrics, fairness checks, and quality of reporting/visualizations.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "ml.evaluation_practice",
+        "name": "Evaluation Practice",
+        "elaborated_description": "The Evaluation Practice metric assesses the comprehensiveness and rigor of the evaluation methodologies employed in machine learning projects. It measures the diversity of performance metrics used to gauge model effectiveness, ensuring that multiple aspects of model performance are considered. Additionally, it evaluates the implementation of fairness checks to identify and mitigate biases in model predictions, promoting equitable outcomes across different demographic groups. The quality of reporting and visualizations is also scrutinized, focusing on clarity, transparency, and the ability to convey insights effectively. This metric serves as a critical indicator of the robustness and ethical considerations in the evaluation phase of machine learning workflows."
+      },
+      "raw_text": null
+    }
+  ]
+}

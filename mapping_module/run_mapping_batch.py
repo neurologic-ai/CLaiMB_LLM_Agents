@@ -16,6 +16,7 @@ def _anchors() -> tuple[Path, Path, Path, Path]:
       <pkg_dir>/logs/
     """
     pkg_dir = Path(__file__).resolve().parent
+    logger.debug(pkg_dir)
     aimri_path = pkg_dir / "aimri_points.json"
     metrics_dir = pkg_dir / "metric_descriptions"
     out_dir = pkg_dir / "outputs"

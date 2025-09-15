@@ -90,3 +90,4 @@ RuntimeError: OPENAI_API_KEY is not set.
 2025-09-12 01:50:33.121 | INFO     | mapping_module.mapper:process_yaml:122 - Wrote /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/outputs/code_repo.py
 2025-09-12 02:28:00.718 | INFO     | __main__:main:79 - Single-agent mode: code_repo.yaml
 2025-09-12 02:28:00.718 | INFO     | mapping_module.mapper:process_yaml:99 - Processing YAML: /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/metric_descriptions/code_repo.yaml
+2025-09-12 02:32:02.588 | INFO     | mapping_module.mapper:process_yaml:122 - Wrote /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/outputs/code_repo.py

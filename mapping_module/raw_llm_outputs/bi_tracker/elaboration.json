@@ -1,0 +1,118 @@
+{
+  "agent": "bi_tracker",
+  "kind": "elaboration",
+  "items": [
+    {
+      "metric_id": "usage.dau_mau",
+      "model": "gpt-4o-mini",
+      "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.dau_mau\nMetric name: DAU/MAU (Stickiness)\nShort description: Measures daily-to-monthly active user ratio (stickiness); higher DAU/MAU shows frequent engagement.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {},
+      "raw_text": null
+    },
+    {
+      "metric_id": "usage.creators_ratio",
+      "model": "gpt-4o-mini",
+      "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.creators_ratio\nMetric name: Creators Ratio\nShort description: Calculates ratio of content creators to consumers; higher share indicates stronger self-service culture.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {},
+      "raw_text": null
+    },
+    {
+      "metric_id": "usage.session_depth",
+      "model": "gpt-4o-mini",
+      "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.session_depth\nMetric name: Session Depth\nShort description: Analyzes average session duration and actions per session; reflects depth of user engagement.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {},
+      "raw_text": null
+    },
+    {
+      "metric_id": "usage.drilldown",
+      "model": "gpt-4o-mini",
+      "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.drilldown\nMetric name: Drilldown Share\nShort description: Evaluates proportion of drill-through interactions; signals exploratory analysis beyond static views.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {},
+      "raw_text": null
+    },
+    {
+      "metric_id": "reliability.refresh_timeliness",
+      "model": "gpt-4o-mini",
+      "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: reliability.refresh_timeliness\nMetric name: Refresh Timeliness\nShort description: Compares observed refresh times against SLAs; flags dashboards with stale or lagging updates.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {},
+      "raw_text": null
+    },
+    {
+      "metric_id": "features.cross_links",
+      "model": "gpt-4o-mini",
+      "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: features.cross_links\nMetric name: Cross-linking\nShort description: Assesses dashboard/report cross-linking; more links show stronger integration across insights.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {},
+      "raw_text": null
+    },
+    {
+      "metric_id": "governance.coverage",
+      "model": "gpt-4o-mini",
+      "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: governance.coverage\nMetric name: Governance Coverage\nShort description: Measures coverage of governance signals (certification, ownership, metadata); low coverage indicates unmanaged assets.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {},
+      "raw_text": null
+    },
+    {
+      "metric_id": "data.source_diversity",
+      "model": "gpt-4o-mini",
+      "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: data.source_diversity\nMetric name: Source Diversity\nShort description: Counts distinct source systems integrated; higher diversity supports broader decision-making.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {},
+      "raw_text": null
+    },
+    {
+      "metric_id": "democratization.self_service",
+      "model": "gpt-4o-mini",
+      "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: democratization.self_service\nMetric name: Self-service Adoption\nShort description: Evaluates extent of self-service adoption (creators, governance, active use); shows BI empowerment.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {},
+      "raw_text": null
+    },
+    {
+      "metric_id": "decision.traceability",
+      "model": "gpt-4o-mini",
+      "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: decision.traceability\nMetric name: Decision Traceability\nShort description: Evaluates how well decisions logged in BI are linked to governed dashboards, lineage, and cross-links; higher traceability enables transparent, evidence-backed decisions.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {},
+      "raw_text": null
+    },
+    {
+      "metric_id": "usage.weekly_active_trend",
+      "model": "gpt-4o-mini",
+      "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.weekly_active_trend\nMetric name: Weekly Active Trend\nShort description: Tracks trend of weekly active users over time; identifies adoption growth or decline.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {},
+      "raw_text": null
+    },
+    {
+      "metric_id": "usage.retention_4w",
+      "model": "gpt-4o-mini",
+      "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.retention_4w\nMetric name: 4‑week Retention\nShort description: Measures 4-week user retention; shows how many users return after initial usage.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {},
+      "raw_text": null
+    },
+    {
+      "metric_id": "features.export_rate",
+      "model": "gpt-4o-mini",
+      "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: features.export_rate\nMetric name: Export Rate\nShort description: Calculates frequency of exports (CSV, PPT, PDF); high rates may indicate gaps in in-app usability.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {},
+      "raw_text": null
+    },
+    {
+      "metric_id": "features.alerts_usage",
+      "model": "gpt-4o-mini",
+      "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: features.alerts_usage\nMetric name: Alerts Usage\nShort description: Checks how often alerts are configured and used; reflects proactive monitoring adoption.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {},
+      "raw_text": null
+    }
+  ]
+}
