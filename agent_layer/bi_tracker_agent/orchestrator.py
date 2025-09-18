@@ -12,7 +12,7 @@ from langchain_core.runnables import RunnableLambda, RunnableParallel
 
 from agent_layer.bi_tracker_agent.registry import LEVEL0, LEVEL1_DEPS, CATEGORIES
 from agent_layer.bi_tracker_agent.tool_loader import load_tool
-from agent_layer.bi_tracker_agent.aimri_mapping import METRIC_TO_AIMRI
+from agent_layer.bi_tracker_agent.aimri_mapping import BI_TRACKER_METRIC_TO_AIMRI
 
 
 class BIOrchestrator:
@@ -50,7 +50,7 @@ class BIOrchestrator:
         if "band" in m:
             del m["band"]
 
-        m["aimri"] = METRIC_TO_AIMRI.get(mid, [])
+        m["aimri"] = BI_TRACKER_METRIC_TO_AIMRI.get(mid, [])
         m["metric_id"] = mid
         return m
 

@@ -87,6 +87,30 @@ def _normalize_mapping_item(item: Any) -> Tuple[str | None, str | None]:
     return (dim, sub)
 
 
+def weighted_final(dimensions: Dict[str, Dict[str, Any]], weights: Dict[str, float]) -> Dict[str, Any]:
+    """
+    Compute a weighted final score from dimension scores.
+    Weights are provided as percentages (or relative weights).
+    """
+    total = sum(weights.values()) or 1.0
+    final = 0.0
+    breakdown = {}
+
+    for dim, row in dimensions.items():
+        s = float(row["score"])
+        w = weights.get(dim, 0.0) / total
+        final += s * w
+        breakdown[dim] = {
+            "score": s,
+            "weight": round(w, 4),
+            "weighted": round(s * w, 4),
+        }
+
+    return {
+        "final_score": round(final, 2),
+        "breakdown": breakdown,
+    }
+
 def _round2(x: float) -> float:
     return float(f"{x:.2f}")
 
@@ -213,10 +237,28 @@ def main():
     ap = argparse.ArgumentParser(description="Aggregate AIMRI scores (JSON → JSON).")
     ap.add_argument("--inputs-root", required=True, help="Root folder containing agent outputs (recursively).")
     ap.add_argument("--out", default="aimri_aggregate.json", help="Output JSON path.")
+    ap.add_argument("--weights", default=None,
+                    help="Optional weights as comma list, e.g. '01. Technical Infrastructure=10,02. Data Management & Quality=15'")
     args = ap.parse_args()
 
     root = Path(args.inputs_root)
     result = aggregate_tree(root)
+
+    # parse weights
+    weights = {}
+    if args.weights:
+        for part in args.weights.split(","):
+            if "=" in part:
+                k, v = part.split("=", 1)
+                weights[k.strip()] = float(v.strip())
+    else:
+        # default: all equal weight
+        weights = {dim: 1.0 for dim in result["dimensions"].keys()}
+
+    # compute weighted final score
+    final = weighted_final(result["dimensions"], weights)
+    result["aimri_weighted"] = final
+    result["weights"] = weights
 
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)

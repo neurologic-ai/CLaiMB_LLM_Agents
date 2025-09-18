@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from loguru import logger
-from agent_layer.AGENT_DATA_PLATFORM_ANALYZER.aimri_mapping import MLOPS_METRIC_TO_AIMRI
+from agent_layer.AGENT_DATA_PLATFORM_ANALYZER.aimri_mapping import DATA_METRIC_TO_AIMRI
 
 # updated import: use the snapshot collector class
 from workflows.AGENT_DATA_PLATFORM_ANALYZER.snapshot_collectors import DataPlatformAnalyzerSnapshotCollector
@@ -80,7 +80,7 @@ def _log(level: str, message: str):
 
 
 class MVPDataPlatformScanner:
-    def __init__(self, api_key: str = None, out_dir: str = "agent_layer_output/AGENT_DATA_PLATFORM_ANALYZER",
+    def __init__(self, api_key: str = None, out_dir: str = "agent_layer_outputs/AGENT_DATA_PLATFORM_ANALYZER",
                  snapshot_data_dir: str = "data/Input", snapshot_config_file: str = "config/AGENT_DATA_PLATFORM_ANALYZER/config.yaml"):
         load_dotenv()
         self.api_key = api_key or os.getenv("OPENAI_API_KEY")
@@ -263,7 +263,7 @@ class MVPDataPlatformScanner:
         input_obj = self._metric_input_for(metric, ctx)
         prompt = self._build_prompt_for(metric, input_obj)
         result = self._llm_evaluate(prompt, metric)
-        aimri_vals = MLOPS_METRIC_TO_AIMRI.get(metric, [])
+        aimri_vals = DATA_METRIC_TO_AIMRI.get(metric, [])
         result["aimri_mapping"] = aimri_vals
         _log("debug", f"Completed metric evaluation: {metric}")
         return result
