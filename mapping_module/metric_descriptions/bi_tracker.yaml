@@ -40,3 +40,23 @@ metrics:
 
   - id: features.alerts_usage
     description: "Checks how often alerts are configured and used; reflects proactive monitoring adoption."
+  
+  - id: reliability.sla_breach_streaks
+    description: "Detects consecutive SLA refresh violations; highlights systemic reliability risks."
+
+  - id: reliability.error_rate_queries
+    description: "Calculates proportion of query errors; high rates suggest unstable or poorly modeled datasets."
+
+  - id: governance.pii_coverage
+    description: "Evaluates detection and tagging of PII fields; flags compliance and risk management gaps."
+
+  - id: governance.lineage_coverage
+    description: "Rates lineage metadata completeness; indicates ability to trace data origins and dependencies."
+
+  - id: data.cost_efficiency
+    description: "Weighs timeliness, error rates, and duplication to estimate efficiency of BI data usage vs. costs."
+
+  - id: democratization.dept_coverage
+    description: "Measures cross-department adoption; high spread indicates organization-wide BI reach."
+
+

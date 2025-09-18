@@ -99,3 +99,7 @@ RuntimeError: OPENAI_API_KEY is not set.
 2025-09-18 15:40:32.218 | INFO     | mapping_module.mapper:process_yaml:159 - Processing YAML: /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/metric_descriptions/code_repo.yaml
 2025-09-18 15:44:43.985 | INFO     | mapping_module.mapper:process_yaml:201 - Wrote /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/outputs/code_repo.py
 2025-09-18 15:44:43.989 | INFO     | mapping_module.mapper:process_yaml:212 - Wrote raw LLM outputs → /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/raw_llm_outputs/code_repo/elaboration.json and /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/raw_llm_outputs/code_repo/mapping.json
+2025-09-18 17:03:28.161 | INFO     | __main__:main:80 - Single-agent mode: bi_tracker.yaml
+2025-09-18 17:03:28.161 | INFO     | mapping_module.mapper:process_yaml:159 - Processing YAML: /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/metric_descriptions/bi_tracker.yaml
+2025-09-18 17:07:31.589 | INFO     | mapping_module.mapper:process_yaml:201 - Wrote /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/outputs/bi_tracker.py
+2025-09-18 17:07:31.593 | INFO     | mapping_module.mapper:process_yaml:212 - Wrote raw LLM outputs → /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/raw_llm_outputs/bi_tracker/elaboration.json and /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/raw_llm_outputs/bi_tracker/mapping.json
