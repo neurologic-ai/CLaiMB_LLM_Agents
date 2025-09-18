@@ -1,7 +1,7 @@
 import os
 import json
 from typing import Dict, List, Any
-from agent_layer.AGENT_DATA_PLATFORM_ANALYZER.map_dp import AimriData
+from agent_layer.AGENT_DATA_PLATFORM_ANALYZER.map_db import AimriData
 from dotenv import load_dotenv
 import openai
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -116,7 +116,7 @@ def save_mapping_to_file(mapping: Dict[str, List[Dict[str, str]]]) -> None:
     file_path = r'agent_layer\AGENT_DATA_PLATFORM_ANALYZER\aimri_mapping.py'
     with open(file_path, 'w') as f:
         f.write("from typing import Dict, List\n\n")
-        f.write("MLOPS_METRIC_TO_AIMRI: Dict[str, List[Dict[str, str]]] = ")
+        f.write("DATA_METRIC_TO_AIMRI: Dict[str, List[Dict[str, str]]] = ")
         json.dump(mapping, f, indent=4)
     logger.info(f"Saved mapping to '{file_path}'.")
 
