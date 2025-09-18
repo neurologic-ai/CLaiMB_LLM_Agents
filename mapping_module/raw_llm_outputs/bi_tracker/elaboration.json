@@ -6,112 +6,168 @@
       "metric_id": "usage.dau_mau",
       "model": "gpt-4o-mini",
       "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
-      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.dau_mau\nMetric name: DAU/MAU (Stickiness)\nShort description: Measures daily-to-monthly active user ratio (stickiness); higher DAU/MAU shows frequent engagement.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
-      "json": {},
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.dau_mau\nMetric name: \nShort description: Measures daily-to-monthly active user ratio (stickiness); higher DAU/MAU shows frequent engagement.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "usage.dau_mau",
+        "name": "Daily-to-Monthly Active User Ratio",
+        "elaborated_description": "The Daily-to-Monthly Active User Ratio (DAU/MAU) is a key performance indicator that measures user engagement within a business intelligence platform. This metric quantifies the proportion of users who engage with the platform on a daily basis compared to those who engage at least once in a month. A higher DAU/MAU ratio indicates that users are not only accessing the platform regularly but are also finding value in its features and insights. This stickiness metric is crucial for understanding user retention and the effectiveness of content governance strategies. By analyzing this ratio, organizations can identify trends in user behavior and make informed decisions to enhance user experience and drive deeper engagement with BI tools."
+      },
       "raw_text": null
     },
     {
       "metric_id": "usage.creators_ratio",
       "model": "gpt-4o-mini",
       "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
-      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.creators_ratio\nMetric name: Creators Ratio\nShort description: Calculates ratio of content creators to consumers; higher share indicates stronger self-service culture.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
-      "json": {},
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.creators_ratio\nMetric name: \nShort description: Calculates ratio of content creators to consumers; higher share indicates stronger self-service culture.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "usage.creators_ratio",
+        "name": "Content Creators to Consumers Ratio",
+        "elaborated_description": "The creators ratio metric measures the proportion of individuals who actively create content, such as reports, dashboards, or data visualizations, compared to those who primarily consume this content. A higher ratio indicates a robust self-service culture within the organization, suggesting that more users are empowered to generate insights independently rather than relying solely on centralized data teams. This metric reflects the level of engagement and participation in the business intelligence ecosystem, highlighting the effectiveness of training and resources provided to users. It also serves as an indicator of the organization's overall data literacy and capability to leverage BI tools for decision-making. By understanding this ratio, organizations can identify opportunities to enhance user engagement and foster a more collaborative data-driven environment."
+      },
       "raw_text": null
     },
     {
       "metric_id": "usage.session_depth",
       "model": "gpt-4o-mini",
       "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
-      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.session_depth\nMetric name: Session Depth\nShort description: Analyzes average session duration and actions per session; reflects depth of user engagement.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
-      "json": {},
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.session_depth\nMetric name: \nShort description: Analyzes average session duration and actions per session; reflects depth of user engagement.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "usage.session_depth",
+        "name": "Session Depth Analysis",
+        "elaborated_description": "The 'Session Depth Analysis' metric measures the average duration of user sessions and the number of actions taken within those sessions. This metric provides insights into user engagement by indicating how deeply users interact with the Business Intelligence (BI) tools and content available to them. A longer session duration coupled with a higher number of actions suggests that users are finding value in the BI resources, leading to more informed decision-making. Conversely, shorter sessions with fewer actions may indicate a lack of engagement or difficulty in navigating the BI environment. This metric is crucial for understanding user behavior and optimizing content governance strategies to enhance overall user experience."
+      },
       "raw_text": null
     },
     {
       "metric_id": "usage.drilldown",
       "model": "gpt-4o-mini",
       "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
-      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.drilldown\nMetric name: Drilldown Share\nShort description: Evaluates proportion of drill-through interactions; signals exploratory analysis beyond static views.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
-      "json": {},
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.drilldown\nMetric name: \nShort description: Evaluates proportion of drill-through interactions; signals exploratory analysis beyond static views.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "usage.drilldown",
+        "name": "Drill-Down Interaction Proportion",
+        "elaborated_description": "This metric measures the proportion of user interactions that involve drill-through actions within business intelligence tools. It indicates the extent to which users engage in exploratory analysis by navigating from high-level summaries to more detailed data views. A higher proportion of drill-down interactions suggests that users are actively seeking deeper insights and are not solely relying on static reports. This behavior reflects a more dynamic use of BI content, where users are empowered to investigate underlying data trends and patterns. Monitoring this metric helps organizations understand user engagement levels and the effectiveness of their BI content in supporting informed decision-making."
+      },
       "raw_text": null
     },
     {
       "metric_id": "reliability.refresh_timeliness",
       "model": "gpt-4o-mini",
       "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
-      "user": "Expand the following metric description using domain knowledge.\nMetric id: reliability.refresh_timeliness\nMetric name: Refresh Timeliness\nShort description: Compares observed refresh times against SLAs; flags dashboards with stale or lagging updates.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
-      "json": {},
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: reliability.refresh_timeliness\nMetric name: \nShort description: Compares observed refresh times against SLAs; flags dashboards with stale or lagging updates.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "reliability.refresh_timeliness",
+        "name": "Refresh Timeliness",
+        "elaborated_description": "This metric evaluates the effectiveness of data refresh processes by comparing actual refresh times against established Service Level Agreements (SLAs). It specifically measures the frequency and punctuality of updates to dashboards, ensuring that users have access to the most current data for decision-making. By flagging dashboards that exhibit stale or lagging updates, this metric highlights potential issues in data governance and content reliability. The scope of this metric encompasses all dashboards within the BI environment, focusing on their ability to deliver timely insights. Ultimately, it serves as a critical indicator of the overall health of the BI system and its capacity to support informed business decisions."
+      },
       "raw_text": null
     },
     {
       "metric_id": "features.cross_links",
       "model": "gpt-4o-mini",
       "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
-      "user": "Expand the following metric description using domain knowledge.\nMetric id: features.cross_links\nMetric name: Cross-linking\nShort description: Assesses dashboard/report cross-linking; more links show stronger integration across insights.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
-      "json": {},
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: features.cross_links\nMetric name: \nShort description: Assesses dashboard/report cross-linking; more links show stronger integration across insights.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "features.cross_links",
+        "name": "Dashboard and Report Cross-Linking",
+        "elaborated_description": "This metric evaluates the extent of cross-linking between dashboards and reports within a Business Intelligence environment. A higher number of cross-links indicates a stronger integration of insights, facilitating a more cohesive understanding of data across different analytical views. It measures how well different reports and dashboards are interconnected, allowing users to navigate seamlessly between related insights. This integration is crucial for decision support, as it enables users to draw comprehensive conclusions from multiple data sources. The metric focuses on the relational aspect of BI content governance, emphasizing the importance of interconnectedness in enhancing user engagement and data-driven decision-making."
+      },
       "raw_text": null
     },
     {
       "metric_id": "governance.coverage",
       "model": "gpt-4o-mini",
       "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
-      "user": "Expand the following metric description using domain knowledge.\nMetric id: governance.coverage\nMetric name: Governance Coverage\nShort description: Measures coverage of governance signals (certification, ownership, metadata); low coverage indicates unmanaged assets.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
-      "json": {},
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: governance.coverage\nMetric name: \nShort description: Measures coverage of governance signals (certification, ownership, metadata); low coverage indicates unmanaged assets.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "governance.coverage",
+        "name": "Governance Coverage",
+        "elaborated_description": "The Governance Coverage metric quantifies the extent to which governance signals, such as data certification, ownership assignments, and metadata documentation, are applied across business intelligence assets. A high coverage score indicates that a significant proportion of assets are well-managed, with clear ownership and defined quality standards, facilitating trust and reliability in decision-making processes. Conversely, low coverage suggests that many assets lack proper governance, which can lead to data inconsistencies, compliance risks, and challenges in data utilization. This metric serves as a critical indicator for organizations to assess their governance framework's effectiveness and identify areas needing improvement. By monitoring governance coverage, organizations can enhance their data stewardship practices and ensure that decision-makers have access to high-quality, well-governed data."
+      },
       "raw_text": null
     },
     {
       "metric_id": "data.source_diversity",
       "model": "gpt-4o-mini",
       "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
-      "user": "Expand the following metric description using domain knowledge.\nMetric id: data.source_diversity\nMetric name: Source Diversity\nShort description: Counts distinct source systems integrated; higher diversity supports broader decision-making.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
-      "json": {},
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: data.source_diversity\nMetric name: \nShort description: Counts distinct source systems integrated; higher diversity supports broader decision-making.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "data.source_diversity",
+        "name": "Data Source Diversity",
+        "elaborated_description": "This metric quantifies the number of distinct source systems that have been integrated into the business intelligence framework. A higher count of diverse data sources indicates a richer data ecosystem, which can enhance the quality and breadth of insights available for decision-making. By incorporating data from various systems, organizations can achieve a more comprehensive view of their operations, market conditions, and customer behaviors. This diversity supports more informed and nuanced decision-making processes, as it allows stakeholders to analyze trends and patterns from multiple perspectives. Ultimately, this metric serves as an indicator of the organization's capability to leverage varied data inputs for strategic advantage."
+      },
       "raw_text": null
     },
     {
       "metric_id": "democratization.self_service",
       "model": "gpt-4o-mini",
       "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
-      "user": "Expand the following metric description using domain knowledge.\nMetric id: democratization.self_service\nMetric name: Self-service Adoption\nShort description: Evaluates extent of self-service adoption (creators, governance, active use); shows BI empowerment.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
-      "json": {},
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: democratization.self_service\nMetric name: \nShort description: Evaluates extent of self-service adoption (creators, governance, active use); shows BI empowerment.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "democratization.self_service",
+        "name": "Self-Service BI Adoption",
+        "elaborated_description": "This metric evaluates the extent to which self-service business intelligence (BI) tools are being adopted across the organization. It measures the number of users who actively create and share their own reports and dashboards, indicating a culture of data empowerment. Additionally, it assesses the governance structures in place to ensure that self-service practices align with organizational standards and data integrity. The metric also tracks active usage rates, reflecting how frequently these self-service tools are utilized in decision-making processes. Overall, this metric provides insights into the effectiveness of BI initiatives aimed at democratizing data access and fostering a data-driven culture."
+      },
       "raw_text": null
     },
     {
       "metric_id": "decision.traceability",
       "model": "gpt-4o-mini",
       "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
-      "user": "Expand the following metric description using domain knowledge.\nMetric id: decision.traceability\nMetric name: Decision Traceability\nShort description: Evaluates how well decisions logged in BI are linked to governed dashboards, lineage, and cross-links; higher traceability enables transparent, evidence-backed decisions.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
-      "json": {},
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: decision.traceability\nMetric name: \nShort description: Evaluates how well decisions logged in BI are linked to governed dashboards, lineage, and cross-links; higher traceability enables transparent, evidence-backed decisions.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "decision.traceability",
+        "name": "Decision Traceability",
+        "elaborated_description": "This metric measures the extent to which decisions made within the Business Intelligence (BI) framework are connected to governed dashboards and their underlying data lineage. It assesses the clarity and accessibility of the links between decision logs and the visualizations or reports that informed those decisions. Higher traceability indicates that stakeholders can easily trace back the rationale behind decisions to specific data sources and analytical outputs. This transparency fosters trust in the decision-making process and ensures that decisions are evidence-based. The scope of this metric includes all logged decisions within the BI system, focusing on their connections to governed content and the integrity of data lineage."
+      },
       "raw_text": null
     },
     {
       "metric_id": "usage.weekly_active_trend",
       "model": "gpt-4o-mini",
       "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
-      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.weekly_active_trend\nMetric name: Weekly Active Trend\nShort description: Tracks trend of weekly active users over time; identifies adoption growth or decline.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
-      "json": {},
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.weekly_active_trend\nMetric name: \nShort description: Tracks trend of weekly active users over time; identifies adoption growth or decline.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "usage.weekly_active_trend",
+        "name": "Weekly Active Users Trend",
+        "elaborated_description": "This metric measures the trend of weekly active users engaging with the Business Intelligence (BI) platform over a specified time period. It provides insights into user adoption patterns, highlighting whether the number of active users is increasing or decreasing. By analyzing this trend, organizations can assess the effectiveness of their BI initiatives and identify potential areas for improvement in user engagement. The metric focuses solely on users who have interacted with the BI tools at least once during the week, ensuring that only genuine engagement is captured. This information is crucial for decision-makers to understand the overall health of BI usage within the organization and to strategize accordingly."
+      },
       "raw_text": null
     },
     {
       "metric_id": "usage.retention_4w",
       "model": "gpt-4o-mini",
       "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
-      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.retention_4w\nMetric name: 4‑week Retention\nShort description: Measures 4-week user retention; shows how many users return after initial usage.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
-      "json": {},
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: usage.retention_4w\nMetric name: \nShort description: Measures 4-week user retention; shows how many users return after initial usage.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "usage.retention_4w",
+        "name": "4-Week User Retention",
+        "elaborated_description": "The 4-Week User Retention metric quantifies the percentage of users who return to the Business Intelligence (BI) platform within four weeks following their initial engagement. This metric is crucial for understanding user engagement and the effectiveness of the BI tools in meeting user needs. A high retention rate indicates that users find value in the insights provided, leading to repeated usage for decision-making. Conversely, a low retention rate may signal issues with content relevance, usability, or overall user experience. By tracking this metric, organizations can identify trends in user behavior and make informed decisions to enhance BI adoption and content governance."
+      },
       "raw_text": null
     },
     {
       "metric_id": "features.export_rate",
       "model": "gpt-4o-mini",
       "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
-      "user": "Expand the following metric description using domain knowledge.\nMetric id: features.export_rate\nMetric name: Export Rate\nShort description: Calculates frequency of exports (CSV, PPT, PDF); high rates may indicate gaps in in-app usability.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
-      "json": {},
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: features.export_rate\nMetric name: \nShort description: Calculates frequency of exports (CSV, PPT, PDF); high rates may indicate gaps in in-app usability.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "features.export_rate",
+        "name": "Export Frequency Rate",
+        "elaborated_description": "The Export Frequency Rate measures how often users export data or reports from the Business Intelligence platform in various formats such as CSV, PPT, and PDF. A high export rate may suggest that users are seeking to utilize data outside the application, potentially indicating limitations in the in-app usability or functionality. This metric provides insights into user engagement and satisfaction, as frequent exports may reflect a need for more robust in-app features. Additionally, it can highlight areas where the BI tool may not fully meet user needs for data analysis and presentation. Monitoring this metric helps organizations identify opportunities for enhancing the user experience and improving content governance."
+      },
       "raw_text": null
     },
     {
       "metric_id": "features.alerts_usage",
       "model": "gpt-4o-mini",
       "system": "You are a Business Intelligence adoption and governance analyst. Expand the short metric description into a clear, domain-grounded explanation. Focus on WHAT aspect of BI usage, engagement, content governance, or decision support is being measured. Avoid implementation details; Return only JSON.",
-      "user": "Expand the following metric description using domain knowledge.\nMetric id: features.alerts_usage\nMetric name: Alerts Usage\nShort description: Checks how often alerts are configured and used; reflects proactive monitoring adoption.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
-      "json": {},
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: features.alerts_usage\nMetric name: \nShort description: Checks how often alerts are configured and used; reflects proactive monitoring adoption.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "features.alerts_usage",
+        "name": "Alerts Usage Frequency",
+        "elaborated_description": "This metric measures the frequency with which users configure and utilize alerts within the Business Intelligence platform. It reflects the level of proactive monitoring adoption among users, indicating their engagement with the system's capabilities to receive timely notifications on critical data changes. A higher usage rate suggests that users are actively leveraging alerts to stay informed and make data-driven decisions. Conversely, low usage may highlight a need for increased training or awareness regarding the benefits of alerts. Overall, this metric serves as an indicator of how effectively the BI tools are being utilized to enhance decision support through timely insights."
+      },
       "raw_text": null
     }
   ]

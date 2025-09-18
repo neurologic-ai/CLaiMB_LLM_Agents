@@ -1,70 +1,42 @@
 metrics:
   - id: usage.dau_mau
-    name: DAU/MAU (Stickiness)
-    function: compute_dau_mau
     description: "Measures daily-to-monthly active user ratio (stickiness); higher DAU/MAU shows frequent engagement."
 
   - id: usage.creators_ratio
-    name: Creators Ratio
-    function: compute_creators_ratio
     description: "Calculates ratio of content creators to consumers; higher share indicates stronger self-service culture."
 
   - id: usage.session_depth
-    name: Session Depth
-    function: compute_session_depth
     description: "Analyzes average session duration and actions per session; reflects depth of user engagement."
 
   - id: usage.drilldown
-    name: Drilldown Share
-    function: compute_drilldown_share
     description: "Evaluates proportion of drill-through interactions; signals exploratory analysis beyond static views."
 
   - id: reliability.refresh_timeliness
-    name: Refresh Timeliness
-    function: compute_refresh_timeliness
     description: "Compares observed refresh times against SLAs; flags dashboards with stale or lagging updates."
 
   - id: features.cross_links
-    name: Cross-linking
-    function: compute_cross_links
     description: "Assesses dashboard/report cross-linking; more links show stronger integration across insights."
 
   - id: governance.coverage
-    name: Governance Coverage
-    function: compute_governance_coverage
     description: "Measures coverage of governance signals (certification, ownership, metadata); low coverage indicates unmanaged assets."
 
   - id: data.source_diversity
-    name: Source Diversity
-    function: compute_source_diversity
     description: "Counts distinct source systems integrated; higher diversity supports broader decision-making."
 
   - id: democratization.self_service
-    name: Self-service Adoption
-    function: compute_self_service
     description: "Evaluates extent of self-service adoption (creators, governance, active use); shows BI empowerment."
 
   - id: decision.traceability
-    name: Decision Traceability
-    function: compute_decision_traceability
     description: "Evaluates how well decisions logged in BI are linked to governed dashboards, lineage, and cross-links; higher traceability enables transparent, evidence-backed decisions."
 
   - id: usage.weekly_active_trend
-    name: Weekly Active Trend
-    function: compute_weekly_active_trend
     description: "Tracks trend of weekly active users over time; identifies adoption growth or decline."
 
   - id: usage.retention_4w
-    name: 4‑week Retention
-    function: compute_retention_4w
     description: "Measures 4-week user retention; shows how many users return after initial usage."
 
   - id: features.export_rate
-    name: Export Rate
-    function: compute_export_rate
     description: "Calculates frequency of exports (CSV, PPT, PDF); high rates may indicate gaps in in-app usability."
 
   - id: features.alerts_usage
-    name: Alerts Usage
-    function: compute_alerts_usage
     description: "Checks how often alerts are configured and used; reflects proactive monitoring adoption."

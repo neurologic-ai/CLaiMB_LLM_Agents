@@ -3,7 +3,7 @@ import argparse
 from pathlib import Path
 from loguru import logger
 
-# from .logging_utils import setup_logger
+from .logging_utils import setup_logger
 from .mapper import process_yaml
 
 
@@ -51,7 +51,7 @@ def main() -> None:
     metrics_dir = Path(args.metrics_dir).resolve() if args.metrics_dir else default_metrics_dir
     out_dir = Path(args.out_dir).resolve() if args.out_dir else default_out_dir
 
-    # setup_logger(logs_dir / "mapping.log", level="INFO")
+    setup_logger(logs_dir / "mapping.log", level="INFO")
 
     # Validate anchor files/dirs
     if not aimri_path.exists():

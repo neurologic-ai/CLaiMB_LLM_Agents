@@ -59,20 +59,46 @@ MAP_SYSTEM_GENERIC = (
     "Do not bias toward any category; select the best matches based on semantics and scope. "
     "Return only JSON."
 )
+MAP_SYSTEM_CLOUD = (
+    "You are mapping cloud infrastructure metrics to AIMRI points using domain knowledge only. "
+    "Do not bias toward any AIMRI category. "
+    "Select the best 1-5 matches by semantic proximity and scope. "
+    "Rank by relevance and apply an elbow cutoff if confidence drops. "
+    "For each selection, provide a confidence in [0,1] and a one-sentence rationale. "
+    "Return only JSON."
+)
+
+MAP_SYSTEM_BI = (
+    "You are mapping business intelligence (BI) adoption/usage and governance metrics to AIMRI points using domain knowledge only. "
+    "Do not bias toward any AIMRI category. "
+    "Select the best 1-5 matches by semantic proximity and scope. "
+    "Rank by relevance and apply an elbow cutoff if confidence drops. "
+    "For each selection, provide a confidence in [0,1] and a one-sentence rationale. "
+    "Return only JSON."
+)
+
+MAP_SYSTEM_ENTERPRISE = (
+    "You are mapping enterprise systems/process metrics (e.g., ERP/HR/ITSM, controls, automation) to AIMRI points using domain knowledge only. "
+    "Do not bias toward any AIMRI category. "
+    "Select the best 1-5 matches by semantic proximity and scope. "
+    "Rank by relevance and apply an elbow cutoff if confidence drops. "
+    "For each selection, provide a confidence in [0,1] and a one-sentence rationale. "
+    "Return only JSON."
+)
 
 MAP_SYSTEM_CODE_REPO = (
     "You are mapping code-repository metrics to AIMRI points using domain knowledge only. "
     "Do not bias toward any AIMRI category. "
-    "Select the best 1–5 matches by semantic proximity and scope. "
+    "Select the best 1-5 matches by semantic proximity and scope. "
     "Rank by relevance and apply an elbow cutoff if confidence drops. "
     "For each selection, provide a confidence in [0,1] and a one-sentence rationale. "
     "Return only JSON."
 )
 
 MAP_SYSTEMS: Dict[str, str] = {
-    # "cloud_infra": MAP_SYSTEM_CLOUD,
-    # "bi_tracker": MAP_SYSTEM_BI,
-    # "enterprise_system": MAP_SYSTEM_ENTERPRISE,
+    "cloud_infra": MAP_SYSTEM_CLOUD,
+    "bi_tracker": MAP_SYSTEM_BI,
+    "enterprise_system": MAP_SYSTEM_ENTERPRISE,
     "code_repo": MAP_SYSTEM_CODE_REPO
 }
 
