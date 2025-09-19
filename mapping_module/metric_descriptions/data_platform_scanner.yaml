@@ -1,0 +1,32 @@
+metrics:
+  - id: schema.consistency
+    description: Measures consistency of table schemas across the platform.
+  - id: data.freshness
+    description: Evaluates how up-to-date data tables are with expected refresh intervals.
+  - id: data.quality
+    description: Assesses data quality through validation checks on tables.
+  - id: governance.compliance
+    description: Checks compliance with data governance and access policies.
+  - id: data.lineage
+    description: Measures completeness of data lineage tracking across datasets.
+  - id: metadata.coverage
+    description: Evaluates coverage of metadata fields across tables.
+  - id: sensitive.tagging
+    description: Assesses tagging of sensitive data fields for compliance.
+  - id: duplication
+    description: Measures duplication of records within and across datasets.
+  - id: backup.recovery
+    description: Evaluates presence and reliability of backup and recovery mechanisms.
+  - id: security.config
+    description: Measures compliance of platform security configuration (encryption, access controls, and exposure) against policy.
+  - id: pipeline.success_rate
+    description: Measures the success rate of recent data pipeline runs (successes versus total).
+  - id: pipeline.latency_throughput
+    description: Measures pipeline performance via processing latency and throughput across pipelines.
+  - id: resource.utilization
+    description: Measures utilization of compute, memory, and storage across clusters relative to spend.
+  - id: query.performance
+    description: Measures query efficiency via runtimes and failure rates across workloads.
+  - id: analytics.adoption
+    description: Measures analytics platform adoption through active users, dashboard views, and query activity by department.
+

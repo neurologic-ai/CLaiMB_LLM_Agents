@@ -1,0 +1,186 @@
+{
+  "agent": "data_platform_scanner",
+  "kind": "elaboration",
+  "items": [
+    {
+      "metric_id": "schema.consistency",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior data platform and analytics engineering architect. Your task is to expand a short metric description into a clear, domain-grounded explanation for enterprise data platforms (storage/compute engines, ETL/ELT pipelines, orchestration, metadata/lineage, governance, security, reliability/SLA, performance, and cost efficiency). Clarify WHAT the metric measures—its scope, boundaries, typical signals/evidence, and common exclusions—not HOW to compute it. Be vendor-neutral, concise (2–4 sentences), and avoid thresholds, queries, or tool-specific commands. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: schema.consistency\nMetric name: \nShort description: Measures consistency of table schemas across the platform.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "schema.consistency",
+        "name": "Schema Consistency",
+        "elaborated_description": "Schema consistency measures the uniformity of table structures across the enterprise data platform, ensuring that tables with the same intended purpose maintain identical definitions, including data types, constraints, and relationships. This metric encompasses all relevant tables within the platform, focusing on both operational and analytical datasets. It typically signals potential issues when discrepancies arise, which can lead to data integrity problems and hinder data integration efforts. Common exclusions may include temporary tables or staging areas that are not intended for long-term use. Maintaining schema consistency is crucial for effective data governance, interoperability, and reliable analytics."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "data.freshness",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior data platform and analytics engineering architect. Your task is to expand a short metric description into a clear, domain-grounded explanation for enterprise data platforms (storage/compute engines, ETL/ELT pipelines, orchestration, metadata/lineage, governance, security, reliability/SLA, performance, and cost efficiency). Clarify WHAT the metric measures—its scope, boundaries, typical signals/evidence, and common exclusions—not HOW to compute it. Be vendor-neutral, concise (2–4 sentences), and avoid thresholds, queries, or tool-specific commands. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: data.freshness\nMetric name: \nShort description: Evaluates how up-to-date data tables are with expected refresh intervals.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "data.freshness",
+        "name": "Data Freshness",
+        "elaborated_description": "Data freshness measures the recency of data within tables relative to predefined refresh intervals, indicating how current the data is for analytical and operational purposes. This metric encompasses all data sources within the enterprise data platform, including both batch and real-time data ingestion processes. It typically signals the effectiveness of ETL/ELT pipelines and orchestration mechanisms in maintaining timely data updates. Common exclusions may include static reference data or historical datasets that do not require frequent updates. By monitoring data freshness, organizations can ensure that decision-making is based on the most relevant and timely information available."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "data.quality",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior data platform and analytics engineering architect. Your task is to expand a short metric description into a clear, domain-grounded explanation for enterprise data platforms (storage/compute engines, ETL/ELT pipelines, orchestration, metadata/lineage, governance, security, reliability/SLA, performance, and cost efficiency). Clarify WHAT the metric measures—its scope, boundaries, typical signals/evidence, and common exclusions—not HOW to compute it. Be vendor-neutral, concise (2–4 sentences), and avoid thresholds, queries, or tool-specific commands. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: data.quality\nMetric name: \nShort description: Assesses data quality through validation checks on tables.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "data.quality",
+        "name": "Data Quality Assessment",
+        "elaborated_description": "This metric measures the integrity, accuracy, and consistency of data within enterprise tables by applying a series of validation checks. It encompasses various dimensions of data quality, including completeness, uniqueness, timeliness, and validity, ensuring that the data meets predefined standards and business rules. The scope includes all relevant data tables across the data platform, while common exclusions may involve transient or temporary datasets that are not intended for long-term storage. Typical signals of data quality issues may include missing values, duplicate records, or data that fails to conform to expected formats. This metric is crucial for maintaining trust in data-driven decision-making and supports compliance with governance and regulatory requirements."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "governance.compliance",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior data platform and analytics engineering architect. Your task is to expand a short metric description into a clear, domain-grounded explanation for enterprise data platforms (storage/compute engines, ETL/ELT pipelines, orchestration, metadata/lineage, governance, security, reliability/SLA, performance, and cost efficiency). Clarify WHAT the metric measures—its scope, boundaries, typical signals/evidence, and common exclusions—not HOW to compute it. Be vendor-neutral, concise (2–4 sentences), and avoid thresholds, queries, or tool-specific commands. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: governance.compliance\nMetric name: \nShort description: Checks compliance with data governance and access policies.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "governance.compliance",
+        "name": "Data Governance Compliance",
+        "elaborated_description": "This metric measures the adherence of data assets and user access to established data governance and access policies within the enterprise data platform. It encompasses the evaluation of data classification, data ownership, and user permissions to ensure that sensitive data is handled according to regulatory and organizational standards. The scope includes all data storage and processing components, as well as the associated ETL/ELT pipelines and orchestration workflows. Typical signals of compliance include documented access controls, audit trails, and policy enforcement mechanisms. Common exclusions may involve data that is not subject to governance policies or assets that are outside the defined governance framework."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "data.lineage",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior data platform and analytics engineering architect. Your task is to expand a short metric description into a clear, domain-grounded explanation for enterprise data platforms (storage/compute engines, ETL/ELT pipelines, orchestration, metadata/lineage, governance, security, reliability/SLA, performance, and cost efficiency). Clarify WHAT the metric measures—its scope, boundaries, typical signals/evidence, and common exclusions—not HOW to compute it. Be vendor-neutral, concise (2–4 sentences), and avoid thresholds, queries, or tool-specific commands. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: data.lineage\nMetric name: \nShort description: Measures completeness of data lineage tracking across datasets.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "data.lineage",
+        "name": "Data Lineage Completeness",
+        "elaborated_description": "This metric measures the extent to which data lineage tracking is implemented across various datasets within an enterprise data platform. It assesses the visibility of data transformations, movements, and dependencies from source to destination, ensuring that all data flows are documented and traceable. The scope includes both structured and unstructured data, as well as data processed through ETL/ELT pipelines and other data integration methods. Typical signals of completeness include the presence of metadata that captures the origin, transformations, and usage of data. Common exclusions may involve datasets that are not actively monitored or those that lack sufficient documentation, leading to potential gaps in lineage visibility."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "metadata.coverage",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior data platform and analytics engineering architect. Your task is to expand a short metric description into a clear, domain-grounded explanation for enterprise data platforms (storage/compute engines, ETL/ELT pipelines, orchestration, metadata/lineage, governance, security, reliability/SLA, performance, and cost efficiency). Clarify WHAT the metric measures—its scope, boundaries, typical signals/evidence, and common exclusions—not HOW to compute it. Be vendor-neutral, concise (2–4 sentences), and avoid thresholds, queries, or tool-specific commands. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: metadata.coverage\nMetric name: \nShort description: Evaluates coverage of metadata fields across tables.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "metadata.coverage",
+        "name": "Metadata Coverage",
+        "elaborated_description": "Metadata coverage measures the extent to which metadata fields are populated across various tables within a data platform. This metric evaluates the completeness and richness of metadata, which is crucial for data discovery, governance, and lineage tracking. It encompasses all relevant metadata attributes, such as data types, descriptions, and relationships, while excluding any non-standard or custom fields that may not be universally applicable. High metadata coverage indicates a well-documented data environment, facilitating better data management and compliance. Conversely, low coverage may signal gaps in documentation that could hinder data usability and trust."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "sensitive.tagging",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior data platform and analytics engineering architect. Your task is to expand a short metric description into a clear, domain-grounded explanation for enterprise data platforms (storage/compute engines, ETL/ELT pipelines, orchestration, metadata/lineage, governance, security, reliability/SLA, performance, and cost efficiency). Clarify WHAT the metric measures—its scope, boundaries, typical signals/evidence, and common exclusions—not HOW to compute it. Be vendor-neutral, concise (2–4 sentences), and avoid thresholds, queries, or tool-specific commands. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: sensitive.tagging\nMetric name: \nShort description: Assesses tagging of sensitive data fields for compliance.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "sensitive.tagging",
+        "name": "Sensitive Data Tagging Compliance",
+        "elaborated_description": "The sensitive.tagging metric measures the extent to which sensitive data fields within an enterprise data platform are appropriately tagged for compliance with regulatory requirements. This includes identifying personal identifiable information (PII), financial data, and other sensitive categories that necessitate special handling. The scope encompasses all data storage and processing environments, including databases, data lakes, and ETL/ELT pipelines. Typical signals of compliance include the presence of metadata tags that indicate sensitivity levels and associated governance policies. Common exclusions may involve non-sensitive data fields or data that is not subject to regulatory scrutiny. This metric is crucial for ensuring data privacy, security, and adherence to legal obligations."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "duplication",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior data platform and analytics engineering architect. Your task is to expand a short metric description into a clear, domain-grounded explanation for enterprise data platforms (storage/compute engines, ETL/ELT pipelines, orchestration, metadata/lineage, governance, security, reliability/SLA, performance, and cost efficiency). Clarify WHAT the metric measures—its scope, boundaries, typical signals/evidence, and common exclusions—not HOW to compute it. Be vendor-neutral, concise (2–4 sentences), and avoid thresholds, queries, or tool-specific commands. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: duplication\nMetric name: \nShort description: Measures duplication of records within and across datasets.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "duplication",
+        "name": "Record Duplication",
+        "elaborated_description": "This metric measures the extent of duplicate records present within individual datasets as well as across multiple datasets in an enterprise data platform. It encompasses both exact duplicates, where records are identical in all fields, and near duplicates, where records may differ slightly but represent the same entity. The scope includes structured data stored in databases, as well as semi-structured and unstructured data sources. Common exclusions from this metric may include intentionally duplicated records, such as those used for versioning or historical tracking. High levels of duplication can indicate issues with data ingestion processes, data quality, and governance practices, impacting analytics and decision-making. Monitoring this metric is essential for maintaining data integrity and optimizing storage and processing efficiency."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "backup.recovery",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior data platform and analytics engineering architect. Your task is to expand a short metric description into a clear, domain-grounded explanation for enterprise data platforms (storage/compute engines, ETL/ELT pipelines, orchestration, metadata/lineage, governance, security, reliability/SLA, performance, and cost efficiency). Clarify WHAT the metric measures—its scope, boundaries, typical signals/evidence, and common exclusions—not HOW to compute it. Be vendor-neutral, concise (2–4 sentences), and avoid thresholds, queries, or tool-specific commands. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: backup.recovery\nMetric name: \nShort description: Evaluates presence and reliability of backup and recovery mechanisms.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "backup.recovery",
+        "name": "Backup and Recovery Reliability",
+        "elaborated_description": "This metric evaluates the presence and reliability of backup and recovery mechanisms within an enterprise data platform. It measures the effectiveness of data protection strategies, including the frequency of backups, the integrity of backup data, and the success rate of recovery operations. The scope includes both on-premises and cloud-based storage solutions, as well as the orchestration processes that manage these backups. Typical signals include successful backup completion logs and recovery test results, while common exclusions may involve data that is not backed up due to policy constraints or operational oversight. This metric is crucial for ensuring data availability and compliance with governance standards."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "security.config",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior data platform and analytics engineering architect. Your task is to expand a short metric description into a clear, domain-grounded explanation for enterprise data platforms (storage/compute engines, ETL/ELT pipelines, orchestration, metadata/lineage, governance, security, reliability/SLA, performance, and cost efficiency). Clarify WHAT the metric measures—its scope, boundaries, typical signals/evidence, and common exclusions—not HOW to compute it. Be vendor-neutral, concise (2–4 sentences), and avoid thresholds, queries, or tool-specific commands. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: security.config\nMetric name: \nShort description: Measures compliance of platform security configuration (encryption, access controls, and exposure) against policy.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "security.config",
+        "name": "Security Configuration Compliance",
+        "elaborated_description": "This metric measures the compliance of the enterprise data platform's security configurations, including encryption standards, access control mechanisms, and exposure levels, against established security policies. It encompasses all components of the platform, such as storage systems, compute engines, and data pipelines, ensuring that they adhere to best practices for data protection. Typical signals include the presence of encryption for data at rest and in transit, proper role-based access controls, and minimal exposure of sensitive data. Common exclusions may involve configurations that are not directly related to security policies, such as performance tuning settings or non-sensitive data configurations. The metric serves as a critical indicator of the platform's overall security posture and helps identify areas requiring remediation to mitigate risks."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "pipeline.success_rate",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior data platform and analytics engineering architect. Your task is to expand a short metric description into a clear, domain-grounded explanation for enterprise data platforms (storage/compute engines, ETL/ELT pipelines, orchestration, metadata/lineage, governance, security, reliability/SLA, performance, and cost efficiency). Clarify WHAT the metric measures—its scope, boundaries, typical signals/evidence, and common exclusions—not HOW to compute it. Be vendor-neutral, concise (2–4 sentences), and avoid thresholds, queries, or tool-specific commands. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: pipeline.success_rate\nMetric name: \nShort description: Measures the success rate of recent data pipeline runs (successes versus total).\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "pipeline.success_rate",
+        "name": "Pipeline Success Rate",
+        "elaborated_description": "The pipeline success rate measures the proportion of successful executions of data pipelines relative to the total number of executions within a defined time frame. This metric encompasses all types of pipeline runs, including those that perform Extract, Transform, Load (ETL) or Extract, Load, Transform (ELT) operations. It provides insights into the reliability and effectiveness of data workflows, helping to identify potential issues in data processing or orchestration. Common exclusions from this metric may include aborted runs or those that were intentionally skipped due to upstream dependencies. By monitoring this rate, organizations can assess the health of their data integration processes and make informed decisions regarding optimization and resource allocation."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "pipeline.latency_throughput",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior data platform and analytics engineering architect. Your task is to expand a short metric description into a clear, domain-grounded explanation for enterprise data platforms (storage/compute engines, ETL/ELT pipelines, orchestration, metadata/lineage, governance, security, reliability/SLA, performance, and cost efficiency). Clarify WHAT the metric measures—its scope, boundaries, typical signals/evidence, and common exclusions—not HOW to compute it. Be vendor-neutral, concise (2–4 sentences), and avoid thresholds, queries, or tool-specific commands. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: pipeline.latency_throughput\nMetric name: \nShort description: Measures pipeline performance via processing latency and throughput across pipelines.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "pipeline.latency_throughput",
+        "name": "Pipeline Latency and Throughput",
+        "elaborated_description": "This metric measures the performance of data pipelines by evaluating both processing latency and throughput. Latency refers to the time taken for data to travel through the pipeline from ingestion to output, while throughput indicates the volume of data processed in a given time frame. The scope includes all stages of the pipeline, from data extraction to transformation and loading, capturing the efficiency of each component. Typical signals include variations in processing times and data volumes, which can indicate bottlenecks or inefficiencies. Common exclusions may involve external factors such as network delays or upstream data source performance that do not directly reflect the pipeline's internal processing capabilities."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "resource.utilization",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior data platform and analytics engineering architect. Your task is to expand a short metric description into a clear, domain-grounded explanation for enterprise data platforms (storage/compute engines, ETL/ELT pipelines, orchestration, metadata/lineage, governance, security, reliability/SLA, performance, and cost efficiency). Clarify WHAT the metric measures—its scope, boundaries, typical signals/evidence, and common exclusions—not HOW to compute it. Be vendor-neutral, concise (2–4 sentences), and avoid thresholds, queries, or tool-specific commands. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: resource.utilization\nMetric name: \nShort description: Measures utilization of compute, memory, and storage across clusters relative to spend.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "resource.utilization",
+        "name": "Resource Utilization",
+        "elaborated_description": "Resource utilization measures the efficiency of compute, memory, and storage resources across clusters in relation to the financial expenditure incurred for these resources. It provides insights into how effectively the allocated resources are being used to support data processing and analytics workloads. This metric encompasses all active clusters within the enterprise data platform, capturing both on-demand and reserved resources. Typical signals include high utilization rates indicating efficient resource use, or low rates suggesting potential over-provisioning or underutilization. Common exclusions may involve idle resources or temporary spikes in usage that do not reflect ongoing operational patterns."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "query.performance",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior data platform and analytics engineering architect. Your task is to expand a short metric description into a clear, domain-grounded explanation for enterprise data platforms (storage/compute engines, ETL/ELT pipelines, orchestration, metadata/lineage, governance, security, reliability/SLA, performance, and cost efficiency). Clarify WHAT the metric measures—its scope, boundaries, typical signals/evidence, and common exclusions—not HOW to compute it. Be vendor-neutral, concise (2–4 sentences), and avoid thresholds, queries, or tool-specific commands. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: query.performance\nMetric name: \nShort description: Measures query efficiency via runtimes and failure rates across workloads.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "query.performance",
+        "name": "Query Performance",
+        "elaborated_description": "Query performance measures the efficiency of data retrieval operations by analyzing runtimes and failure rates across various workloads. This metric encompasses all executed queries within the data platform, providing insights into how quickly and reliably data can be accessed and processed. It includes both successful query executions and those that fail, allowing for a comprehensive view of performance issues. Typical signals may include prolonged runtimes or increased failure rates, which can indicate underlying problems in the data architecture or resource allocation. Common exclusions from this metric may involve queries that are not executed due to user errors or those that are intentionally designed to run for extended periods as part of testing or batch processing."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "analytics.adoption",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior data platform and analytics engineering architect. Your task is to expand a short metric description into a clear, domain-grounded explanation for enterprise data platforms (storage/compute engines, ETL/ELT pipelines, orchestration, metadata/lineage, governance, security, reliability/SLA, performance, and cost efficiency). Clarify WHAT the metric measures—its scope, boundaries, typical signals/evidence, and common exclusions—not HOW to compute it. Be vendor-neutral, concise (2–4 sentences), and avoid thresholds, queries, or tool-specific commands. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: analytics.adoption\nMetric name: \nShort description: Measures analytics platform adoption through active users, dashboard views, and query activity by department.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "analytics.adoption",
+        "name": "Analytics Platform Adoption",
+        "elaborated_description": "This metric measures the level of engagement with the analytics platform across various departments within the organization. It encompasses active users, which indicates the number of unique individuals utilizing the platform, as well as dashboard views and query activity, reflecting how often users interact with data visualizations and perform data queries. The scope includes all departments that have access to the analytics platform, providing insights into usage patterns and departmental engagement. Common exclusions may involve automated processes or service accounts that do not represent human interaction. By analyzing these components, organizations can assess the effectiveness of their analytics initiatives and identify areas for improvement in user training or platform features."
+      },
+      "raw_text": null
+    }
+  ]
+}

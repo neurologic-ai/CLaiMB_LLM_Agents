@@ -40,12 +40,33 @@ ELABORATE_SYSTEM_CODE_REPO = (
     "Avoid implementation details, thresholds, or tool-specific commands. "
     "Be neutral and factual. Return only JSON."
 )
+ELABORATE_SYSTEM_MLOPS = (
+    "You are a senior MLOps architect. "
+    "Your task is to expand a short metric description into a clear, domain-grounded explanation "
+    "covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, "
+    "and CI/CD as relevant. "
+    "Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. "
+    "Avoid implementation details, thresholds, or tool-specific commands. "
+    "Be neutral and factual. Return only JSON."
+)
+# Elaborate system for Data Platform Scanner
+ELABORATE_SYSTEM_DATA_PLATFORM_SCANNER = (
+    "You are a senior data platform and analytics engineering architect. "
+    "Your task is to expand a short metric description into a clear, domain-grounded explanation "
+    "for enterprise data platforms (storage/compute engines, ETL/ELT pipelines, orchestration, metadata/lineage, "
+    "governance, security, reliability/SLA, performance, and cost efficiency). "
+    "Clarify WHAT the metric measures—its scope, boundaries, typical signals/evidence, and common exclusions—not HOW to compute it. "
+    "Be vendor-neutral, concise (2–4 sentences), and avoid thresholds, queries, or tool-specific commands. "
+    "Return only JSON."
+)
 
 ELABORATE_SYSTEMS: Dict[str, str] = {
     "cloud_infra": ELABORATE_SYSTEM_CLOUD,
     "bi_tracker": ELABORATE_SYSTEM_BI,
     "enterprise_system": ELABORATE_SYSTEM_ENTERPRISE,
-    "code_repo": ELABORATE_SYSTEM_CODE_REPO
+    "code_repo": ELABORATE_SYSTEM_CODE_REPO,
+    "ml_ops": ELABORATE_SYSTEM_MLOPS,
+    "data_platform_scanner": ELABORATE_SYSTEM_DATA_PLATFORM_SCANNER
 }
 
 def get_elaborate_system(agent_key: str) -> str:
@@ -95,11 +116,33 @@ MAP_SYSTEM_CODE_REPO = (
     "Return only JSON."
 )
 
+MAP_SYSTEM_MLOPS = (
+    "You are mapping MLOps metrics to AIMRI points using domain knowledge only. "
+    "Do not bias toward any AIMRI category. "
+    "Select the best 1-5 matches by semantic proximity and scope. "
+    "Rank by relevance and apply an elbow cutoff if confidence drops. "
+    "For each selection, provide a confidence in [0,1] and a one-sentence rationale. "
+    "Return only JSON."
+)
+
+# Map system for Data Platform Scanner (neutral / unbiased)
+MAP_SYSTEM_DATA_PLATFORM_SCANNER = (
+    "You are mapping data platform health and operations metrics to AIMRI points using domain knowledge only. "
+    "Do not bias toward any AIMRI category. "
+    "Select the best 1–5 matches by semantic proximity and scope. "
+    "Rank by relevance and apply an elbow cutoff if confidence drops. "
+    "For each selection, provide a confidence in [0,1] and a one-sentence rationale. "
+    "Return only JSON."
+)
+
+
 MAP_SYSTEMS: Dict[str, str] = {
     "cloud_infra": MAP_SYSTEM_CLOUD,
     "bi_tracker": MAP_SYSTEM_BI,
     "enterprise_system": MAP_SYSTEM_ENTERPRISE,
-    "code_repo": MAP_SYSTEM_CODE_REPO
+    "code_repo": MAP_SYSTEM_CODE_REPO,
+    "ml_ops": MAP_SYSTEM_MLOPS,
+    "data_platform_scanner": MAP_SYSTEM_DATA_PLATFORM_SCANNER
 }
 
 def get_map_system(agent_key: str) -> str:

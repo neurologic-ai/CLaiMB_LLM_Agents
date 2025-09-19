@@ -1,0 +1,246 @@
+{
+  "agent": "ml_ops",
+  "kind": "elaboration",
+  "items": [
+    {
+      "metric_id": "mlflow.experiment_completeness_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: mlflow.experiment_completeness_band\nMetric name: \nShort description: Assesses whether experiments are fully logged with metrics, parameters, and artifacts; flags missing or partial runs that hinder reproducibility.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "mlflow.experiment_completeness_band",
+        "name": "Experiment Completeness Band",
+        "elaborated_description": "The Experiment Completeness Band metric evaluates the thoroughness of logging within machine learning experiments, focusing on the capture of essential components such as metrics, parameters, and artifacts. It identifies runs that are incomplete or lack critical information, which can impede the reproducibility of results and hinder the ability to compare different experiments effectively. This metric is particularly relevant in the context of ML experimentation, where comprehensive documentation is vital for understanding model performance and decision-making. By flagging missing or partial runs, it helps teams maintain high standards of data integrity and experiment quality. Ultimately, this metric serves as a key indicator of the robustness of training pipelines and the overall reliability of the machine learning lifecycle."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "mlflow.lineage_coverage_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: mlflow.lineage_coverage_band\nMetric name: \nShort description: Evaluates coverage of lineage metadata across MLflow runs, ensuring parameter–artifact–model links are complete; highlights gaps in traceability.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "mlflow.lineage_coverage_band",
+        "name": "Lineage Coverage Band",
+        "elaborated_description": "The Lineage Coverage Band metric evaluates the completeness of lineage metadata associated with MLflow runs, specifically focusing on the connections between parameters, artifacts, and models. It measures the extent to which these elements are documented and linked, providing insights into the traceability of the machine learning workflow. A high coverage indicates that all relevant components of the ML lifecycle are well-documented, facilitating reproducibility and accountability. Conversely, gaps in lineage coverage may signal missing links that could hinder understanding of model performance and decision-making processes. This metric is crucial for ensuring that all aspects of the ML experimentation and deployment pipeline are adequately captured and can be traced back for future reference or audits."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "mlflow.experiment_velocity_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: mlflow.experiment_velocity_band\nMetric name: \nShort description: Measures speed and throughput of experiment iterations (runs per week, completion time); flags bottlenecks in model experimentation.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "mlflow.experiment_velocity_band",
+        "name": "Experiment Velocity Band",
+        "elaborated_description": "The Experiment Velocity Band metric quantifies the speed and throughput of machine learning experimentation by tracking the number of experiment iterations, or runs, completed within a week, as well as the time taken to complete each run. This metric provides insights into the efficiency of the experimentation process, helping teams identify potential bottlenecks that may hinder rapid iteration and innovation. It encompasses all stages of the experimentation lifecycle, from initial setup and data preparation to model training and evaluation. By monitoring this metric, organizations can assess the effectiveness of their training pipelines and make informed decisions to optimize resource allocation. Additionally, it serves as a key indicator for the overall health of the ML workflow, influencing deployment strategies and continuous integration/continuous deployment (CI/CD) practices."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "mlflow.registry_hygiene_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: mlflow.registry_hygiene_band\nMetric name: \nShort description: Rates hygiene of the model registry (naming conventions, stage usage, deprecation practices); highlights cluttered or ambiguous registry states.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "mlflow.registry_hygiene_band",
+        "name": "Model Registry Hygiene Band",
+        "elaborated_description": "The Model Registry Hygiene Band metric evaluates the organization and clarity of the model registry within an ML lifecycle. It assesses adherence to naming conventions, appropriate usage of model stages (such as development, staging, and production), and the implementation of deprecation practices for outdated models. This metric aims to identify cluttered or ambiguous states in the registry that can lead to confusion among data scientists and engineers. By monitoring these aspects, teams can ensure that the model registry remains a reliable source of truth for model management. A well-maintained registry facilitates smoother ML experimentation, training, and deployment processes, ultimately enhancing the overall efficiency of the MLOps pipeline."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "mlflow.validation_artifacts_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: mlflow.validation_artifacts_band\nMetric name: \nShort description: Checks for presence and completeness of validation artifacts (confusion matrices, performance logs, fairness metrics) stored alongside models.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "mlflow.validation_artifacts_band",
+        "name": "Validation Artifacts Completeness",
+        "elaborated_description": "This metric assesses the presence and completeness of validation artifacts associated with machine learning models stored in a model registry. It specifically checks for essential components such as confusion matrices, performance logs, and fairness metrics, which are critical for evaluating model performance and ensuring ethical considerations. The scope of this metric encompasses all models that have undergone validation processes, ensuring that relevant artifacts are documented and accessible. By monitoring this metric, teams can ensure that they have a comprehensive understanding of model behavior and performance across various dimensions. The absence or incompleteness of these artifacts may indicate potential gaps in the validation process, which could lead to unaddressed biases or performance issues in deployed models."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "mlflow.reproducibility_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: mlflow.reproducibility_band\nMetric name: \nShort description: Evaluates extent of reproducibility (versioned code, dataset hashes, env captures) across MLflow runs; flags missing seeds, dependencies, or environment metadata.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "mlflow.reproducibility_band",
+        "name": "Reproducibility Band",
+        "elaborated_description": "The Reproducibility Band metric evaluates the extent to which machine learning experiments can be consistently reproduced across different runs within the MLflow framework. It measures the presence and integrity of versioned code, dataset hashes, and environment captures, which are critical for ensuring that the same model training conditions can be replicated. This metric flags instances where essential components, such as random seeds, dependencies, or environment metadata, are missing, indicating potential barriers to reproducibility. By assessing these factors, the metric provides insights into the reliability of experimental results and the overall robustness of the ML workflow. A higher reproducibility band suggests a more reliable and traceable ML process, facilitating better collaboration and validation of models."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "aml.endpoint_slo_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: aml.endpoint_slo_band\nMetric name: \nShort description: Measures deployed endpoint adherence to SLAs (latency, uptime, error budget); flags violations and unstable serving deployments.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "aml.endpoint_slo_band",
+        "name": "Endpoint Service Level Objective Band",
+        "elaborated_description": "The Endpoint Service Level Objective Band metric measures the adherence of deployed machine learning endpoints to predefined Service Level Agreements (SLAs) concerning latency, uptime, and error budgets. It evaluates whether the endpoints are meeting the expected performance criteria, which are critical for ensuring reliable and efficient model serving in production environments. This metric flags any violations of the SLAs, indicating potential issues that could affect user experience or system reliability. Additionally, it identifies unstable serving deployments that may not consistently meet performance expectations, allowing teams to take corrective actions. By monitoring this metric, organizations can ensure that their machine learning models are not only operational but also performing within acceptable limits, thereby maintaining trust in automated decision-making systems."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "aml.jobs_flow_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: aml.jobs_flow_band\nMetric name: \nShort description: Evaluates orchestration of AML jobs (pipelines, step dependencies, retries); highlights brittle flows or manual interventions.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "aml.jobs_flow_band",
+        "name": "AML Jobs Flow Band",
+        "elaborated_description": "The AML Jobs Flow Band metric evaluates the orchestration of Azure Machine Learning (AML) jobs, focusing on the efficiency and reliability of pipelines, step dependencies, and retry mechanisms. It measures how well the various components of the machine learning workflow interact and depend on one another, identifying potential bottlenecks or points of failure. This metric highlights instances where manual interventions are required, indicating brittle flows that may disrupt the automation of the ML lifecycle. By analyzing the orchestration of jobs, it provides insights into the robustness of the training and deployment pipelines. The scope includes all stages of the ML process, from experimentation to deployment, ensuring a comprehensive view of operational health."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "aml.monitoring_coverage_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: aml.monitoring_coverage_band\nMetric name: \nShort description: Rates coverage of production monitoring (drift detection, performance dashboards, alerting rules); flags blind spots in live model oversight.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "aml.monitoring_coverage_band",
+        "name": "Production Monitoring Coverage",
+        "elaborated_description": "The Production Monitoring Coverage metric assesses the extent to which monitoring practices are implemented for machine learning models in production. It evaluates key components such as drift detection, performance dashboards, and alerting rules, which are essential for maintaining model integrity and performance over time. This metric identifies potential blind spots in the oversight of live models, ensuring that all critical aspects of model behavior are being tracked. By measuring the coverage of these monitoring activities, organizations can gain insights into the robustness of their model governance and the effectiveness of their response mechanisms. A comprehensive monitoring strategy is vital for early detection of issues that could impact model performance and business outcomes."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "aml.registry_governance_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: aml.registry_governance_band\nMetric name: \nShort description: Assesses governance of AML registry (access controls, audit logs, ownership metadata); highlights weak accountability and regulatory gaps.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "aml.registry_governance_band",
+        "name": "AML Registry Governance Band",
+        "elaborated_description": "The AML Registry Governance Band metric evaluates the governance framework surrounding the Anti-Money Laundering (AML) model registry. It measures the effectiveness of access controls, ensuring that only authorized personnel can modify or access sensitive model information. Additionally, it assesses the presence and quality of audit logs, which track changes and access to the registry, providing transparency and accountability. The metric also examines ownership metadata to clarify responsibilities and accountability for the models stored within the registry. By highlighting weak points in governance, this metric identifies potential regulatory gaps that could expose the organization to compliance risks."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "aml.cost_correlation_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: aml.cost_correlation_band\nMetric name: \nShort description: Analyzes correlation of AML workloads with cost drivers (compute usage vs. run output); flags inefficient or unoptimized spending.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "aml.cost_correlation_band",
+        "name": "Cost Correlation Band for AML Workloads",
+        "elaborated_description": "The Cost Correlation Band metric measures the relationship between the computational resources utilized during machine learning (ML) workloads and the resulting outputs or performance metrics of those workloads. It aims to identify inefficiencies in spending by analyzing how variations in compute usage correlate with the effectiveness of model training and experimentation outcomes. This metric encompasses various stages of the ML lifecycle, including experimentation, training pipelines, and deployment. By flagging instances where high compute usage does not correspond to improved model performance, it helps teams optimize resource allocation and reduce unnecessary costs. The scope of this metric includes all aspects of ML operations, from initial experimentation through to model serving and monitoring, ensuring a comprehensive view of cost efficiency across the entire ML workflow."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "sm.endpoint_slo_scaling_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: sm.endpoint_slo_scaling_band\nMetric name: \nShort description: Measures endpoint SLO adherence under scaling events (autoscaling latency, throughput); flags overloads and slow ramp-up behavior.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "sm.endpoint_slo_scaling_band",
+        "name": "Endpoint SLO Scaling Band",
+        "elaborated_description": "This metric measures the adherence of service level objectives (SLOs) for machine learning model endpoints during scaling events, specifically focusing on autoscaling latency and throughput. It captures the system's ability to maintain performance standards when demand fluctuates, indicating how well the infrastructure can adapt to increased load. The metric flags instances of overload, where the system fails to meet SLOs due to insufficient resources, as well as slow ramp-up behavior, where the system takes longer than expected to scale up to meet demand. By monitoring this metric, teams can identify potential bottlenecks in the deployment and serving phases of the ML lifecycle. It is crucial for ensuring that models remain responsive and reliable under varying traffic conditions, thereby supporting effective ML experimentation and operational stability."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "sm.pipeline_flow_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: sm.pipeline_flow_band\nMetric name: \nShort description: Evaluates SageMaker pipeline orchestration (step modularity, branching, caching); highlights fragility or poor reusability in flows.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "sm.pipeline_flow_band",
+        "name": "SageMaker Pipeline Flow Band",
+        "elaborated_description": "The SageMaker Pipeline Flow Band metric evaluates the orchestration of machine learning pipelines, focusing on aspects such as step modularity, branching capabilities, and caching mechanisms. It measures the effectiveness of the pipeline design in terms of reusability and robustness, identifying potential fragility in the workflow that could lead to failures or inefficiencies. This metric is particularly relevant in the context of ML experimentation, where iterative processes require flexible and reliable pipeline structures. By analyzing the flow of data and control through the pipeline, it provides insights into how well different components can be reused across various training and deployment scenarios. Ultimately, this metric helps teams optimize their CI/CD processes by ensuring that pipelines are not only functional but also maintainable and scalable."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "sm.experiments_lineage_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: sm.experiments_lineage_band\nMetric name: \nShort description: Assesses lineage capture within SageMaker Experiments; flags missing links between datasets, code, and models.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "sm.experiments_lineage_band",
+        "name": "Lineage Capture Assessment in SageMaker Experiments",
+        "elaborated_description": "This metric evaluates the completeness of lineage capture within SageMaker Experiments, focusing on the connections between datasets, code, and models throughout the machine learning lifecycle. It identifies any missing links that may hinder traceability and reproducibility of experiments, which are critical for understanding model performance and decision-making. The scope includes all components involved in the experimentation process, from data preparation to model training and evaluation. By flagging gaps in lineage, this metric helps ensure that all relevant artifacts are accounted for, facilitating better collaboration and compliance with best practices in ML development. Ultimately, it supports the integrity of the ML pipeline by promoting transparency and accountability in the experimentation process."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "sm.clarify_coverage_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: sm.clarify_coverage_band\nMetric name: \nShort description: Rates coverage of fairness & explainability artifacts generated by SageMaker Clarify; flags missing bias reports or incomplete explanations.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "sm.clarify_coverage_band",
+        "name": "Coverage of Fairness and Explainability Artifacts",
+        "elaborated_description": "This metric measures the extent to which fairness and explainability artifacts generated by SageMaker Clarify are present and complete within a machine learning project. It specifically flags instances where bias reports or explanations are missing, indicating potential gaps in the assessment of model fairness and interpretability. The scope includes all artifacts produced during the model evaluation phase, ensuring that both fairness metrics and interpretability insights are adequately documented. By monitoring this metric, teams can identify areas where additional analysis is needed to ensure compliance with ethical standards and regulatory requirements. The metric serves as a critical checkpoint in the ML experimentation and deployment pipeline, promoting transparency and accountability in model development."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "sm.cost_efficiency_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: sm.cost_efficiency_band\nMetric name: \nShort description: Evaluates efficiency of SageMaker workloads (instance utilization, idle compute, training cost vs. output quality).\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "sm.cost_efficiency_band",
+        "name": "Cost Efficiency of SageMaker Workloads",
+        "elaborated_description": "This metric evaluates the efficiency of Amazon SageMaker workloads by analyzing instance utilization, idle compute resources, and the relationship between training costs and output quality. It measures how effectively computational resources are being used during machine learning experimentation and training pipelines, indicating whether resources are being over-provisioned or under-utilized. The metric also considers the cost incurred relative to the performance of the trained models, providing insights into the trade-offs between resource expenditure and model accuracy or other quality metrics. By monitoring this metric, organizations can identify opportunities for optimizing their ML workflows, ensuring that they achieve the best possible outcomes while minimizing unnecessary costs. The scope of this metric encompasses all stages of the ML lifecycle, from experimentation through deployment and serving, making it a critical component of effective MLOps practices."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "cicd.deploy_frequency_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: cicd.deploy_frequency_band\nMetric name: \nShort description: Measures deployment frequency of ML-related services/models; higher frequency indicates mature MLOps practice.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "cicd.deploy_frequency_band",
+        "name": "Deployment Frequency of ML Services/Models",
+        "elaborated_description": "This metric quantifies the frequency at which machine learning models and related services are deployed into production environments. It encompasses all deployment activities, including updates to existing models, the introduction of new models, and changes to associated services that support model inference. A higher deployment frequency typically indicates a mature MLOps practice, reflecting an organization's ability to iterate quickly and respond to changing business needs or model performance issues. The metric is bounded by the deployment activities that are part of the continuous integration and continuous deployment (CI/CD) pipeline, ensuring that only relevant deployments are counted. It serves as an indicator of the efficiency and effectiveness of the ML experimentation and training pipelines, as well as the overall health of the model registry and serving infrastructure."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "cicd.lead_time_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: cicd.lead_time_band\nMetric name: \nShort description: Evaluates lead time from code commit to deployed ML service; flags long pipelines or manual approval bottlenecks.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "cicd.lead_time_band",
+        "name": "Lead Time from Code Commit to Deployed ML Service",
+        "elaborated_description": "This metric measures the duration from the moment a code commit is made in the version control system until the corresponding machine learning service is successfully deployed and operational. It encompasses the entire CI/CD pipeline, including stages such as automated testing, model training, and any manual approval processes that may be in place. By evaluating this lead time, organizations can identify inefficiencies in their ML experimentation and deployment workflows, such as prolonged training pipelines or delays caused by manual interventions. The metric serves as an indicator of the agility and responsiveness of the ML development process, highlighting areas that may require optimization to enhance deployment speed. It is crucial for ensuring that models can be iteratively improved and delivered to production in a timely manner, thereby supporting continuous integration and delivery practices in machine learning operations."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "cicd.change_failure_rate_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: cicd.change_failure_rate_band\nMetric name: \nShort description: Assesses failure rate of deployments (rollbacks, hotfixes); high values indicate fragile ML CI/CD practices.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "cicd.change_failure_rate_band",
+        "name": "Change Failure Rate in CI/CD for ML Models",
+        "elaborated_description": "The Change Failure Rate metric measures the proportion of deployment changes that result in failures, such as rollbacks or the need for hotfixes, within the context of machine learning CI/CD practices. This metric provides insights into the stability and reliability of the deployment process for ML models, indicating how often changes lead to adverse outcomes. A high failure rate suggests that the CI/CD pipeline may be fragile, potentially due to inadequate testing, insufficient validation of model performance, or lack of robust monitoring mechanisms. The scope of this metric encompasses all deployment activities, including both automated and manual interventions, and is relevant for assessing the overall health of the ML lifecycle. By tracking this metric, teams can identify areas for improvement in their CI/CD processes, ultimately leading to more reliable and efficient model deployments."
+      },
+      "raw_text": null
+    },
+    {
+      "metric_id": "cicd.policy_gates_band",
+      "model": "gpt-4o-mini",
+      "system": "You are a senior MLOps architect. Your task is to expand a short metric description into a clear, domain-grounded explanation covering ML experimentation, training pipelines, model registries, deployment/serving, monitoring, and CI/CD as relevant. Clarify WHAT the metric measures (scope, boundaries, typical signals and evidence), not HOW to compute it. Avoid implementation details, thresholds, or tool-specific commands. Be neutral and factual. Return only JSON.",
+      "user": "Expand the following metric description using domain knowledge.\nMetric id: cicd.policy_gates_band\nMetric name: \nShort description: Rates enforcement of policy gates (linting, tests, security scans, approval workflows) in ML CI/CD pipelines.\n\nReturn a STRICT JSON with keys:\n- metric_id (string)\n- name (string)\n- elaborated_description (string: 5-6 crisp sentences focusing on WHAT is measured and scope/boundaries)\n",
+      "json": {
+        "metric_id": "cicd.policy_gates_band",
+        "name": "Policy Gates Enforcement Rate",
+        "elaborated_description": "This metric measures the effectiveness of policy gates within machine learning continuous integration and continuous deployment (CI/CD) pipelines. It evaluates the enforcement of various quality assurance mechanisms, including linting, automated tests, security scans, and approval workflows, that are designed to ensure code quality and compliance before deployment. The scope of this metric encompasses all stages of the ML lifecycle where code changes are introduced, from experimentation to production. A higher rate indicates a robust adherence to established policies, which can help mitigate risks associated with model deployment. Conversely, a lower rate may signal potential vulnerabilities or lapses in the CI/CD process, highlighting areas for improvement in governance and compliance practices."
+      },
+      "raw_text": null
+    }
+  ]
+}

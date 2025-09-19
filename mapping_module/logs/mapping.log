@@ -103,3 +103,11 @@ RuntimeError: OPENAI_API_KEY is not set.
 2025-09-18 17:03:28.161 | INFO     | mapping_module.mapper:process_yaml:159 - Processing YAML: /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/metric_descriptions/bi_tracker.yaml
 2025-09-18 17:07:31.589 | INFO     | mapping_module.mapper:process_yaml:201 - Wrote /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/outputs/bi_tracker.py
 2025-09-18 17:07:31.593 | INFO     | mapping_module.mapper:process_yaml:212 - Wrote raw LLM outputs → /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/raw_llm_outputs/bi_tracker/elaboration.json and /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/raw_llm_outputs/bi_tracker/mapping.json
+2025-09-18 17:53:56.509 | INFO     | __main__:main:80 - Single-agent mode: ml_ops.yaml
+2025-09-18 17:53:56.509 | INFO     | mapping_module.mapper:process_yaml:159 - Processing YAML: /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/metric_descriptions/ml_ops.yaml
+2025-09-18 17:58:35.648 | INFO     | mapping_module.mapper:process_yaml:201 - Wrote /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/outputs/ml_ops.py
+2025-09-18 17:58:35.653 | INFO     | mapping_module.mapper:process_yaml:212 - Wrote raw LLM outputs → /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/raw_llm_outputs/ml_ops/elaboration.json and /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/raw_llm_outputs/ml_ops/mapping.json
+2025-09-19 13:48:00.231 | INFO     | __main__:main:80 - Single-agent mode: data_platform_scanner.yaml
+2025-09-19 13:48:00.231 | INFO     | mapping_module.mapper:process_yaml:159 - Processing YAML: /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/metric_descriptions/data_platform_scanner.yaml
+2025-09-19 13:50:44.727 | INFO     | mapping_module.mapper:process_yaml:201 - Wrote /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/outputs/data_platform_scanner.py
+2025-09-19 13:50:44.733 | INFO     | mapping_module.mapper:process_yaml:212 - Wrote raw LLM outputs → /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/raw_llm_outputs/data_platform_scanner/elaboration.json and /Users/samirandolui/Desktop/CLaiMB_LLM_Agents/mapping_module/raw_llm_outputs/data_platform_scanner/mapping.json
