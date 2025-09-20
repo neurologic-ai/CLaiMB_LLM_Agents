@@ -1,98 +1,88 @@
-# fastapi_data_platform_agent.py
-# FastAPI wrapper for the Data Platform Scanner (mvp_data_platform_scanner.py)
-# Endpoints:
-# - GET  /health         → quick health check
-# - POST /run            → run a scan now (optional run_id, verbose)
-# - GET  /latest         → fetch the latest run artifact
-# - GET  /runs           → list available run_ids
-# - GET  /runs/{run_id}  → fetch a specific run artifact
-
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from datetime import datetime
+#!/usr/bin/env python3
+from __future__ import annotations
+import os, json
 from pathlib import Path
-import json
-import glob
+from typing import Optional, List
 
-# Import your MVP scanner entrypoint
-from workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner import run_once
+from fastapi import FastAPI, BackgroundTasks, HTTPException, Query
+from pydantic import BaseModel
+from loguru import logger
+from dotenv import load_dotenv
 
-# Directory where run artifacts are stored
-RUNS_DIR = Path("agent_layer_output/AGENT_DATA_PLATFORM_ANALYZER")
-RUNS_DIR.mkdir(parents=True, exist_ok=True)
+from services_common.models import RunStatus
+from services_common.registry import ThreadSafeRuns
+from services_common.utils import ensure_dirs, now_iso, new_run_id, write_tail
+from services_common.logging_utils import setup_base_logging, RunSink
 
-app = FastAPI(
-    title="Data Platform Scanner Agent API",
-    version="0.1.0",
-    description="Snowflake/BigQuery/Databricks/Redshift scanning — deterministic DAG orchestration."
-)
+from workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner import run_once as data_run_once
 
+load_dotenv()
 
-# Request body schema for /run endpoint
+RUNS_DIR  = Path(os.getenv("DATA_RUNS_DIR", "agent_layer_outputs/AGENT_DATA_PLATFORM_ANALYZER")).resolve()
+LOGS_DIR  = Path(os.getenv("DATA_LOGS_DIR", "logs/AGENT_DATA_PLATFORM_ANALYZER")).resolve()
+LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
+
+ensure_dirs(RUNS_DIR, LOGS_DIR)
+setup_base_logging(LOGS_DIR, LOG_LEVEL)
+
+app = FastAPI(title="Data Platform Analyzer Service", version="1.0.0")
+RUNS = ThreadSafeRuns()
+
 class RunRequest(BaseModel):
-    run_id: str | None = None
-    verbose: bool = False
-
+    run_id: Optional[str] = None  # accepted for symmetry
 
 @app.get("/health")
-def health():
-    """Health check endpoint."""
-    return {"status": "ok"}
+def health(): return {"status": "ok"}
 
+def _worker(run_id: str) -> None:
+    log_path = LOGS_DIR / f"{run_id}.log"
+    with RunSink(log_path, LOG_LEVEL):
+        RUNS.update(run_id, status="running", started_at=now_iso(), log_path=str(log_path))
+        try:
+            logger.info(f"[DATA:{run_id}] starting…")
+            artifact_obj = data_run_once()  # returns dict
+            out_path = RUNS_DIR / f"{run_id}.json"
+            out_path.write_text(json.dumps(artifact_obj, indent=2, ensure_ascii=False), encoding="utf-8")
+            RUNS.update(run_id, status="finished", finished_at=now_iso(), artifact_path=str(out_path))
+            logger.info(f"[DATA:{run_id}] done → {out_path}")
+        except Exception as e:
+            msg = f"{type(e).__name__}: {e}"
+            logger.exception(f"[DATA:{run_id}] FAILED: {msg}")
+            RUNS.update(run_id, status="failed", finished_at=now_iso(), error=msg)
 
-@app.post("/run")
-def run_now(req: RunRequest):
-    """Run a new scan immediately."""
-    rid = req.run_id or f"data-scan-{datetime.utcnow():%Y%m%dT%H%M%S}"
-    try:
-        out = run_once()
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-    return out  # {"run_id","ts","results":[...],"aggregate":{...}}
+@app.post("/run", response_model=RunStatus)
+def start_run(req: RunRequest, tasks: BackgroundTasks):
+    run_id = new_run_id("data-scan")
+    RUNS.put(RunStatus(run_id=run_id, status="queued", queued_at=now_iso(), log_path=str(LOGS_DIR / f"{run_id}.log")))
+    tasks.add_task(_worker, run_id)
+    return RUNS.get(run_id)  # type: ignore
 
+@app.get("/status/{run_id}", response_model=RunStatus)
+def status(run_id: str):
+    st = RUNS.get(run_id)
+    if not st: raise HTTPException(status_code=404, detail="run_id not found")
+    return st
 
 @app.get("/runs")
-def list_runs():
-    """List all available runs."""
-    files = sorted(glob.glob(str(RUNS_DIR / "*.json")))
-    runs = [Path(f).stem for f in files]
-    return {"count": len(runs), "runs": runs}
+def runs() -> List[RunStatus]:
+    return RUNS.list_sorted()
 
-
-@app.get("/latest")
+@app.get("/latest", response_model=RunStatus)
 def latest():
-    """Fetch the latest run artifact."""
-    files = sorted(glob.glob(str(RUNS_DIR / "*.json")))
-    if not files:
-        return {"status": "no_runs"}
-    with open(files[-1], encoding="utf-8") as f:
-        return json.load(f)
+    st = RUNS.latest()
+    if not st: raise HTTPException(status_code=404, detail="no runs yet")
+    return st
 
+@app.get("/logs/{run_id}")
+def logs(run_id: str, tail: int = Query(0, ge=0)):
+    st = RUNS.get(run_id)
+    if not st or not st.log_path: raise HTTPException(status_code=404, detail="no log for run_id")
+    p = Path(st.log_path)
+    if not p.exists(): return {"run_id": run_id, "log": ""}
+    return {"run_id": run_id, "log": write_tail(p, min(tail, 5000))}
 
-@app.get("/runs/{run_id}")
-def get_run(run_id: str):
-    """Fetch a specific run artifact by run_id."""
-    path = RUNS_DIR / f"{run_id}.json"
-    if not path.exists():
-        raise HTTPException(status_code=404, detail="run_id not found")
-    with open(path, encoding="utf-8") as f:
-        return json.load(f)
-
-@app.get("/runs/latest/{n}")
-def latest_n_runs(n: int):
-    """Fetch the last n run artifacts."""
-    files = sorted(glob.glob(str(RUNS_DIR / "*.json")))
-    if not files:
-        return {"status": "no_runs"}
-    
-    # Take the last n files
-    last_files = files[-n:]
-    runs = []
-    for f in last_files:
-        with open(f, encoding="utf-8") as file:
-            runs.append(json.load(file))
-    
-    return {"count": len(runs), "runs": runs}
-
-
-# uvicorn fastapi_data_platform_agent:app --reload
+@app.get("/logs/latest")
+def logs_latest(tail: int = Query(0, ge=0)):
+    st = RUNS.latest()
+    if not st: raise HTTPException(status_code=404, detail="no runs yet")
+    return logs(st.run_id, tail)

@@ -74,7 +74,7 @@ class DataPlatformAnalyzerSnapshotCollector:
 if __name__ == "__main__":
     import pprint
 
-    collector = SnapshotCollector()
-    print("Collecting snapshot from 'data/Input' (or falling back to defaults)...")
-    snapshot = collector.collect_snapshot()
-    pprint.pprint(snapshot)
+    # collector = SnapshotCollector()
+    # print("Collecting snapshot from 'data/Input' (or falling back to defaults)...")
+    # snapshot = collector.collect_snapshot()
+    # pprint.pprint(snapshot)

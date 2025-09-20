@@ -1,0 +1,31 @@
+2025-09-20 19:56:23.708 | INFO | [orchestrator] Starting run_id=cloud-infra-2025-09-20T14-26-23Z
+2025-09-20 19:56:23.711 | INFO | ▶️ start: Load inputs
+2025-09-20 19:56:23.711 | INFO | Starting CodeRepoWorkflow.run (run_id=code-repo-2025-09-20T14-26-23Z)
+2025-09-20 19:56:23.711 | INFO | [engine_adapter] Missing mapped files (ok if intentional): tagging.coverage→tagging_coverage.json, compute.utilization→compute_utilization.json, k8s.utilization→k8s_utilization.json, scaling.effectiveness→scaling_effectiveness.json, db.utilization→db_utilization.json, lb.performance→lb_performance.json, storage.efficiency→storage_efficiency.json, iac.coverage_drift→iac_coverage_drift.json, availability.incidents→availability_incidents.json, cost.idle_underutilized→cost_idle_underutilized.json, cost.commit_coverage→cost_commit_coverage.json, cost.allocation_quality→cost_allocation_quality.json, security.public_exposure→security_public_exposure.json, security.encryption→security_encryption.json, security.iam_risk→security_iam_risk.json, security.vuln_patch→security_vuln_patch.json
+2025-09-20 19:56:23.711 | INFO | [engine_adapter] context keys: 
+2025-09-20 19:56:23.712 | INFO | ✅ done:  Load inputs (1.06 ms)
+2025-09-20 19:56:23.712 | INFO | ▶️ start: Run workflow
+2025-09-20 19:56:23.712 | INFO | ▶️ start: setup
+2025-09-20 19:56:23.712 | INFO | ✅ done:  setup (0.23 ms)
+2025-09-20 19:56:23.712 | INFO | ▶️ start: ingest
+2025-09-20 19:56:23.712 | INFO | ✅ done:  ingest (0.08 ms)
+2025-09-20 19:56:23.713 | INFO | 📦 context: 0 inputs → []
+2025-09-20 19:56:23.713 | INFO | 🟦 RUN START
+2025-09-20 19:56:23.714 | INFO | • run_id=(auto) • max_workers=8
+2025-09-20 19:56:23.714 | INFO | 🔹 L0 parallel: 0 metrics → []
+2025-09-20 19:56:23.714 | INFO | ▶️ start: L0.parallel
+2025-09-20 19:56:23.715 | INFO | ✅ done:  L0.parallel (1.40 ms)
+2025-09-20 19:56:23.716 | INFO | 🔶 L1 candidates: 0 → []
+2025-09-20 19:56:23.716 | INFO | ▶️ start: aggregate
+2025-09-20 19:56:23.716 | INFO | ✅ done:  aggregate (0.14 ms)
+2025-09-20 19:56:23.716 | INFO | ▶️ start: persist
+2025-09-20 19:56:23.717 | INFO | ✅ done:  persist (0.47 ms)
+2025-09-20 19:56:23.717 | INFO | 🟩 RUN SUMMARY
+2025-09-20 19:56:23.717 | INFO | • overall=— | simple_avg=—
+2025-09-20 19:56:23.717 | INFO | • categories: cost=—, efficiency=—, reliability=—, security=—
+2025-09-20 19:56:23.717 | INFO | • top risks: —
+2025-09-20 19:56:23.717 | INFO | • saved: /Users/anilkumar/Desktop/CLaiMB_LLM_AGENTS/CLaiMB_LLM_Agents/results/agents/cloud_infra/cloud-infra-2025-09-20T14-26-23Z.json
+2025-09-20 19:56:23.718 | INFO | 🟪 RUN END
+2025-09-20 19:56:23.718 | INFO | ✅ done:  Run workflow (6.47 ms)
+2025-09-20 19:56:23.719 | INFO | [orchestrator] ✅ Output saved: /Users/anilkumar/Desktop/CLaiMB_LLM_AGENTS/CLaiMB_LLM_Agents/results/agents/cloud_infra/cloud-infra-2025-09-20T14-26-23Z.json
+2025-09-20 19:56:23.719 | INFO | [orchestrator] Finished run_id=cloud-infra-2025-09-20T14-26-23Z

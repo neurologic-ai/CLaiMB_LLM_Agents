@@ -134,3 +134,10 @@ zipp==3.23.0
 zstandard==0.24.0
 
 loguru
+fastapi==0.115.0
+uvicorn[standard]==0.30.5
+apscheduler==3.10.4
+langgraph==0.2.38
+openai==1.43.0
+numpy==1.26.4
+pydantic==2.8.2
