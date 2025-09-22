@@ -1,0 +1,55 @@
+{
+  "usage.dau_mau": [
+    "Severe data sparsity preventing trustworthy computation of DAU and MAU."
+  ],
+  "usage.creators_ratio": [
+    "Department spread unknown → report creators by department and coverage % → reach ≥60% dept coverage (unlocks score 4)."
+  ],
+  "usage.session_depth": [
+    "Repeat cadence missing for some users → instrument repeats_per_week for ≥80% actives → verify weekly repeats for majority (unlocks score 5)."
+  ],
+  "usage.drilldown": [
+    "Department spread unknown → report drilldown usage by dept/team → show broad spread across ≥3 BUs (unlocks score 4).",
+    "Stability unverified → include 4-week drilldown time series → demonstrate non-declining trend (supports score 4–5)."
+  ],
+  "usage.weekly_active_trend": [
+    "Sample size is limited; provide WAU counts for each week to assess stability and growth more accurately."
+  ],
+  "usage.retention_4w": [
+    "Cohort composition unknown → report cohort size and retention by persona/BU → aim for ≥45% overall retention with clear segment drivers (unlocks score 4)."
+  ],
+  "features.cross_links": [
+    "Link usage is concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve a more balanced distribution and potentially unlock a higher score."
+  ],
+  "features.export_rate": [
+    "Export governance unknown → add policy enforcement status + exception rate → demonstrate ≥95% governed exports (unlocks score 4–5)."
+  ],
+  "features.alerts_usage": [
+    "BU spread unknown → count unique alert/subscription users per BU and delivery success → reach moderate adoption across ≥3 BUs (unlocks score 4)."
+  ],
+  "governance.coverage": [
+    "Critical gaps in ownership and lineage for dashboards d3 and d7; establish clear ownership and certification for all dashboards to improve governance."
+  ],
+  "governance.pii_coverage": [
+    "Many dashboards lack PII and access policy tags; implement comprehensive tagging and access control measures to improve coverage."
+  ],
+  "governance.lineage_coverage": [
+    "Owners missing for dashboards d3 and d7 → enforce owner assignment to achieve at least 80% owner coverage (unlocks score 4).",
+    "Lineage/glossary documentation is absent for dashboards d2, d3, d5, and d7 → ensure all dashboards have lineage and glossary entries to improve coverage."
+  ],
+  "reliability.refresh_timeliness": [
+    "High-priority dashboards stale → critical assets need immediate attention to restore trust."
+  ],
+  "data.source_diversity": [
+    "Domain mix unknown → tag each source to domain (ERP/CRM/Support) → show ≥3 domains represented (unlocks score 4)."
+  ],
+  "democratization.dept_coverage": [
+    "Total number of departments unknown → report total departments considered to clarify coverage percentage."
+  ],
+  "democratization.self_service": [
+    "Department spread unknown → report creators by department and coverage % → reach ≥60% dept coverage (unlocks score 4)."
+  ],
+  "data.cost_efficiency": [
+    "Quantify the percentage of exports and the share of stale dashboards by priority to address inefficiencies; aim to reduce exports below 15% and eliminate staleness in critical assets to improve the sc"
+  ]
+}
