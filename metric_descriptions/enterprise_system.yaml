@@ -1,0 +1,60 @@
+metrics:
+  - id: process.automation.coverage
+    description: "Evaluates the extent of automation across enterprise workflows, highlighting areas where manual intervention still dominates and automation opportunities exist."
+
+  - id: workflow.sla_adherence
+    description: "Measures how consistently workflows meet defined SLAs; flags delays and violations."
+
+  - id: sales.lead_to_oppty_cycle_time
+    description: "Tracks average duration to convert a sales lead into an opportunity, identifying inefficiencies in pipeline progression."
+
+  - id: itsm.case_resolution_time
+    description: "Calculates the average time to resolve IT service cases, assessing support efficiency and responsiveness."
+
+  - id: itsm.incident_reopen_rate
+    description: "Monitors the percentage of incidents reopened after closure, signaling fix quality and robustness of remediation."
+
+  - id: hr.onboarding_cycle_time
+    description: "Measures the time taken to onboard new employees, highlighting efficiency of HR workflows and IT provisioning."
+
+  - id: sap.procure_to_pay_cycle
+    description: "Assesses the average time for procure-to-pay transactions, indicating process maturity across procurement and finance."
+
+  - id: q2c.throughput
+    description: "Evaluates throughput and speed of the quote-to-cash process, capturing efficiency in order-to-revenue execution."
+
+  - id: backlog.aging
+    description: "Tracks the age distribution of unresolved backlog items (tickets, requests, features), flagging operational bottlenecks."
+
+  - id: rpa.success_rate
+    description: "Calculates execution success rate of RPA bots to identify automation reliability issues."
+
+  - id: integration.data_sync_latency
+    description: "Measures latency between data synchronization events across integrated systems, flagging potential consistency risks."
+
+  - id: api.reliability
+    description: "Assesses API uptime, error rates, and response consistency to measure reliability of integration layers."
+
+  - id: integration.topology_health
+    description: "Evaluates health and connectivity of the system integration topology, highlighting weak or failing integration nodes."
+
+  - id: mdm.duplicate_rate
+    description: "Measures the rate of duplicate master data records across systems, highlighting quality gaps in MDM governance."
+
+  - id: dq.exceptions_rate
+    description: "Tracks the frequency of exceptions raised by data quality rules, identifying recurring data hygiene or governance issues."
+
+  - id: ai.penetration
+    description: "Quantifies extent of AI adoption across enterprise workflows, highlighting penetration depth and coverage."
+
+  - id: ai.outcome_uplift
+    description: "Estimates uplift in business outcomes attributable to AI interventions (efficiency, revenue, or CX improvements)."
+
+  - id: ai.governance_coverage
+    description: "Evaluates coverage of AI governance policies (ethics, compliance, monitoring), flagging missing safeguards."
+
+  - id: platform.customization_debt
+    description: "Assesses accumulated technical debt from platform customizations, highlighting risks to upgradeability and flexibility."
+
+  - id: change.failure_rate
+    description: "Calculates the percentage of failed system changes or releases, indicating stability and change management maturity."

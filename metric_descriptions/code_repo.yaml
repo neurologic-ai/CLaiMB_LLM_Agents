@@ -1,0 +1,66 @@
+metrics:
+  - id: code.cyclomatic_complexity_band
+    description: "Evaluates function/method complexity across the repo; flags excessive branching or deep nesting that reduces maintainability."
+
+  - id: code.maintainability_band
+    description: "Assesses maintainability index of the codebase; highlights readability, cohesion, and modularity gaps."
+
+  - id: code.docstring_coverage_band
+    description: "Measures docstring coverage and quality across functions/classes; flags missing or incomplete documentation."
+
+  - id: code.nested_loops_band
+    description: "Detects deeply nested loops and control structures; identifies areas needing refactor to improve efficiency."
+
+  - id: repo.tests_presence
+    description: "Detects presence and quality of test files and coverage; rates robustness of testing practices."
+
+  - id: repo.env_config_hygiene
+    description: "Checks existence and quality of dependency/environment files (requirements.txt, pyproject.toml, etc.); flags inconsistencies."
+
+  - id: repo.cicd_presence
+    description: "Evaluates presence and quality of CI/CD workflows; highlights automation gaps in build/test/deploy."
+
+  - id: repo.deployment_readiness
+    description: "Analyzes deployment scripts and automation; assesses readiness for reliable rollouts and rollback."
+
+  - id: repo.experiments_management
+    description: "Inspects repo for experiment directories/configs; rates standardization and reproducibility of ML experimentation."
+
+  - id: repo.project_structure
+    description: "Reviews overall repo structure and documentation; flags missing READMEs, inconsistent layout, or weak contribution guidelines."
+
+  - id: parallel_patterns
+    description: "Assesses use of concurrency libraries (threading, asyncio, Ray); flags unsafe or inefficient parallel patterns."
+
+  - id: inference_endpoint
+    description: "Reviews serving endpoints (FastAPI/Flask/gRPC); checks for validation, error handling, and health/readiness probes."
+
+  - id: model_export
+    description: "Evaluates model export practices (ONNX, TorchScript, TF SavedModel); checks versioning, metadata, and portability."
+
+  - id: data_pipeline
+    description: "Examines data pipeline definitions (Airflow, Prefect, Kedro); highlights lack of retries, alerts, or observability."
+
+  - id: feature_engineering
+    description: "Reviews feature engineering code for reproducibility and parity between training and serving."
+
+  - id: security_hygiene
+    description: "Scans for security hygiene issues (secrets in code, weak crypto, missing access controls); flags risks."
+
+  - id: ml.framework_maturity
+    description: "Assesses maturity of ML framework usage (PyTorch, TensorFlow, scikit-learn); checks for idiomatic and consistent patterns."
+
+  - id: ml.experiment_tracking
+    description: "Inspects logging/tracking (MLflow, Weights & Biases); evaluates completeness of parameter, metric, and artifact tracking."
+
+  - id: ml.hpo_practice
+    description: "Reviews hyperparameter tuning setup (Optuna, Ray Tune); checks reproducibility and persistence of best configs."
+
+  - id: ml.data_validation
+    description: "Analyzes schema/range/drift validation in pipelines; highlights missing quality gates or CI integration."
+
+  - id: ml.training_practice
+    description: "Reviews training workflows for reproducibility, config-driven runs, checkpointing, and restart capability."
+
+  - id: ml.evaluation_practice
+    description: "Evaluates evaluation methodology; checks breadth of metrics, fairness checks, and quality of reporting/visualizations."

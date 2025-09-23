@@ -1,0 +1,37 @@
+{
+  "recalibrated_category_scores": {
+    "01. Technical Infrastructure": 3.01,
+    "02. Data Management & Quality": 2.89,
+    "03. AI/ML Capabilities": 3.27,
+    "04. Talent & Skills": 3.11,
+    "05. Governance & Ethics": 3.34,
+    "06. Strategic Alignment": 2.89,
+    "07. Cultural Readiness": 2.58,
+    "08. Process Maturity": 2.73,
+    "09. Foundation Model Operations": 2.82,
+    "10. Generative AI Capabilities": 1.95,
+    "11. Responsible AI & Social Impact": 3.02,
+    "12. AI Business Value & ROI": 3.33,
+    "13. AI Risk & Resilience": 3.16,
+    "14. AI Ecosystem & External Integration": 2.43,
+    "15. AI Leadership & Vision": 2.92
+  },
+  "overall_weighted": 2.96,
+  "weights_used": {
+    "01. Technical Infrastructure": 10.0,
+    "02. Data Management & Quality": 5.0,
+    "03. AI/ML Capabilities": 20.0,
+    "04. Talent & Skills": 5.0,
+    "05. Governance & Ethics": 5.0,
+    "06. Strategic Alignment": 5.0,
+    "07. Cultural Readiness": 5.0,
+    "08. Process Maturity": 5.0,
+    "09. Foundation Model Operations": 5.0,
+    "10. Generative AI Capabilities": 5.0,
+    "11. Responsible AI & Social Impact": 5.0,
+    "12. AI Business Value & ROI": 5.0,
+    "13. AI Risk & Resilience": 5.0,
+    "14. AI Ecosystem & External Integration": 5.0,
+    "15. AI Leadership & Vision": 10.0
+  }
+}

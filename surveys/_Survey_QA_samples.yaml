@@ -1,0 +1,1645 @@
+---
+-
+    id: j01a
+    question: What best describes your organization’s current cloud adoption stage?
+    score: 2
+-
+    id: j01b
+    question: How well does your organization manage scalability in the cloud?
+    score: 3
+-
+    id: j01c
+    question: To what extent are cloud resources monitored and managed?
+    score: 3
+-
+    id: j01d
+    question: How much of your cloud infrastructure management is automated?
+    score: 1
+-
+    id: j01e
+    question: Does the application currently have performance issues?
+    score: 5
+-
+    id: j01f
+    question: Does your organization follow a multi-cloud or hybrid-cloud strategy?
+    score: 3
+-
+    id: j08g
+    question: What ROI/value has cloud adoption delivered to the organization?
+    score: 1
+-
+    id: j01a
+    question: How would you characterize your organization’s computing infrastructure for AI/ML workloads?
+    score: 4
+-
+    id: j01b
+    question: What types of specialized hardware are available for AI/ML workloads?
+    score: 3
+-
+    id: j01c
+    question: How effectively are compute resources allocated and managed?
+    score: 4
+-
+    id: j01d
+    question: How much of compute infrastructure monitoring is automated?
+    score: 4
+-
+    id: j01e
+    question: How well does your organization support distributed and parallel computing for AI/ML workloads?
+    score: 1
+-
+    id: j01a
+    question: What best describes your organization’s AI/ML development environment maturity?
+    score: 3
+-
+    id: j01b
+    question: How automated are your CI/CD pipelines for AI/ML deployment?
+    score: 2
+-
+    id: j01c
+    question: What level of testing automation supports your AI/ML projects?
+    score: 5
+-
+    id: j01d
+    question: How mature is your governance and compliance integration in DevOps?
+    score: 2
+-
+    id: j01a
+    question: How well integrated are your AI/ML systems with your existing business systems and workflows?
+    score: 4
+-
+    id: j01b
+    question: How automated are your integration workflows across different systems?
+    score: 3
+-
+    id: j01c
+    question: How mature is your API management and microservices adoption?
+    score: 2
+-
+    id: j01d
+    question: How effective is your real-time monitoring and error handling for integrations?
+    score: 2
+-
+    id: j01a
+    question: What level of security measures and monitoring do you have specifically for your AI/ML systems?
+    score: 5
+-
+    id: j01b
+    question: How automated are your AI/ML security operations (monitoring, detection, and response)?
+    score: 2
+-
+    id: j01c
+    question: How mature is your compliance and policy enforcement for AI/ML systems?
+    score: 4
+-
+    id: j01d
+    question: How effective is your threat detection and incident response for AI/ML systems?
+    score: 1
+-
+    id: j01e
+    question: How integrated are your AI/ML systems with enterprise-wide security tools and frameworks?
+    score: 2
+-
+    id: ge01a
+    question: To what degree does the organization have a formal AI ethics framework?
+    score: 5
+-
+    id: ge01b
+    question: To what extent are AI ethical guidelines communicated to employees and stakeholders?
+    score: 3
+-
+    id: ge01c
+    question: How frequently is the AI ethics framework reviewed and updated?
+    score: 5
+-
+    id: ge01d
+    question: To what extent does the framework address bias, fairness, and inclusivity?
+    score: 1
+-
+    id: ge01e
+    question: Does the organization benchmark against industry-leading AI ethics practices?
+    score: 4
+-
+    id: ge02a
+    question: To what extent does the application comply with AI-related laws and regulations?
+    score: 3
+-
+    id: ge02b
+    question: How effectively are regulatory changes tracked and incorporated into AI governance?
+    score: 5
+-
+    id: ge02c
+    question: How frequently are audits performed to assess AI regulatory compliance?
+    score: 3
+-
+    id: ge02d
+    question: How well are regulatory compliance responsibilities defined and assigned?
+    score: 2
+-
+    id: ge03a
+    question: To what extent does the organization identify and track AI risks systematically?
+    score: 3
+-
+    id: ge03b
+    question: How effective are processes to mitigate bias, errors, or misuse of AI systems?
+    score: 4
+-
+    id: ge03c
+    question: How are emerging AI risks (e.g., adversarial attacks, model drift) managed?
+    score: 2
+-
+    id: ge03d
+    question: How well is risk responsibility communicated across stakeholders?
+    score: 5
+-
+    id: ge04a
+    question: To what extent are AI roles and responsibilities clearly defined within the organization?
+    score: 1
+-
+    id: ge04b
+    question: How well are governance bodies (e.g., ethics boards) integrated into AI decision-making?
+    score: 4
+-
+    id: ge04c
+    question: To what extent are accountability mechanisms automated and monitored?
+    score: 3
+-
+    id: ge04d
+    question: How effectively are breaches of AI accountability reported and addressed?
+    score: 5
+-
+    id: ge04a
+    question: To what extent are AI model decisions documented and explainable to stakeholders?
+    score: 1
+-
+    id: ge04b
+    question: How well does the organization communicate AI decision-making to external parties (e.g., users)?
+    score: 1
+-
+    id: ge04c
+    question: How transparent is data usage and model training documentation?
+    score: 5
+-
+    id: ls01a
+    question: To what degree does executive leadership visibly endorse and champion AI initiatives?
+    score: 5
+-
+    id: ls01b
+    question: How empowered are leaders to make fast decisions for AI projects?
+    score: 2
+-
+    id: ls01c
+    question: 'How clear and communicated is the leadership''s AI vision and strategy?'
+    score: 2
+-
+    id: ls01d
+    question: How consistent are resource allocations (budget/headcount) by leadership for AI work?
+    score: 1
+-
+    id: ls01e
+    question: To what extent are leaders trained to understand and govern AI risks and opportunities?
+    score: 1
+-
+    id: ls01f
+    question: How effectively do leaders sponsor cross-functional collaboration for AI projects?
+    score: 1
+-
+    id: is02a
+    question: How formalized is your AI investment portfolio and prioritization process?
+    score: 4
+-
+    id: is02b
+    question: Are investments adjusted based on risk, expected value, and strategic alignment?
+    score: 1
+-
+    id: is02c
+    question: Does the organization commit to multi-year funding for transformative AI programs?
+    score: 3
+-
+    id: is02d
+    question: How transparent are investment decisions and expected returns across stakeholders?
+    score: 3
+-
+    id: is02e
+    question: Is there reserved funding to scale successful pilots into production?
+    score: 4
+-
+    id: is02f
+    question: Does the organization leverage external financing, grants, or co-investments for AI projects?
+    score: 2
+-
+    id: im03a
+    question: How structured is your experimentation and prototyping process for AI innovations?
+    score: 3
+-
+    id: im03b
+    question: How effective is idea capture, evaluation, and prioritization for AI opportunities?
+    score: 5
+-
+    id: im03c
+    question: Do you use clear innovation metrics (e.g., experimentation velocity, conversion to production)?
+    score: 5
+-
+    id: im03d
+    question: Does the organization have dedicated talent and roles focused on experimentation and R&D?
+    score: 1
+-
+    id: im03e
+    question: How tolerant is the organization to controlled failure within innovation projects?
+    score: 5
+-
+    id: im03f
+    question: Do you have processes to protect IP and commercialize successful AI innovations?
+    score: 4
+-
+    id: pe04a
+    question: How actively does the organization collaborate with external partners (academia, vendors, startups)?
+    score: 4
+-
+    id: pe04b
+    question: How mature is your vendor selection and governance for AI solutions?
+    score: 4
+-
+    id: pe04c
+    question: Do you have structured links with universities or research labs for AI advancements?
+    score: 1
+-
+    id: pe04d
+    question: How well does the organization engage with startups for innovation and acceleration?
+    score: 5
+-
+    id: pe04e
+    question: To what extent do you enable secure data-sharing arrangements with partners?
+    score: 3
+-
+    id: pe04f
+    question: Is there governance overseeing partner interactions, IP, and joint outcomes?
+    score: 3
+-
+    id: bi05a
+    question: How embedded are AI solutions into core business processes and workflows?
+    score: 2
+-
+    id: bi05b
+    question: Are AI initiatives measured and rewarded through business KPIs?
+    score: 5
+-
+    id: bi05c
+    question: How smooth is the handoff from AI teams to operations/production teams?
+    score: 3
+-
+    id: bi05d
+    question: How effective is change management when deploying AI-driven process changes?
+    score: 2
+-
+    id: bi05e
+    question: Do business units routinely use AI-driven insights to inform decisions?
+    score: 5
+-
+    id: bi05f
+    question: Are operational KPIs updated to reflect AI-enabled performance improvements?
+    score: 5
+-
+    id: cm01a
+    question: How willing is the organization to take calculated risks to adopt new AI-driven ways of working?
+    score: 1
+-
+    id: cm01b
+    question: How open are employees and teams to changing processes and routines for AI adoption?
+    score: 1
+-
+    id: cm01c
+    question: How comfortable are staff with trying new tools and learning from failures?
+    score: 4
+-
+    id: cm01d
+    question: How effectively are change initiatives communicated and rationalized to staff?
+    score: 2
+-
+    id: cm01e
+    question: Are adaptability and change-readiness measured and encouraged?
+    score: 3
+-
+    id: cm01f
+    question: Do leaders and influencers model desired cultural behaviours for AI adoption?
+    score: 5
+-
+    id: ld02a
+    question: How available and accessible are learning resources for AI and related skills?
+    score: 2
+-
+    id: ld02b
+    question: Is there structured on-the-job learning (mentorships, rotations, stretch assignments)?
+    score: 5
+-
+    id: ld02c
+    question: Are employees rewarded or incentivized for reskilling/upskilling in AI?
+    score: 4
+-
+    id: ld02d
+    question: How effective are internal knowledge sharing practices (communities of practice, brown bags)?
+    score: 3
+-
+    id: ld02e
+    question: Do you measure learning outcomes and apply insights to improve programs?
+    score: 3
+-
+    id: ld02f
+    question: Is there a consistent budget dedicated to learning and capability building?
+    score: 4
+-
+    id: al03a
+    question: Do employees understand basic AI concepts and their implications for work?
+    score: 1
+-
+    id: al03b
+    question: How well do employees understand the importance, limitations, and biases of data?
+    score: 2
+-
+    id: al03c
+    question: Are employees comfortable using AI-augmented tools relevant to their roles?
+    score: 2
+-
+    id: al03d
+    question: Can non-technical decision-makers interpret AI outputs and act on them?
+    score: 3
+-
+    id: al03e
+    question: Do teams recognise and mitigate ethical risks and bias in AI models?
+    score: 3
+-
+    id: al03f
+    question: How readily can business users access and use data/analytics without heavy IT support?
+    score: 5
+-
+    id: cc04a
+    question: How effectively do teams collaborate across functions on AI initiatives?
+    score: 3
+-
+    id: cc04b
+    question: Is there a shared language and common frameworks for discussing AI projects?
+    score: 3
+-
+    id: cc04c
+    question: How well are stakeholders engaged and represented in AI project planning?
+    score: 3
+-
+    id: cc04d
+    question: Are there clear channels and forums for discussing AI progress and concerns?
+    score: 2
+-
+    id: cc04e
+    question: Can teams resolve conflicts arising from AI-driven changes constructively?
+    score: 1
+-
+    id: cc04f
+    question: Are there active internal communities (champions, ambassadors) promoting cultural readiness?
+    score: 2
+-
+    id: ac05a
+    question: Are performance metrics aligned to encourage AI adoption and responsible use?
+    score: 2
+-
+    id: ac05b
+    question: Is ownership of AI initiatives and outcomes clearly defined?
+    score: 1
+-
+    id: ac05c
+    question: Do reward and promotion systems recognise contributions to AI adoption and capability building?
+    score: 4
+-
+    id: ac05d
+    question: How consistently are policies enforced around responsible AI use and data handling?
+    score: 1
+-
+    id: ac05e
+    question: Are outcomes of AI initiatives transparently reported and reviewed?
+    score: 5
+-
+    id: ac05f
+    question: Are there clear escalation paths and remediation processes for AI failures or harms?
+    score: 3
+-
+    id: pm01a
+    question: How formalized are AI project management methodologies (Agile/Stage-gate)?
+    score: 1
+-
+    id: pm01b
+    question: How consistent are practices for scoping and prioritizing AI initiatives?
+    score: 2
+-
+    id: pm01c
+    question: How engaged are stakeholders during project lifecycle?
+    score: 2
+-
+    id: pm01d
+    question: How visible are project statuses and roadmaps to the organization?
+    score: 1
+-
+    id: pm01e
+    question: How mature are your change control and release practices for AI projects?
+    score: 5
+-
+    id: pm01f
+    question: Are lessons learned and outcomes consistently captured after delivery?
+    score: 3
+-
+    id: dp02a
+    question: Do you have standardized documentation templates for AI projects?
+    score: 2
+-
+    id: dp02b
+    question: Are model documentation and model cards produced and maintained?
+    score: 3
+-
+    id: dp02c
+    question: Do operations have runbooks/playbooks for AI systems?
+    score: 2
+-
+    id: dp02d
+    question: How well do you track versioning and data/model provenance?
+    score: 5
+-
+    id: dp02e
+    question: How easy is it to find and access project documentation?
+    score: 2
+-
+    id: dp02f
+    question: Are documentation retention and compliance requirements enforced?
+    score: 4
+-
+    id: qa03a
+    question: How mature are testing practices for models (unit, integration, regression)?
+    score: 3
+-
+    id: qa03b
+    question: Do you perform systematic data validation and quality checks?
+    score: 2
+-
+    id: qa03c
+    question: Are model performance baselines and acceptance criteria defined?
+    score: 3
+-
+    id: qa03d
+    question: Do you use canary or A/B tests for new model releases?
+    score: 5
+-
+    id: qa03e
+    question: Is QA responsibility clearly assigned for models and data?
+    score: 3
+-
+    id: qa03f
+    question: How do you prevent regressions when models or data change?
+    score: 4
+-
+    id: oe04a
+    question: Are Service Level Agreements (SLAs) and Objectives (SLOs) defined for AI services?
+    score: 5
+-
+    id: oe04b
+    question: How well is capacity planning handled for AI workloads?
+    score: 2
+-
+    id: oe04c
+    question: Are incident response and post-mortem processes in place for AI incidents?
+    score: 3
+-
+    id: oe04d
+    question: How automated are operational runbooks and remediation steps?
+    score: 3
+-
+    id: oe04e
+    question: Do you actively monitor and optimise cost and resource usage?
+    score: 2
+-
+    id: oe04f
+    question: Are operational processes and SLAs documented and maintained?
+    score: 3
+-
+    id: mm05a
+    question: Are key metrics/KPIs for AI initiatives defined and tracked?
+    score: 5
+-
+    id: mm05b
+    question: Do you monitor for model/data drift and alert on deterioration?
+    score: 3
+-
+    id: mm05c
+    question: Are AI outcomes linked to business metrics and impact?
+    score: 1
+-
+    id: mm05d
+    question: Do you measure experimentation velocity and conversion to production?
+    score: 5
+-
+    id: mm05e
+    question: Are data quality metrics measured and used for decisions?
+    score: 2
+-
+    id: mm05f
+    question: How regular and actionable are reports on AI performance?
+    score: 2
+-
+    id: mg01a
+    question: Do you maintain a comprehensive inventory of foundation models and variants?
+    score: 2
+-
+    id: mg01b
+    question: Are there approval workflows for using or fine-tuning foundation models?
+    score: 4
+-
+    id: mg01c
+    question: How well do you manage licensing, usage rights and compliance for models?
+    score: 3
+-
+    id: mg01d
+    question: Do you perform risk assessments specific to foundation model usage?
+    score: 3
+-
+    id: mg01e
+    question: Are access policies for foundation models defined and enforced?
+    score: 4
+-
+    id: mg01f
+    question: Are foundation models accompanied by detailed documentation and limitations?
+    score: 1
+-
+    id: ds02a
+    question: How robust is your serving infrastructure for foundation models?
+    score: 3
+-
+    id: ds02b
+    question: Do you have automated pipelines for fine-tuning foundation models?
+    score: 1
+-
+    id: ds02c
+    question: Are latency and throughput SLAs met for model-serving needs?
+    score: 5
+-
+    id: ds02d
+    question: How effective are your auto-scaling and load distribution strategies?
+    score: 5
+-
+    id: ds02e
+    question: Do you use blue/green deployments and tested rollback mechanisms?
+    score: 3
+-
+    id: ds02f
+    question: Can your serving layer support multi-tenant isolation and quotas?
+    score: 3
+-
+    id: mo03a
+    question: How comprehensive is telemetry for model inputs, outputs and infra?
+    score: 5
+-
+    id: mo03b
+    question: Do you monitor model performance, latency and error rates continuously?
+    score: 1
+-
+    id: mo03c
+    question: Is concept and data drift detected and acted upon?
+    score: 3
+-
+    id: mo03d
+    question: Are alerts actionable and tied to escalation paths?
+    score: 1
+-
+    id: mo03e
+    question: Do you capture user feedback and route it into model improvement?
+    score: 5
+-
+    id: mo03f
+    question: Do you test observability and monitoring as part of releases?
+    score: 3
+-
+    id: ef04a
+    question: How optimized are models for compute and memory efficiency?
+    score: 4
+-
+    id: ef04b
+    question: Do you actively track and manage inference costs?
+    score: 1
+-
+    id: ef04c
+    question: Are models adapted for different hardware (quantization, compilation)?
+    score: 1
+-
+    id: ef04d
+    question: Do you measure and optimise energy consumption for model workloads?
+    score: 4
+-
+    id: ef04e
+    question: Do you use batching and micro-batching to improve throughput efficiently?
+    score: 5
+-
+    id: ef04f
+    question: Is there a culture and tooling for continuous optimization of models and infra?
+    score: 5
+-
+    id: mc01a
+    question: How diverse are your generative model capabilities (text, image, audio, multimodal)?
+    score: 3
+-
+    id: mc01b
+    question: Can you fine-tune or adapt models for domain-specific needs?
+    score: 4
+-
+    id: mc01c
+    question: Can you combine multiple modalities into cohesive outputs?
+    score: 5
+-
+    id: mc01d
+    question: How consistent and coherent are generated outputs in complex tasks?
+    score: 5
+-
+    id: mc01e
+    question: Do your models demonstrate strong domain knowledge and factual accuracy?
+    score: 1
+-
+    id: mc01f
+    question: Can models generate creative, diverse outputs rather than repetitive content?
+    score: 1
+-
+    id: pe02a
+    question: Do you maintain libraries of effective prompts and templates?
+    score: 2
+-
+    id: pe02b
+    question: How skilled are teams at designing prompts/instructions for reliable outputs?
+    score: 4
+-
+    id: pe02c
+    question: Do you use auto-tuning, temperature sweeps, or other tuning strategies systematically?
+    score: 3
+-
+    id: pe02d
+    question: How effectively do you manage context windows and memory for long interactions?
+    score: 3
+-
+    id: pe02e
+    question: Are prompts systematically A/B tested and validated for quality?
+    score: 1
+-
+    id: pe02f
+    question: Do you incorporate safety guardrails into prompt design?
+    score: 5
+-
+    id: cs03a
+    question: Do you detect and filter harmful or unsafe content reliably?
+    score: 2
+-
+    id: cs03b
+    question: Are mechanisms in place to mitigate bias in generated content?
+    score: 2
+-
+    id: cs03c
+    question: How effectively do you reduce toxicity and misinformation in outputs?
+    score: 4
+-
+    id: cs03d
+    question: Do users have controls and transparency over generated content and its sources?
+    score: 1
+-
+    id: cs03e
+    question: Are moderation workflows efficient and scalable?
+    score: 3
+-
+    id: cs03f
+    question: Do you test safety scenarios and adversarial prompts regularly?
+    score: 5
+-
+    id: cw04a
+    question: Do you have tooling to orchestrate generative workflows end-to-end?
+    score: 2
+-
+    id: cw04b
+    question: Are humans effectively integrated into creative loops for review and refinement?
+    score: 3
+-
+    id: cw04c
+    question: Are templates, style guides and assets managed for consistent outputs?
+    score: 1
+-
+    id: cw04d
+    question: How well are generative capabilities integrated into core business workflows?
+    score: 2
+-
+    id: cw04e
+    question: Can creative teams scale output quality while using generative models?
+    score: 1
+-
+    id: cw04f
+    question: How mature are your APIs and integrations for generative services?
+    score: 3
+-
+    id: ev05a
+    question: Do you employ human raters and evaluation protocols for generative outputs?
+    score: 4
+-
+    id: ev05b
+    question: Do you use automated metrics (BLEU, ROUGE, CLIP scores) for quality checks?
+    score: 4
+-
+    id: ev05c
+    question: Are controlled experiments used to compare generative models and prompts?
+    score: 1
+-
+    id: ev05d
+    question: Are clear quality guidelines defined for acceptable generative outputs?
+    score: 2
+-
+    id: ev05e
+    question: Is user feedback integrated directly into model improvement cycles?
+    score: 1
+-
+    id: ev05f
+    question: Do evaluations include ethical, fairness and safety assessments?
+    score: 3
+-
+    id: ep01a
+    question: Does your organization have a documented ethics policy guiding AI development and deployment?
+    score: 4
+-
+    id: ep01b
+    question: Are fairness and bias checks routinely performed on models?
+    score: 4
+-
+    id: ep01c
+    question: Do you document and publish explanations about model behaviour and decisions?
+    score: 3
+-
+    id: ep01d
+    question: Are human oversight and review mechanisms in place where needed?
+    score: 3
+-
+    id: ep01e
+    question: Do you assess social and community impacts before deployment?
+    score: 2
+-
+    id: ep01f
+    question: Are there plans to remediate harms or unintended consequences?
+    score: 1
+-
+    id: pd02a
+    question: Do you minimize data collection and retention for AI use-cases?
+    score: 5
+-
+    id: pd02b
+    question: Are user consent and lawful basis for data use tracked and managed?
+    score: 2
+-
+    id: pd02c
+    question: Are personal data appropriately anonymized or pseudonymized?
+    score: 2
+-
+    id: pd02d
+    question: Are strict access controls applied to sensitive datasets used for AI?
+    score: 2
+-
+    id: pd02e
+    question: Can data subjects exercise rights (deletion, portability) regarding AI data?
+    score: 1
+-
+    id: pd02f
+    question: Are DPIAs or similar assessments conducted for AI projects?
+    score: 5
+-
+    id: ag03a
+    question: Are roles for responsible AI (ethics officers, data stewards) defined?
+    score: 4
+-
+    id: ag03b
+    question: Are responsible AI policies actively enforced and audited?
+    score: 4
+-
+    id: ag03c
+    question: Do you ensure vendors and partners follow responsible AI practices?
+    score: 4
+-
+    id: ag03d
+    question: Are issues escalated and reported to senior leadership and boards?
+    score: 2
+-
+    id: ag03e
+    question: Can AI systems be audited end-to-end for decisions and data lineage?
+    score: 3
+-
+    id: ag03f
+    question: Is there a feedback loop to improve responsible AI practices over time?
+    score: 2
+-
+    id: si04a
+    question: Are products designed considering accessibility and inclusion?
+    score: 5
+-
+    id: si04b
+    question: Do you engage with affected communities during design and deployment?
+    score: 2
+-
+    id: si04c
+    question: Do you measure social outcomes and impacts of AI systems?
+    score: 1
+-
+    id: si04d
+    question: Are equity or fairness audits performed for high-impact systems?
+    score: 1
+-
+    id: si04e
+    question: Do you evaluate whether AI use-cases provide clear societal benefits?
+    score: 4
+-
+    id: si04f
+    question: Are social impacts and mitigation strategies communicated publicly?
+    score: 5
+-
+    id: sh05a
+    question: Do you model potential harms and worst-case scenarios for deployments?
+    score: 1
+-
+    id: sh05b
+    question: Are safety and adversarial tests conducted before release?
+    score: 1
+-
+    id: sh05c
+    question: Do you measure how effective harm mitigations are in practice?
+    score: 4
+-
+    id: sh05d
+    question: Are you prepared for societal or ethical incidents with clear plans?
+    score: 4
+-
+    id: sh05e
+    question: Is there a mechanism for external stakeholders to report harms or concerns?
+    score: 5
+-
+    id: sh05f
+    question: Are safety practices aligned with emerging regulations and standards?
+    score: 1
+-
+    id: vi01a
+    question: How systematic is your process to identify and prioritise high-value AI use-cases?
+    score: 4
+-
+    id: vi01b
+    question: Do you quantify expected benefits for AI projects before investment?
+    score: 4
+-
+    id: vi01c
+    question: Are project costs and run-rates tracked and compared to forecasts?
+    score: 5
+-
+    id: vi01d
+    question: Do you measure how often projected benefits are actually realized post-deployment?
+    score: 2
+-
+    id: vi01e
+    question: Is time-to-value estimated and optimised for AI initiatives?
+    score: 4
+-
+    id: vi01f
+    question: Are AI value stories and case studies communicated to stakeholders?
+    score: 4
+-
+    id: cmv02a
+    question: Do you productise AI outcomes into revenue-generating offerings?
+    score: 2
+-
+    id: cmv02b
+    question: Are pricing and business models for AI products well-defined?
+    score: 2
+-
+    id: cmv02c
+    question: Is your organization prepared to market & sell AI products effectively?
+    score: 4
+-
+    id: cmv02d
+    question: Do you track customer outcomes from AI products to demonstrate ROI?
+    score: 1
+-
+    id: cmv02e
+    question: Do you form revenue-sharing partnerships to monetise AI capabilities?
+    score: 5
+-
+    id: cmv02f
+    question: Can you attribute revenue to specific AI initiatives accurately?
+    score: 5
+-
+    id: mgv03a
+    question: Are AI KPIs aligned with business strategy and goals?
+    score: 4
+-
+    id: mgv03b
+    question: Do you use robust methods to attribute business impact to AI?
+    score: 4
+-
+    id: mgv03c
+    question: Is there regular executive reporting on AI value and ROI?
+    score: 1
+-
+    id: mgv03d
+    question: Are financial controls in place for AI investments and spend?
+    score: 4
+-
+    id: mgv03e
+    question: Do you capture learnings from low-value or failed projects to improve future ROI?
+    score: 2
+-
+    id: mgv03f
+    question: Is there active optimization of the AI project portfolio for max ROI?
+    score: 5
+-
+    id: so04a
+    question: Are teams and systems ready to scale AI solutions from pilot to production?
+    score: 5
+-
+    id: so04b
+    question: Do you include operational costs in ROI models (maintenance, infra)?
+    score: 4
+-
+    id: so04c
+    question: Is change management used to ensure value is captured post-deployment?
+    score: 3
+-
+    id: so04d
+    question: Is value tracking automated across systems and dashboards?
+    score: 5
+-
+    id: so04e
+    question: Are dedicated teams and budgets allocated for ongoing support?
+    score: 2
+-
+    id: so04f
+    question: Are SLAs tied to business outcomes rather than just uptime?
+    score: 4
+-
+    id: rf01a
+    question: Do you systematically identify AI-specific risks across projects?
+    score: 2
+-
+    id: rf01b
+    question: Are risks assessed quantitatively and qualitatively before deployment?
+    score: 4
+-
+    id: rf01c
+    question: Is organizational risk appetite for AI defined and communicated?
+    score: 4
+-
+    id: rf01d
+    question: Do you evaluate supply chain and vendor risks in AI ecosystems?
+    score: 5
+-
+    id: rf01e
+    question: Do you run scenario planning and stress tests for AI system failures?
+    score: 3
+-
+    id: rf01f
+    question: Are risks reported to leadership with clear remediation plans?
+    score: 3
+-
+    id: rc02a
+    question: Are AI services covered by business continuity and disaster recovery plans?
+    score: 4
+-
+    id: rc02b
+    question: Is redundancy and failover built into model and infra architecture?
+    score: 3
+-
+    id: rc02c
+    question: Do you have defined incident response playbooks for AI incidents?
+    score: 5
+-
+    id: rc02d
+    question: Are RTOs and RPOs set and tested for AI services?
+    score: 3
+-
+    id: rc02e
+    question: Can your systems handle sudden spikes or surges in demand?
+    score: 4
+-
+    id: rc02f
+    question: Do you conduct structured learning after incidents to improve resilience?
+    score: 1
+-
+    id: shd03a
+    question: Are threat models created for AI systems and data flows?
+    score: 1
+-
+    id: shd03b
+    question: Do you conduct security testing and red-team exercises on AI systems?
+    score: 1
+-
+    id: shd03c
+    question: Are protections in place against poisoning and data integrity attacks?
+    score: 4
+-
+    id: shd03d
+    question: Are secrets and keys for model infra managed securely?
+    score: 5
+-
+    id: shd03e
+    question: Is there a process to identify and remediate vulnerabilities in ML stacks?
+    score: 4
+-
+    id: shd03f
+    question: Do you vet and secure ML supply chain components and dependencies?
+    score: 5
+-
+    id: cl04a
+    question: Do you map AI use-cases to applicable laws and regulations?
+    score: 2
+-
+    id: cl04b
+    question: Are contracts updated to cover AI risks and liabilities?
+    score: 3
+-
+    id: cl04c
+    question: Can you meet regulatory reporting requirements for AI systems?
+    score: 5
+-
+    id: cl04d
+    question: Do you use insurance or financial instruments to mitigate AI liabilities?
+    score: 5
+-
+    id: cl04e
+    question: Are cross-border data and model transfers managed legally and securely?
+    score: 2
+-
+    id: cl04f
+    question: Are legal teams integrated into AI project approvals and reviews?
+    score: 2
+-
+    id: ps01a
+    question: Do you have a strategic map of partners (cloud, vendors, startups, academia)?
+    score: 3
+-
+    id: ps01b
+    question: Do you co-innovate with external partners on AI solutions?
+    score: 4
+-
+    id: ps01c
+    question: How engaged are you with open-source communities and projects?
+    score: 1
+-
+    id: ps01d
+    question: Is there a streamlined onboarding process for external partners?
+    score: 2
+-
+    id: ps01e
+    question: Do you measure partner performance and ecosystem impact?
+    score: 1
+-
+    id: ps01f
+    question: Are external data exchanges governed and monitored?
+    score: 4
+-
+    id: mc02a
+    question: Do you actively monitor market trends and competitor AI moves?
+    score: 2
+-
+    id: mc02b
+    question: Do you form alliances to enter new markets or capabilities?
+    score: 5
+-
+    id: mc02c
+    question: Do you collaborate with regulators and standards bodies?
+    score: 3
+-
+    id: mc02d
+    question: Do you scout and integrate startups to accelerate capabilities?
+    score: 1
+-
+    id: mc02e
+    question: Do you enable partners and customers to build on your AI platforms?
+    score: 1
+-
+    id: mc02f
+    question: Are risks from external collaborations identified and mitigated?
+    score: 4
+-
+    id: si03a
+    question: Do you adopt open standards to ensure interoperability of AI systems?
+    score: 3
+-
+    id: si03b
+    question: Are API contracts and protocols standardized for ecosystem integration?
+    score: 1
+-
+    id: si03c
+    question: Are data schemas and taxonomies harmonized for easy exchange?
+    score: 5
+-
+    id: si03d
+    question: Can models and data be ported between platforms without loss?
+    score: 4
+-
+    id: si03e
+    question: Do you test interoperability as part of partner integrations?
+    score: 2
+-
+    id: si03f
+    question: Is there governance to manage standards and interfaces externally?
+    score: 3
+-
+    id: os04a
+    question: How strategic is your sourcing of external AI capabilities (buy vs build)?
+    score: 3
+-
+    id: os04b
+    question: Do you scout external innovations and incorporate them?
+    score: 5
+-
+    id: os04c
+    question: Is external IP usage and licensing managed strategically?
+    score: 4
+-
+    id: os04d
+    question: Do you invest in startups or partners to grow your ecosystem?
+    score: 1
+-
+    id: os04e
+    question: Do you provide tools and support to community developers and partners?
+    score: 3
+-
+    id: os04f
+    question: Are risks related to external IP and open-source managed?
+    score: 3
+-
+    id: eg05a
+    question: Are policies defined for partner behaviour and data sharing?
+    score: 5
+-
+    id: eg05b
+    question: Are value-sharing models and incentives defined for partners?
+    score: 2
+-
+    id: eg05c
+    question: Are dispute resolution and escalation mechanisms defined for external partners?
+    score: 2
+-
+    id: eg05d
+    question: Do you require partners to meet ethical AI standards?
+    score: 4
+-
+    id: eg05e
+    question: Is ecosystem-level risk monitored and managed centrally?
+    score: 5
+-
+    id: eg05f
+    question: Are partnership performance and renewal decisions formalised?
+    score: 5
+-
+    id: sc01a
+    question: Does leadership have a clear, documented AI vision aligned to corporate strategy?
+    score: 3
+-
+    id: sc01b
+    question: Is there a clear roadmap that prioritises AI initiatives by strategic impact?
+    score: 2
+-
+    id: sc01c
+    question: Are executives visibly sponsoring and resourcing AI programs?
+    score: 3
+-
+    id: sc01d
+    question: Is AI treated as a long-term strategic capability rather than short-term projects?
+    score: 2
+-
+    id: sc01e
+    question: Are leaders sufficiently AI-literate to make informed strategy choices?
+    score: 4
+-
+    id: sc01f
+    question: Do leaders actively sponsor organizational change needed for AI adoption?
+    score: 4
+-
+    id: ga02a
+    question: Does the board have visibility and oversight over AI strategy and risks?
+    score: 4
+-
+    id: ga02b
+    question: Are strategy and objectives aligned across business and tech teams?
+    score: 3
+-
+    id: ga02c
+    question: Is investment guided by strategic AI priorities and expected outcomes?
+    score: 5
+-
+    id: ga02d
+    question: Is there a regular leadership cadence to review AI progress and remove blockers?
+    score: 5
+-
+    id: ga02e
+    question: 'Are strategic KPIs defined to measure AI''s contribution to corporate goals?'
+    score: 5
+-
+    id: ga02f
+    question: Is there leadership succession planning for AI roles and programmes?
+    score: 4
+-
+    id: cb03a
+    question: Is the organization building enduring AI capabilities (centres, platforms)?
+    score: 1
+-
+    id: cb03b
+    question: Is there a strategic talent plan to acquire and retain AI skills?
+    score: 5
+-
+    id: cb03c
+    question: Is there a coherent platform and tooling strategy for AI development?
+    score: 1
+-
+    id: cb03d
+    question: Do leaders actively sponsor innovation and R&D in AI?
+    score: 2
+-
+    id: cb03e
+    question: Are there programs to rotate talent across functions for capability building?
+    score: 3
+-
+    id: cb03f
+    question: Do leaders commit budgets and time for organisational learning in AI?
+    score: 4
+-
+    id: cc204a
+    question: Do leaders visibly signal culture changes needed for AI adoption?
+    score: 1
+-
+    id: cc204b
+    question: Are leaders empowering teams to experiment and act on AI opportunities?
+    score: 4
+-
+    id: cc204c
+    question: Do leadership practices reward AI-driven results and innovation?
+    score: 5
+-
+    id: cc204d
+    question: Do leaders craft and communicate a compelling narrative for AI-driven change?
+    score: 1
+-
+    id: cc204e
+    question: Do leaders build coalitions with stakeholders to support AI initiatives?
+    score: 3
+-
+    id: cc204f
+    question: Are leaders held accountable for AI outcomes and adoption?
+    score: 4
+-
+    id: ea05a
+    question: Do leaders engage in external thought leadership on AI?
+    score: 4
+-
+    id: ea05b
+    question: Do leaders participate in cross-sector collaborations for AI policy and impact?
+    score: 2
+-
+    id: ea05c
+    question: Is leadership active in managing AI reputational risks and communications?
+    score: 3
+-
+    id: ea05d
+    question: Do leaders engage with policymakers to shape sensible AI policy?
+    score: 2
+-
+    id: ea05e
+    question: Do leaders form partnerships beyond tech to deliver societal value?
+    score: 5
+-
+    id: ea05f
+    question: 'Do leaders communicate a long-term vision of AI''s role in society?'
+    score: 4
+-
+    id: dg01a
+    question: How comprehensive are your data governance policies and responsibilities?
+    score: 2
+-
+    id: dg02b
+    question: Are data stewardship roles defined and active across the organization?
+    score: 3
+-
+    id: dg03c
+    question: Are governance policies enforced and audited regularly?
+    score: 4
+-
+    id: dg04d
+    question: Do governance processes include ethical use and bias considerations?
+    score: 5
+-
+    id: dg05e
+    question: Is data ownership clearly defined and maintained?
+    score: 3
+-
+    id: dg06f
+    question: Are staff trained on data governance responsibilities and policies?
+    score: 1
+-
+    id: da01a
+    question: Is there a coherent strategy for data storage and lifecycle management?
+    score: 4
+-
+    id: da02b
+    question: Are canonical data models and schemas used to reduce duplication?
+    score: 1
+-
+    id: da03c
+    question: Can your data architecture scale predictably with growing volumes and users?
+    score: 4
+-
+    id: da04d
+    question: Are datasets partitioned and indexed for performant access?
+    score: 3
+-
+    id: da05e
+    question: Is the cloud/on-prem mix optimized for cost, privacy and performance?
+    score: 4
+-
+    id: da06f
+    question: Are backup, retention and archival policies defined and tested?
+    score: 5
+-
+    id: dq01a
+    question: Do you have a formal data quality framework with defined checks?
+    score: 4
+-
+    id: dq02b
+    question: Is data lineage captured end-to-end for critical datasets?
+    score: 3
+-
+    id: dq03c
+    question: Are data profiling and validation integrated into pipelines?
+    score: 1
+-
+    id: dq04d
+    question: Are errors and anomalies detected and managed proactively?
+    score: 5
+-
+    id: dq05e
+    question: Are data quality SLAs defined with owners and targets?
+    score: 1
+-
+    id: dq06f
+    question: Is data observability implemented to trace health and trends?
+    score: 3
+-
+    id: md01a
+    question: Do you maintain a searchable data catalog covering key assets?
+    score: 1
+-
+    id: md02b
+    question: Is metadata maintained and kept up-to-date reliably?
+    score: 2
+-
+    id: md03c
+    question: Are assets tagged and classified for sensitivity and domain?
+    score: 5
+-
+    id: md04d
+    question: Can users easily discover datasets and assets via search?
+    score: 5
+-
+    id: md05e
+    question: Is the catalog integrated with analytics and ML tools?
+    score: 1
+-
+    id: md06f
+    question: Does the catalog enforce or link to access controls and policies?
+    score: 1
+-
+    id: as01a
+    question: Are data access controls role-based and enforced consistently?
+    score: 1
+-
+    id: as02b
+    question: Is sensitive data encrypted in transit and at rest with key management?
+    score: 4
+-
+    id: as03c
+    question: Do you monitor and alert on suspicious data access patterns?
+    score: 5
+-
+    id: as04d
+    question: Are masking and tokenization used for exposing datasets safely?
+    score: 2
+-
+    id: as05e
+    question: Are controls in place for secure external data sharing?
+    score: 3
+-
+    id: as06f
+    question: Are data breach and exposure plans tested and operational?
+    score: 1
+-
+    id: ma01a
+    question: Do you use a diverse set of algorithms appropriate to use-cases?
+    score: 2
+-
+    id: ma02b
+    question: Are baseline models and comparison practices standardised?
+    score: 1
+-
+    id: ma03c
+    question: Is tuning automated and reproducible across experiments?
+    score: 2
+-
+    id: ma04d
+    question: Does the organization adopt novel/model research when beneficial?
+    score: 2
+-
+    id: ma05e
+    question: Are models designed with explainability appropriate to their use?
+    score: 4
+-
+    id: ma06f
+    question: Can experiments and model training be reproduced reliably?
+    score: 2
+-
+    id: mp01a
+    question: Are model training and deployment pipelines automated end-to-end?
+    score: 4
+-
+    id: mp02b
+    question: Do you maintain feature stores for consistent feature reuse?
+    score: 2
+-
+    id: mp03c
+    question: Is CI/CD integrated with ML testing and validation?
+    score: 5
+-
+    id: mp04d
+    question: Do you use a model registry to manage versions and metadata?
+    score: 5
+-
+    id: mp05e
+    question: Are components and models designed for reuse across solutions?
+    score: 3
+-
+    id: mp06f
+    question: Do dev/test/prod environments mirror each other to reduce surprises?
+    score: 1
+-
+    id: er01a
+    question: Are safe sandboxes provided for experimentation and R&D?
+    score: 5
+-
+    id: er02b
+    question: Do you partner with academia or labs for research?
+    score: 2
+-
+    id: er03c
+    question: Is experiment tracking used to manage and compare trials?
+    score: 1
+-
+    id: er04d
+    question: Is there a clear pipeline from research to productization?
+    score: 1
+-
+    id: er05e
+    question: Are collaboration tools and workflows supporting research teams?
+    score: 4
+-
+    id: er06f
+    question: Are IP considerations managed for research outputs?
+    score: 1
+-
+    id: ei01a
+    question: Do you use tools to explain model decisions to stakeholders?
+    score: 1
+-
+    id: ei02b
+    question: Are explanations tailored to different stakeholder needs?
+    score: 4
+-
+    id: ei03c
+    question: Do you provide counterfactual and sensitivity analyses for models?
+    score: 2
+-
+    id: ei04d
+    question: Is explainability reviewed as part of model approvals?
+    score: 2
+-
+    id: ei05e
+    question: Are users informed when decisions come from AI and given rationale?
+    score: 3
+-
+    id: ei06f
+    question: Is model complexity managed to balance performance and explainability?
+    score: 1
+-
+    id: hr01a
+    question: Do you have an active pipeline to recruit AI and data talent?
+    score: 3
+-
+    id: hr02b
+    question: Are AI roles and responsibilities clearly defined and marketed?
+    score: 4
+-
+    id: hr03c
+    question: Are diversity and inclusion goals applied to AI hiring?
+    score: 1
+-
+    id: hr04d
+    question: Do you use robust skills assessments and work samples in hiring?
+    score: 5
+-
+    id: hr05e
+    question: Is your hiring process efficient to secure top talent?
+    score: 4
+-
+    id: hr06f
+    question: Is your EVP attractive to AI professionals?
+    score: 2
+-
+    id: td01a
+    question: Are new hires given structured onboarding for AI roles?
+    score: 4
+-
+    id: td02b
+    question: Do you provide continuous upskilling for AI and data skills?
+    score: 3
+-
+    id: td03c
+    question: Are leaders trained to manage AI teams and projects?
+    score: 2
+-
+    id: td04d
+    question: Are practical, project-based learning opportunities available?
+    score: 5
+-
+    id: td05e
+    question: Is there dedicated budget and time for learning and certifications?
+    score: 4
+-
+    id: td06f
+    question: Are mentorship programs available to accelerate skill growth?
+    score: 5
+-
+    id: cr01a
+    question: Are clear career paths defined for AI and data roles?
+    score: 4
+-
+    id: cr02b
+    question: Do you have proactive retention strategies for top talent?
+    score: 2
+-
+    id: cr03c
+    question: Is compensation competitive for AI market rates?
+    score: 4
+-
+    id: cr04d
+    question: Are contributions recognised and rewarded visibly?
+    score: 4
+-
+    id: cr05e
+    question: Are employees encouraged and enabled to move across roles?
+    score: 3
+-
+    id: cr06f
+    question: Do you analyse exits to improve retention and hiring?
+    score: 4
+-
+    id: ts01a
+    question: Is your AI team structure aligned with product and business needs?
+    score: 3
+-
+    id: ts02b
+    question: Are specialist roles (data engineer, ML engineer, product) staffed appropriately?
+    score: 1
+-
+    id: ts03c
+    question: Do teams include cross-functional skills (product, engineering, design)?
+    score: 4
+-
+    id: ts04d
+    question: Do you plan talent capacity against project roadmaps and demand?
+    score: 4
+-
+    id: ts05e
+    question: Do you use pairing and shadowing to spread skills?
+    score: 4
+-
+    id: ts06f
+    question: Do you effectively use contractors and consultants to fill gaps?
+    score: 1
+-
+    id: et01a
+    question: Do you have partnerships to augment talent (consultancies, labs)?
+    score: 3
+-
+    id: et02b
+    question: Is onboarding for external talent efficient and secure?
+    score: 5
+-
+    id: et03c
+    question: Are mechanisms in place to capture knowledge from partners?
+    score: 1
+-
+    id: et04d
+    question: Do you leverage external mentors and coaches to upskill teams?
+    score: 4
+-
+    id: et05e
+    question: Do you track market trends to inform hiring and compensation?
+    score: 1
+-
+    id: et06f
+    question: Do you maintain pools of vetted external talent for rapid scaling?
+    score: 1

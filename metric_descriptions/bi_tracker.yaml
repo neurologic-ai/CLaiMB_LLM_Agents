@@ -1,0 +1,60 @@
+metrics:
+  - id: usage.dau_mau
+    description: "Measures daily-to-monthly active user ratio (stickiness); higher DAU/MAU shows frequent engagement."
+
+  - id: usage.creators_ratio
+    description: "Calculates ratio of content creators to consumers; higher share indicates stronger self-service culture."
+
+  - id: usage.session_depth
+    description: "Analyzes average session duration and actions per session; reflects depth of user engagement."
+
+  - id: usage.drilldown
+    description: "Evaluates proportion of drill-through interactions; signals exploratory analysis beyond static views."
+
+  - id: reliability.refresh_timeliness
+    description: "Compares observed refresh times against SLAs; flags dashboards with stale or lagging updates."
+
+  - id: features.cross_links
+    description: "Assesses dashboard/report cross-linking; more links show stronger integration across insights."
+
+  - id: governance.coverage
+    description: "Measures coverage of governance signals (certification, ownership, metadata); low coverage indicates unmanaged assets."
+
+  - id: data.source_diversity
+    description: "Counts distinct source systems integrated; higher diversity supports broader decision-making."
+
+  - id: democratization.self_service
+    description: "Evaluates extent of self-service adoption (creators, governance, active use); shows BI empowerment."
+
+  - id: decision.traceability
+    description: "Evaluates how well decisions logged in BI are linked to governed dashboards, lineage, and cross-links; higher traceability enables transparent, evidence-backed decisions."
+
+  - id: usage.weekly_active_trend
+    description: "Tracks trend of weekly active users over time; identifies adoption growth or decline."
+
+  - id: usage.retention_4w
+    description: "Measures 4-week user retention; shows how many users return after initial usage."
+
+  - id: features.export_rate
+    description: "Calculates frequency of exports (CSV, PPT, PDF); high rates may indicate gaps in in-app usability."
+
+  - id: features.alerts_usage
+    description: "Checks how often alerts are configured and used; reflects proactive monitoring adoption."
+  
+  - id: reliability.sla_breach_streaks
+    description: "Detects consecutive SLA refresh violations; highlights systemic reliability risks."
+
+  - id: reliability.error_rate_queries
+    description: "Calculates proportion of query errors; high rates suggest unstable or poorly modeled datasets."
+
+  - id: governance.pii_coverage
+    description: "Evaluates detection and tagging of PII fields; flags compliance and risk management gaps."
+
+  - id: governance.lineage_coverage
+    description: "Rates lineage metadata completeness; indicates ability to trace data origins and dependencies."
+
+  - id: data.cost_efficiency
+    description: "Weighs timeliness, error rates, and duplication to estimate efficiency of BI data usage vs. costs."
+
+  - id: democratization.dept_coverage
+    description: "Measures cross-department adoption; high spread indicates organization-wide BI reach."

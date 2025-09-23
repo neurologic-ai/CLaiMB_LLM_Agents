@@ -3,6 +3,71 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, Tuple
 import json
 import re
+from typing import List
+
+CATEGORIES: Dict[str, Dict[str, List[str]]] = {
+    "01. Technical Infrastructure": {"topics": [
+        "cloud computing capabilities", "computing resources", "development environment",
+        "integration architecture", "security infrastructure"
+    ]},
+    "02. Data Management & Quality": {"topics": [
+        "data architecture", "data quality", "data governance", "data operations", "data accessibility"
+    ]},
+    "03. AI/ML Capabilities": {"topics": [
+        "model development", "production deployment", "mlops maturity",
+        "model governance", "advanced capabilities"
+    ]},
+    "04. Talent & Skills": {"topics": [
+        "technical expertise", "domain knowledge", "team structure",
+        "training and development", "recruitment and retention"
+    ]},
+    "05. Governance & Ethics": {"topics": [
+        "ethical framework", "regulatory compliance", "risk management",
+        "accountability structure", "transparency practices"
+    ]},
+    "06. Strategic Alignment": {"topics": [
+        "business integration", "leadership support", "investment strategy",
+        "innovation management", "partnership ecosystem"
+    ]},
+    "07. Cultural Readiness": {"topics": [
+        "innovation mindset", "change management", "collaboration culture",
+        "decision making", "learning environment"
+    ]},
+    "08. Process Maturity": {"topics": [
+        "project management", "documentation practices", "quality assurance",
+        "operational excellence", "measurement and metrics"
+    ]},
+    "09. Foundation Model Operations": {"topics": [
+        "model integration and deployment", "domain adaptation and fine-tuning",
+        "performance optimization", "risk and compliance management", "scaling and distribution"
+    ]},
+    "10. Generative AI Capabilities": {"topics": [
+        "multi-modal generation", "quality control and validation", "creative workflow integration",
+        "custom generation control", "domain-specific generation"
+    ]},
+    "11. Responsible AI & Social Impact": {"topics": [
+        "algorithmic fairness and bias mitigation", "explainability and interpretability",
+        "privacy and data protection", "ethical impact assessment", "human-AI collaboration"
+    ]},
+    "12. AI Business Value & ROI": {"topics": [
+        "revenue generation and growth", "cost reduction and efficiency",
+        "customer experience enhancement", "innovation and product development",
+        "competitive advantage and market position"
+    ]},
+    "13. AI Risk & Resilience": {"topics": [
+        "data reliability and robustness", "data dependency and vendor lock-in",
+        "vendor and technology risks", "disaster recovery architecture",
+        "regulatory and legal compliance"
+    ]},
+    "14. AI Ecosystem & External Integration": {"topics": [
+        "supplier and vendor AI collaboration", "industry standards and consortiums",
+        "academic and research partnerships", "regulatory and policy engagement"
+    ]},
+    "15. AI Leadership & Vision": {"topics": [
+        "AI strategy and roadmap", "executive AI literacy", "organizational transformation",
+        "future-proofing and adaptability", "thought leadership and industry influence"
+    ]},
+}
 
 # ---------- AIMRI 15-category weights (same as your old code) ----------
 CATEGORY_WEIGHTS: Dict[str, float] = {

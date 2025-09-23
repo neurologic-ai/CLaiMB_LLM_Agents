@@ -6,9 +6,11 @@ from typing import Any, Dict, List, Optional
 
 from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.memory import MemorySaver
-
+from main_orchestrator import survey_recalibrator
 from .feature_bus import FeatureBus, utc_iso
 from .scoring import ScoringAgent
+from .survey_recalibrator import Args as SRArgs, main_with_args as run_survey_recalibration
+
 AGENTS_LIST = [
     "cloud_infra",        # 6h
     "data_platform",      # 12h
@@ -19,6 +21,23 @@ AGENTS_LIST = [
 ]
 
 TRIGGER_K_OF_N = 2
+
+def run_recalibration(
+    survey_path: str = "./surveys/_Survey_QA_samples.yaml",
+    yaml_paths: list[str] = [],
+    existing_json: str = "./results/category_scores.json",
+    out_scores: str = "./results/survey_metric_scores.json",
+    out_audit: str = "./results/survey_recalibration_audit.json",
+):
+    args = survey_recalibrator.Args(
+        survey=Path(survey_path),
+        yamls=[Path(y) for y in yaml_paths],
+        out_scores=Path(out_scores),
+        out_audit=Path(out_audit),
+        existing_json=Path(existing_json),
+        default_N=5,
+    )
+    return survey_recalibrator.main_with_args(args)
 
 @dataclass
 class OrchestratorState:
@@ -87,7 +106,6 @@ class Orchestrator:
         out = {
             "ts": ts,
             "result": state.last_result or {},
-            "global_scores": state.global_scores,
             "latest_sign_ts": state.latest_sign_ts,
         }
         (self.results_root / f"scoring_{ts}.json").write_text(json.dumps(out, indent=2))
@@ -97,6 +115,23 @@ class Orchestrator:
         (self.results_root / "category_scores.json").write_text(
             json.dumps(out["result"].get("category_scores", {}), indent=2)
         )
+
+        sr_args = SRArgs(
+            survey=Path("./surveys/_Survey_QA_samples.yaml"),
+            yamls=[
+                Path("./metric_descriptions/bi_tracker.yaml"),
+                Path("./metric_descriptions/cloud_infra.yaml"),
+                Path("./metric_descriptions/code_repo.yaml"),
+                Path("./metric_descriptions/data_platform_scanner.yaml"),
+                Path("./metric_descriptions/enterprise_system.yaml"),
+                Path("./metric_descriptions/ml_ops.yaml"),
+            ],
+            existing_json=Path(self.results_root / "category_scores.json"),
+            out_scores=Path(self.results_root / "survey_metric_scores.json"),
+            out_audit=Path(self.results_root / "survey_recalibration_audit.json"),
+            default_N=5,
+        )
+        run_survey_recalibration(sr_args)
         return state
 
     # ---- graph ----
