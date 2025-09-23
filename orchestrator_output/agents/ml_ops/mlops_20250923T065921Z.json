@@ -1,5 +1,5 @@
 {
-  "artifact_path": "agent_layer_outputs/mlops_monitor/mlops-2025-09-20T14-30-02Z.json",
+  "artifact_path": "agent_layer_outputs/mlops_monitor/mlops-2025-09-23T06-59-12Z.json",
   "aggregates": {
     "categories": {
       "data_management": 3.24,
@@ -10,7 +10,7 @@
   "metrics": {
     "aml.cost_correlation_band": {
       "metric_id": "aml.cost_correlation_band",
-      "rationale": "The cost join rate is excellent at 0.93, and the coverage is comprehensive with 'tags+resourceId', indicating stable attribution. The cost per 1k requests is also reasonable, supporting effective cost management.",
+      "rationale": "The cost join rate is excellent at 0.93, and the coverage is comprehensive with 'tags+resourceId', indicating stable attribution. This combination meets the highest standards set in the rubric.",
       "flags": [],
       "gaps": [],
       "aimri_mapping": [
@@ -35,11 +35,11 @@
     },
     "aml.jobs_flow_band": {
       "metric_id": "aml.jobs_flow_band",
-      "rationale": "Success rate is below 0.95, which limits the band; p95 duration and lead time are acceptable but could be improved.",
+      "rationale": "Success rate is below 0.95, which limits the band; p95 duration and lead time are acceptable.",
       "flags": [],
       "gaps": [
-        "Success at 0.94 is the limiter → add retry-on-transient and resource quota checks → raise success_rate to ≥0.95 (unlocks band 4).",
-        "Lead-time 6.4h acceptable but improvable → enable caching and artifact reuse → target ≤4h (pushes toward band 5 when success is ≥0.98)."
+        "Success at 0.94 is the limiter → implement more robust error handling and monitoring → raise success_rate to ≥0.95 (unlocks band 4).",
+        "Lead-time 6.4h is acceptable but could be improved → optimize job scheduling and resource allocation → target ≤4h (pushes toward band 5 when success is ≥0.98)."
       ],
       "aimri_mapping": [
         {
@@ -67,7 +67,7 @@
     },
     "aml.monitoring_coverage_band": {
       "metric_id": "aml.monitoring_coverage_band",
-      "rationale": "Monitoring is enabled, and the median time to acknowledge alerts is excellent at 1.2 hours, with recent drift alerts indicating active monitoring.",
+      "rationale": "Monitoring is enabled, and the median time to acknowledge alerts is excellent at 1.2 hours, which is well below the 2-hour threshold. Additionally, there have been recent drift alerts, indicating an active monitoring process.",
       "flags": [],
       "gaps": [],
       "aimri_mapping": [
@@ -96,10 +96,11 @@
     },
     "aml.registry_governance_band": {
       "metric_id": "aml.registry_governance_band",
-      "rationale": "All metrics are above the band-3 thresholds, and the median transition time is acceptable. However, the pct_staged is below the band-5 threshold.",
+      "rationale": "All metrics are above the band-3 thresholds, and the median transition time is acceptable. However, the median transition time of 60 hours is not low enough to reach band 5.",
       "flags": [],
       "gaps": [
-        "Staging coverage at 0.83 <0.90 → enforce stage on register policy → raise pct_staged to ≥0.90 (unlocks band 5)."
+        "Median transition time at 60h prevents band-5 → parallelize QA and security gates → reduce median_transition_h to <48h (unlocks band 5).",
+        "Staging coverage at 0.83 <0.90 → enforce stage on register policy → raise pct_staged to ≥0.90 (supports band 5)."
       ],
       "aimri_mapping": [
         {
@@ -127,7 +128,7 @@
     },
     "cicd.change_failure_rate_band": {
       "metric_id": "cicd.change_failure_rate_band",
-      "rationale": "Both the change failure rate (CFR) at 0.11 and the rollbacks in the last 30 days at 3 are well within the excellent band limits. This indicates a strong deployment process with minimal failures and rollbacks.",
+      "rationale": "Both the change failure rate (0.11) and the number of rollbacks (3) are well within the excellent band limits. This indicates a strong deployment process with minimal failures and rollbacks.",
       "flags": [],
       "gaps": [],
       "aimri_mapping": [
@@ -156,7 +157,7 @@
     },
     "cicd.deploy_frequency_band": {
       "metric_id": "cicd.deploy_frequency_band",
-      "rationale": "The frequency of deployments is good, averaging just over 5 per week, but the number of services is at the upper limit, which restricts the per-service rate. This results in a per-service rate of approximately 0.74, which is below the threshold for band 5.",
+      "rationale": "The frequency of deployments is good, averaging over 5 per week, but the number of services is at the upper limit, which restricts the per-service rate. This results in a per-service rate of approximately 0.74, which is below the threshold for band 5.",
       "flags": [],
       "gaps": [
         "per-service rate is below threshold → increase deployments or reduce services → raise per-service rate to ≥1/day (unlocks band 5)"
@@ -257,12 +258,13 @@
     },
     "mlflow.experiment_completeness_band": {
       "metric_id": "mlflow.experiment_completeness_band",
-      "rationale": "Parameter logging is strong at 0.92, and tags are also good at 0.90, but the overall completeness at 0.82 and artifacts at 0.82 are limiting factors.",
+      "rationale": "Parameter and tag logging are strong, but the overall completeness at 0.82 and artifacts at 0.82 are the main limiting factors.",
       "flags": [
         "artifacts_low"
       ],
       "gaps": [
-        "Overall completeness at 0.82 limits the band → ensure all runs log artifacts consistently → raise pct_all to ≥0.85 (unlocks band 4)."
+        "Overall completeness at 0.82 limits the band → ensure all runs log artifacts consistently → raise pct_all to ≥0.85 (unlocks band 4).",
+        "Artifacts at 0.82 cap the band → persist model files and evaluation reports on every run → raise pct_artifacts to ≥0.85 (unlocks band 4)."
       ],
       "aimri_mapping": [
         {
@@ -320,11 +322,9 @@
     "mlflow.lineage_coverage_band": {
       "metric_id": "mlflow.lineage_coverage_band",
       "rationale": "All metrics are above 0.85, with pct_git_sha and pct_env_files both above 0.90, which is strong. However, pct_data_ref at 0.86 is the limiting factor preventing a higher band.",
-      "flags": [
-        "data_ref_coverage"
-      ],
+      "flags": [],
       "gaps": [
-        "Data references at 0.86 block a higher band → log immutable dataset version/hash per run → raise pct_data_ref to ≥0.90 (unlocks band 5)."
+        "Data references at 0.86 limit the band → log immutable dataset version/hash per run → raise pct_data_ref to ≥0.90 (unlocks band 5)."
       ],
       "aimri_mapping": [
         {
@@ -352,7 +352,7 @@
     },
     "mlflow.registry_hygiene_band": {
       "metric_id": "mlflow.registry_hygiene_band",
-      "rationale": "All metrics are above the minimum thresholds, and latency is acceptable; however, the presence of one rollback prevents achieving band 5.",
+      "rationale": "All metrics meet the minimum requirements for band 4, with a good percentage of staged models and approver involvement. However, the presence of one rollback prevents achieving band 5.",
       "flags": [
         "rollback_present"
       ],
@@ -381,12 +381,12 @@
     },
     "mlflow.reproducibility_band": {
       "metric_id": "mlflow.reproducibility_band",
-      "rationale": "The match rate is strong at 0.88, indicating good reproducibility, and there is only a minor signature conflict present. However, the presence of this conflict prevents a higher band rating.",
+      "rationale": "The match rate is strong at 0.88, indicating good reproducibility, but there is a minor signature conflict present that prevents a higher band.",
       "flags": [
         "conflicts_present"
       ],
       "gaps": [
-        "Signature conflict on 'sigA' → ensure consistent model signatures across runs → remove conflict occurrences and lift match_rate ≥0.95 (unlocks band 5)."
+        "Signature conflict on 'sigA' → review model versioning and ensure consistent environment settings → lift match_rate to ≥0.95 (unlocks band 5)."
       ],
       "aimri_mapping": [
         {
@@ -478,10 +478,10 @@
     },
     "sm.experiments_lineage_band": {
       "metric_id": "sm.experiments_lineage_band",
-      "rationale": "All lineage metrics are above 0.85 with two metrics at or above 0.90; however, the code reference is slightly below the threshold for band 5.",
+      "rationale": "All lineage metrics are above 0.85 with two metrics at or above 0.90; however, the data reference is slightly below the threshold for band 5.",
       "flags": [],
       "gaps": [
-        "Code ref at 0.9 limits band-5 → ensure all experiments include code references consistently → raise pct_code_ref to ≥0.95 (unlocks band 5)."
+        "Data ref at 0.86 blocks band-5 → enforce dataset version capture in training SDK → raise pct_data_ref to ≥0.90 (unlocks band 5)."
       ],
       "aimri_mapping": [
         {
@@ -509,11 +509,10 @@
     },
     "sm.pipeline_flow_band": {
       "metric_id": "sm.pipeline_flow_band",
-      "rationale": "The success rate is strong at 0.96, and the retry rate is within acceptable limits; however, the promotion time of 12 hours is at the upper limit for band 4.",
+      "rationale": "The success rate is strong at 0.96, and the retry rate is acceptable at 0.03, fitting within band-4 criteria. However, the promotion time of 12 hours is at the upper limit for this band.",
       "flags": [],
       "gaps": [
-        "Promotion latency at 12h → automate risk sign-off and bake validation into CI → reduce promotion_time_h to ≤8h (unlocks band 5).",
-        "p95 at 42min → parallelize feature gen and cache heavy steps → keep p95 ≤30min (reinforces band 5)."
+        "Promotion latency at 12h → automate risk sign-off and bake validation into CI → reduce promotion_time_h to ≤8h (unlocks band 5)."
       ],
       "aimri_mapping": [
         {
@@ -541,7 +540,7 @@
     },
     "aml.endpoint_slo_band": {
       "metric_id": "aml.endpoint_slo_band",
-      "rationale": "All measured dimensions exceed SLOs with healthy margins. The availability is above the declared SLO, the p95 latency is well below the target, and the error rate is significantly lower than the threshold.",
+      "rationale": "All measured dimensions exceed SLOs with healthy margins. The availability is above the declared SLO by 0.002, the p95 latency is well below the threshold, and the error rate is significantly lower than the target.",
       "flags": [],
       "gaps": [],
       "aimri_mapping": [
@@ -570,7 +569,7 @@
     },
     "sm.cost_efficiency_band": {
       "metric_id": "sm.cost_efficiency_band",
-      "rationale": "All metrics are well within the excellent range: serving cost, training cost, GPU headroom, and idle ratio are all optimal. This indicates efficient resource utilization and cost management.",
+      "rationale": "All metrics are within the excellent range: serving cost, training cost, GPU headroom, and idle ratio are all optimal. This indicates efficient resource utilization and cost management.",
       "flags": [],
       "gaps": [],
       "aimri_mapping": [
@@ -602,7 +601,7 @@
       "rationale": "Availability, error rate, p95 latency, and median reaction time all meet band-4 thresholds, indicating strong performance. However, the max RPS at SLO is slightly below the required threshold for band 5.",
       "flags": [],
       "gaps": [
-        "Max RPS at 950 below elite threshold → optimize resource allocation and load balancing → raise max_rps_at_slo to ≥800 (unlocks band 5)."
+        "Max RPS at SLO is 950, below 800 → optimize resource allocation and load balancing → raise max_rps_at_slo to ≥800 (unlocks band 5)."
       ],
       "aimri_mapping": [
         {

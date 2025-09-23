@@ -8,8 +8,7 @@ from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.memory import MemorySaver
 
 from .feature_bus import FeatureBus, utc_iso
-from .scoring_semantic import ScoringAgent
-
+from .scoring import ScoringAgent
 AGENTS_LIST = [
     "cloud_infra",        # 6h
     "data_platform",      # 12h
@@ -30,12 +29,21 @@ class OrchestratorState:
     last_scored_ts: Optional[str] = None
     last_result: Optional[Dict[str, Any]] = None
 
+
 class Orchestrator:
-    def __init__(self, bus_root: str = "./bus", results_root: str = "./results"):
+    def __init__(
+        self,
+        bus_root: str = "./bus",
+        results_root: str = "./results",
+        agents_root: str = "./orchestrator_output/agents",
+    ):
         self.bus = FeatureBus(bus_root)
         self.results_root = Path(results_root)
         self.results_root.mkdir(parents=True, exist_ok=True)
-        self.scorer = ScoringAgent()
+
+        self.agents_root = Path(agents_root)
+        self.agents_root.mkdir(parents=True, exist_ok=True)
+        self.scorer = ScoringAgent(category_weights=None)
         self.graph = self._build_graph()
 
     # ---- nodes ----
@@ -67,7 +75,7 @@ class Orchestrator:
         return "do_score" if state.updated_count >= TRIGGER_K_OF_N else "skip"
 
     def score_agent(self, state: OrchestratorState) -> OrchestratorState:
-        res = self.scorer.run(state.global_scores, {})
+        res = self.scorer.run(self.agents_root)
         state.last_result = res
         state.last_scored_ts = utc_iso()
         state.updated_count = 0

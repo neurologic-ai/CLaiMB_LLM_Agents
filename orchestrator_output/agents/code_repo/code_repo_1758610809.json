@@ -1,16 +1,17 @@
 {
-  "run_id": "code-repo-2025-09-20T14-29-47Z",
+  "run_id": "code-repo-2025-09-23T07-00-09Z",
   "metrics": {
     "code.cyclomatic_complexity_band": {
       "metric_id": "code.cyclomatic_complexity_band",
       "score": 2,
-      "rationale": "The code exhibits a high average complexity with several functions showing signs of high and very high complexity, particularly in the `ResumeParser` class and its methods. The presence of multiple nested structures and complex logic in function definitions significantly increases the risk of maintenance issues.",
+      "rationale": "The code exhibits a high average complexity with several functions likely exceeding the acceptable thresholds, indicating a significant risk of maintainability issues. The presence of multiple nested structures and complex logic in functions raises the overall complexity, which is a major limiting factor.",
       "flags": [
-        "high_complexity_functions",
-        "nested_logic"
+        "high_average_complexity",
+        "nested_structures"
       ],
       "gaps": [
-        "High average complexity and multiple high/very_high functions drive risk → simplify function logic and reduce nesting → target avg complexity ≤ 10 and ≤20% high/very_high (unlocks band 3)."
+        "High average complexity across functions → simplify logic and reduce nesting → target avg complexity ≤ 10 (unlocks band 3).",
+        "Multiple functions with high complexity → refactor to reduce cyclomatic complexity in critical areas → aim for ≤20% functions in high/very_high (unlocks band 3)."
       ],
       "aimri_mapping": [
         {
@@ -45,7 +46,7 @@
       ],
       "gaps": [
         "Incomplete function definition for pdf_reader → complete the function and ensure proper error handling → improve maintainability_score ≥0.60 (unlocks band 3).",
-        "Inconsistent naming conventions (e.g., camelCase vs snake_case) → standardize naming across the codebase → enhance readability_score ≥0.75 (unlocks band 4)."
+        "Inconsistent naming conventions (e.g., camelCase vs snake_case) → standardize naming across the codebase → enhance readability_score ≥0.60 (unlocks band 3)."
       ],
       "aimri_mapping": [
         {
@@ -79,8 +80,8 @@
         "incomplete_params"
       ],
       "gaps": [
-        "Missing docstrings for several functions → enforce docstring usage for all functions → achieve coverage ≥0.45 (unlocks band 3).",
-        "Lack of parameter/return descriptions → require detailed parameter and return documentation in all functions → improve quality ≥0.45 (unlocks band 3)."
+        "Lack of function documentation → ensure all functions have complete docstrings → achieve coverage and quality metrics to unlock band 4.",
+        "Missing parameter/return descriptions → enforce detailed parameter and return documentation in all functions → improve quality to unlock band 3."
       ],
       "aimri_mapping": [
         {
@@ -107,12 +108,11 @@
       "rationale": "The code exhibits frequent deep nesting, particularly in the data visualization section, which can lead to performance and complexity risks. Additionally, there is limited testing or mitigation strategies in place to handle potential issues arising from this complexity.",
       "flags": [
         "nested_depth_4",
-        "performance_risk",
-        "limited_tests"
+        "performance_risk"
       ],
       "gaps": [
         "Frequent deep nesting (depth ≥4) in data processing and visualization → refactor to reduce nesting and improve readability → target depth ≤3 (unlocks band 3).",
-        "Lack of tests for critical functions → implement unit tests for key components → ensure reliability and robustness (unlocks band 4)."
+        "Limited testing for edge cases in data handling → implement unit tests for critical functions → ensure robustness and reliability (unlocks band 3)."
       ],
       "aimri_mapping": [
         {
@@ -136,13 +136,14 @@
     "infra.parallel_patterns": {
       "metric_id": "infra.parallel_patterns",
       "score": 3,
-      "rationale": "The use of multiprocessing with a pool is appropriate for CPU-bound tasks, but there are significant safety issues such as unbounded fan-out and lack of timeouts. While the pool size is set to the number of CPU cores, the absence of back-pressure mechanisms and error handling limits the robustness of the implementation.",
+      "rationale": "The use of multiprocessing is appropriate for CPU-bound tasks, but there are important safety pieces missing, such as timeouts and graceful shutdown mechanisms. While the pool size is set to the number of CPU cores, the lack of error handling and back-pressure can lead to unbounded resource usage.",
       "flags": [
+        "multiprocessing_used",
         "pool_size_set"
       ],
       "gaps": [
-        "Unbounded fan-out → implement a bounded queue or chunked processing → prevents resource exhaustion (unlocks band 4).",
-        "No timeouts or error handling → add timeouts and exception management in the pool tasks → enhances reliability (supports band 4)."
+        "No timeouts implemented → add timeouts to pool tasks → prevent hanging processes (unlocks band 4).",
+        "No graceful shutdown mechanism → implement a way to terminate the pool cleanly → safer resource management (supports band 4)."
       ],
       "aimri_mapping": [
         {
@@ -170,14 +171,14 @@
     "infra.security_hygiene": {
       "metric_id": "infra.security_hygiene",
       "score": 2,
-      "rationale": "The code contains hardcoded values and lacks strong input validation, which poses material risks. Additionally, there are no evident mechanisms for managing sensitive data securely.",
+      "rationale": "The code contains potential risks such as hardcoded values and lacks strong input validation, which exposes the application to material security threats. The absence of secure handling for sensitive data and weak validation practices are significant limitations.",
       "flags": [
         "hardcoded_values",
-        "weak_input_validation"
+        "weak_validation"
       ],
       "gaps": [
-        "Remove hardcoded values and use environment variables or a secrets manager → eliminate exposure of sensitive data (unlocks band 3).",
-        "Implement robust input validation and error handling → enhance security against injection attacks (supports band 3)."
+        "Implement secure storage for sensitive data (e.g., secrets management) → eliminate hardcoded values (unlocks band 3).",
+        "Enhance input validation mechanisms to ensure data integrity → reduce risk of injection attacks (supports band 3)."
       ],
       "aimri_mapping": [
         {
@@ -201,10 +202,10 @@
     "infra.data_pipeline": {
       "metric_id": "infra.data_pipeline",
       "score": 1,
-      "rationale": "The provided code snippets do not demonstrate any evidence of a structured data pipeline or orchestration framework. There are no retries, SLAs, alerts, validation steps, or monitoring hooks present, indicating a lack of reliability and orchestration.",
+      "rationale": "The provided code snippets do not demonstrate any evidence of a structured data pipeline or orchestration framework. They consist of standalone functions and data definitions without any orchestration, retries, SLAs, or validation steps.",
       "flags": [],
       "gaps": [
-        "Implement a structured orchestration framework (e.g., Airflow, Prefect) → establish a reliable data pipeline → unlocks band 3."
+        "Implement a structured orchestration framework (e.g., Airflow, Prefect) → define a clear pipeline with scheduling and reliability controls → unlocks band 3."
       ],
       "aimri_mapping": [
         {
@@ -228,10 +229,10 @@
     "infra.feature_engineering": {
       "metric_id": "infra.feature_engineering",
       "score": 2,
-      "rationale": "The code lacks a structured feature engineering pipeline, relying on manual transformations and ad-hoc processing, which poses risks for serving parity. While there are some preprocessing functions, they are not integrated into a cohesive pipeline that ensures reproducibility and persistence of fitted transformers.",
+      "rationale": "The code lacks a structured feature engineering pipeline, relying on manual transformations and ad-hoc processing, which poses risks for serving parity. While there are some preprocessing functions, they are not integrated into a cohesive pipeline that ensures reproducibility and persistence of transformers.",
       "flags": [],
       "gaps": [
-        "Integrate preprocessing functions into a structured pipeline → ensure reproducibility and persistence (unlocks band 4)."
+        "Integrate preprocessing functions into a structured pipeline → ensures reproducibility and persistence → unlocks band 4."
       ],
       "aimri_mapping": [
         {
@@ -265,7 +266,7 @@
         "inconsistent_patterns"
       ],
       "gaps": [
-        "Fragmented usage → consolidate to a primary framework with idiomatic APIs → improve clarity and consistency (unlocks band 4)."
+        "Fragmented usage → consolidate to a primary framework and idiomatic patterns → improve clarity and consistency (unlocks band 4)."
       ],
       "aimri_mapping": [
         {
@@ -296,11 +297,12 @@
       "rationale": "The provided snippets show some data processing and visualization but lack any formal schema or drift checks, indicating ad-hoc validations only. There are no mechanisms in place to enforce data quality or monitor for drift, which is critical for reliable data pipelines.",
       "flags": [
         "no_schema_checks",
-        "no_drift_monitoring"
+        "no_drift_monitoring",
+        "no_ci_enforcement"
       ],
       "gaps": [
-        "Implement formal schema validation checks → establish clear data quality rules → improve reliability (unlocks band 3).",
-        "Introduce drift monitoring mechanisms → enable detection of data distribution changes over time → enhance data integrity (supports band 3)."
+        "Implement schema validation checks → establish clear data quality rules → ensure data integrity (unlocks band 3).",
+        "Add drift monitoring mechanisms → track changes in data distributions over time → enhance reliability (supports band 3)."
       ],
       "aimri_mapping": [
         {
@@ -324,7 +326,7 @@
     "ml.experiment_tracking": {
       "metric_id": "ml.experiment_tracking",
       "score": 2,
-      "rationale": "The code snippets show some basic logging of parameters and metrics, but there is a lack of structured tracking for artifacts, signatures, and lineage, which limits the overall effectiveness of the tracking system.",
+      "rationale": "The code snippets show some basic logging of parameters and metrics, but there is a lack of structured tracking for artifacts, signatures, and lineage. The absence of consistent logging practices and the reliance on ad-hoc methods limit the overall effectiveness of tracking.",
       "flags": [
         "ad-hoc_logging",
         "artifacts_missing",
@@ -332,9 +334,10 @@
         "lineage_unknown"
       ],
       "gaps": [
-        "Artifacts missing → implement logging for model artifacts and evaluation results → consistent tracking (unlocks band 3).",
-        "Signature missing → log model signature and input examples → reproducibility (unlocks band 3).",
-        "Lineage unclear → record dataset versions and hashes → traceable experiments (unlocks band 3)."
+        "Ad-hoc logging → implement structured logging for parameters and metrics → consistent tracking (unlocks band 3).",
+        "Artifacts missing → ensure model artifacts are saved after each run → reproducibility (supports band 3).",
+        "Signature missing → log model signature for reproducibility → clear model serving (supports band 3).",
+        "Lineage unknown → track dataset versions used in experiments → traceability (supports band 3)."
       ],
       "aimri_mapping": [
         {
@@ -361,13 +364,13 @@
     },
     "ml.hpo_practice": {
       "metric_id": "ml.hpo_practice",
-      "score": 1,
-      "rationale": "There is no evidence of hyperparameter optimization (HPO) in the provided code snippets, which limits the ability to assess any search strategy or persistence of parameters. The absence of any structured approach to HPO indicates a critical gap in methodology.",
+      "score": 2,
+      "rationale": "The code snippets do not demonstrate any hyperparameter optimization (HPO) strategy, relying instead on hardcoded course links and basic data processing without any search or tuning mechanisms. This lack of structured HPO or evidence of systematic parameter exploration limits the assessment significantly.",
       "flags": [
         "no_hpo"
       ],
       "gaps": [
-        "No HPO implemented → integrate a search strategy (e.g., Optuna) → establish a systematic approach (unlocks band 4)."
+        "No HPO strategy implemented → introduce a systematic search method (e.g., Optuna) → enable parameter tuning (unlocks band 4)."
       ],
       "aimri_mapping": [
         {
@@ -395,15 +398,15 @@
     "ml.training_practice": {
       "metric_id": "ml.training_practice",
       "score": 2,
-      "rationale": "The code snippets show a lack of structured configuration and reliance on hardcoded values, indicating script sprawl. There are no clear entrypoints for training, and the absence of checkpoints or reproducibility hooks severely limits the infrastructure's effectiveness.",
+      "rationale": "The code snippets show a lack of structured entrypoints and configurations, with significant script sprawl and no evident checkpoints or reproducibility mechanisms. While there are some functions defined, they do not contribute to a cohesive training infrastructure.",
       "flags": [
         "script_sprawl",
         "no_configs",
         "no_checkpoints"
       ],
       "gaps": [
-        "Entrypoint structure missing → implement a main function with clear training initiation → organized training flow (unlocks band 3).",
-        "Configuration management absent → introduce config files for parameters and paths → improved maintainability (unlocks band 3)."
+        "Entrypoint structure missing → define a clear main function and configuration management → organized training process (unlocks band 3).",
+        "No checkpoints or failure recovery mechanisms → implement checkpointing and resume functionality → robust training (supports band 3)."
       ],
       "aimri_mapping": [
         {
@@ -431,7 +434,7 @@
     "ml.evaluation_practice": {
       "metric_id": "ml.evaluation_practice",
       "score": 3,
-      "rationale": "The code includes basic metrics for evaluating resumes, such as extracting details like name, email, and skills, but lacks comprehensive calibration or fairness assessments. The absence of a clear methodology for evaluation limits its effectiveness.",
+      "rationale": "The code includes basic metrics for evaluating resumes, such as extracting details like name, email, and skills, but lacks comprehensive calibration or fairness assessments. The absence of a clear evaluation methodology limits its effectiveness.",
       "flags": [
         "calibration_missing",
         "fairness_analysis_missing"
@@ -644,11 +647,12 @@
     "infra.inference_endpoint": {
       "metric_id": "infra.inference_endpoint",
       "score": 2,
-      "rationale": "The code snippets indicate a lack of structured serving endpoints, schema validation, and error handling. While there are some functionalities for data processing, the absence of a clear prediction endpoint and operational hooks significantly limits the overall quality.",
+      "rationale": "The code snippets lack clear serving endpoints, schema validation, and health checks, which are critical for operational reliability. While there are some functions for processing resumes, they do not expose a prediction API or handle errors effectively.",
       "flags": [],
       "gaps": [
-        "Implement a clear prediction endpoint with schema validation → establish a robust serving pattern → unlocks band 4.",
-        "Add error handling for invalid inputs and processing failures → improve reliability → unlocks band 3."
+        "Implement a clear prediction endpoint with schema validation → establish a robust API structure → unlocks band 4.",
+        "Add health checks to monitor service status → ensure operational readiness → unlocks band 3.",
+        "Incorporate error handling mechanisms → improve reliability and user feedback → unlocks band 3."
       ],
       "aimri_mapping": [
         {
@@ -679,7 +683,7 @@
       "rationale": "There is no evidence of model export or serialization methods in the provided snippets, which is critical for reproducibility and deployment. The absence of any persistence methods or related metadata significantly limits the assessment.",
       "flags": [],
       "gaps": [
-        "Implement model export using a standardized method (e.g., joblib, ONNX) → add persistence methods → unlocks band 5."
+        "Implement model export using standardized methods (e.g., joblib, ONNX) → add persistence methods → unlocks band 5."
       ],
       "aimri_mapping": [
         {
@@ -707,8 +711,8 @@
   },
   "aggregates": {
     "development_maturity": 1.9,
-    "innovation_pipeline": 1.86,
-    "overall_score": 1.88
+    "innovation_pipeline": 1.94,
+    "overall_score": 1.92
   },
-  "artifact_path": "runs_code_repo_mvp/code-repo-2025-09-20T14-29-47Z.json"
+  "artifact_path": "runs_code_repo_mvp/code-repo-2025-09-23T07-00-09Z.json"
 }

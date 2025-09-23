@@ -15,7 +15,7 @@ from services_common.utils import ensure_dirs, now_iso, new_run_id, write_tail
 from services_common.logging_utils import setup_base_logging, RunSink
 
 # Your BI implementations
-from workflows.bi_tracker_workflow import run_workflow as bi_run_workflow, collect_snapshot as bi_collect_snapshot
+from workflows.bi_tracker_workflow import run_workflow as bi_run_workflow
 
 load_dotenv()
 
@@ -40,7 +40,7 @@ def _worker(run_id: str, snapshot: Optional[Dict[str, Any]], out_dir: Path) -> N
     with RunSink(log_path, LOG_LEVEL):
         RUNS.update(run_id, status="running", started_at=now_iso(), log_path=str(log_path))
         try:
-            snap = snapshot if snapshot is not None else bi_collect_snapshot()
+            #snap = snapshot if snapshot is not None else bi_collect_snapshot()
             logger.info(f"[BI:{run_id}] starting…")
             res = bi_run_workflow()
             artifact = res.get("artifact_path") or str(ARTIFACT_DIR / f"{run_id}.json")
@@ -67,7 +67,8 @@ def start_run(req: RunRequest, tasks: BackgroundTasks):
 @app.get("/status/{run_id}", response_model=RunStatus)
 def get_status(run_id: str):
     st = RUNS.get(run_id)
-    if not st: raise HTTPException(status_code=404, detail="run_id not found")
+    if not st: 
+        raise HTTPException(status_code=404, detail="run_id not found")
     return st
 
 @app.get("/runs")
@@ -77,19 +78,23 @@ def list_runs() -> List[RunStatus]:
 @app.get("/latest", response_model=RunStatus)
 def latest():
     st = RUNS.latest()
-    if not st: raise HTTPException(status_code=404, detail="no runs yet")
+    if not st: 
+        raise HTTPException(status_code=404, detail="no runs yet")
     return st
 
 @app.get("/logs/{run_id}")
 def logs(run_id: str, tail: int = Query(0, ge=0)):
     st = RUNS.get(run_id)
-    if not st or not st.log_path: raise HTTPException(status_code=404, detail="no log for run_id")
+    if not st or not st.log_path: 
+        raise HTTPException(status_code=404, detail="no log for run_id")
     p = Path(st.log_path)
-    if not p.exists(): return {"run_id": run_id, "log": ""}
+    if not p.exists(): 
+        return {"run_id": run_id, "log": ""}
     return {"run_id": run_id, "log": write_tail(p, min(tail, 5000))}
 
 @app.get("/logs/latest")
 def logs_latest(tail: int = Query(0, ge=0)):
     st = RUNS.latest()
-    if not st: raise HTTPException(status_code=404, detail="no runs yet")
+    if not st: 
+        raise HTTPException(status_code=404, detail="no runs yet")
     return logs(st.run_id, tail)

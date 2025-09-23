@@ -76,21 +76,6 @@ def run_code_repo_adapter(out_dir: Path, repo_path_or_url: str):
     Path(artifact).write_text(json.dumps(res, indent=2, ensure_ascii=False), encoding="utf-8")
     return artifact, res.get("aggregates"), res.get("metrics"), {"raw_keys": list(res.keys())}
 
-# def run_cloud_infra_adapter(out_dir: Path, batch_dir: str):
-#     orch = CloudInfraOrchestrator(
-#         batch_dir=batch_dir,
-#         runs_dir=str(out_dir),
-#         log_dir="logs/cloud_infra",
-#         log_level="INFO",
-#         serialize_logs=False,
-#         max_workers=8,
-#     )
-#     res = orch.run_once()
-
-#     artifact = str(out_dir / f"cloud_infra_{now_utc_str()}.json")
-#     Path(artifact).write_text(json.dumps(res, indent=2, ensure_ascii=False), encoding="utf-8")
-#     return artifact, res.get("aggregates"), res.get("metrics"), {"raw_keys": list(res.keys())}
-
 def run_cloud_infra_adapter(out_dir: Path, batch_dir: str):
     orch = CloudInfraOrchestrator(
         batch_dir=batch_dir,

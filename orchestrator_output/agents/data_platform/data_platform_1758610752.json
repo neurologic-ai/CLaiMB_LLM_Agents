@@ -91,32 +91,10 @@
     "user_activity"
   ],
   "results": {
-    "evaluate_metadata_coverage": {
-      "metric_id": "metadata.coverage",
-      "score": 5,
-      "rationale": "All catalog entries are fully documented with all required metadata fields completed, resulting in 100% coverage.",
-      "gap": [
-        "No gaps. Continue to enforce current metadata stewardship and validation processes to ensure ongoing completeness and accuracy."
-      ],
-      "aimri_mapping": [
-        {
-          "dimension": "02. Data Management & Quality",
-          "subsection": "2.3 Data Governance"
-        },
-        {
-          "dimension": "02. Data Management & Quality",
-          "subsection": "2.4 Data Operations"
-        },
-        {
-          "dimension": "08. Process Maturity",
-          "subsection": "8.2 Documentation Practices"
-        }
-      ]
-    },
     "evaluate_duplication": {
       "metric_id": "duplication",
       "score": 5,
-      "rationale": "The users table has no duplication detected, with a duplication percentage of 0%. This indicates a completely clean dataset with no redundant entries.",
+      "rationale": "The users table has no duplication detected with a duplication percentage of 0%. This indicates that all records are unique and there are no issues related to data redundancy in this domain.",
       "gap": [],
       "aimri_mapping": [
         {
@@ -155,14 +133,36 @@
         }
       ]
     },
+    "evaluate_metadata_coverage": {
+      "metric_id": "metadata.coverage",
+      "score": 5,
+      "rationale": "All catalog entries are fully documented with all required metadata fields completed, resulting in 100% coverage.",
+      "gap": [
+        "No gaps. Continue to enforce current metadata stewardship and validation processes to ensure ongoing completeness and accuracy."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "02. Data Management & Quality",
+          "subsection": "2.3 Data Governance"
+        },
+        {
+          "dimension": "02. Data Management & Quality",
+          "subsection": "2.4 Data Operations"
+        },
+        {
+          "dimension": "08. Process Maturity",
+          "subsection": "8.2 Documentation Practices"
+        }
+      ]
+    },
     "evaluate_sensitive_tagging": {
       "metric_id": "sensitive.tagging",
       "score": 1,
-      "rationale": "There are no datasets or fields provided for evaluation, resulting in a 0% coverage rate for sensitive field tagging. This lack of data means there are no tagged sensitive fields, which poses a significant compliance risk as sensitive data cannot be identified or protected.",
+      "rationale": "There are no datasets or fields provided to assess sensitive data tagging. Therefore, the coverage rate is 0%. This lack of data makes it impossible to identify any sensitive fields or tagging issues, resulting in a very poor score.",
       "gap": [
-        "Establish a clear data governance framework to ensure that all datasets are documented and assessed for sensitive data tagging.",
-        "Implement a data inventory process to catalog all datasets and their fields, ensuring that sensitive data is identified and tagged appropriately.",
-        "Provide training for data owners on the importance of tagging sensitive data and the potential risks of non-compliance."
+        "Establish a clear data governance framework that includes guidelines for documenting datasets and their fields.",
+        "Implement a process for regularly updating and maintaining metadata to ensure all datasets are accounted for.",
+        "Conduct training sessions for data owners on the importance of tagging sensitive data and how to properly document it."
       ],
       "aimri_mapping": [
         {
@@ -176,6 +176,31 @@
         {
           "dimension": "11. Responsible AI & Social Impact",
           "subsection": "11.3 Privacy & Data Protection"
+        }
+      ]
+    },
+    "evaluate_data_lineage": {
+      "metric_id": "data.lineage",
+      "score": 1,
+      "rationale": "Lineage coverage is 0% (0 tables documented). This indicates a very poor state of lineage documentation, severely limiting the ability to understand data flows and impacts.",
+      "gap": [
+        "Implement a comprehensive data lineage strategy to identify and document all data assets within the estate.",
+        "Establish a baseline inventory of all tables and their relationships to begin documenting lineage.",
+        "Train data engineers and analysts on the importance of data lineage and how to document it effectively.",
+        "Integrate lineage documentation into the data pipeline processes to ensure that all new data assets are automatically captured."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "02. Data Management & Quality",
+          "subsection": "2.3 Data Governance"
+        },
+        {
+          "dimension": "02. Data Management & Quality",
+          "subsection": "2.4 Data Operations"
+        },
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.2 Data Dependency & Availability"
         }
       ]
     },
@@ -196,51 +221,6 @@
         {
           "dimension": "05. Governance & Ethics",
           "subsection": "5.2 Regulatory Compliance"
-        },
-        {
-          "dimension": "09. Foundation Model Operations",
-          "subsection": "9.4 Risk & Compliance Management"
-        }
-      ]
-    },
-    "evaluate_data_lineage": {
-      "metric_id": "data.lineage",
-      "score": 1,
-      "rationale": "Lineage coverage is 0% (0 tables documented). This indicates a very poor state of lineage documentation, severely limiting the ability to understand data flows and impacts.",
-      "gap": [
-        "Implement a foundational data lineage strategy to identify and document all data assets in the estate.",
-        "Establish a team responsible for data lineage documentation and assign them to work on the existing jobs and their upstream dependencies.",
-        "Utilize automated tools to begin capturing lineage for the existing jobs, starting with the most critical data flows.",
-        "Create a timeline for documenting lineage for all jobs, ensuring that new jobs include lineage documentation as part of their development process."
-      ],
-      "aimri_mapping": [
-        {
-          "dimension": "02. Data Management & Quality",
-          "subsection": "2.3 Data Governance"
-        },
-        {
-          "dimension": "02. Data Management & Quality",
-          "subsection": "2.4 Data Operations"
-        },
-        {
-          "dimension": "13. AI Risk & Resilience",
-          "subsection": "13.2 Data Dependency & Availability"
-        }
-      ]
-    },
-    "evaluate_security_config": {
-      "metric_id": "security.config",
-      "score": 5,
-      "rationale": "All security settings are compliant with the specified compliance rules. The encryption at rest is using AES256, which meets the requirement. The encryption in transit is using TLS1.2, which is compliant. Public access is disabled, aligning with the rule. The firewall is enabled, as required. Multi-factor authentication is also enabled, meeting the compliance requirement. All IAM roles have the correct permissions as per the policies defined.",
-      "gap": [],
-      "aimri_mapping": [
-        {
-          "dimension": "01. Technical Infrastructure",
-          "subsection": "1.5 Security Infrastructure"
-        },
-        {
-          "dimension": "02. Data Management & Quality",
-          "subsection": "2.3 Data Governance"
         },
         {
           "dimension": "09. Foundation Model Operations",
@@ -271,38 +251,14 @@
         }
       ]
     },
-    "evaluate_resource_utilization": {
-      "metric_id": "resource.utilization",
-      "score": 1,
-      "rationale": "The average utilization across the clusters is extremely low. For the CPU, the average utilization is 15% (10%, 20%, 15%), and for memory, the average utilization is 1,208 MB, which is significantly underutilized given the total available resources. This indicates a critical waste of resources. The total monthly cost is not provided, but the low utilization suggests that costs are likely not justified by the usage levels.",
-      "gap": [
-        "Right-size the clusters by scaling down their compute resources to better match their current average utilization.",
-        "Implement auto-scaling policies to dynamically adjust cluster size based on actual usage, preventing overspending during low periods.",
-        "Conduct a thorough review of resource allocation to identify and eliminate wasteful spending on underutilized resources."
-      ],
-      "aimri_mapping": [
-        {
-          "dimension": "01. Technical Infrastructure",
-          "subsection": "1.2 Computing Resources"
-        },
-        {
-          "dimension": "03. AI/ML Capabilities",
-          "subsection": "3.3 MLOps Maturity"
-        },
-        {
-          "dimension": "12. AI Business Value & ROI",
-          "subsection": "12.2 Cost Reduction & Efficiency"
-        }
-      ]
-    },
     "evaluate_data_freshness": {
       "metric_id": "data.freshness",
       "score": 1,
       "rationale": "Table `users` last updated on 2025-08-01T00:00:00Z; indicates severe staleness as it is over 24 hours behind the expected update frequency.",
       "gap": [
         "Investigate the ingestion process for the `users` table to identify the cause of the delay.",
-        "Implement a recovery plan to ensure the `users` table is updated immediately and regularly going forward.",
-        "Set up monitoring and alerting for the `users` table to notify the data team if updates are not received within the expected timeframe."
+        "Implement a recovery plan to update the `users` table immediately and ensure it meets the SLA going forward.",
+        "Set up monitoring and alerting for the `users` table to notify the data team if it falls behind the expected update schedule in the future."
       ],
       "aimri_mapping": [
         {
@@ -343,15 +299,59 @@
         }
       ]
     },
+    "evaluate_resource_utilization": {
+      "metric_id": "resource.utilization",
+      "score": 1,
+      "rationale": "The average utilization across the clusters is critically low. For the provided data, the average CPU utilization is 15% (CPU: 10%, 20%, 15%) and memory utilization is 51.3% (Memory: 1024MB, 1500MB, 1100MB). The CPU utilization is below 20%, indicating severe underutilization and waste. The memory utilization, while higher, does not compensate for the extremely low CPU usage. Given the lack of cost data, the score reflects the critical waste in CPU resources.",
+      "gap": [
+        "Right-size the clusters by scaling down their compute resources to better match their current average CPU utilization.",
+        "Implement auto-scaling policies to dynamically adjust cluster size based on actual CPU usage, preventing overspending during low periods.",
+        "Conduct a FinOps review to identify opportunities for cost reduction and improve efficiency, especially focusing on the underutilized CPU resources."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "01. Technical Infrastructure",
+          "subsection": "1.2 Computing Resources"
+        },
+        {
+          "dimension": "03. AI/ML Capabilities",
+          "subsection": "3.3 MLOps Maturity"
+        },
+        {
+          "dimension": "12. AI Business Value & ROI",
+          "subsection": "12.2 Cost Reduction & Efficiency"
+        }
+      ]
+    },
+    "evaluate_security_config": {
+      "metric_id": "security.config",
+      "score": 5,
+      "rationale": "All security settings are compliant with the specified rules. The encryption at rest is using AES256, which meets the requirement. The encryption in transit is using TLS1.2, which is compliant with the rule. Public access is disabled, aligning with the requirement. The firewall is enabled, as required. Multi-factor authentication is also enabled, meeting the compliance rule. All IAM roles have the correct permissions as per the compliance rules.",
+      "gap": [],
+      "aimri_mapping": [
+        {
+          "dimension": "01. Technical Infrastructure",
+          "subsection": "1.5 Security Infrastructure"
+        },
+        {
+          "dimension": "02. Data Management & Quality",
+          "subsection": "2.3 Data Governance"
+        },
+        {
+          "dimension": "09. Foundation Model Operations",
+          "subsection": "9.4 Risk & Compliance Management"
+        }
+      ]
+    },
     "compute_pipeline_latency_throughput": {
       "metric_id": "pipeline.latency_throughput",
       "score": 1,
-      "rationale": "Pipeline breakdown: The average latency is 120ms, 110ms, and 150ms, which indicates that the pipelines are performing well in terms of latency. However, the dependency results show a critical issue with data lineage, scoring a 1 due to 0% lineage coverage, severely limiting the understanding of data flows. Final score = 1 because the dependency scored 1, which dominates overall readiness.",
+      "rationale": "Pipeline breakdown: The average latency is 120ms, which is acceptable, but the dependency results indicate a severe issue. The data lineage scored 1 due to 0% coverage, indicating a complete lack of documentation for data flows, which severely limits understanding and impacts. Final score = 1 because the dependency scored 1, which dominates overall readiness.",
       "gap": [
-        "Implement a foundational data lineage strategy to identify and document all data assets in the estate.",
-        "Establish a team responsible for data lineage documentation and assign them to work on the existing jobs and their upstream dependencies.",
-        "Utilize automated tools to begin capturing lineage for the existing jobs, starting with the most critical data flows.",
-        "Create a timeline for documenting lineage for all jobs, ensuring that new jobs include lineage documentation as part of their development process."
+        "Implement a comprehensive data lineage strategy to identify and document all data assets within the estate.",
+        "Establish a baseline inventory of all tables and their relationships to begin documenting lineage.",
+        "Train data engineers and analysts on the importance of data lineage and how to document it effectively.",
+        "Integrate lineage documentation into the data pipeline processes to ensure that all new data assets are automatically captured."
       ],
       "aimri_mapping": [
         {
@@ -368,27 +368,27 @@
         }
       ]
     },
-    "evaluate_data_quality": {
-      "metric_id": "data.quality",
+    "compute_pipeline_success_rate": {
+      "metric_id": "pipeline.success_rate",
       "score": 1,
-      "rationale": "Table breakdown: The only check provided indicates a null percentage of 1% for the users table, which is acceptable. However, the data freshness score is 1 due to the users table being severely stale, over 24 hours behind the expected update frequency. Dependency breakdown: Schema consistency scored 5 as all tables and fields match exactly, indicating no issues. Data freshness scored 1 due to the significant delay in updates for the users table. Conclusion: The lowest score observed was 1 from t",
+      "rationale": "Pipeline runs: 1 total, 1 success and 0 failures. Success rate = 100%, which corresponds to score 5. However, the dependency results show a score of 1 due to 0% lineage coverage, indicating a critical issue with documentation and understanding of data flows. Final score = 1 because the worst observed score was 1 (from dependency), despite the pipeline success rate being 5.",
       "gap": [
-        "Investigate the ingestion process for the `users` table to identify the cause of the delay.",
-        "Implement a recovery plan to ensure the `users` table is updated immediately and regularly going forward.",
-        "Set up monitoring and alerting for the `users` table to notify the data team if updates are not received within the expected timeframe."
+        "Implement robust logging for the pipeline to capture detailed execution metrics and errors.",
+        "Establish a monitoring system to alert on any anomalies or failures in the pipeline execution.",
+        "Develop a strategy for documenting data lineage to improve understanding of data flows and impacts."
       ],
       "aimri_mapping": [
-        {
-          "dimension": "02. Data Management & Quality",
-          "subsection": "2.2 Data Quality"
-        },
         {
           "dimension": "02. Data Management & Quality",
           "subsection": "2.4 Data Operations"
         },
         {
+          "dimension": "03. AI/ML Capabilities",
+          "subsection": "3.3 MLOps Maturity"
+        },
+        {
           "dimension": "08. Process Maturity",
-          "subsection": "8.3 Quality Assurance"
+          "subsection": "8.5 Measurement & Metrics"
         }
       ]
     },
@@ -398,8 +398,8 @@
       "rationale": "Adoption score is 1 (1 active user, no dashboard views, no queries executed). There is only one user who has used the dashboard, indicating very low adoption. Dependencies: metadata coverage scored 5 (100% documented), schema consistency scored 5 (no issues), but data freshness scored 1 (severe staleness). Final score = 1 because the adoption score is significantly low despite healthy dependency metrics.",
       "gap": [
         "Implement targeted training sessions to increase user engagement and adoption.",
-        "Create awareness campaigns to promote the analytics platform and its benefits.",
-        "Establish a mentorship program to support new users in navigating the platform."
+        "Create awareness campaigns to promote the analytics platform and its benefits to all departments.",
+        "Establish a feedback loop to understand barriers to adoption and address them promptly."
       ],
       "aimri_mapping": [
         {
@@ -416,27 +416,27 @@
         }
       ]
     },
-    "compute_pipeline_success_rate": {
-      "metric_id": "pipeline.success_rate",
+    "evaluate_data_quality": {
+      "metric_id": "data.quality",
       "score": 1,
-      "rationale": "Pipeline runs: 1 total, 1 success and 0 failures. Success rate = 100%, which corresponds to score 5. However, the dependency results show a score of 1 due to 0% lineage coverage, indicating a critical issue in understanding data flows. Final score = 1 because the worst observed score was 1 (from lineage), leading to an overall poor robustness assessment.",
+      "rationale": "Table breakdown: The checks indicate a null percentage of 1% for the users table, which is acceptable. However, the data freshness score is severely impacted due to the users table being over 24 hours behind the expected update frequency, resulting in a score of 1. Dependency breakdown: Schema consistency scored 5 as all tables and fields match exactly between baseline and actual schema. Data freshness scored 1 due to the significant delay in updating the users table. Conclusion: The lowest scor",
       "gap": [
-        "Implement robust retry mechanisms for the pipeline to ensure it can handle transient failures effectively.",
-        "Enhance logging to capture detailed information about the pipeline execution, including input data characteristics and processing steps.",
-        "Establish monitoring alerts for the pipeline to detect and respond to failures or performance issues promptly."
+        "Investigate the ingestion process for the `users` table to identify the cause of the delay.",
+        "Implement a recovery plan to update the `users` table immediately and ensure it meets the SLA going forward.",
+        "Set up monitoring and alerting for the `users` table to notify the data team if it falls behind the expected update schedule in the future."
       ],
       "aimri_mapping": [
+        {
+          "dimension": "02. Data Management & Quality",
+          "subsection": "2.2 Data Quality"
+        },
         {
           "dimension": "02. Data Management & Quality",
           "subsection": "2.4 Data Operations"
         },
         {
-          "dimension": "03. AI/ML Capabilities",
-          "subsection": "3.3 MLOps Maturity"
-        },
-        {
           "dimension": "08. Process Maturity",
-          "subsection": "8.5 Measurement & Metrics"
+          "subsection": "8.3 Quality Assurance"
         }
       ]
     }

@@ -1,10 +1,15 @@
 {
-  "Technical Infrastructure": 2.6365342698547987,
-  "Data Management & Quality": 2.6617299663858365,
-  "Innovation & Research": 2.585062750434911,
-  "AI/ML Capabilities": 2.6403489857172695,
-  "Cultural Readiness": 2.6496029262601115,
-  "Business Integration": 2.643461774123159,
-  "Governance & Risk Management": 2.6560285590472437,
-  "Talent & Skills": 2.6416661829648387
+  "01. Technical Infrastructure": 2.57,
+  "02. Data Management & Quality": 2.9,
+  "03. AI/ML Capabilities": 3.33,
+  "04. Talent & Skills": 2.58,
+  "05. Governance & Ethics": 2.73,
+  "06. Strategic Alignment": 2.58,
+  "07. Cultural Readiness": 2.36,
+  "08. Process Maturity": 2.73,
+  "09. Foundation Model Operations": 3.25,
+  "11. Responsible AI & Social Impact": 3.53,
+  "12. AI Business Value & ROI": 2.58,
+  "13. AI Risk & Resilience": 2.87,
+  "15. AI Leadership & Vision": 3.0
 }

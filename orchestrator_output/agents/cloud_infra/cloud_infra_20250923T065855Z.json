@@ -31,60 +31,23 @@
         }
       ]
     },
-    "iac.coverage_drift": {
-      "metric_id": "iac.coverage_drift",
-      "category": "security",
-      "platform": "aws",
-      "score": 2.0,
-      "confidence": 0.7,
-      "rationale": "Only 66.67% of resources are managed by IaC, and there are multiple high and critical severity policy findings that indicate material risks.",
-      "evidence": {
-        "coverage_pct": 0.6667,
-        "high_critical": 2
-      },
-      "gaps": [
-        "1. Onboard unmanaged resources to IaC management",
-        "2. Address the critical policy finding related to 'nsg_no_any_any'",
-        "3. Address the high policy finding related to 'no_public_ip_vm'",
-        "4. Review and update IaC configurations to prevent future drifts",
-        "5. Implement monitoring for compliance with policies"
-      ],
-      "aimri_mapping": [
-        {
-          "dimension": "01. Technical Infrastructure",
-          "subsection": "1.1 Cloud Computing Capabilities"
-        },
-        {
-          "dimension": "05. Governance & Ethics",
-          "subsection": "5.2 Regulatory Compliance"
-        },
-        {
-          "dimension": "08. Process Maturity",
-          "subsection": "8.4 Operational Excellence"
-        },
-        {
-          "dimension": "05. Governance & Ethics",
-          "subsection": "5.3 Risk Management"
-        }
-      ]
-    },
     "cost.commit_coverage": {
       "metric_id": "cost.commit_coverage",
       "category": "cost",
       "platform": "aws",
       "score": 2.0,
       "confidence": 0.7,
-      "rationale": "The commitment coverage is below the target, with significant unused capacity across both cloud providers. This indicates material risks in optimizing the commitment strategy.",
+      "rationale": "The commitment coverage is below the target, with significant unused capacity. The AWS commitment is underutilized, leading to material risks in cost efficiency.",
       "evidence": {
-        "coverage_pct": 0.76,
-        "unused_commitment_pct": 20.0
+        "coverage_pct": 0.75,
+        "unused_commitment_pct": 25.0
       },
       "gaps": [
-        "1. Review and adjust commitment levels to better align with actual usage.",
-        "2. Analyze usage patterns to identify potential overcommitments.",
-        "3. Consider shorter-term commitments to increase flexibility.",
-        "4. Explore options for rightsizing commitments based on projected growth.",
-        "5. Implement monitoring tools to track usage against commitments more effectively."
+        "1. Review and adjust commitments to better align with actual usage.",
+        "2. Consider increasing usage on AWS to utilize the committed capacity.",
+        "3. Analyze usage patterns to identify potential areas for optimization.",
+        "4. Explore options for reducing unused commitments on GCP.",
+        "5. Monitor usage trends regularly to prevent future underutilization."
       ],
       "aimri_mapping": [
         {
@@ -105,25 +68,101 @@
         }
       ]
     },
+    "iac.coverage_drift": {
+      "metric_id": "iac.coverage_drift",
+      "category": "security",
+      "platform": "aws",
+      "score": 2.0,
+      "confidence": 0.7,
+      "rationale": "Only 66.67% of resources are managed by IaC, and there are multiple high and critical severity policy findings that indicate material risks.",
+      "evidence": {
+        "coverage_pct": 0.6667,
+        "high_critical": 2
+      },
+      "gaps": [
+        "1. Onboard unmanaged resources to IaC management",
+        "2. Address the critical policy finding regarding the network security group",
+        "3. Remediate the high-severity finding related to public IPs on VMs",
+        "4. Review and update IaC configurations to ensure compliance",
+        "5. Implement monitoring for future drift detection"
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "01. Technical Infrastructure",
+          "subsection": "1.1 Cloud Computing Capabilities"
+        },
+        {
+          "dimension": "05. Governance & Ethics",
+          "subsection": "5.2 Regulatory Compliance"
+        },
+        {
+          "dimension": "08. Process Maturity",
+          "subsection": "8.4 Operational Excellence"
+        },
+        {
+          "dimension": "05. Governance & Ethics",
+          "subsection": "5.3 Risk Management"
+        }
+      ]
+    },
+    "compute.utilization": {
+      "metric_id": "compute.utilization",
+      "category": "efficiency",
+      "platform": "aws",
+      "score": 1.0,
+      "confidence": 0.7,
+      "rationale": "The majority of instances are operating at low utilization levels, with significant hours logged below the low-util threshold. This indicates a critical inefficiency in resource usage.",
+      "evidence": {
+        "idle_pct": 0.6667,
+        "worst_idle_hours": 210,
+        "fleet_cpu_p95": 0.2967,
+        "fleet_mem_p95": 0.26
+      },
+      "gaps": [
+        "1. Evaluate and terminate or resize instances with prolonged low utilization, particularly 'gce-inst-1'.",
+        "2. Implement monitoring to identify and address low-utilization trends in real-time.",
+        "3. Consider consolidating workloads to optimize resource allocation.",
+        "4. Review and adjust scaling policies to better match demand.",
+        "5. Analyze application performance to ensure it aligns with resource provisioning."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "01. Technical Infrastructure",
+          "subsection": "1.2 Computing Resources"
+        },
+        {
+          "dimension": "08. Process Maturity",
+          "subsection": "8.5 Measurement & Metrics"
+        },
+        {
+          "dimension": "06. Strategic Alignment",
+          "subsection": "6.3 Investment Strategy"
+        },
+        {
+          "dimension": "12. AI Business Value & ROI",
+          "subsection": "12.2 Cost Reduction & Efficiency"
+        }
+      ]
+    },
     "availability.incidents": {
       "metric_id": "availability.incidents",
       "category": "reliability",
       "platform": "aws",
       "score": 2.0,
       "confidence": 0.7,
-      "rationale": "There were two incidents, one critical and one major, with a mean time to resolution (MTTR) of 1 hour and 5 minutes. Additionally, there were SLO breaches totaling 2.4 hours, indicating material risks to service availability.",
+      "rationale": "There was one critical incident and one major incident, with a total of 2.4 hours of SLO breach time. The mean time to resolution (MTTR) for the critical incident was 1 hour and 5 minutes, which is acceptable, but the presence of a critical incident and significant SLO breach hours indicates material risks.",
       "evidence": {
         "sev12_30d": 2,
-        "mttr_h": 1.0833333333333333,
+        "mttr_h": 1.08,
         "slo_breach_hours": 2.4,
         "slo_target": 0.995
       },
       "gaps": [
-        "1. Investigate the root causes of the critical and major incidents.",
-        "2. Implement measures to reduce MTTR below 1 hour.",
-        "3. Review SLO compliance and adjust monitoring thresholds.",
-        "4. Increase incident response training for the team.",
-        "5. Analyze SLO breach patterns to prevent future occurrences."
+        "1. Investigate the root cause of the critical incident and implement corrective actions.",
+        "2. Review the SLO compliance and adjust monitoring thresholds as necessary.",
+        "3. Increase incident response training for the team to reduce MTTR.",
+        "4. Analyze the SLO breach to identify patterns and prevent future occurrences.",
+        "5. Establish a more robust incident management process."
       ],
       "aimri_mapping": [
         {
@@ -148,13 +187,103 @@
         }
       ]
     },
+    "k8s.utilization": {
+      "metric_id": "k8s.utilization",
+      "category": "efficiency",
+      "platform": "aws",
+      "score": 3.0,
+      "confidence": 0.7,
+      "rationale": "The binpack efficiency is at 0.74, which is acceptable but not optimal, and the pending pods count is at 3, indicating a moderate imbalance. The CPU request versus usage ratio is low at 0.58, suggesting that resources are not being utilized effectively.",
+      "evidence": {
+        "binpack_efficiency": 0.74,
+        "pending_pods_p95": 3,
+        "nodes_cpu_p95": 0.71,
+        "pods_cpu_req_vs_used": 0.58
+      },
+      "gaps": [
+        "1. Investigate reasons for low CPU request vs usage ratio and adjust requests accordingly.",
+        "2. Monitor pending pods closely and aim to reduce their count.",
+        "3. Consider optimizing resource allocation to improve binpack efficiency.",
+        "4. Review node utilization patterns to identify potential over-provisioning.",
+        "5. Set up alerts for when pending pods exceed 3 to take timely action."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "01. Technical Infrastructure",
+          "subsection": "1.2 Computing Resources"
+        },
+        {
+          "dimension": "08. Process Maturity",
+          "subsection": "8.5 Measurement & Metrics"
+        },
+        {
+          "dimension": "12. AI Business Value & ROI",
+          "subsection": "12.2 Cost Reduction & Efficiency"
+        },
+        {
+          "dimension": "04. Talent & Skills",
+          "subsection": "4.1 Technical Expertise"
+        }
+      ]
+    },
+    "lb.performance": {
+      "metric_id": "lb.performance",
+      "category": "reliability",
+      "platform": "aws",
+      "score": 4.0,
+      "confidence": 0.8,
+      "rationale": "The p95 and p99 latencies are near the SLO thresholds, with minor spikes observed. The 5xx error rates are below the maximum acceptable limit, indicating good performance overall.",
+      "evidence": {
+        "alb-1": {
+          "p95_ms": 130,
+          "p99_ms": 260,
+          "r5xx": 0.003,
+          "unhealthy_minutes": 10
+        },
+        "appgw-1": {
+          "p95_ms": 150,
+          "p99_ms": 280,
+          "r5xx": 0.004,
+          "unhealthy_minutes": 4
+        }
+      },
+      "gaps": [
+        "1. Monitor latency trends to identify potential spikes.",
+        "2. Investigate the cause of unhealthy minutes for both load balancers.",
+        "3. Review and optimize backend services to reduce latency.",
+        "4. Ensure alerting is in place for 5xx errors to respond quickly.",
+        "5. Conduct regular performance reviews to maintain SLO compliance."
+      ],
+      "aimri_mapping": [
+        {
+          "dimension": "01. Technical Infrastructure",
+          "subsection": "1.1 Cloud Computing Capabilities"
+        },
+        {
+          "dimension": "08. Process Maturity",
+          "subsection": "8.5 Measurement & Metrics"
+        },
+        {
+          "dimension": "04. Talent & Skills",
+          "subsection": "4.1 Technical Expertise"
+        },
+        {
+          "dimension": "12. AI Business Value & ROI",
+          "subsection": "12.3 Customer Experience Enhancement"
+        },
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.4 Operational Continuity"
+        }
+      ]
+    },
     "db.utilization": {
       "metric_id": "db.utilization",
       "category": "efficiency",
       "platform": "aws",
       "score": 2.0,
-      "confidence": 0.7,
-      "rationale": "The database 'azure-sql-1' shows a critical low CPU utilization at 12%, indicating a significant underutilization issue. In contrast, 'rds-a' is within acceptable limits, but the overall fleet performance is dragged down by the poor performance of 'azure-sql-1'.",
+      "confidence": 0.75,
+      "rationale": "The database 'azure-sql-1' shows critical underutilization with a CPU p95 of 0.12, indicating a significant failure in resource allocation. In contrast, 'rds-a' is within acceptable limits, but the overall fleet performance is dragged down by the underperforming instance.",
       "evidence": {
         "cpu_p95": {
           "rds-a": 0.52,
@@ -166,8 +295,11 @@
         }
       },
       "gaps": [
-        "1. Evaluate the workload and consider resizing or consolidating 'azure-sql-1'.",
-        "2. Investigate the connection limits and usage patterns for both databases."
+        "1. Evaluate the resource allocation for 'azure-sql-1' to determine if it can be optimized or decommissioned.",
+        "2. Investigate the workload on 'rds-a' to ensure it is not at risk of becoming a bottleneck.",
+        "3. Monitor connection loads to ensure they remain balanced across the fleet.",
+        "4. Consider consolidating workloads if 'azure-sql-1' is underutilized.",
+        "5. Review IOPS performance to ensure it meets application needs."
       ],
       "aimri_mapping": [
         {
@@ -188,91 +320,13 @@
         }
       ]
     },
-    "compute.utilization": {
-      "metric_id": "compute.utilization",
-      "category": "efficiency",
-      "platform": "aws",
-      "score": 1.0,
-      "confidence": 0.8,
-      "rationale": "The majority of instances are operating at low utilization levels, with significant hours logged below the low-util threshold. This indicates a critical inefficiency in resource usage.",
-      "evidence": {
-        "idle_pct": 0.6667,
-        "worst_idle_hours": 210,
-        "fleet_cpu_p95": 0.2967,
-        "fleet_mem_p95": 0.26
-      },
-      "gaps": [
-        "1. Evaluate and terminate or resize instances 'i-0a1b2c' and 'gce-inst-1' to reduce idle capacity.",
-        "2. Implement monitoring to track utilization trends and adjust resources accordingly.",
-        "3. Consider consolidating workloads to optimize resource allocation.",
-        "4. Review application performance to identify potential inefficiencies.",
-        "5. Set up alerts for low utilization thresholds to take proactive measures."
-      ],
-      "aimri_mapping": [
-        {
-          "dimension": "01. Technical Infrastructure",
-          "subsection": "1.2 Computing Resources"
-        },
-        {
-          "dimension": "08. Process Maturity",
-          "subsection": "8.5 Measurement & Metrics"
-        },
-        {
-          "dimension": "06. Strategic Alignment",
-          "subsection": "6.3 Investment Strategy"
-        },
-        {
-          "dimension": "12. AI Business Value & ROI",
-          "subsection": "12.2 Cost Reduction & Efficiency"
-        }
-      ]
-    },
-    "k8s.utilization": {
-      "metric_id": "k8s.utilization",
-      "category": "efficiency",
-      "platform": "aws",
-      "score": 3.0,
-      "confidence": 0.7,
-      "rationale": "The binpack efficiency is at 0.74, which is acceptable but not optimal, and the pending pods count is at 3, indicating some imbalance. The CPU request versus usage ratio is low at 0.58, suggesting that resources are not being utilized effectively.",
-      "evidence": {
-        "binpack_efficiency": 0.74,
-        "pending_pods_p95": 3,
-        "nodes_cpu_p95": 0.71,
-        "pods_cpu_req_vs_used": 0.58
-      },
-      "gaps": [
-        "1. Increase CPU requests to better match actual usage.",
-        "2. Monitor pending pods closely and aim to reduce their count.",
-        "3. Review and optimize resource allocation strategies.",
-        "4. Consider scaling the cluster to improve efficiency.",
-        "5. Reassess binpack efficiency regularly to ensure it remains above 0.7."
-      ],
-      "aimri_mapping": [
-        {
-          "dimension": "01. Technical Infrastructure",
-          "subsection": "1.2 Computing Resources"
-        },
-        {
-          "dimension": "08. Process Maturity",
-          "subsection": "8.5 Measurement & Metrics"
-        },
-        {
-          "dimension": "12. AI Business Value & ROI",
-          "subsection": "12.2 Cost Reduction & Efficiency"
-        },
-        {
-          "dimension": "04. Talent & Skills",
-          "subsection": "4.1 Technical Expertise"
-        }
-      ]
-    },
     "security.iam_risk": {
       "metric_id": "security.iam_risk",
       "category": "security",
       "platform": "aws",
       "score": 2.0,
       "confidence": 0.75,
-      "rationale": "There are significant issues with IAM security: one user lacks MFA, and there is an access key that is over 90 days old. Additionally, a wildcard admin policy is in place, which poses a material risk.",
+      "rationale": "There are several material risks present: one user lacks MFA, there is an access key that is older than 90 days, and a wildcard admin policy is in place, which poses significant security concerns.",
       "evidence": {
         "users_without_mfa": 1,
         "old_keys": 1,
@@ -280,8 +334,8 @@
       },
       "gaps": [
         "1. Enforce MFA for all users immediately",
-        "2. Rotate the access key that is over 90 days old",
-        "3. Review and restrict the wildcard admin policy to least-privilege roles"
+        "2. Rotate the access key that is older than 90 days",
+        "3. Review and modify the wildcard admin policy to adhere to least-privilege principles"
       ],
       "aimri_mapping": [
         {
@@ -302,63 +356,13 @@
         }
       ]
     },
-    "lb.performance": {
-      "metric_id": "lb.performance",
-      "category": "reliability",
-      "platform": "aws",
-      "score": 4.0,
-      "confidence": 0.8,
-      "rationale": "The p95 and p99 latencies are near the SLO thresholds, with minor spikes observed. The 5xx error rates are below the maximum acceptable level, indicating good performance overall.",
-      "evidence": {
-        "alb-1": {
-          "p95_ms": 130,
-          "p99_ms": 260,
-          "r5xx": 0.003,
-          "unhealthy_minutes": 10
-        },
-        "appgw-1": {
-          "p95_ms": 150,
-          "p99_ms": 280,
-          "r5xx": 0.004,
-          "unhealthy_minutes": 4
-        }
-      },
-      "gaps": [
-        "1. Monitor latency trends to ensure they remain within SLO limits.",
-        "2. Investigate the causes of unhealthy minutes for both load balancers.",
-        "3. Review and optimize application performance to reduce latency.",
-        "4. Ensure that error handling is robust to minimize 5xx errors."
-      ],
-      "aimri_mapping": [
-        {
-          "dimension": "01. Technical Infrastructure",
-          "subsection": "1.1 Cloud Computing Capabilities"
-        },
-        {
-          "dimension": "08. Process Maturity",
-          "subsection": "8.5 Measurement & Metrics"
-        },
-        {
-          "dimension": "04. Talent & Skills",
-          "subsection": "4.1 Technical Expertise"
-        },
-        {
-          "dimension": "12. AI Business Value & ROI",
-          "subsection": "12.3 Customer Experience Enhancement"
-        },
-        {
-          "dimension": "13. AI Risk & Resilience",
-          "subsection": "13.4 Operational Continuity"
-        }
-      ]
-    },
     "security.public_exposure": {
       "metric_id": "security.public_exposure",
       "category": "security",
       "platform": "aws",
       "score": 1.0,
       "confidence": 0.75,
-      "rationale": "There is a critical exposure due to public SSH access from 0.0.0.0/0, a public bucket, and an asset with a public IP that handles sensitive data. This widespread exposure of sensitive production assets poses significant risks.",
+      "rationale": "There is a significant exposure risk due to public SSH access (0.0.0.0/0:22), a public bucket (ml-prod), and an asset with a public IP that handles sensitive data. This widespread exposure of sensitive production assets necessitates urgent action.",
       "evidence": {
         "open_fw_rules": 1,
         "public_buckets": 1,
@@ -366,7 +370,7 @@
       },
       "gaps": [
         "1. Restrict SSH access to specific IP ranges",
-        "2. Make the public bucket private or enforce stricter access controls",
+        "2. Make the public bucket private or enforce stricter ACLs",
         "3. Remove public IPs from sensitive production assets"
       ],
       "aimri_mapping": [
@@ -434,7 +438,7 @@
       "platform": "aws",
       "score": 2.0,
       "confidence": 0.7,
-      "rationale": "There is one critical vulnerability that remains unresolved, and the average patch age exceeds the target. Coverage is close to the threshold but still below the required level.",
+      "rationale": "There is one critical vulnerability that remains unresolved, and the average patch age exceeds the target. Coverage is close to the minimum requirement but still below the threshold for good performance.",
       "evidence": {
         "critical_open": 1,
         "agent_coverage_pct": 0.91,
@@ -444,10 +448,10 @@
       },
       "gaps": [
         "1. Remediate the critical vulnerability (CVE-2025-0001) immediately.",
-        "2. Increase patch agent coverage to at least 95%.",
-        "3. Monitor and reduce average patch age to below 14 days.",
-        "4. Review and address any additional high severity vulnerabilities.",
-        "5. Implement a regular patching schedule to ensure compliance with SLAs."
+        "2. Review and improve patch management processes to reduce average patch age.",
+        "3. Increase patch agent coverage to meet or exceed 95%.",
+        "4. Conduct a thorough assessment of all assets to ensure no additional critical vulnerabilities are present.",
+        "5. Implement regular vulnerability scanning to maintain awareness of security posture."
       ],
       "aimri_mapping": [
         {
@@ -474,7 +478,7 @@
       "platform": "aws",
       "score": 2.0,
       "confidence": 0.7,
-      "rationale": "Only one of the two resources is fully tagged, and the other is missing critical tags. This indicates a material risk in resource management and cost attribution.",
+      "rationale": "Only one of the two resources is fully tagged, and the other is missing critical tags. This indicates a material risk in resource management and accountability.",
       "evidence": {
         "coverage_pct": 0.5,
         "missing_examples": [
@@ -489,7 +493,7 @@
       },
       "gaps": [
         "1. Add cost-center and service tags to gce-1",
-        "2. Implement tagging policies to ensure all resources are tagged correctly",
+        "2. Implement tagging policies to ensure all resources are tagged appropriately",
         "3. Conduct a tagging audit for all resources",
         "4. Train teams on the importance of tagging for resource management",
         "5. Monitor tagging compliance regularly"
@@ -517,48 +521,47 @@
         }
       ]
     },
-    "scaling.effectiveness": {
-      "metric_id": "scaling.effectiveness",
-      "category": "efficiency",
+    "cost.idle_underutilized": {
+      "metric_id": "cost.idle_underutilized",
+      "category": "cost",
       "platform": "aws",
-      "score": 3.0,
-      "confidence": 0.6,
-      "rationale": "The system's reaction time to breaches was within an acceptable range, but there were violations exceeding the target threshold, indicating clear risks that need to be addressed. The thrash rate was not present, but the delta adequacy shows a need for improvement.",
+      "score": 1.0,
+      "confidence": 0.7,
+      "rationale": "A significant portion of the fleet is idle, with 66.67% of the total spend attributed to underutilized resources. This indicates a critical inefficiency that requires urgent action.",
       "evidence": {
-        "median_reaction_s": 120,
-        "target_violation_pct": 50.0,
-        "thrash_rate": 0.0,
-        "delta_error_pct": 0.0,
-        "events": 1,
-        "total_samples": 2
+        "idle_cost": 3333.5,
+        "idle_pct": 0.6667,
+        "total_cost": 5000.0,
+        "fleet_cpu_p95": 0.2967,
+        "fleet_mem_p95": 0.26
       },
       "gaps": [
-        "1. Analyze the causes of high CPU utilization and adjust scaling policies accordingly.",
-        "2. Increase the frequency of scaling actions to better match demand.",
-        "3. Implement more granular monitoring to identify specific workloads causing violations.",
-        "4. Review and optimize the scaling thresholds to reduce the number of violations.",
-        "5. Consider additional resources or instance types to handle peak loads more effectively."
+        "1. Evaluate and terminate or resize instances with prolonged low utilization.",
+        "2. Implement monitoring to identify and address low-utilization trends in real-time.",
+        "3. Consider consolidating workloads to optimize resource allocation.",
+        "4. Review and adjust scaling policies to better match demand.",
+        "5. Analyze application performance to ensure it aligns with resource provisioning."
       ],
       "aimri_mapping": [
+        {
+          "dimension": "12. AI Business Value & ROI",
+          "subsection": "12.2 Cost Reduction & Efficiency"
+        },
         {
           "dimension": "01. Technical Infrastructure",
           "subsection": "1.2 Computing Resources"
         },
         {
           "dimension": "08. Process Maturity",
-          "subsection": "8.5 Measurement & Metrics"
+          "subsection": "8.4 Operational Excellence"
         },
         {
-          "dimension": "09. Foundation Model Operations",
-          "subsection": "9.5 Scaling & Distribution"
+          "dimension": "06. Strategic Alignment",
+          "subsection": "6.3 Investment Strategy"
         },
         {
-          "dimension": "12. AI Business Value & ROI",
-          "subsection": "12.2 Cost Reduction & Efficiency"
-        },
-        {
-          "dimension": "13. AI Risk & Resilience",
-          "subsection": "13.4 Operational Continuity"
+          "dimension": "04. Talent & Skills",
+          "subsection": "4.1 Technical Expertise"
         }
       ]
     },
@@ -576,7 +579,7 @@
       },
       "gaps": [
         "1. Add cost-center and service tags to gce-1",
-        "2. Implement tagging policies to ensure all resources are tagged correctly",
+        "2. Implement tagging policies to ensure all resources are tagged appropriately",
         "3. Conduct a tagging audit for all resources",
         "4. Train teams on the importance of tagging for resource management",
         "5. Monitor tagging compliance regularly"
@@ -604,47 +607,48 @@
         }
       ]
     },
-    "cost.idle_underutilized": {
-      "metric_id": "cost.idle_underutilized",
-      "category": "cost",
+    "scaling.effectiveness": {
+      "metric_id": "scaling.effectiveness",
+      "category": "efficiency",
       "platform": "aws",
-      "score": 1.0,
-      "confidence": 0.8,
-      "rationale": "A significant portion of the resources is idle, with 66.67% of the fleet considered low-utilization. This indicates a critical inefficiency in resource usage, necessitating urgent action.",
+      "score": 3.0,
+      "confidence": 0.6,
+      "rationale": "The system's reaction time to breaches was within an acceptable range, but there were violations exceeding the target threshold, indicating clear risks that need to be addressed. The thrash rate was not present, but the delta adequacy shows a need for improvement.",
       "evidence": {
-        "idle_cost": 123.45,
-        "idle_pct": 0.6667,
-        "total_cost": 5000.0,
-        "fleet_cpu_p95": 0.2967,
-        "fleet_mem_p95": 0.26
+        "median_reaction_s": 120,
+        "target_violation_pct": 50.0,
+        "thrash_rate": 0.0,
+        "delta_error_pct": 0.0,
+        "events": 1,
+        "total_samples": 2
       },
       "gaps": [
-        "1. Evaluate and terminate or resize instances 'i-0a1b2c' to reduce idle capacity.",
-        "2. Implement monitoring to track utilization trends and adjust resources accordingly.",
-        "3. Consider consolidating workloads to optimize resource allocation.",
-        "4. Review application performance to identify potential inefficiencies.",
-        "5. Set up alerts for low utilization thresholds to take proactive measures."
+        "1. Analyze the causes of the high violation percentage and adjust scaling policies accordingly.",
+        "2. Increase the frequency of monitoring to catch violations earlier.",
+        "3. Review the scaling event timing to ensure it aligns better with demand spikes.",
+        "4. Consider implementing more granular scaling actions to better match utilization.",
+        "5. Evaluate the effectiveness of the current target CPU settings."
       ],
       "aimri_mapping": [
-        {
-          "dimension": "12. AI Business Value & ROI",
-          "subsection": "12.2 Cost Reduction & Efficiency"
-        },
         {
           "dimension": "01. Technical Infrastructure",
           "subsection": "1.2 Computing Resources"
         },
         {
           "dimension": "08. Process Maturity",
-          "subsection": "8.4 Operational Excellence"
+          "subsection": "8.5 Measurement & Metrics"
         },
         {
-          "dimension": "06. Strategic Alignment",
-          "subsection": "6.3 Investment Strategy"
+          "dimension": "09. Foundation Model Operations",
+          "subsection": "9.5 Scaling & Distribution"
         },
         {
-          "dimension": "04. Talent & Skills",
-          "subsection": "4.1 Technical Expertise"
+          "dimension": "12. AI Business Value & ROI",
+          "subsection": "12.2 Cost Reduction & Efficiency"
+        },
+        {
+          "dimension": "13. AI Risk & Resilience",
+          "subsection": "13.4 Operational Continuity"
         }
       ]
     }

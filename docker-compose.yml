@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  aimri:
+    build: .
+    container_name: aimri_multiagent
+    # load your .env (OPENAI_API_KEY + optional CODE_REPO/CLOUD_BATCH_DIR)
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      # persist bus + results on your host for easy inspection
+      - ./bus:/app/bus
+      - ./results:/app/results
+      # (optional) persist per-agent artifacts from adapters
+      - ./orchestrator_output:/app/orchestrator_output
+    restart: unless-stopped

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import os, json
+import os
+import json
 from pathlib import Path
 from typing import Optional, List
 
@@ -60,7 +61,8 @@ def start_run(req: RunRequest, tasks: BackgroundTasks):
 @app.get("/status/{run_id}", response_model=RunStatus)
 def status(run_id: str):
     st = RUNS.get(run_id)
-    if not st: raise HTTPException(status_code=404, detail="run_id not found")
+    if not st: 
+        raise HTTPException(status_code=404, detail="run_id not found")
     return st
 
 @app.get("/runs")
@@ -70,19 +72,23 @@ def runs() -> List[RunStatus]:
 @app.get("/latest", response_model=RunStatus)
 def latest():
     st = RUNS.latest()
-    if not st: raise HTTPException(status_code=404, detail="no runs yet")
+    if not st: 
+        raise HTTPException(status_code=404, detail="no runs yet")
     return st
 
 @app.get("/logs/{run_id}")
 def logs(run_id: str, tail: int = Query(0, ge=0)):
     st = RUNS.get(run_id)
-    if not st or not st.log_path: raise HTTPException(status_code=404, detail="no log for run_id")
+    if not st or not st.log_path: 
+        raise HTTPException(status_code=404, detail="no log for run_id")
     p = Path(st.log_path)
-    if not p.exists(): return {"run_id": run_id, "log": ""}
+    if not p.exists(): 
+        return {"run_id": run_id, "log": ""}
     return {"run_id": run_id, "log": write_tail(p, min(tail, 5000))}
 
 @app.get("/logs/latest")
 def logs_latest(tail: int = Query(0, ge=0)):
     st = RUNS.latest()
-    if not st: raise HTTPException(status_code=404, detail="no runs yet")
+    if not st: 
+        raise HTTPException(status_code=404, detail="no runs yet")
     return logs(st.run_id, tail)

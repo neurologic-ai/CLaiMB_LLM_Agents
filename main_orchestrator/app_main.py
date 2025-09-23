@@ -7,6 +7,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from dotenv import load_dotenv
 import uuid
 import json
+from dataclasses import asdict, is_dataclass
 
 from main_orchestrator.graph_orchestrator import (
     FeatureBus,
@@ -19,10 +20,19 @@ app = FastAPI(title="AIMRI Multi-Agent Orchestrator")
 
 load_dotenv()  # ensure OPENAI_API_KEY for scoring
 
+def _to_dict_state(s):
+    # normalize state to a plain dict (works for dataclass or dict-like)
+    if is_dataclass(s):
+        return asdict(s)
+    try:
+        return dict(s)
+    except Exception:
+        return s  # last resort
+
 # --- Singletons ---
 BUS = FeatureBus("./bus")
 ORCH = Orchestrator(bus_root="./bus", results_root="./results")
-STATE = OrchestratorState()
+STATE = _to_dict_state(OrchestratorState())
 SCHED = BackgroundScheduler(daemon=True)
 ARTIFACTS_ROOT = Path("orchestrator_output/agents")
 
@@ -40,8 +50,14 @@ COLLECTORS = build_collectors(
 # --- Helpers ---
 def tick_orchestrator(thread_id: str = "scheduler"):
     global STATE
-    STATE = ORCH.tick(STATE, thread_id=thread_id)
+    # If STATE is a dict, rewrap it as a dataclass for the graph input
+    try:
+        state_in = OrchestratorState(**STATE) if isinstance(STATE, dict) else STATE
+    except TypeError:
+        state_in = OrchestratorState()  # fallback
 
+    new_state = ORCH.tick(state_in, thread_id=thread_id)
+    STATE = _to_dict_state(new_state)
 
 # --- Startup / Shutdown ---
 @app.on_event("startup")
@@ -103,9 +119,9 @@ def latest_results():
         "overall": overall,
         "categories": categories,
         "state": {
-            "updated_count": STATE.updated_count,
-            "last_scored_ts": STATE.last_scored_ts,
-            "latest_sign_ts": STATE.latest_sign_ts,
+            "updated_count": STATE.get("updated_count"),
+            "last_scored_ts": STATE.get("last_scored_ts"),
+            "latest_sign_ts": STATE.get("latest_sign_ts"),
         },
     }
 @app.post("/collect/run_all")

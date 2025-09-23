@@ -1,6 +1,5 @@
 # main_orchestrator/collectors.py
 from __future__ import annotations
-import json
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
@@ -41,28 +40,57 @@ def _is_num(x: Any) -> bool:
     except Exception:
         return False
 
-def _scores_from_aggregates_or_payload(obj: Dict[str, Any]) -> Dict[str, float]:
+def _scores_from_metrics(metrics: Dict[str, Any]) -> Dict[str, float]:
     """
-    Try to find category-level scores the same way your old orchestrator did.
-    Supports shapes:
-      - {"aggregates": {"per_category_1to5": {...}}}
-      - {"aggregates": {"<cat>": number, ...}}
-      - {"scores": {"categories": {...}}}  # Enterprise
+    Compute AIMRI dimension scores using weighted mean, same as old orchestrator.
     """
-    if not isinstance(obj, dict):
+    if not isinstance(metrics, dict):
         return {}
 
-    # 1) Standard: aggregates.per_category_1to5
+    num, den = {}, {}
+    for mv in metrics.values():
+        if not isinstance(mv, dict):
+            continue
+        try:
+            s = float(mv.get("score"))
+        except Exception:
+            continue
+
+        mappings = mv.get("aimri") or mv.get("aimri_mapping")
+        if not isinstance(mappings, list):
+            continue
+
+        dims = []
+        for m in mappings:
+            if isinstance(m, dict) and isinstance(m.get("dimension"), str):
+                dims.append(m["dimension"].strip())
+        if not dims:
+            continue
+
+        share = 1.0 / len(dims)
+        for d in set(dims):
+            num[d] = num.get(d, 0.0) + s * share
+            den[d] = den.get(d, 0.0) + share
+
+    return {d: round(num[d] / den[d], 2) for d in den if den[d] > 0}
+
+
+def _scores_from_aggregates_or_payload(obj: Dict[str, Any]) -> Dict[str, float]:
+    """
+    Prefer to recompute per-dimension scores from metrics, like old scoring.
+    Fallbacks to aggregates only if metrics are missing.
+    """
+    metrics = obj.get("metrics")
+    if metrics:
+        scores = _scores_from_metrics(metrics)
+        if scores:
+            return scores
+
+    # fallback: use whatever the adapter gave
     agg = obj.get("aggregates")
     if isinstance(agg, dict):
-        per_cat = agg.get("per_category_1to5")
-        if isinstance(per_cat, dict):
-            return {k: float(v) for k, v in per_cat.items() if _is_num(v)}
-        # sometimes aggregates is already flat numbers
-        if all(_is_num(v) for v in agg.values()):
-            return {k: float(v) for k, v in agg.items()}
+        return {k: float(v) for k, v in agg.items() if _is_num(v)}
 
-    # 2) Enterprise: scores.categories
     sc = obj.get("scores")
     if isinstance(sc, dict) and isinstance(sc.get("categories"), dict):
         return {k: float(v) for k, v in sc["categories"].items() if _is_num(v)}
