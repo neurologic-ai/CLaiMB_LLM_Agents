@@ -30,3 +30,8 @@ scripts/
 script_results/
 orchestrator.py
 mvp/
+agent_layer_outputs/
+orchestrator/
+data/
+services/
+services_common/
