@@ -115,7 +115,7 @@ python -m main_orchestrator.tick_cli
 
 ## Project Structure
 
-
+```
 CLaiMB_LLM_Agents/
 ├── agent_layer/                  # Orchestrators + registries per agent
 │   ├── cloud_infra_agent/
