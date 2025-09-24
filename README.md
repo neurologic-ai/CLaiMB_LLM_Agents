@@ -140,7 +140,8 @@ CLaiMB_LLM_Agents/
 │   ├── feature_bus.py
 │   └── app_main.py
 │   
-│
+│── workflows/                    # Snapshot collector
+│      
 ├── orchestrator_output/          # Consolidated orchestrator outputs(per agent results)
 ├── results/                      # Scoring agent results ( Recalibrated scores)
 ├── surveys/                      # Survey inputs (YAML/CSV)
