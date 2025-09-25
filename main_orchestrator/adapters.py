@@ -11,7 +11,7 @@ from workflows.ml_ops_workflow import run_workflow as run_mlops
 import json
 import time
 
-from orchestrator.utils import now_utc_str, write_json
+from .utils import now_utc_str, write_json
 
 def _is_url(s: str) -> bool:
     try:
