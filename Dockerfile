@@ -20,13 +20,14 @@ RUN pip install --upgrade pip && pip install -r /app/requirements.txt
 
 # ----- app code
 COPY . /app
+COPY cloud_infra_inputs/Sample2 /app/cloud_infra_inputs/Sample2
 
 # optional: run as non-root
 RUN useradd -m appuser && chown -R appuser:appuser /app
 USER appuser
 
 # persist these if you bind-mount
-VOLUME ["/app/bus", "/app/results"]
+VOLUME ["/app/bus", "/app/results", "/app/orchestrator_output"]
 
 # FastAPI port
 EXPOSE 8000
