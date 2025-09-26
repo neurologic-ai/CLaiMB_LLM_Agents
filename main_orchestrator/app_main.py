@@ -7,6 +7,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from dotenv import load_dotenv
 import uuid
 import json
+import os
 from dataclasses import asdict, is_dataclass
 
 from main_orchestrator.graph_orchestrator import (
@@ -36,9 +37,13 @@ STATE = _to_dict_state(OrchestratorState())
 SCHED = BackgroundScheduler(daemon=True)
 ARTIFACTS_ROOT = Path("orchestrator_output/agents")
 
-# Required external inputs (same as old orchestrator)
-CLOUD_BATCH_DIR = "data/inputs/cloud_infra_inputs/Sample2"
-CODE_REPO = "https://github.com/deepakpadhi986/AI-Resume-Analyzer.git"
+Path("./results").mkdir(parents=True, exist_ok=True)
+ARTIFACTS_ROOT.mkdir(parents=True, exist_ok=True)
+Path("./bus").mkdir(parents=True, exist_ok=True)
+
+# Required external inputs
+CLOUD_BATCH_DIR = os.getenv("CLOUD_BATCH_DIR", "/cloud_infra_inputs/Sample2")
+CODE_REPO = os.getenv("CODE_REPO", "https://github.com/deepakpadhi986/AI-Resume-Analyzer.git")
 COLLECTORS = build_collectors(
     BUS,
     artifacts_root=ARTIFACTS_ROOT,
