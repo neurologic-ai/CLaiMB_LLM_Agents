@@ -42,12 +42,12 @@ ARTIFACTS_ROOT.mkdir(parents=True, exist_ok=True)
 Path("./bus").mkdir(parents=True, exist_ok=True)
 
 # Required external inputs
-CLOUD_BATCH_DIR = os.getenv("CLOUD_BATCH_DIR", "/cloud_infra_inputs/Sample2")
+BATCH_DIR = os.getenv("BATCH_DIR", "/app/cloud_infra_inputs/Sample2")
 CODE_REPO = os.getenv("CODE_REPO", "https://github.com/deepakpadhi986/AI-Resume-Analyzer.git")
 COLLECTORS = build_collectors(
     BUS,
     artifacts_root=ARTIFACTS_ROOT,
-    cloud_batch_dir=CLOUD_BATCH_DIR,
+    cloud_batch_dir=BATCH_DIR,
     code_repo=CODE_REPO,
 )
 

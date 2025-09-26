@@ -20,7 +20,6 @@ RUN pip install --upgrade pip && pip install -r /app/requirements.txt
 
 # ----- app code
 COPY . /app
-COPY cloud_infra_inputs/Sample2 /app/data/inputs/cloud_infra_inputs/Sample2
 
 # optional: run as non-root
 RUN useradd -m appuser && mkdir -p /app/bus /app/results /app/orchestrator_output \

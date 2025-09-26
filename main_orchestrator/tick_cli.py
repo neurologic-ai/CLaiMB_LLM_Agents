@@ -19,7 +19,7 @@ def main():
     collectors = build_collectors(
         BUS,
         artifacts_root=artifacts_root,
-        cloud_batch_dir="data/inputs/cloud_infra_inputs/Sample2",
+        cloud_batch_dir="cloud_infra_inputs/Sample2",
         code_repo="https://github.com/deepakpadhi986/AI-Resume-Analyzer.git",
     )
 
