@@ -4,6 +4,7 @@ from typing import Any, Dict, Iterable, Tuple
 import json
 import re
 from typing import List
+from main_orchestrator.utils import _load_latest_inputs
 
 CATEGORIES: Dict[str, Dict[str, List[str]]] = {
     "01. Technical Infrastructure": {"topics": [
@@ -69,7 +70,7 @@ CATEGORIES: Dict[str, Dict[str, List[str]]] = {
     ]},
 }
 
-# ---------- AIMRI 15-category weights (same as your old code) ----------
+# ---------- AIMRI 15-category weights ----------
 CATEGORY_WEIGHTS: Dict[str, float] = {
     "01. Technical Infrastructure": 10.0,
     "02. Data Management & Quality": 5.0,
@@ -88,7 +89,7 @@ CATEGORY_WEIGHTS: Dict[str, float] = {
     "15. AI Leadership & Vision": 10.0,
 }
 
-# ---------- helpers copied from your old aggregator ----------
+# ---------- helpers  ----------
 def _sort_key(label: str) -> tuple:
     if not isinstance(label, str):
         return (999, 999, str(label))
@@ -261,7 +262,17 @@ class ScoringAgent:
     - Apply CATEGORY_WEIGHTS for overall
     """
     def __init__(self, *, category_weights: Dict[str, float] | None = None):
-        self.category_weights = category_weights or CATEGORY_WEIGHTS
+        self.category_weights = category_weights or self._load_weights() or CATEGORY_WEIGHTS
+
+    def _load_weights(self) -> Dict[str, float] | None:
+        latest = _load_latest_inputs()
+        rec = latest.get("weights")
+        if rec and Path(rec["input_path"]).exists():
+            try:
+                return json.loads(Path(rec["input_path"]).read_text())
+            except Exception:
+                return None
+        return None
 
     def run(self, inputs_root: str | Path) -> Dict[str, Any]:
         root = Path(inputs_root)

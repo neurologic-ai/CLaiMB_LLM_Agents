@@ -1,16 +1,15 @@
-# orchestrator/adapters.py
 from pathlib import Path
 import subprocess
 from urllib.parse import urlparse
-from workflows.bi_tracker_workflow import run_workflow as run_bi
 from workflows.code_repo_workflow import run_workflow
 from agent_layer.cloud_infra_agent.orchestrator import CloudInfraOrchestrator
 from workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner import MVPDataPlatformScanner
-from workflows.enterprise_workflow import run_workflow as run_enterprise
-from workflows.ml_ops_workflow import run_workflow as run_mlops
+from agent_layer.bi_tracker_agent.orchestrator import BIOrchestrator
+from agent_layer.enterprise_systems.orchestrator_enterprise import EnterpriseOrchestrator
+from agent_layer.ml_ops_agent.orchestrator_mlops import run as run_mlops_agent
+from typing import Optional, Dict, Any
 import json
 import time
-
 from .utils import now_utc_str, write_json
 
 def _is_url(s: str) -> bool:
@@ -52,28 +51,51 @@ def _clone_one(url: str, base_dir: Path, update_existing: bool = True, depth: in
     subprocess.run(cmd, check=True)
     return dest
 
-def run_bi_adapter(out_dir: Path):
-    res = run_bi()
+def run_bi_adapter(
+    out_dir: Path,
+    *,
+    snapshot: Optional[Dict[str, Any]] = None,
+    snapshot_path: Optional[str] = None,
+) -> tuple[str, Dict[str, Any] | None, Dict[str, Any] | None]:
+
+    if snapshot is None and snapshot_path is None:
+        raise ValueError("BI adapter: no snapshot provided")
+
+    if snapshot is None:
+        snapshot = json.loads(Path(snapshot_path).read_text(encoding="utf-8"))
+
+    orch = BIOrchestrator()
+    res = orch.run(snapshot, out_dir=Path("agent_layer_outputs/bi_tracker"))
+
     artifact = str(out_dir / f"bi_tracker_{now_utc_str()}.json")
     write_json(Path(artifact), res)
     return artifact, res.get("aggregates"), res.get("metrics")
 
-def run_code_repo_adapter(out_dir: Path, repo_path_or_url: str):
+def run_code_repo_adapter(
+    out_dir: Path,
+    *,
+    repo_url: Optional[str] = None,
+    repo_path: Optional[str] = None,
+):
+    if not repo_url and not repo_path:
+        raise ValueError("CodeRepo adapter: either repo_url or repo_path must be provided")
 
     base_dir = Path("input_repos").resolve()
     base_dir.mkdir(parents=True, exist_ok=True)
 
-    if _is_url(repo_path_or_url):
-        repo_dir = _clone_one(repo_path_or_url, base_dir=base_dir, update_existing=True, depth=1)
+    if repo_url:
+        repo_dir = _clone_one(repo_url, base_dir=base_dir, update_existing=True, depth=1)
     else:
-        repo_dir = Path(repo_path_or_url).resolve()
+        repo_dir = Path(repo_path).resolve()
         if not repo_dir.exists():
             raise FileNotFoundError(f"repo_path does not exist: {repo_dir}")
 
     res = run_workflow(str(repo_dir))
-    artifact = str(out_dir / f"code_repo_{int(time.time())}.json")
+
     out_dir.mkdir(parents=True, exist_ok=True)
+    artifact = str(out_dir / f"code_repo_{now_utc_str()}.json")
     Path(artifact).write_text(json.dumps(res, indent=2, ensure_ascii=False), encoding="utf-8")
+
     return artifact, res.get("aggregates"), res.get("metrics"), {"raw_keys": list(res.keys())}
 
 def run_cloud_infra_adapter(out_dir: Path, batch_dir: str):
@@ -107,27 +129,53 @@ def run_data_platform_adapter(out_dir: Path):
     Path(artifact).write_text(json.dumps(obj, indent=2, ensure_ascii=False), encoding="utf-8")
     return artifact, obj.get("aggregates"), obj.get("results") or obj.get("metrics"), {"raw_keys": list(obj.keys())}
 
-def run_enterprise_adapter(out_dir: Path):
-    out_path, scores = run_enterprise()
-    metrics = None
-    try:
-        if out_path and Path(out_path).exists():
-            data = json.loads(Path(out_path).read_text(encoding="utf-8"))
-            metrics = data.get("results") or data.get("metrics")
-    except Exception as e:
-        metrics = {"error": f"failed to load metrics: {e}"}
-    payload = {
-        "artifact_path": str(out_path) if out_path else None,
-        "scores": scores,
-        "metrics": metrics,
-    }
-    artifact = str(out_dir / f"enterprise_{now_utc_str()}.json")
-    write_json(Path(artifact), payload)
-    return payload["artifact_path"] or artifact, scores, metrics
+def run_enterprise_adapter(
+    out_dir: Path,
+    *,
+    snapshot: Optional[Dict[str, Any]] = None,
+    snapshot_path: Optional[str] = None,
+):
+    if snapshot is None and snapshot_path is None:
+        raise ValueError("Enterprise adapter: no snapshot provided")
 
-def run_mlops_adapter(out_dir: Path):
-    artifact_path, aggregates, metrics = run_mlops()
-    payload = {"artifact_path": str(artifact_path), "aggregates": aggregates, "metrics": metrics}
-    artifact = str(out_dir / f"mlops_{now_utc_str()}.json")
-    write_json(Path(artifact), payload)
-    return artifact, aggregates, metrics
+    if snapshot is None:
+        snapshot = json.loads(Path(snapshot_path).read_text(encoding="utf-8"))
+
+    orch = EnterpriseOrchestrator()
+    results, scores, waves = orch.run(snapshot, verbose=True)
+
+    artifact = {
+        "run": {"waves": waves},
+        "scores": scores,
+        "metrics": results,
+    }
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    artifact_path = str(out_dir / f"enterprise_{now_utc_str()}.json")
+    write_json(Path(artifact_path), artifact)
+
+    return artifact_path, scores, results
+
+def run_mlops_adapter(
+    out_dir: Path,
+    *,
+    snapshot: Optional[Dict[str, Any]] = None,
+    snapshot_path: Optional[str] = None,
+):
+    if snapshot is None and snapshot_path is None:
+        raise ValueError("MLOps adapter: no snapshot provided")
+
+    if snapshot is None:
+        snapshot = json.loads(Path(snapshot_path).read_text(encoding="utf-8"))
+
+    res = run_mlops_agent(snapshot, out_dir=Path("agent_layer_outputs/mlops_monitor"))
+
+    artifact_path = res["artifact_path"]
+    aggregates    = res.get("aggregates")
+    metrics       = res.get("metrics")
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    payload_artifact = str(out_dir / f"mlops_{now_utc_str()}.json")
+    write_json(Path(payload_artifact), {"artifact_path": artifact_path, "aggregates": aggregates, "metrics": metrics})
+
+    return payload_artifact, aggregates, metrics

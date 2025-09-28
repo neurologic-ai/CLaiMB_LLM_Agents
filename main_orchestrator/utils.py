@@ -19,6 +19,39 @@ def sanitize(obj):
         return [sanitize(v) for v in obj]
     return obj
 
+_LATEST_INPUTS_PATH = Path("./results/latest_inputs.json")
+
+def _latest_input_path(key: str) -> str | None:
+    try:
+        if _LATEST_INPUTS_PATH.exists():
+            d = json.loads(_LATEST_INPUTS_PATH.read_text())
+            v = (d.get(key) or {}).get("input_path")
+            return v if (v and Path(v).exists()) else None
+    except Exception:
+        pass
+    return None
+
+def _latest_repo_spec() -> tuple[str | None, str | None]:
+    try:
+        if _LATEST_INPUTS_PATH.exists():
+            d = json.loads(_LATEST_INPUTS_PATH.read_text())
+            rec = d.get("code_repo") or {}
+            return rec.get("repo_url"), rec.get("repo_path")
+    except Exception:
+        pass
+    return (None, None)
+
+LATEST_INPUTS_PATH = Path("./results/latest_inputs.json")
+
+def _load_latest_inputs():
+    if LATEST_INPUTS_PATH.exists():
+        return json.loads(LATEST_INPUTS_PATH.read_text())
+    return {}
+
+def _save_latest_inputs(d: dict) -> None:
+    LATEST_INPUTS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    LATEST_INPUTS_PATH.write_text(json.dumps(d, indent=2))
+
 def _parse_weights_arg(weights_raw: str | None, dimensions: Dict[str, dict]) -> Dict[str, float]:
     """
     Parse --weights "DimA=10,DimB=20" into a dict. If empty/invalid,

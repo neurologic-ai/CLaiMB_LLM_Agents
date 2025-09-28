@@ -1,9 +1,11 @@
 # workflows/monitor_workflow.py
 from __future__ import annotations
-from typing import Dict, Any, List, Iterable, Tuple
+from typing import Dict, Any, List, Tuple
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from textwrap import shorten
-import os, json, time
+import os
+import json
+import time
 
 from loguru import logger
 
@@ -28,8 +30,10 @@ def _metric_line(m: dict) -> str:
 
     gaps = m.get("gaps") or []
     flags = m.get("flags") or (m.get("evidence") or {}).get("flags") or []
-    if isinstance(flags, dict): flags = list(flags.keys())
-    if flags and not isinstance(flags, list): flags = [str(flags)]
+    if isinstance(flags, dict): 
+        flags = list(flags.keys())
+    if flags and not isinstance(flags, list): 
+        flags = [str(flags)]
 
     band_s = f" | band={band}" if band is not None else ""
     cat_s  = f" | category={cat}" if cat else ""
@@ -201,7 +205,7 @@ def _save_json(path: str, data: Dict[str, Any]) -> None:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 def _summarize_end(results: Dict[str, Any], summary: Dict[str, Any], out_path: str) -> None:
-    # Top 5 lowest scores
+    
     scored: List[Tuple[str, float]] = [
         (m, v.get("score")) for m, v in results.items()
         if isinstance(v, dict) and isinstance(v.get("score"), (int, float))

@@ -2,6 +2,7 @@
 from __future__ import annotations
 from typing import Any, Dict
 from pathlib import Path
+import json
 
 from agent_layer.bi_tracker_agent.orchestrator import BIOrchestrator
 
@@ -128,4 +129,16 @@ def run_workflow() -> Dict[str, Any]:
     snapshot = collect_snapshot()
     orch = BIOrchestrator()
     result = orch.run(snapshot, out_dir=Path("agent_layer_outputs/bi_tracker"))
+    return result
+
+def run_with_input(input_path: str, out_dir: Path | None = None) -> Dict[str, Any]:
+    """Run BI Tracker strictly with provided JSON input."""
+    if not Path(input_path).exists():
+        raise FileNotFoundError(f"BI tracker input JSON not found: {input_path}")
+
+    data = json.loads(Path(input_path).read_text(encoding="utf-8"))
+    orch = BIOrchestrator()
+    out_dir = out_dir or Path("agent_layer_outputs/bi_tracker")
+    out_dir.mkdir(parents=True, exist_ok=True)
+    result = orch.run(data, out_dir=out_dir)
     return result

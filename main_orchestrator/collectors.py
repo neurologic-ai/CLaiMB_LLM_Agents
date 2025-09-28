@@ -30,8 +30,9 @@ class BaseCollector:
         scores, gaps = self.compute()
         if gaps is None:
             gaps = {}
-        return self.bus.publish(self.agent_name, scores, gaps)
-   
+        # Always publish (even empty) so the orchestrator can tick deterministically
+        return self.bus.publish(self.agent_name, scores or {}, gaps or {})
+
 # ---------- Helpers ----------
 def _is_num(x: Any) -> bool:
     try:
@@ -86,7 +87,6 @@ def _scores_from_aggregates_or_payload(obj: Dict[str, Any]) -> Dict[str, float]:
         if scores:
             return scores
 
-    # fallback: use whatever the adapter gave
     agg = obj.get("aggregates")
     if isinstance(agg, dict):
         return {k: float(v) for k, v in agg.items() if _is_num(v)}
@@ -125,15 +125,18 @@ def _collect_gaps_from_metrics(metrics: Any, limit_per_key: int = 3, max_total: 
     return gaps 
 
 
-# ---------- Concrete collectors (call your adapters) ----------
+# ---------- Concrete collectors ----------
 class CloudInfraCollector(BaseCollector):
     """Every 6h"""
-    def __init__(self, bus: FeatureBus, artifacts_root: Path, *, batch_dir: str):
+    def __init__(self, bus: FeatureBus, artifacts_root: Path, *, batch_dir: Optional[str]):
         super().__init__("cloud_infra", bus, artifacts_root)
         self.batch_dir = batch_dir
 
     def compute(self) -> Tuple[Dict[str, float], Optional[Dict[str, Any]]]:
-        # Adapter writes a marker + the orchestrator writes detailed run files under runs_dir
+        # If no batch_dir provided, skip quietly
+        if not self.batch_dir:
+            return {}, {}
+        # Adapter writes run artifacts; we compute scores/gaps here
         artifact, aggregates, metrics = run_cloud_infra_adapter(self.artifacts_root / self.agent_name, self.batch_dir)
         payload = {"artifact_path": artifact, "aggregates": aggregates, "metrics": metrics}
         scores = _scores_from_aggregates_or_payload(payload)
@@ -147,12 +150,13 @@ class DataPlatformCollector(BaseCollector):
         super().__init__("data_platform", bus, artifacts_root)
 
     def compute(self) -> Tuple[Dict[str, float], Optional[Dict[str, Any]]]:
-        artifact, aggregates, metrics, *_maybe_extra = _safe_call_4(run_data_platform_adapter, self.artifacts_root / self.agent_name)
+        artifact, aggregates, metrics, *_ = _safe_call_4(
+            run_data_platform_adapter, self.artifacts_root / self.agent_name
+        )
         payload = {"artifact_path": artifact, "aggregates": aggregates, "metrics": metrics}
         scores = _scores_from_aggregates_or_payload(payload)
         gaps = _collect_gaps_from_metrics(metrics)
         return scores, gaps
-
 
 class MLOpsCollector(BaseCollector):
     """Every 4h"""
@@ -169,11 +173,15 @@ class MLOpsCollector(BaseCollector):
 
 class BITrackerCollector(BaseCollector):
     """Daily"""
-    def __init__(self, bus: FeatureBus, artifacts_root: Path):
+    def __init__(self, bus: FeatureBus, artifacts_root: Path, *, snapshot_path: Optional[str] = None):
         super().__init__("bi_tracker", bus, artifacts_root)
+        self.snapshot_path = snapshot_path  # if provided, we run with this exact JSON
 
     def compute(self) -> Tuple[Dict[str, float], Optional[Dict[str, Any]]]:
-        artifact, aggregates, metrics, *_maybe_extra = _safe_call_4(run_bi_adapter, self.artifacts_root / self.agent_name)
+        # run_bi_adapter accepts snapshot_path=None to fall back to demo snapshot
+        artifact, aggregates, metrics, *_ = _safe_call_4(
+            run_bi_adapter, self.artifacts_root / self.agent_name, self.snapshot_path
+        )
         payload = {"artifact_path": artifact, "aggregates": aggregates, "metrics": metrics}
         scores = _scores_from_aggregates_or_payload(payload)
         gaps = _collect_gaps_from_metrics(metrics)
@@ -191,16 +199,19 @@ class EnterpriseSystemsCollector(BaseCollector):
         scores = _scores_from_aggregates_or_payload(payload)
         gaps = _collect_gaps_from_metrics(metrics)
         return scores, gaps
-
+        
 
 class CodeRepoCollector(BaseCollector):
     """Daily"""
-    def __init__(self, bus: FeatureBus, artifacts_root: Path, *, repo_path_or_url: str):
+    def __init__(self, bus: FeatureBus, artifacts_root: Path, *, repo_path_or_url: Optional[str]):
         super().__init__("code_repo", bus, artifacts_root)
         self.repo = repo_path_or_url
 
     def compute(self) -> Tuple[Dict[str, float], Optional[Dict[str, Any]]]:
-        artifact, aggregates, metrics, *_maybe_extra = _safe_call_4(
+        # If no repo configured, skip quietly
+        if not self.repo:
+            return {}, {}
+        artifact, aggregates, metrics, *_ = _safe_call_4(
             run_code_repo_adapter, self.artifacts_root / self.agent_name, self.repo
         )
         payload = {"artifact_path": artifact, "aggregates": aggregates, "metrics": metrics}
@@ -223,15 +234,21 @@ def build_collectors(
     bus: FeatureBus,
     *,
     artifacts_root: str | Path,
-    cloud_batch_dir: str,
-    code_repo: str,
+    cloud_batch_dir: Optional[str] = None,
+    code_repo: Optional[str] = None,
+    # new: allow BI to point at a user-provided JSON snapshot file
+    bi_tracker_inputs: Optional[str] = None,
+    # placeholders for parity/forward-compat; not used yet by adapters:
+    data_platform_inputs: Optional[str] = None,
+    ml_ops_inputs: Optional[str] = None,
+    enterprise_inputs: Optional[str] = None,
 ) -> Dict[str, BaseCollector]:
     root = Path(artifacts_root)
     return {
         "cloud_infra": CloudInfraCollector(bus, root, batch_dir=cloud_batch_dir),
         "data_platform": DataPlatformCollector(bus, root),
         "ml_ops": MLOpsCollector(bus, root),
-        "bi_tracker": BITrackerCollector(bus, root),
+        "bi_tracker": BITrackerCollector(bus, root, snapshot_path=bi_tracker_inputs),
         "enterprise_systems": EnterpriseSystemsCollector(bus, root),
         "code_repo": CodeRepoCollector(bus, root, repo_path_or_url=code_repo),
     }
