@@ -17,3 +17,8 @@ save_prompt.py
 GeneratedPrompts/
 runs/
 api.py
+test_outputs/bi_tracker.py
+test_outputs/cloud_infra.py
+test_outputs/code_repo.py
+.gitignore
+test_outputs/enterprise_system.py
