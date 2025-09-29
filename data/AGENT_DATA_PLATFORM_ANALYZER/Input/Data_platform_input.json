@@ -1,0 +1,554 @@
+{
+"access_logs": {
+"access_summary": {
+"valid_access": 920,
+"violations": 80
+},
+"violation_breakdown": {
+"expired_credentials": 20,
+"pii_access_without_masking": 5,
+"privilege_escalation": 15,
+"unauthorized_access": 40
+}
+},
+"backup": {
+"backup_systems": [
+{
+"avg_rpo_hours": 0.8,
+"avg_rto_hours": 0.9,
+"backup_success_rate": 0.98,
+"criticality": "high",
+"last_backup_timestamp": "2025-08-28T02:00:00Z",
+"system_name": "primary_db_backup"
+},
+{
+"avg_rpo_hours": 3,
+"avg_rto_hours": 2.5,
+"backup_success_rate": 0.93,
+"criticality": "medium",
+"last_backup_timestamp": "2025-08-27T22:00:00Z",
+"system_name": "analytics_warehouse_backup"
+},
+{
+"avg_rpo_hours": 10,
+"avg_rto_hours": 7,
+"backup_success_rate": 0.85,
+"criticality": "low",
+"last_backup_timestamp": "2025-08-27T10:00:00Z",
+"system_name": "log_data_backup"
+}
+]
+},
+"baseline_schema": {
+"orders": [
+"order_id",
+"user_id",
+"product_id",
+"quantity",
+"order_date",
+"order_status",
+"shipping_address",
+"billing_address",
+"promo_code"
+],
+"products": [
+"product_id",
+"name",
+"category",
+"price",
+"stock_quantity",
+"supplier_id",
+"discontinued_flag"
+],
+"reviews": [
+"review_id",
+"user_id",
+"product_id",
+"rating",
+"review_text",
+"submitted_at"
+],
+"users": [
+"user_id",
+"email",
+"created_at",
+"last_login",
+"status",
+"profile_completed",
+"signup_source"
+]
+},
+"data_quality_report": {
+"tables": [
+{
+"duplicate_pct": 0.01,
+"null_pct": 0.02,
+"outlier_pct": 0.0,
+"table": "users"
+},
+{
+"duplicate_pct": 0.03,
+"null_pct": 0.1,
+"outlier_pct": 0.05,
+"table": "orders"
+},
+{
+"duplicate_pct": 0.0,
+"null_pct": 0.15,
+"outlier_pct": 0.2,
+"table": "transactions"
+}
+]
+},
+"duplication": {
+"domains": [
+{
+"datasets_total": 40,
+"duplicate_groups": 4,
+"name": "finance"
+},
+{
+"datasets_total": 30,
+"duplicate_groups": 8,
+"name": "marketing"
+},
+{
+"datasets_total": 50,
+"duplicate_groups": 10,
+"name": "operations"
+}
+]
+},
+"lineage": {
+"domains": {
+"finance": {
+"total": 50,
+"with_lineage": 48
+},
+"hr": {
+"total": 50,
+"with_lineage": 37
+},
+"marketing": {
+"total": 40,
+"with_lineage": 25
+},
+"operations": {
+"total": 60,
+"with_lineage": 50
+}
+},
+"tables_total": 200,
+"tables_with_column_lineage": 100,
+"tables_with_lineage": 160
+},
+"metadata": {
+"catalog_entries": [
+{
+"classification": "confidential",
+"description": "Customer purchase orders",
+"owner": "data-sales",
+"table": "orders",
+"tags": ["finance", "transactions"]
+},
+{
+"classification": "pii",
+"description": "",
+"owner": "data-marketing",
+"table": "customers",
+"tags": []
+},
+{
+"classification": "internal",
+"description": "Warehouse stock levels",
+"owner": "",
+"table": "inventory",
+"tags": ["supply-chain"]
+},
+{
+"classification": "confidential",
+"description": "Payment processing logs",
+"owner": "data-finance",
+"table": "transactions",
+"tags": ["finance"]
+}
+],
+"required_fields": ["description", "owner", "classification"]
+},
+"pipeline_metrics": {
+"pipeline_metrics": [
+{
+"avg_runtime_minutes": 12,
+"pipeline_name": "daily_sales_etl",
+"queue_wait_minutes": 1,
+"rows_processed": 1500000
+},
+{
+"avg_runtime_minutes": 55,
+"pipeline_name": "inventory_load",
+"queue_wait_minutes": 10,
+"rows_processed": 580000
+},
+{
+"avg_runtime_minutes": 130,
+"pipeline_name": "customer_dim_refresh",
+"queue_wait_minutes": 30,
+"rows_processed": 320000
+}
+]
+},
+"pipeline_runs": {
+"pipeline_runs": [
+{
+"id": 101,
+"name": "daily_sales_etl",
+"runtime_sec": 320,
+"status": "success"
+},
+{
+"id": 102,
+"name": "daily_sales_etl",
+"runtime_sec": 315,
+"status": "success"
+},
+{
+"id": 103,
+"name": "inventory_load",
+"runtime_sec": 0,
+"status": "failure"
+},
+{
+"id": 104,
+"name": "inventory_load",
+"runtime_sec": 210,
+"status": "success"
+},
+{
+"id": 105,
+"name": "customer_dim_refresh",
+"runtime_sec": 122,
+"status": "success"
+},
+{
+"id": 106,
+"name": "customer_dim_refresh",
+"runtime_sec": 0,
+"status": "failure"
+},
+{
+"id": 107,
+"name": "analytics_snapshot",
+"runtime_sec": 400,
+"status": "success"
+},
+{
+"id": 108,
+"name": "daily_sales_etl",
+"runtime_sec": 300,
+"status": "success"
+},
+{
+"id": 109,
+"name": "analytics_snapshot",
+"runtime_sec": 0,
+"status": "failure"
+},
+{
+"id": 110,
+"name": "inventory_load",
+"runtime_sec": 215,
+"status": "success"
+}
+]
+},
+"query_logs": {
+"query_logs": [
+{
+"id": "q101",
+"runtime": 1.8,
+"success": true,
+"user": "alice"
+},
+{
+"id": "q102",
+"runtime": 10.4,
+"success": false,
+"user": "bob"
+},
+{
+"id": "q103",
+"runtime": 7.2,
+"success": true,
+"user": "carol"
+},
+{
+"id": "q104",
+"runtime": 2.9,
+"success": true,
+"user": "alice"
+},
+{
+"id": "q105",
+"runtime": 33.5,
+"success": true,
+"user": "bob"
+},
+{
+"id": "q106",
+"runtime": 15.1,
+"success": true,
+"user": "dave"
+},
+{
+"id": "q107",
+"runtime": 4.4,
+"success": true,
+"user": "eve"
+},
+{
+"id": "q108",
+"runtime": 5.8,
+"success": true,
+"user": "alice"
+},
+{
+"id": "q109",
+"runtime": 2.0,
+"success": true,
+"user": "carol"
+},
+{
+"id": "q110",
+"runtime": 28.7,
+"success": false,
+"user": "eve"
+}
+]
+},
+"resource_usage": {
+"cost_data": {
+"monthly_total_usd": 14600
+},
+"resource_usage": {
+"clusters": [
+{
+"cpu": 80,
+"memory": 76,
+"monthly_cost_usd": 9000,
+"name": "analytics-prod",
+"storage": 68
+},
+{
+"cpu": 42,
+"memory": 35,
+"monthly_cost_usd": 2600,
+"name": "etl-dev",
+"storage": 50
+},
+{
+"cpu": 25,
+"memory": 40,
+"monthly_cost_usd": 3000,
+"name": "training-gpu",
+"storage": 70
+}
+]
+}
+},
+"security": {
+"compliance_rules": {
+"encryption": {
+"at_rest": "AES256",
+"in_transit": "TLS1.2"
+},
+"iam_role_policies": {
+"admin": ["full_access"],
+"analyst": ["read_only"],
+"guest": ["no_access"]
+},
+"require_firewall": true,
+"require_mfa": true,
+"require_public_access": false
+},
+"security_settings": {
+"encryption": {
+"at_rest": "AES256",
+"in_transit": "TLS1.2"
+},
+"firewall_enabled": true,
+"iam_roles": [
+{
+"assigned_users": 3,
+"permissions": ["full_access"],
+"role": "admin"
+},
+{
+"assigned_users": 15,
+"permissions": ["read_only"],
+"role": "analyst"
+},
+{
+"assigned_users": 5,
+"permissions": ["read_only_limited"],
+"role": "guest"
+}
+],
+"multi_factor_auth": true,
+"public_access": false
+}
+},
+"table_metadata": {
+"tables": [
+{
+"expected_frequency": "hourly",
+"last_updated": "45m ago",
+"table": "users"
+},
+{
+"expected_frequency": "hourly",
+"last_updated": "5h ago",
+"table": "orders"
+},
+{
+"expected_frequency": "daily",
+"last_updated": "26h ago",
+"table": "inventory"
+},
+{
+"expected_frequency": "hourly",
+"last_updated": "15m ago",
+"table": "transactions"
+}
+]
+},
+"table_schemas": {
+"orders": [
+"order_id",
+"user_id",
+"product_id",
+"quantity",
+"order_date"
+],
+"products": [
+"product_id",
+"name",
+"category",
+"price",
+"stock_quantity",
+"supplier_id"
+],
+"returns": [
+"return_id",
+"order_id",
+"return_reason",
+"return_date"
+],
+"reviews": [
+"review_id",
+"user_id",
+"product_id",
+"rating"
+],
+"users": [
+"user_id",
+"email",
+"last_login",
+"profile_completed"
+]
+},
+"tagging": {
+"datasets": [
+{
+"dataset": "users",
+"fields": [
+{
+"name": "id",
+"sensitive": false,
+"tagged": false
+},
+{
+"name": "email",
+"sensitive": true,
+"tagged": true
+},
+{
+"name": "ssn",
+"sensitive": true,
+"tagged": false
+},
+{
+"name": "phone",
+"sensitive": true,
+"tagged": true
+},
+{
+"name": "address",
+"sensitive": true,
+"tagged": true
+},
+{
+"name": "created_at",
+"sensitive": false,
+"tagged": false
+}
+],
+"total_fields": 15
+},
+{
+"dataset": "orders",
+"fields": [
+{
+"name": "order_id",
+"sensitive": false,
+"tagged": false
+},
+{
+"name": "customer_id",
+"sensitive": true,
+"tagged": false
+},
+{
+"name": "credit_card",
+"sensitive": true,
+"tagged": false
+},
+{
+"name": "amount",
+"sensitive": false,
+"tagged": false
+},
+{
+"name": "order_date",
+"sensitive": false,
+"tagged": false
+}
+],
+"total_fields": 10
+}
+]
+},
+"user_activity": {
+"active_users": 65,
+"dashboard_views": 1800,
+"departments": {
+"finance": {
+"active_users": 15,
+"views": 380
+},
+"marketing": {
+"active_users": 18,
+"views": 450
+},
+"operations": {
+"active_users": 12,
+"views": 270
+},
+"sales": {
+"active_users": 20,
+"views": 700
+}
+},
+"most_active_users": ["alice", "bob", "carol", "dave"],
+"queries_executed": 4300
+}
+}

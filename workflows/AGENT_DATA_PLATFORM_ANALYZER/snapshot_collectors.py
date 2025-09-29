@@ -57,24 +57,48 @@ class DataPlatformAnalyzerSnapshotCollector:
             "user_activity": {"users": [{"id": 1, "used_dashboard": True}]},
         }
 
+    # def collect_snapshot(self) -> Dict[str, Any]:
+    #     ctx = {}
+    #     for key, filename in self.file_mapping.items():
+    #         file_path = self.data_path / filename
+    #         value = self._load_json_file(file_path)
+    #         if value is not None:
+    #             ctx[key] = value
+    #         else:
+    #             ctx[key] = self.defaults.get(key)
+    #             if file_path.exists() and value is None:
+    #                 print(f"[SnapshotCollector] Using default for '{key}' because {file_path} couldn't be parsed.")
+    #     return ctx
     def collect_snapshot(self) -> Dict[str, Any]:
         ctx = {}
-        for key, filename in self.file_mapping.items():
-            file_path = self.data_path / filename
-            value = self._load_json_file(file_path)
-            if value is not None:
-                ctx[key] = value
+
+        # The config.yaml should contain something like:
+        # snapshot_file: "big_snapshot.json"
+        snapshot_file = self.config.get("data_snapshot_file")
+        if not snapshot_file:
+            raise RuntimeError("[SnapshotCollector] Config missing 'snapshot_file' entry")
+
+        file_path = self.data_path / snapshot_file
+        big_json = self._load_json_file(file_path)
+
+        if big_json is None:
+            print(f"[SnapshotCollector] Could not parse {file_path}. Using defaults.")
+            return self.defaults.copy()
+
+        # Merge big_json with defaults
+        for key in self.defaults.keys():
+            if key in big_json:
+                ctx[key] = big_json[key]
             else:
                 ctx[key] = self.defaults.get(key)
-                if file_path.exists() and value is None:
-                    print(f"[SnapshotCollector] Using default for '{key}' because {file_path} couldn't be parsed.")
+
         return ctx
 
 
 if __name__ == "__main__":
     import pprint
 
-    collector = SnapshotCollector()
+    collector = DataPlatformAnalyzerSnapshotCollector()
     print("Collecting snapshot from 'data/Input' (or falling back to defaults)...")
     snapshot = collector.collect_snapshot()
     pprint.pprint(snapshot)

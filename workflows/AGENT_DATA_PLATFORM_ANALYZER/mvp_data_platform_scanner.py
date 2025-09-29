@@ -10,6 +10,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from loguru import logger
 from agent_layer.AGENT_DATA_PLATFORM_ANALYZER.aimri_mapping import DATA_METRIC_TO_AIMRI
 
+import pprint
+
 # updated import: use the snapshot collector classt
 from workflows.AGENT_DATA_PLATFORM_ANALYZER.snapshot_collectors import DataPlatformAnalyzerSnapshotCollector
 from agent_layer.AGENT_DATA_PLATFORM_ANALYZER.prompts import DataManagementPrompts, AnalyticsReadinessPrompts
@@ -92,7 +94,8 @@ class MVPDataPlatformScanner:
 
         # instantiate the snapshot collector class and keep it on the scanner
         self.snapshot_collector = DataPlatformAnalyzerSnapshotCollector(
-            data_dir=snapshot_data_dir, config_file=snapshot_config_file
+            data_dir="data/AGENT_DATA_PLATFORM_ANALYZER/Input",
+            config_file="config/AGENT_DATA_PLATFORM_ANALYZER/config.yaml"
         )
 
     def _build_prompt_for(self, metric: str, input_obj: Any) -> str:
@@ -206,6 +209,9 @@ class MVPDataPlatformScanner:
         m = metric
         if m == "check_schema_consistency":
             base = {"baseline": ctx.get("baseline_schema"), "actual": ctx.get("table_schemas")}
+            #print(f"========= Printing the Baseline schema == > {ctx.get('baseline_schema')}")
+            #print(f"========= Printing the Actual schema == > {ctx.get('table_schemas')}")
+
         elif m == "evaluate_data_freshness":
             base = ctx.get("table_metadata")
         elif m == "evaluate_data_quality":
@@ -272,7 +278,7 @@ class MVPDataPlatformScanner:
         start_time = time.time()
         _log("info", "===== Starting Data Platform Analyzer run =====")
 
-        # use the snapshot collector class (previously: collect_snapshot())
+        # use the snapshot collector class 
         ctx = self.snapshot_collector.collect_snapshot()
 
         level0 = [m for m, meta in REGISTRY.items() if not meta["depends_on"]]
