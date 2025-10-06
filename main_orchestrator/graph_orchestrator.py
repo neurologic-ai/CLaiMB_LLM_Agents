@@ -10,6 +10,17 @@ from main_orchestrator import survey_recalibrator
 from .feature_bus import FeatureBus, utc_iso
 from .scoring import ScoringAgent
 from .survey_recalibrator import Args as SRArgs, main_with_args as run_survey_recalibration
+import os
+
+@dataclass
+class SurveyConfig:
+    enabled: bool = True
+    survey_path: Path | None = None
+    yaml_paths: list[Path] = None
+    existing_json: Path | None = None
+    out_scores: Path | None = None
+    out_audit: Path | None = None
+    default_N: int = 5
 
 AGENTS_LIST = [
     "cloud_infra",        # 6h
@@ -20,7 +31,7 @@ AGENTS_LIST = [
     "code_repo",          # daily
 ]
 
-TRIGGER_K_OF_N = 2
+TRIGGER_K_OF_N = 1
 
 def run_recalibration(
     survey_path: str = "./surveys/_Survey_QA_samples.yaml",
@@ -55,6 +66,7 @@ class Orchestrator:
         bus_root: str = "./bus",
         results_root: str = "./results",
         agents_root: str = "./orchestrator_output/agents",
+        survey_config: SurveyConfig | None = None,   # <— NEW
     ):
         self.bus = FeatureBus(bus_root)
         self.results_root = Path(results_root)
@@ -62,8 +74,46 @@ class Orchestrator:
 
         self.agents_root = Path(agents_root)
         self.agents_root.mkdir(parents=True, exist_ok=True)
+
+        # NEW: configure survey from args or env
+        self.survey_config = survey_config or self._load_survey_config_from_env()
+
         self.scorer = ScoringAgent(category_weights=None)
         self.graph = self._build_graph()
+
+    def _load_survey_config_from_env(self) -> SurveyConfig:
+        """Build SurveyConfig from environment variables (with sensible defaults)."""
+        def _csv_paths(env_key: str) -> list[Path]:
+            raw = os.getenv(env_key, "")
+            parts = [p.strip() for p in raw.split(",") if p.strip()]
+            return [Path(p) for p in parts]
+
+        enabled = os.getenv("SURVEY_ENABLED", "true").lower() not in {"0", "false", "no"}
+        survey_path = Path(os.getenv("SURVEY_FILE", "./surveys/_Survey_QA_samples.yaml"))
+        yaml_paths  = _csv_paths("SURVEY_YAMLS") or [
+            Path("./metric_descriptions/bi_tracker.yaml"),
+            Path("./metric_descriptions/cloud_infra.yaml"),
+            Path("./metric_descriptions/code_repo.yaml"),
+            Path("./metric_descriptions/data_platform_scanner.yaml"),
+            Path("./metric_descriptions/enterprise_system.yaml"),
+            Path("./metric_descriptions/ml_ops.yaml"),
+        ]
+
+        # existing_json defaults to the file we write in persist_results
+        existing_json = Path(os.getenv("SURVEY_EXISTING_JSON", str(self.results_root / "category_scores.json")))
+        out_scores    = Path(os.getenv("SURVEY_OUT_SCORES", str(self.results_root / "survey_metric_scores.json")))
+        out_audit     = Path(os.getenv("SURVEY_OUT_AUDIT",  str(self.results_root / "survey_recalibration_audit.json")))
+        default_N     = int(os.getenv("SURVEY_DEFAULT_N", "5"))
+
+        return SurveyConfig(
+            enabled=enabled,
+            survey_path=survey_path,
+            yaml_paths=yaml_paths,
+            existing_json=existing_json,
+            out_scores=out_scores,
+            out_audit=out_audit,
+            default_N=default_N,
+        )
 
     # ---- nodes ----
     def ingest_signs(self, state: OrchestratorState) -> OrchestratorState:
@@ -94,6 +144,7 @@ class Orchestrator:
         return "do_score" if state.updated_count >= TRIGGER_K_OF_N else "skip"
 
     def score_agent(self, state: OrchestratorState) -> OrchestratorState:
+        self.scorer = ScoringAgent()
         res = self.scorer.run(self.agents_root)
         state.last_result = res
         state.last_scored_ts = utc_iso()
@@ -116,22 +167,19 @@ class Orchestrator:
             json.dumps(out["result"].get("category_scores", {}), indent=2)
         )
 
-        sr_args = SRArgs(
-            survey=Path("./surveys/_Survey_QA_samples.yaml"),
-            yamls=[
-                Path("./metric_descriptions/bi_tracker.yaml"),
-                Path("./metric_descriptions/cloud_infra.yaml"),
-                Path("./metric_descriptions/code_repo.yaml"),
-                Path("./metric_descriptions/data_platform_scanner.yaml"),
-                Path("./metric_descriptions/enterprise_system.yaml"),
-                Path("./metric_descriptions/ml_ops.yaml"),
-            ],
-            existing_json=Path(self.results_root / "category_scores.json"),
-            out_scores=Path(self.results_root / "survey_metric_scores.json"),
-            out_audit=Path(self.results_root / "survey_recalibration_audit.json"),
-            default_N=5,
-        )
-        run_survey_recalibration(sr_args)
+        # --- Survey recalibration (configurable) ---
+        cfg = self.survey_config
+        if cfg and cfg.enabled:
+            sr_args = SRArgs(
+                survey=cfg.survey_path,
+                yamls=cfg.yaml_paths or [],
+                existing_json=cfg.existing_json or (self.results_root / "category_scores.json"),
+                out_scores=cfg.out_scores or (self.results_root / "survey_metric_scores.json"),
+                out_audit=cfg.out_audit or (self.results_root / "survey_recalibration_audit.json"),
+                default_N=cfg.default_N,
+            )
+            run_survey_recalibration(sr_args)
+
         return state
 
     # ---- graph ----

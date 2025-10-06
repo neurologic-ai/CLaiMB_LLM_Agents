@@ -15,15 +15,21 @@ from main_orchestrator.graph_orchestrator import (
     Orchestrator,
     OrchestratorState,
 )
+from agent_layer.cloud_infra_agent.orchestrator import CloudInfraOrchestrator
 from fastapi import UploadFile, File, HTTPException
 from main_orchestrator.input_schemas import BIInputsModel, EnterpriseInputsModel, MLOpsInputsModel, CategoryWeightsModel
 from main_orchestrator.collectors import build_collectors, _scores_from_aggregates_or_payload, _collect_gaps_from_metrics
-from main_orchestrator.adapters import run_bi_adapter, run_mlops_adapter, run_enterprise_adapter, run_code_repo_adapter
+from main_orchestrator.adapters import run_bi_adapter, run_mlops_adapter, run_enterprise_adapter, run_code_repo_adapter, run_data_platform_adapter, run_cloud_infra_adapter
 from main_orchestrator.validate import _normalize_and_check_mlops, _normalize_and_check_bi, _normalize_and_check_enterprise
 from datetime import datetime
 from pydantic import HttpUrl
 from main_orchestrator.utils import _load_latest_inputs, _save_latest_inputs
 from fastapi.middleware.cors import CORSMiddleware
+
+load_dotenv()
+
+
+SURVEY_OUT_SCORES = os.getenv("SURVEY_OUT_SCORES", "./results/survey_metric_scores.json")
 
 
 app = FastAPI(title="AIMRI Multi-Agent Orchestrator")
@@ -35,8 +41,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-load_dotenv()
 
 
 class CodeRepoInput(BaseModel):
@@ -98,7 +102,7 @@ def on_startup():
     SCHED.add_job(COLLECTORS["code_repo"].run, "interval", hours=24, id="code_repo", max_instances=1)
 
     # Orchestrator polling every minute (stable thread id)
-    SCHED.add_job(lambda: tick_orchestrator("scheduler"), "interval", minutes=1, id="orchestrator_tick", max_instances=1)
+    SCHED.add_job(lambda: tick_orchestrator("scheduler"), "interval", hours=4, id="orchestrator_tick", max_instances=1)
     SCHED.start()
 
 
@@ -118,40 +122,6 @@ def health():
     return {"status": "ok"}
 
 
-# @app.post("/collect/run")
-# def run_collect(req: ManualRunRequest):
-#     if req.agent not in COLLECTORS:
-#         return {"error": f"unknown agent: {req.agent}"}
-
-#     try:
-#         published = COLLECTORS[req.agent].run()  # dict with scores/gaps/sign file paths
-#     except Exception as e:
-#         return {"error": f"collector {req.agent} failed: {e}"}
-
-#     # use unique thread for each manual trigger → separate checkpoint streams
-#     tick_orchestrator(thread_id=f"manual-{uuid.uuid4().hex[:8]}")
-
-#     return {"published": published}
-
-
-# @app.post("/inputs/bi_tracker/json_strict")
-# def upload_bi_tracker_json_strict(body: BIInputsModel):
-#     # accept extras but ignore them
-#     raw = body.model_dump(mode="json") 
-
-#     normalized, ignored = _normalize_and_check_bi(raw)
-
-#     run_dir = Path("user_inputs") / "bi_tracker"
-#     run_dir.mkdir(parents=True, exist_ok=True)
-#     ts = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
-#     p = run_dir / f"bi_input_{ts}.json"
-#     p.write_text(json.dumps(normalized, indent=2), encoding="utf-8")
-
-#     latest = _load_latest_inputs()
-#     latest["bi_tracker"] = {"input_path": str(p.resolve())}
-#     _save_latest_inputs(latest)
-
-#     return {"input_path": str(p), "ignored_fields": ignored}
 
 @app.post("/inputs/bi_tracker/upload_file")
 async def upload_bi_tracker_file(file: UploadFile = File(...)):
@@ -180,44 +150,6 @@ async def upload_bi_tracker_file(file: UploadFile = File(...)):
 
     return {"input_path": str(p), "ignored_fields": ignored}
 
-# @app.post("/collect/bi_tracker/run_latest")
-# def run_bi_tracker_latest():
-#     latest = _load_latest_inputs()
-#     rec = latest.get("bi_tracker")
-#     if not rec or not rec.get("input_path") or not Path(rec["input_path"]).exists():
-#         return {"error": "No BI input uploaded yet. Upload via /inputs/bi_tracker/json_strict first."}
-
-#     out_dir = ARTIFACTS_ROOT / "bi_tracker"
-#     out_dir.mkdir(parents=True, exist_ok=True)
-
-#     artifact, aggregates, metrics = run_bi_adapter(out_dir, snapshot_path=rec["input_path"])
-#     payload = {"artifact_path": artifact, "aggregates": aggregates, "metrics": metrics}
-#     scores = _scores_from_aggregates_or_payload(payload)
-#     gaps = _collect_gaps_from_metrics(metrics)
-
-#     published = BUS.publish("bi_tracker", scores, gaps)
-#     tick_orchestrator(thread_id=f"bi-run-{uuid.uuid4().hex[:8]}")
-
-#     return {"artifact": artifact, "published": published, "bi_tracker_category_scores": scores}
-
-# @app.post("/inputs/ml_ops/json_strict")
-# def upload_mlops_json_strict(body: MLOpsInputsModel):
-#     try:
-#         normalized, ignored = _normalize_and_check_mlops(body.model_dump())  # <-- FIX
-#     except ValueError as e:
-#         return {"error": str(e)}
-
-#     run_dir = Path("user_inputs") / "ml_ops"
-#     run_dir.mkdir(parents=True, exist_ok=True)
-#     p = run_dir / "latest.json"
-#     p.write_text(json.dumps(normalized, indent=2), encoding="utf-8")
-
-#     latest = _load_latest_inputs()
-#     latest["ml_ops"] = {"input_path": str(p.resolve())}
-#     _save_latest_inputs(latest)
-
-#     return {"input_path": str(p), "ignored_fields": ignored}
-
 @app.post("/inputs/ml_ops/upload_file")
 async def upload_mlops_file(file: UploadFile = File(...)):
     if file.content_type not in ("application/json", "text/json", "application/octet-stream"):
@@ -244,45 +176,6 @@ async def upload_mlops_file(file: UploadFile = File(...)):
     _save_latest_inputs(latest)
 
     return {"input_path": str(p), "ignored_fields": ignored}
-
-# @app.post("/collect/ml_ops/run_latest")
-# def run_mlops_latest():
-#     latest = _load_latest_inputs()
-#     rec = latest.get("ml_ops")
-#     if not rec or not rec.get("input_path") or not Path(rec["input_path"]).exists():
-#         return {"error": "No MLOps input uploaded yet. Upload via /inputs/ml_ops/json_strict first."}
-
-#     out_dir = ARTIFACTS_ROOT / "ml_ops"
-#     out_dir.mkdir(parents=True, exist_ok=True)
-
-#     artifact, aggregates, metrics = run_mlops_adapter(out_dir, snapshot_path=rec["input_path"])
-#     payload = {"artifact_path": artifact, "aggregates": aggregates, "metrics": metrics}
-#     scores = _scores_from_aggregates_or_payload(payload)
-#     gaps = _collect_gaps_from_metrics(metrics)
-
-#     published = BUS.publish("ml_ops", scores, gaps)
-#     tick_orchestrator(thread_id=f"mlops-run-{uuid.uuid4().hex[:8]}")
-
-#     return {"artifact": artifact, "published": published, "ml_ops_category_scores": scores}
-
-
-# @app.post("/inputs/enterprise/json_strict")
-# def upload_enterprise_json_strict(body: EnterpriseInputsModel):
-#     try:
-#         normalized, ignored = _normalize_and_check_enterprise(body.model_dump())  # <-- FIX
-#     except ValueError as e:
-#         return {"error": str(e)}
-
-#     run_dir = Path("user_inputs") / "enterprise"
-#     run_dir.mkdir(parents=True, exist_ok=True)
-#     p = run_dir / "latest.json"
-#     p.write_text(json.dumps(normalized, indent=2), encoding="utf-8")
-
-#     latest = _load_latest_inputs()
-#     latest["enterprise"] = {"input_path": str(p.resolve())}
-#     _save_latest_inputs(latest)
-
-#     return {"input_path": str(p), "ignored_fields": ignored}
 
 @app.post("/inputs/enterprise/upload_file")
 async def upload_enterprise_file(file: UploadFile = File(...)):
@@ -311,44 +204,59 @@ async def upload_enterprise_file(file: UploadFile = File(...)):
 
     return {"input_path": str(p), "ignored_fields": ignored}
 
+@app.post("/inputs/data_platform/upload_file")
+async def upload_data_platform_file(file: UploadFile = File(...)):
+    if file.content_type not in ("application/json", "text/json", "application/octet-stream"):
+        raise HTTPException(status_code=415, detail="Upload a JSON file")
 
-# @app.post("/collect/enterprise/run_latest")
-# def run_enterprise_with_latest():
-#     run_dir = Path("user_inputs") / "enterprise"
-#     if not run_dir.exists():
-#         return {"error": "no enterprise input uploaded"}
+    raw = await file.read()
+    try:
+        data = json.loads(raw.decode("utf-8", errors="ignore"))
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Invalid JSON: {e}")
 
-#     latest_files = sorted(run_dir.glob("enterprise_input_*.json"))
-#     if not latest_files:
-#         return {"error": "no enterprise input uploaded"}
-#     latest_path = latest_files[-1]
+    run_dir = Path("user_inputs") / "data_platform"
+    run_dir.mkdir(parents=True, exist_ok=True)
+    p = run_dir / "latest.json"
+    p.write_text(json.dumps(data, indent=2), encoding="utf-8")
 
-#     out_dir = ARTIFACTS_ROOT / "enterprise_systems"
-#     out_dir.mkdir(parents=True, exist_ok=True)
-#     artifact, scores, metrics = run_enterprise_adapter(out_dir, snapshot_path=str(latest_path))
+    latest = _load_latest_inputs()
+    latest["data_platform"] = {"input_path": str(p.resolve())}
+    _save_latest_inputs(latest)
 
-#     payload = {"artifact_path": artifact, "scores": scores, "metrics": metrics}
-#     cats = _scores_from_aggregates_or_payload(payload)
-#     gaps = _collect_gaps_from_metrics(metrics)
+    return {"input_path": str(p)}
 
-#     published = BUS.publish("enterprise_systems", cats, gaps)
-#     tick_orchestrator(thread_id=f"enterprise-json-{uuid.uuid4().hex[:8]}")
+@app.post("/inputs/cloud_infra/upload_file")
+async def upload_cloud_infra_file(file: UploadFile = File(...)):
+    if file.content_type not in ("application/json", "text/json", "application/octet-stream"):
+        raise HTTPException(status_code=415, detail="Upload a JSON file")
 
-#     return {
-#         "input_path": str(latest_path),
-#         "artifact": artifact,
-#         "published": published,
-#         "enterprise_scores": scores,
-#         "enterprise_category_scores": cats,
-#     }
+    raw = await file.read()
+    try:
+        data = json.loads(raw.decode("utf-8", errors="ignore"))
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Invalid JSON: {e}")
+
+    if not isinstance(data, dict):
+        raise HTTPException(status_code=400, detail="Cloud Infra input must be a JSON object")
+
+    run_dir = Path("user_inputs") / "cloud_infra"
+    run_dir.mkdir(parents=True, exist_ok=True)
+    p = run_dir / "latest.json"
+    p.write_text(json.dumps(data, indent=2), encoding="utf-8")
+
+    latest = _load_latest_inputs()
+    latest["cloud_infra"] = {"input_path": str(p.resolve())}
+    _save_latest_inputs(latest)
+
+    return {"input_path": str(p)}
 
 @app.post("/inputs/code_repo")
 def upload_code_repo(body: CodeRepoInput):
-    # Validate
+
     if not body.repo_url and not body.repo_path:
         return {"error": "Provide either 'repo_url' or 'repo_path'."}
 
-    # Persist the latest selection for a later run
     latest = _load_latest_inputs()
     latest["code_repo"] = {
         "repo_url": str(body.repo_url) if body.repo_url else None,
@@ -361,38 +269,6 @@ def upload_code_repo(body: CodeRepoInput):
         "code_repo": latest["code_repo"],
         "message": "Code repo reference saved. Call /collect/code_repo/run_latest to run."
     }
-
-# @app.post("/collect/code_repo/run_latest")
-# def run_code_repo_latest():
-#     latest = _load_latest_inputs()
-#     rec = latest.get("code_repo") or {}
-#     repo_url = rec.get("repo_url")
-#     repo_path = rec.get("repo_path")
-
-#     if not repo_url and not repo_path:
-#         return {"error": "No code repo reference saved. First call POST /inputs/code_repo."}
-
-#     out_dir = ARTIFACTS_ROOT / "code_repo"
-#     try:
-#         artifact, aggregates, metrics, extra = run_code_repo_adapter(
-#             out_dir,
-#             repo_url=repo_url,
-#             repo_path=repo_path,
-#         )
-#     except Exception as e:
-#         return {"error": str(e)}
-
-#     published = BUS.publish("code_repo", aggregates or {}, metrics or {})
-#     tick_orchestrator(thread_id=f"code-repo-{uuid.uuid4().hex[:8]}")
-
-#     return {
-#         "artifact": artifact,
-#         "aggregates": aggregates,
-#         "metrics": metrics,
-#         "published": published,
-#         "extra": extra,
-#         "effective_input": {"repo_url": repo_url, "repo_path": repo_path},
-#     }
 
 @app.post("/inputs/category_weights")
 def upload_category_weights(body: CategoryWeightsModel):
@@ -449,14 +325,6 @@ def run_all_collectors():
                 SCHED.pause_job(jid)
                 paused_jobs.append(jid)
 
-        # Always-on agents (no user uploads required)
-        for agent in ("cloud_infra", "data_platform"):
-            try:
-                published[agent] = COLLECTORS[agent].run()
-            except Exception as e:
-                published[agent] = {"error": str(e)}
-
-        # Input-aware agents: only run if uploaded inputs exist
         latest = _load_latest_inputs()
 
         # ---- BI Tracker ----
@@ -507,6 +375,38 @@ def run_all_collectors():
         else:
             published["enterprise_systems"] = {"skipped": "no uploaded input"}
 
+        # ---- Data Platform (input required) ----
+        dp_info = latest.get("data_platform") or {}
+        dp_path = dp_info.get("input_path")
+        if dp_path and Path(dp_path).exists():
+            try:
+                out_dir = ARTIFACTS_ROOT / "data_platform"
+                artifact, aggregates, metrics, extra = run_data_platform_adapter(out_dir, snapshot_path=dp_path)
+                published["data_platform"] = BUS.publish("data_platform", aggregates or {}, metrics or {})
+            except Exception as e:
+                published["data_platform"] = {"error": str(e)}
+        else:
+            published["data_platform"] = {"skipped": "no uploaded input"}
+
+        # ---- Cloud Infra (run only if uploaded input exists) ----
+        ci_info = latest.get("cloud_infra") or {}
+        ci_path = ci_info.get("input_path")
+        if ci_path and Path(ci_path).exists():
+            try:
+                out_dir = ARTIFACTS_ROOT / "cloud_infra"
+                artifact, aggregates, metrics = run_cloud_infra_adapter(
+                    out_dir,
+                    snapshot_path=ci_path,   # <— adapter updated to accept snapshot_path
+                )
+                payload = {"artifact_path": artifact, "aggregates": aggregates, "metrics": metrics}
+                scores  = _scores_from_aggregates_or_payload(payload)
+                gaps    = _collect_gaps_from_metrics(metrics)
+                published["cloud_infra"] = BUS.publish("cloud_infra", scores or {}, gaps or {})
+            except Exception as e:
+                published["cloud_infra"] = {"error": str(e)}
+        else:
+            published["cloud_infra"] = {"skipped": "no uploaded input"}
+
         # ---- Code Repo ----
         cr_cfg = latest.get("code_repo") or {}
         repo_url, repo_path = cr_cfg.get("repo_url"), cr_cfg.get("repo_path")
@@ -531,20 +431,198 @@ def run_all_collectors():
         # ---- single scoring pass after all publishes ----
         tick_orchestrator(thread_id="manual-all-onepass")
 
+        scores_path = Path(SURVEY_OUT_SCORES)
+        scores_json = None
+        if scores_path.exists():
+            scores_json = json.loads(scores_path.read_text(encoding="utf-8"))
+        
+        _save_latest_inputs({})
+
         return {
-            "published": published,
-            "effective_inputs": {
-                "bi_tracker_input_path": bi_path,
-                "ml_ops_input_path": ml_path,
-                "enterprise_input_path": ent_path,
-                "code_repo": {"repo_url": repo_url, "repo_path": repo_path},
-            },
+            "scores": scores_json,
         }
 
     finally:
-        # resume any paused jobs
         for jid in paused_jobs:
             try:
                 SCHED.resume_job(jid)
             except Exception:
                 pass
+
+
+
+# @app.post("/collect/run")
+# def run_collect(req: ManualRunRequest):
+#     if req.agent not in COLLECTORS:
+#         return {"error": f"unknown agent: {req.agent}"}
+
+#     try:
+#         published = COLLECTORS[req.agent].run()  # dict with scores/gaps/sign file paths
+#     except Exception as e:
+#         return {"error": f"collector {req.agent} failed: {e}"}
+
+#     # use unique thread for each manual trigger → separate checkpoint streams
+#     tick_orchestrator(thread_id=f"manual-{uuid.uuid4().hex[:8]}")
+
+#     return {"published": published}
+
+
+# @app.post("/inputs/bi_tracker/json_strict")
+# def upload_bi_tracker_json_strict(body: BIInputsModel):
+#     # accept extras but ignore them
+#     raw = body.model_dump(mode="json") 
+
+#     normalized, ignored = _normalize_and_check_bi(raw)
+
+#     run_dir = Path("user_inputs") / "bi_tracker"
+#     run_dir.mkdir(parents=True, exist_ok=True)
+#     ts = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
+#     p = run_dir / f"bi_input_{ts}.json"
+#     p.write_text(json.dumps(normalized, indent=2), encoding="utf-8")
+
+#     latest = _load_latest_inputs()
+#     latest["bi_tracker"] = {"input_path": str(p.resolve())}
+#     _save_latest_inputs(latest)
+
+#     return {"input_path": str(p), "ignored_fields": ignored}
+
+
+# @app.post("/collect/code_repo/run_latest")
+# def run_code_repo_latest():
+#     latest = _load_latest_inputs()
+#     rec = latest.get("code_repo") or {}
+#     repo_url = rec.get("repo_url")
+#     repo_path = rec.get("repo_path")
+
+#     if not repo_url and not repo_path:
+#         return {"error": "No code repo reference saved. First call POST /inputs/code_repo."}
+
+#     out_dir = ARTIFACTS_ROOT / "code_repo"
+#     try:
+#         artifact, aggregates, metrics, extra = run_code_repo_adapter(
+#             out_dir,
+#             repo_url=repo_url,
+#             repo_path=repo_path,
+#         )
+#     except Exception as e:
+#         return {"error": str(e)}
+
+#     published = BUS.publish("code_repo", aggregates or {}, metrics or {})
+#     tick_orchestrator(thread_id=f"code-repo-{uuid.uuid4().hex[:8]}")
+
+#     return {
+#         "artifact": artifact,
+#         "aggregates": aggregates,
+#         "metrics": metrics,
+#         "published": published,
+#         "extra": extra,
+#         "effective_input": {"repo_url": repo_url, "repo_path": repo_path},
+#     }
+
+# @app.post("/collect/bi_tracker/run_latest")
+# def run_bi_tracker_latest():
+#     latest = _load_latest_inputs()
+#     rec = latest.get("bi_tracker")
+#     if not rec or not rec.get("input_path") or not Path(rec["input_path"]).exists():
+#         return {"error": "No BI input uploaded yet. Upload via /inputs/bi_tracker/json_strict first."}
+
+#     out_dir = ARTIFACTS_ROOT / "bi_tracker"
+#     out_dir.mkdir(parents=True, exist_ok=True)
+
+#     artifact, aggregates, metrics = run_bi_adapter(out_dir, snapshot_path=rec["input_path"])
+#     payload = {"artifact_path": artifact, "aggregates": aggregates, "metrics": metrics}
+#     scores = _scores_from_aggregates_or_payload(payload)
+#     gaps = _collect_gaps_from_metrics(metrics)
+
+#     published = BUS.publish("bi_tracker", scores, gaps)
+#     tick_orchestrator(thread_id=f"bi-run-{uuid.uuid4().hex[:8]}")
+
+#     return {"artifact": artifact, "published": published, "bi_tracker_category_scores": scores}
+
+# @app.post("/inputs/ml_ops/json_strict")
+# def upload_mlops_json_strict(body: MLOpsInputsModel):
+#     try:
+#         normalized, ignored = _normalize_and_check_mlops(body.model_dump())  # <-- FIX
+#     except ValueError as e:
+#         return {"error": str(e)}
+
+#     run_dir = Path("user_inputs") / "ml_ops"
+#     run_dir.mkdir(parents=True, exist_ok=True)
+#     p = run_dir / "latest.json"
+#     p.write_text(json.dumps(normalized, indent=2), encoding="utf-8")
+
+#     latest = _load_latest_inputs()
+#     latest["ml_ops"] = {"input_path": str(p.resolve())}
+#     _save_latest_inputs(latest)
+
+#     return {"input_path": str(p), "ignored_fields": ignored}
+
+# @app.post("/collect/enterprise/run_latest")
+# def run_enterprise_with_latest():
+#     run_dir = Path("user_inputs") / "enterprise"
+#     if not run_dir.exists():
+#         return {"error": "no enterprise input uploaded"}
+
+#     latest_files = sorted(run_dir.glob("enterprise_input_*.json"))
+#     if not latest_files:
+#         return {"error": "no enterprise input uploaded"}
+#     latest_path = latest_files[-1]
+
+#     out_dir = ARTIFACTS_ROOT / "enterprise_systems"
+#     out_dir.mkdir(parents=True, exist_ok=True)
+#     artifact, scores, metrics = run_enterprise_adapter(out_dir, snapshot_path=str(latest_path))
+
+#     payload = {"artifact_path": artifact, "scores": scores, "metrics": metrics}
+#     cats = _scores_from_aggregates_or_payload(payload)
+#     gaps = _collect_gaps_from_metrics(metrics)
+
+#     published = BUS.publish("enterprise_systems", cats, gaps)
+#     tick_orchestrator(thread_id=f"enterprise-json-{uuid.uuid4().hex[:8]}")
+
+#     return {
+#         "input_path": str(latest_path),
+#         "artifact": artifact,
+#         "published": published,
+#         "enterprise_scores": scores,
+#         "enterprise_category_scores": cats,
+#     }
+
+
+# @app.post("/collect/ml_ops/run_latest")
+# def run_mlops_latest():
+#     latest = _load_latest_inputs()
+#     rec = latest.get("ml_ops")
+#     if not rec or not rec.get("input_path") or not Path(rec["input_path"]).exists():
+#         return {"error": "No MLOps input uploaded yet. Upload via /inputs/ml_ops/json_strict first."}
+
+#     out_dir = ARTIFACTS_ROOT / "ml_ops"
+#     out_dir.mkdir(parents=True, exist_ok=True)
+
+#     artifact, aggregates, metrics = run_mlops_adapter(out_dir, snapshot_path=rec["input_path"])
+#     payload = {"artifact_path": artifact, "aggregates": aggregates, "metrics": metrics}
+#     scores = _scores_from_aggregates_or_payload(payload)
+#     gaps = _collect_gaps_from_metrics(metrics)
+
+#     published = BUS.publish("ml_ops", scores, gaps)
+#     tick_orchestrator(thread_id=f"mlops-run-{uuid.uuid4().hex[:8]}")
+
+#     return {"artifact": artifact, "published": published, "ml_ops_category_scores": scores}
+
+
+# @app.post("/inputs/enterprise/json_strict")
+# def upload_enterprise_json_strict(body: EnterpriseInputsModel):
+#     try:
+#         normalized, ignored = _normalize_and_check_enterprise(body.model_dump())  # <-- FIX
+#     except ValueError as e:
+#         return {"error": str(e)}
+
+#     run_dir = Path("user_inputs") / "enterprise"
+#     run_dir.mkdir(parents=True, exist_ok=True)
+#     p = run_dir / "latest.json"
+#     p.write_text(json.dumps(normalized, indent=2), encoding="utf-8")
+
+#     latest = _load_latest_inputs()
+#     latest["enterprise"] = {"input_path": str(p.resolve())}
+#     _save_latest_inputs(latest)
+
+#     return {"input_path": str(p), "ignored_fields": ignored}

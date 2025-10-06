@@ -6,11 +6,6 @@ from data_collection_agents.dev_env_scanner_agent.one_shot.registry import get_o
 from data_collection_agents.dev_env_scanner_agent.one_shot.prompting import build_metric_prompt
 from data_collection_agents.dev_env_scanner_agent.logging_utils import timed
 
-def _join_snippets(snippets: List[str]) -> str:
-    parts = []
-    for i, s in enumerate(snippets, start=1):
-        parts.append(f"--- Snippet {i} ---\n{s}")
-    return "\n\n".join(parts)
 
 class MaintainabilityAgent(BaseMicroAgent):
     METRIC_ID = "code.maintainability_band"

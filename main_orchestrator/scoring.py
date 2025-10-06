@@ -1,6 +1,6 @@
 from __future__ import annotations
 from pathlib import Path
-from typing import Any, Dict, Iterable, Tuple
+from typing import Any, Dict, Iterable, Tuple, Optional
 import json
 import re
 from typing import List
@@ -124,12 +124,12 @@ def _extract_metric_blocks_from_json(payload: Any) -> Iterable[Dict[str, Any]]:
             for v in m.values():
                 if _is_metric_block(v):
                     yield v
-        r = payload.get("results")  # some agents use "results"
+        r = payload.get("results")
         if isinstance(r, dict):
             for v in r.values():
                 if _is_metric_block(v):
                     yield v
-        for v in payload.values():   # allow top-level { "<id>": metric }
+        for v in payload.values():
             if _is_metric_block(v):
                 yield v
 
@@ -239,12 +239,11 @@ def _aggregate_tree(inputs_root: Path) -> Dict[str, Any]:
     }
 
 def _weighted_final(dimensions: Dict[str, Dict[str, Any]], weights: Dict[str, float]) -> Dict[str, Any]:
-    total = sum(weights.values()) or 1.0
     final = 0.0
     breakdown = {}
     for dim, row in dimensions.items():
         s = float(row["score"])
-        w = weights.get(dim, 0.0) / total
+        w = weights.get(dim, 0.0) / 100.0 
         final += s * w
         breakdown[dim] = {
             "score": s,
@@ -255,31 +254,56 @@ def _weighted_final(dimensions: Dict[str, Dict[str, Any]], weights: Dict[str, fl
 
 # ---------- Public scorer API (drop-in) ----------
 class ScoringAgent:
-    """
-    New implementation, old behavior:
-    - Read ALL agent JSON outputs under `inputs_root`
-    - Aggregate per-dimension scores from metric->AIMRI mappings (even split)
-    - Apply CATEGORY_WEIGHTS for overall
-    """
     def __init__(self, *, category_weights: Dict[str, float] | None = None):
-        self.category_weights = category_weights or self._load_weights() or CATEGORY_WEIGHTS
+        self.category_weights = self._load_weights() or CATEGORY_WEIGHTS
 
-    def _load_weights(self) -> Dict[str, float] | None:
-        latest = _load_latest_inputs()
-        rec = latest.get("weights")
-        if rec and Path(rec["input_path"]).exists():
-            try:
-                return json.loads(Path(rec["input_path"]).read_text())
-            except Exception:
+    def _normalize_weights(self, w: Dict[str, Any]) -> Optional[Dict[str, float]]:
+        try:
+            cleaned: Dict[str, float] = {}
+            for cat in CATEGORY_WEIGHTS.keys():
+                if cat in w:
+                    cleaned[cat] = float(w[cat])
+                else:
+                    cleaned[cat] = float(CATEGORY_WEIGHTS[cat])
+
+            if any(v < 0 for v in cleaned.values()):
                 return None
-        return None
+
+            total = sum(cleaned.values())
+            if total == 0:
+                return None
+
+            # normalize to 100
+            normalized = {k: (v / total) * 100.0 for k, v in cleaned.items()}
+            return normalized
+        except Exception:
+            return None
+
+    def _load_weights(self) -> Optional[Dict[str, float]]:
+        latest = _load_latest_inputs() or {}
+        rec = latest.get("category_weights")
+        if not rec:
+            return None
+
+        path = rec.get("input_path")
+        if not path or not Path(path).exists():
+            return None
+
+        try:
+            raw = json.loads(Path(path).read_text(encoding="utf-8"))
+        except Exception:
+            return None
+
+        normalized = self._normalize_weights(raw) if isinstance(raw, dict) else None
+        return normalized
+
+
 
     def run(self, inputs_root: str | Path) -> Dict[str, Any]:
+        self.category_weights = self._load_weights() or self.category_weights or CATEGORY_WEIGHTS
         root = Path(inputs_root)
         tree = _aggregate_tree(root)
-        # category_scores = simple {dim: score}
         category_scores = {k: float(v["score"]) for k, v in tree["dimensions"].items()}
-        # overall
         wf = _weighted_final(tree["dimensions"], self.category_weights)
         overall = float(wf["final_score"])
         return {

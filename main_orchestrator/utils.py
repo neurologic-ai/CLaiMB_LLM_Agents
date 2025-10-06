@@ -1,8 +1,12 @@
 # orchestrator/utils.py
+from __future__ import annotations
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Any
+import uuid
+from loguru import logger
+
 def now_utc_str() -> str:
     return datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
 
@@ -88,3 +92,58 @@ def _parse_weights_arg(weights_raw: str | None, dimensions: Dict[str, dict]) -> 
         return parsed
 
     return {d: 1.0 for d in dims}
+
+
+def now_iso() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+def new_run_id(prefix: str) -> str:
+    ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
+    uid = uuid.uuid4().hex[:8]
+    return f"{prefix}-{ts}-{uid}"
+
+def ensure_dirs(*dirs: Path) -> None:
+    for d in dirs:
+        d.mkdir(parents=True, exist_ok=True)
+
+def write_tail(path: Path, tail: int) -> str:
+    try:
+        data = path.read_text(encoding="utf-8", errors="ignore")
+    except Exception:
+        return ""
+    if tail <= 0:
+        return data
+    lines = data.splitlines()
+    return "\n".join(lines[-tail:])
+
+def load_json(path: Path) -> Dict[str, Any]:
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception as e:
+        return {"error": f"failed to read {str(path)}: {e}"}
+    
+def setup_base_logging(service_logs_dir: Path, level: str = "INFO") -> None:
+    service_logs_dir.mkdir(parents=True, exist_ok=True)
+    logger.remove()
+    logger.add(lambda m: print(m, end=""), level=level, backtrace=False, diagnose=False)
+    logger.add(service_logs_dir / "service.log", level=level, rotation="10 MB", retention=10, compression="zip")
+
+class RunSink:
+    """Context manager to add/remove a per-run log sink safely."""
+    def __init__(self, log_path: Path, level: str = "INFO"):
+        self.log_path = log_path
+        self.level = level
+        self._sink_id = None
+
+    def __enter__(self):
+        self.log_path.parent.mkdir(parents=True, exist_ok=True)
+        self._sink_id = logger.add(self.log_path, level=self.level, rotation="5 MB", retention=5, compression="zip")
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        if self._sink_id is not None:
+            try:
+                logger.remove(self._sink_id)
+            except ValueError:
+                # already removed or invalid id
+                pass

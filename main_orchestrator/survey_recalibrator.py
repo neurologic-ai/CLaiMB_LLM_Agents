@@ -15,6 +15,7 @@ from openai import OpenAI
 import yaml
 from main_orchestrator.scoring import CATEGORIES as AIMRI_CATEGORIES
 from main_orchestrator.scoring import CATEGORY_WEIGHTS
+from main_orchestrator.utils import _load_latest_inputs
 
 # -----------------------------
 # Config
@@ -243,7 +244,50 @@ def map_questions_to_categories(
         }
     return best_names, best_sim.tolist(), audit
 
+def _normalize_weights_dict(raw: Dict[str, Any]) -> Optional[Dict[str, float]]:
+    """
+    Keep the 15 canonical categories, coerce values to float,
+    fall back to defaults for missing, and normalize so total = 100.
+    Reject if any negative or if total is 0.
+    """
+    try:
+        cleaned: Dict[str, float] = {}
+        for cat in CATEGORY_WEIGHTS.keys():
+            cleaned[cat] = float(raw.get(cat, CATEGORY_WEIGHTS[cat]))
 
+        if any(v < 0 for v in cleaned.values()):
+            return None
+
+        total = sum(cleaned.values())
+        if total == 0:
+            return None
+
+        # normalize to percentages summing to 100
+        normalized = {k: (v / total) * 100.0 for k, v in cleaned.items()}
+        return normalized
+    except Exception:
+        return None
+
+
+def load_effective_weights() -> Dict[str, float]:
+    """
+    Load user-provided weights from latest_inputs.json → category_weights.input_path.
+    Fallback to CATEGORY_WEIGHTS if missing/invalid.
+    """
+    try:
+        latest = _load_latest_inputs() or {}
+        rec = latest.get("category_weights") or {}
+        path = rec.get("input_path")
+        if not path or not Path(path).exists():
+            return CATEGORY_WEIGHTS
+        raw = json.loads(Path(path).read_text(encoding="utf-8"))
+        if not isinstance(raw, dict):
+            return CATEGORY_WEIGHTS
+        normalized = _normalize_weights_dict(raw)
+        return normalized or CATEGORY_WEIGHTS
+    except Exception:
+        return CATEGORY_WEIGHTS
+    
 # -----------------------------
 # Recalibration math
 # -----------------------------
@@ -372,13 +416,14 @@ def main_with_args(args: Args):
         survey_contribs[cat].append(float(score))
     existing_scores, existing_N = load_existing(args.existing_json, args.default_N)
     recalib_scores, per_cat_audit = recalibrate_scores(existing_scores, existing_N, survey_contribs)
-    overall = round(weighted_overall(recalib_scores, CATEGORY_WEIGHTS), 2)
+    weights = load_effective_weights()
+    overall = round(weighted_overall(recalib_scores, weights), 2)
     args.out_scores.parent.mkdir(parents=True, exist_ok=True)
     args.out_audit.parent.mkdir(parents=True, exist_ok=True)
     with open(args.out_scores, "w", encoding="utf-8") as f:
         json.dump({"recalibrated_category_scores": recalib_scores,
-                   "overall_weighted": overall,
-                   "weights_used": CATEGORY_WEIGHTS}, f, indent=2)
+                    "overall_weighted": overall,
+                    "weights_used": weights}, f, indent=2)
     with open(args.out_audit, "w", encoding="utf-8") as f:
         json.dump({"survey_rows_used": len(qrs),
                    "survey_total_rows": len(questions),
@@ -448,7 +493,8 @@ def main():
     recalib_scores, per_cat_audit = recalibrate_scores(existing_scores, existing_N, survey_contribs)
 
     # 8) Overall (weighted)
-    overall = round(weighted_overall(recalib_scores, CATEGORY_WEIGHTS), 2)
+    weights = load_effective_weights()
+    overall = round(weighted_overall(recalib_scores, weights), 2)
 
     # 9) Save outputs
     args.out_scores.parent.mkdir(parents=True, exist_ok=True)
@@ -459,29 +505,29 @@ def main():
             {
                 "recalibrated_category_scores": recalib_scores,
                 "overall_weighted": overall,
-                "weights_used": CATEGORY_WEIGHTS,
+                "weights_used": weights,
             },
             f,
             indent=2,
             ensure_ascii=False,
         )
 
-    with open(args.out_audit, "w", encoding="utf-8") as f:
-        json.dump(
-            {
-                "survey_rows_used": len(qrs),
-                "survey_total_rows": len(questions),
-                "mapping_audit": mapping_audit,
-                "per_category": per_cat_audit,
-                "existing_source": str(args.existing_json) if args.existing_json else None,
-            },
-            f,
-            indent=2,
-            ensure_ascii=False,
-        )
+    # with open(args.out_audit, "w", encoding="utf-8") as f:
+    #     json.dump(
+    #         {
+    #             "survey_rows_used": len(qrs),
+    #             "survey_total_rows": len(questions),
+    #             "mapping_audit": mapping_audit,
+    #             "per_category": per_cat_audit,
+    #             "existing_source": str(args.existing_json) if args.existing_json else None,
+    #         },
+    #         f,
+    #         indent=2,
+    #         ensure_ascii=False,
+    #     )
 
     print(f"Wrote {args.out_scores}")
-    print(f"Wrote {args.out_audit}")
+    # print(f"Wrote {args.out_audit}")
 
 
 if __name__ == "__main__":

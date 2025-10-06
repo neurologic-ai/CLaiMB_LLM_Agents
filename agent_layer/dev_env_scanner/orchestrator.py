@@ -53,48 +53,48 @@ def _band_to_score(band_value: Any) -> int:
         return mapping.get(letter, 3)
 
 
-def _aggregate(metrics: Dict[str, Dict[str, Any]]) -> Dict[str, float]:
-    """
-    Category aggregation on 'score' (1..5) only.
-    """
-    cat_scores: Dict[str, float] = {}
-    overall = 0.0
-    tot_w = 0.0
-    for cat, spec in CATEGORIES.items():
-        cat_w = float(spec.get("weight", 0.5))
-        met_w: Dict[str, float] = spec.get("metrics", {})
-        s = sum(met_w.values()) or 1.0
-        score = 0.0
-        for mid, w in met_w.items():
-            sc = _clamp_score((metrics.get(mid) or {}).get("score", 3))
-            score += (float(w) / s) * float(sc)
-        score = round(score, 2)
-        cat_scores[cat] = score
-        overall += cat_w * score
-        tot_w += cat_w
-    cat_scores["overall_score"] = round(overall / tot_w, 2) if tot_w else 0.0
-    return cat_scores
+# def _aggregate(metrics: Dict[str, Dict[str, Any]]) -> Dict[str, float]:
+#     """
+#     Category aggregation on 'score' (1..5) only.
+#     """
+#     cat_scores: Dict[str, float] = {}
+#     overall = 0.0
+#     tot_w = 0.0
+#     for cat, spec in CATEGORIES.items():
+#         cat_w = float(spec.get("weight", 0.5))
+#         met_w: Dict[str, float] = spec.get("metrics", {})
+#         s = sum(met_w.values()) or 1.0
+#         score = 0.0
+#         for mid, w in met_w.items():
+#             sc = _clamp_score((metrics.get(mid) or {}).get("score", 3))
+#             score += (float(w) / s) * float(sc)
+#         score = round(score, 2)
+#         cat_scores[cat] = score
+#         overall += cat_w * score
+#         tot_w += cat_w
+#     cat_scores["overall_score"] = round(overall / tot_w, 2) if tot_w else 0.0
+#     return cat_scores
 
 
-def _filter_mapping_for_present_metrics(mapping: Dict[str, List[Dict[str, str]]],
-                                        present_metric_ids: List[str]) -> Dict[str, List[Dict[str, str]]]:
-    present = set(present_metric_ids)
-    return {mid: mapping[mid] for mid in mapping.keys() & present}
+# def _filter_mapping_for_present_metrics(mapping: Dict[str, List[Dict[str, str]]],
+#                                         present_metric_ids: List[str]) -> Dict[str, List[Dict[str, str]]]:
+#     present = set(present_metric_ids)
+#     return {mid: mapping[mid] for mid in mapping.keys() & present}
 
 
-def _build_reverse_index(mapping: Dict[str, List[Dict[str, str]]]) -> Dict[str, List[str]]:
-    idx: Dict[str, List[str]] = {}
-    for mid, tags in mapping.items():
-        for t in tags or []:
-            dim = (t.get("dimension") or "").strip()
-            sub = (t.get("subsection") or "").strip()
-            key = f"{dim}: {sub}".strip(": ").strip()
-            if not key:
-                continue
-            idx.setdefault(key, []).append(mid)
-    for k in list(idx.keys()):
-        idx[k] = sorted(set(idx[k]))
-    return dict(sorted(idx.items()))
+# def _build_reverse_index(mapping: Dict[str, List[Dict[str, str]]]) -> Dict[str, List[str]]:
+#     idx: Dict[str, List[str]] = {}
+#     for mid, tags in mapping.items():
+#         for t in tags or []:
+#             dim = (t.get("dimension") or "").strip()
+#             sub = (t.get("subsection") or "").strip()
+#             key = f"{dim}: {sub}".strip(": ").strip()
+#             if not key:
+#                 continue
+#             idx.setdefault(key, []).append(mid)
+#     for k in list(idx.keys()):
+#         idx[k] = sorted(set(idx[k]))
+#     return dict(sorted(idx.items()))
 
 
 # ----------------------------
@@ -166,7 +166,7 @@ class CodeRepoOrchestrator:
             metrics[mid] = out_obj  # note: band intentionally omitted
 
         # Aggregates now based on score
-        aggregates = _aggregate(metrics)
+        #aggregates = _aggregate(metrics)
 
         # Build top-level mapping/index (only for present metrics)
         #present_ids = list(metrics.keys())
@@ -176,7 +176,7 @@ class CodeRepoOrchestrator:
         result = {
             "run_id": _now_id(self.prefix),
             "metrics": metrics,
-            "aggregates": aggregates,
+            # "aggregates": aggregates,
             #"aimri_mapping": aimri_mapping,  # top-level copy
             #"aimri_index": aimri_index,      # reverse index
         }

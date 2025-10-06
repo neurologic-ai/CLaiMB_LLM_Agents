@@ -136,3 +136,225 @@ class MLOpsInputsModel(BaseModel):
 
     declared_slo: Optional[Dict[str, Any]] = None
     policy_required_checks: Optional[List[str]] = None
+
+# --- Data Platform: input schema ---
+
+# Access Logs
+class AccessSummary(BaseModel):
+    valid_access: int
+    violations: int
+
+class ViolationBreakdown(BaseModel):
+    expired_credentials: int
+    pii_access_without_masking: int
+    privilege_escalation: int
+    unauthorized_access: int
+
+class AccessLogs(BaseModel):
+    access_summary: AccessSummary
+    violation_breakdown: ViolationBreakdown
+
+
+# Backup
+class BackupSystem(BaseModel):
+    system_name: str
+    criticality: str
+    last_backup_timestamp: str
+    backup_success_rate: float
+    avg_rpo_hours: float
+    avg_rto_hours: float
+
+class BackupModel(BaseModel):
+    backup_systems: List[BackupSystem] = Field(default_factory=list)
+
+
+# Data Quality
+class DQTableItem(BaseModel):
+    table: str
+    duplicate_pct: float
+    null_pct: float
+    outlier_pct: float
+
+class DataQualityReport(BaseModel):
+    tables: List[DQTableItem] = Field(default_factory=list)
+
+
+# Duplication
+class DuplicationDomain(BaseModel):
+    name: str
+    datasets_total: int
+    duplicate_groups: int
+
+class DuplicationModel(BaseModel):
+    domains: List[DuplicationDomain] = Field(default_factory=list)
+
+
+# Lineage
+class DomainLineage(BaseModel):
+    total: int
+    with_lineage: int
+
+class LineageModel(BaseModel):
+    domains: Dict[str, DomainLineage] = Field(default_factory=dict)
+    tables_total: int
+    tables_with_lineage: int
+    tables_with_column_lineage: int
+
+
+# Metadata (catalog)
+class CatalogEntry(BaseModel):
+    table: str
+    description: str
+    owner: str
+    classification: str
+    tags: List[str] = Field(default_factory=list)
+
+class MetadataModel(BaseModel):
+    catalog_entries: List[CatalogEntry] = Field(default_factory=list)
+    required_fields: List[str] = Field(default_factory=list)
+
+
+# Pipeline metrics / runs
+class PipelineMetric(BaseModel):
+    pipeline_name: str
+    avg_runtime_minutes: float
+    queue_wait_minutes: float
+    rows_processed: int
+
+class PipelineMetricsModel(BaseModel):
+    pipeline_metrics: List[PipelineMetric] = Field(default_factory=list)
+
+class PipelineRun(BaseModel):
+    id: int
+    name: str
+    status: str
+    runtime_sec: int
+
+class PipelineRunsModel(BaseModel):
+    pipeline_runs: List[PipelineRun] = Field(default_factory=list)
+
+
+# Query logs
+class QueryLogItem(BaseModel):
+    id: str
+    user: str
+    runtime: float
+    success: bool
+
+class QueryLogsModel(BaseModel):
+    query_logs: List[QueryLogItem] = Field(default_factory=list)
+
+
+# Resource usage & cost
+class ClusterUsage(BaseModel):
+    name: str
+    cpu: float
+    memory: float
+    storage: float
+    monthly_cost_usd: float
+
+class CostData(BaseModel):
+    monthly_total_usd: float
+
+class ResourceUsageInner(BaseModel):
+    clusters: List[ClusterUsage] = Field(default_factory=list)
+
+class ResourceUsageModel(BaseModel):
+    cost_data: CostData
+    resource_usage: ResourceUsageInner
+
+
+# Security
+class SecurityEncryption(BaseModel):
+    at_rest: str
+    in_transit: str
+
+class IAMRolePolicies(BaseModel):
+    model_config = ConfigDict(extra="allow")  # arbitrary role keys -> list[str]
+
+class ComplianceRules(BaseModel):
+    encryption: SecurityEncryption
+    iam_role_policies: Dict[str, List[str]] = Field(default_factory=dict)
+    require_firewall: bool
+    require_mfa: bool
+    require_public_access: bool
+
+class IAMRole(BaseModel):
+    role: str
+    assigned_users: int
+    permissions: List[str] = Field(default_factory=list)
+
+class SecuritySettings(BaseModel):
+    encryption: SecurityEncryption
+    firewall_enabled: bool
+    iam_roles: List[IAMRole] = Field(default_factory=list)
+    multi_factor_auth: bool
+    public_access: bool
+
+class SecurityModel(BaseModel):
+    compliance_rules: ComplianceRules
+    security_settings: SecuritySettings
+
+
+# Table metadata / schemas
+class TableMetaItem(BaseModel):
+    table: str
+    expected_frequency: str
+    last_updated: str
+
+class TableMetadataModel(BaseModel):
+    tables: List[TableMetaItem] = Field(default_factory=list)
+
+
+# Tagging
+class TagField(BaseModel):
+    name: str
+    sensitive: bool
+    tagged: bool
+
+class TaggedDataset(BaseModel):
+    dataset: str
+    total_fields: int
+    fields: List[TagField] = Field(default_factory=list)
+
+class TaggingModel(BaseModel):
+    datasets: List[TaggedDataset] = Field(default_factory=list)
+
+
+# User activity
+class DepartmentActivity(BaseModel):
+    active_users: int
+    views: int
+
+class UserActivityModel(BaseModel):
+    active_users: int
+    dashboard_views: int
+    queries_executed: int
+    most_active_users: List[str] = Field(default_factory=list)
+    departments: Dict[str, DepartmentActivity] = Field(default_factory=dict)
+
+
+# --------- Top-level Data Platform payload ---------
+class DataPlatformInputsModel(BaseModel):
+    """
+    Strict top-level keys; nested maps keep flexibility where needed
+    (e.g., baseline_schema/table_schemas as Dict[str, List[str]]).
+    """
+    model_config = ConfigDict(extra="forbid")  # reject unknown top-level fields
+
+    access_logs: Optional[AccessLogs] = None
+    backup: Optional[BackupModel] = None
+    baseline_schema: Dict[str, List[str]] = Field(default_factory=dict)
+    data_quality_report: Optional[DataQualityReport] = None
+    duplication: Optional[DuplicationModel] = None
+    lineage: Optional[LineageModel] = None
+    metadata: Optional[MetadataModel] = None
+    pipeline_metrics: Optional[PipelineMetricsModel] = None
+    pipeline_runs: Optional[PipelineRunsModel] = None
+    query_logs: Optional[QueryLogsModel] = None
+    resource_usage: Optional[ResourceUsageModel] = None
+    security: Optional[SecurityModel] = None
+    table_metadata: Optional[TableMetadataModel] = None
+    table_schemas: Dict[str, List[str]] = Field(default_factory=dict)
+    tagging: Optional[TaggingModel] = None
+    user_activity: Optional[UserActivityModel] = None

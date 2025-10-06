@@ -10,7 +10,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from loguru import logger
 from agent_layer.AGENT_DATA_PLATFORM_ANALYZER.aimri_mapping import DATA_METRIC_TO_AIMRI
 
-# updated import: use the snapshot collector class
+import pprint
+
+# updated import: use the snapshot collector classt
 from workflows.AGENT_DATA_PLATFORM_ANALYZER.snapshot_collectors import DataPlatformAnalyzerSnapshotCollector
 from agent_layer.AGENT_DATA_PLATFORM_ANALYZER.prompts import DataManagementPrompts, AnalyticsReadinessPrompts
 
@@ -92,7 +94,8 @@ class MVPDataPlatformScanner:
 
         # instantiate the snapshot collector class and keep it on the scanner
         self.snapshot_collector = DataPlatformAnalyzerSnapshotCollector(
-            data_dir=snapshot_data_dir, config_file=snapshot_config_file
+            data_dir="Data_platform_inputs",
+            config_file="config/AGENT_DATA_PLATFORM_ANALYZER/config.yaml"
         )
 
     def _build_prompt_for(self, metric: str, input_obj: Any) -> str:
@@ -206,6 +209,9 @@ class MVPDataPlatformScanner:
         m = metric
         if m == "check_schema_consistency":
             base = {"baseline": ctx.get("baseline_schema"), "actual": ctx.get("table_schemas")}
+            #print(f"========= Printing the Baseline schema == > {ctx.get('baseline_schema')}")
+            #print(f"========= Printing the Actual schema == > {ctx.get('table_schemas')}")
+
         elif m == "evaluate_data_freshness":
             base = ctx.get("table_metadata")
         elif m == "evaluate_data_quality":
@@ -268,12 +274,12 @@ class MVPDataPlatformScanner:
         _log("debug", f"Completed metric evaluation: {metric}")
         return result
 
-    def run(self) -> Dict[str, Any]:
+    def run(self, *, ctx: Dict[str, Any]) -> Dict[str, Any]:
         start_time = time.time()
         _log("info", "===== Starting Data Platform Analyzer run =====")
 
-        # use the snapshot collector class (previously: collect_snapshot())
-        ctx = self.snapshot_collector.collect_snapshot()
+        if not isinstance(ctx, dict) or not ctx:
+            raise ValueError("MVPDataPlatformScanner requires a non-empty 'ctx' snapshot (no fallback).")
 
         level0 = [m for m, meta in REGISTRY.items() if not meta["depends_on"]]
         level1 = [m for m, meta in REGISTRY.items() if meta["depends_on"]]

@@ -1039,15 +1039,15 @@ class BIUsageLLM(BaseMicroAgent):
         _ = METRIC_PROMPTS[metric_id]  # raises if unknown
         prompt = build_prompt(metric_id, task_input)
 
-        logger.debug(f"Built prompt for {metric_id} (len={len(prompt)})")
+        #logger.debug(f"Built prompt for {metric_id} (len={len(prompt)})")
 
         with timed(f"metric.{metric_id}"):
             out = self._ask(prompt)
             out["metric_id"] = metric_id
 
-        logger.info(f"[{metric_id}] score={out['score']} | rationale={out['rationale']}")
-        if out.get("flags"):
-            logger.info(f"[{metric_id}] flags={out['flags']}")
+        logger.info(f"[{metric_id}] score={out['score']}")
+        # if out.get("flags"):
+        #     logger.info(f"[{metric_id}] flags={out['flags']}")
         if out.get("gaps"):
             logger.info(f"[{metric_id}] gaps={out['gaps']}")
         return out

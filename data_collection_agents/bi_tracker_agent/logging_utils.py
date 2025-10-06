@@ -38,5 +38,5 @@ def timed(section: str):
         logger.info(f"▶️ start: {section}")
         yield
     finally:
-        dur_ms = (time.perf_counter() - start) * 1000.0
-        logger.info(f"✅ done: {section} ({dur_ms:.2f} ms)")
+        dur_sec = time.perf_counter() - start
+        logger.info(f"✅ done: {section} ({dur_sec:.2f} s)")

@@ -8,12 +8,10 @@ from typing import Any, Callable, Dict
 from dotenv import load_dotenv
 load_dotenv()
 
-# Ensure repo root importable (same pattern as BI tracker)
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-# === Import your existing micro-agents (unchanged) ===
 from data_collection_agents.dev_env_scanner_agent.code_quality.cyclomatic_complexity import CyclomaticComplexityAgent # noqa: E402
 from data_collection_agents.dev_env_scanner_agent.code_quality.maintainability_index import MaintainabilityAgent # noqa: E402
 from data_collection_agents.dev_env_scanner_agent.code_quality.docstring_coverage import DocstringCoverageAgent # noqa: E402
@@ -39,6 +37,7 @@ from data_collection_agents.dev_env_scanner_agent.ml_framework.hyperparameter_op
 from data_collection_agents.dev_env_scanner_agent.ml_framework.ml_framework_agent import MLFrameworkAgent # noqa: E402
 from data_collection_agents.dev_env_scanner_agent.ml_framework.model_evaluation import ModelEvaluationAgent # noqa: E402
 from data_collection_agents.dev_env_scanner_agent.ml_framework.model_training import ModelTrainingAgent # noqa: E402
+from data_collection_agents.dev_env_scanner_agent.slicing import _evaluate_with_slicing #noqa: E402
  
 
 # ---- shared LLM config (singleton-style instances) ----
@@ -210,43 +209,45 @@ def load_tool(metric_id: str) -> Callable[[Dict[str, Any]], Dict[str, Any]]:
         cs = _code_snaps(snapshot)
         fp = _file_paths(snapshot)
 
-        # --- Code quality (LLM JSON already) ---
+    # --- Code quality (LLM JSON already) ---
         if _mid == "code.cyclomatic_complexity_band":
-            return _sanitize(_cc.evaluate(cs), _mid)
+            return _sanitize(_evaluate_with_slicing(_cc, _mid, cs), _mid)
         if _mid == "code.maintainability_band":
-            return _sanitize(_mi.evaluate(cs), _mid)
+            return _sanitize(_evaluate_with_slicing(_mi, _mid, cs), _mid)
         if _mid == "code.docstring_coverage_band":
-            return _sanitize(_doc.evaluate(cs), _mid)
+            return _sanitize(_evaluate_with_slicing(_doc, _mid, cs), _mid)
         if _mid == "code.nested_loops_band":
-            return _sanitize(_nl.evaluate(cs), _mid)
+            return _sanitize(_evaluate_with_slicing(_nl, _mid, cs), _mid)
 
         # --- Infra (LLM JSON already) ---
         if _mid == "infra.parallel_patterns":
-            return _sanitize(_par.evaluate(cs), _mid)
+            return _sanitize(_evaluate_with_slicing(_par, _mid, cs), _mid)
         if _mid == "infra.data_pipeline":
-            return _sanitize(_dp.evaluate(cs), _mid)
+            return _sanitize(_evaluate_with_slicing(_dp, _mid, cs), _mid)
         if _mid == "infra.feature_engineering":
-            return _sanitize(_fe.evaluate(cs), _mid)
+            return _sanitize(_evaluate_with_slicing(_fe, _mid, cs), _mid)
         if _mid == "infra.model_export":
-            return _sanitize(_exp.evaluate(cs), _mid)
+            return _sanitize(_evaluate_with_slicing(_exp, _mid, cs), _mid)
         if _mid == "infra.inference_endpoint":
-            return _sanitize(_inf.evaluate(cs), _mid)
+            return _sanitize(_evaluate_with_slicing(_inf, _mid, cs), _mid)
         if _mid == "infra.security_hygiene":
-            return _sanitize(_sec.evaluate(cs), _mid)
+            return _sanitize(_evaluate_with_slicing(_sec, _mid, cs), _mid)
 
         # --- ML (LLM JSON already) ---
         if _mid == "ml.framework_maturity":
-            return _sanitize(_fw.evaluate(cs), _mid)
+            return _sanitize(_evaluate_with_slicing(_fw, _mid, cs), _mid)
         if _mid == "ml.data_validation":
-            return _sanitize(_dv.evaluate(cs), _mid)
+            return _sanitize(_evaluate_with_slicing(_dv, _mid, cs), _mid)
         if _mid == "ml.experiment_tracking":
-            return _sanitize(_trk.evaluate(cs), _mid)
+            return _sanitize(_evaluate_with_slicing(_trk, _mid, cs), _mid)
         if _mid == "ml.hpo_practice":
-            return _sanitize(_hpo.evaluate(cs), _mid)
+            return _sanitize(_evaluate_with_slicing(_hpo, _mid, cs), _mid)
         if _mid == "ml.training_practice":
-            return _sanitize(_trn.evaluate(cs), _mid)
+            return _sanitize(_evaluate_with_slicing(_trn, _mid, cs), _mid)
         if _mid == "ml.evaluation_practice":
-            return _sanitize(_eval.evaluate(cs), _mid)
+            return _sanitize(_evaluate_with_slicing(_eval, _mid, cs), _mid)
+
+
 
         # --- File-system (wrapped into bands deterministically) ---
         if _mid == "fs.tests_practice":

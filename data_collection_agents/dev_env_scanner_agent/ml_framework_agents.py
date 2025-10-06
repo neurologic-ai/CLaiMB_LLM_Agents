@@ -1,363 +1,113 @@
-# # micro_agents/ml_framework_agents.py
 # from __future__ import annotations
-
 # from typing import Any, Dict, List, Optional
-
-# from dev_env_scanner_agent.base_agent import BaseMicroAgent
-# from dev_env_scanner_agent.one_shot.registry import get_one_shot
-# from dev_env_scanner_agent.one_shot.utils import build_one_shot_prompt
-
+# from data_collection_agents.dev_env_scanner_agent.base_agent import BaseMicroAgent
+# from data_collection_agents.dev_env_scanner_agent.one_shot.registry import get_one_shot
+# from data_collection_agents.dev_env_scanner_agent.one_shot.prompting import build_metric_prompt
+# from data_collection_agents.dev_env_scanner_agent.logging_utils import timed
 
 # def _join_snippets(snippets: List[str]) -> str:
-#     parts = []
-#     for i, s in enumerate(snippets, start=1):
-#         parts.append(f"--- Snippet {i} ---\n{s}")
-#     return "\n\n".join(parts)
+#     return "\n\n".join(f"--- Snippet {i} ---\n{s}" for i, s in enumerate(snippets, 1))
 
-
-# class MLFrameworkAgent(BaseMicroAgent):
-#     """
-#     Detect and normalize ML framework usage.
-
-#     Produces counts compatible with your static signals:
-#       - framework_torch, framework_tensorflow, framework_sklearn,
-#         framework_keras, framework_xgboost, framework_lightgbm  (ints)
-#     """
-
-#     _CANON_MAP = {
-#         "pytorch": "torch",
-#         "torch": "torch",
-#         "tf": "tensorflow",
-#         "tensorflow": "tensorflow",
-#         "scikit-learn": "sklearn",
-#         "scikitlearn": "sklearn",
-#         "sklearn": "sklearn",
-#         "keras": "keras",
-#         "xgboost": "xgboost",
-#         "lightgbm": "lightgbm",
-#     }
-
-#     def evaluate(
-#         self, code_snippets: List[str], context: Optional[Dict[str, Any]] = None
-#     ) -> Dict[str, Any]:
-#         system_prompt = (
-#             "You are an expert ML framework analyst. Find all ML frameworks "
-#             "used in the code. Respond ONLY with JSON."
-#         )
-
-#         ex = get_one_shot(self.__class__.__name__)
-#         response_format = (
-#             '{"framework_usage": {"torch": <int>, "tensorflow": <int>, "sklearn": <int>, '
-#             '"keras": <int>, "xgboost": <int>, "lightgbm": <int>}, '
-#             '"primary_framework": "<string|null>", '
-#             '"framework_combinations": [["<string>", "..."]], '
-#             '"usage_patterns": ["<string>", "..."]}'
-#         )
-
-#         prompt = build_one_shot_prompt(
-#             system_preamble=system_prompt,
-#             response_format_description=response_format,
-#             task_input={"code_snippets": code_snippets},
-#             input_key_meanings=ex.get("input_key_meanings", {}),
-#             example_input=ex["example_input"],
-#             example_output=ex["example_output"],
-#         )
-
-#         response = self._call_llm(prompt, system_prompt)
-#         res = self._parse_json_response(response)
-
-#         usage_raw = res.get("framework_usage", {}) or {}
-#         counts: Dict[str, int] = {
-#             "framework_torch": 0,
-#             "framework_tensorflow": 0,
-#             "framework_sklearn": 0,
-#             "framework_keras": 0,
-#             "framework_xgboost": 0,
-#             "framework_lightgbm": 0,
-#         }
-
-#         for k, v in usage_raw.items():
-#             name = (k or "").strip().lower()
-#             canon = self._CANON_MAP.get(name)
-#             if not canon:
-#                 continue
-#             if canon == "torch":
-#                 counts["framework_torch"] += int(v or 0)
-#             elif canon == "tensorflow":
-#                 counts["framework_tensorflow"] += int(v or 0)
-#             elif canon == "sklearn":
-#                 counts["framework_sklearn"] += int(v or 0)
-#             elif canon == "keras":
-#                 counts["framework_keras"] += int(v or 0)
-#             elif canon == "xgboost":
-#                 counts["framework_xgboost"] += int(v or 0)
-#             elif canon == "lightgbm":
-#                 counts["framework_lightgbm"] += int(v or 0)
-
-#         return counts
-
-
-# class ExperimentTrackingAgent(BaseMicroAgent):
-#     """
-#     Detect experiment tracking tools.
-
-#     Produces booleans compatible with your static signals:
-#       - uses_mlflow, uses_wandb, uses_clearml
-#     """
-
-#     _CANON_MAP = {
-#         "mlflow": "uses_mlflow",
-#         "wandb": "uses_wandb",
-#         "weights & biases": "uses_wandb",
-#         "weights and biases": "uses_wandb",
-#         "clearml": "uses_clearml",
-#     }
-
-#     def evaluate(
-#         self, code_snippets: List[str], context: Optional[Dict[str, Any]] = None
-#     ) -> Dict[str, Any]:
-#         system_prompt = (
-#             "You are an experiment tracking analyst. Detect MLflow, W&B, ClearML. "
-#             "Respond ONLY with JSON."
-#         )
-
-#         ex = get_one_shot(self.__class__.__name__)
-#         response_format = (
-#             '{"tracking_tools": {"mlflow": <bool>, "wandb": <bool>, "clearml": <bool>}, '
-#             '"tracking_patterns": ["<string>", "..."], '
-#             '"best_practices": ["<string>", "..."], '
-#             '"improvement_suggestions": ["<string>", "..."]}'
-#         )
-
-#         prompt = build_one_shot_prompt(
-#             system_preamble=system_prompt,
-#             response_format_description=response_format,
-#             task_input={"code_snippets": code_snippets},
-#             input_key_meanings=ex.get("input_key_meanings", {}),
-#             example_input=ex["example_input"],
-#             example_output=ex["example_output"],
-#         )
-
-#         response = self._call_llm(prompt, system_prompt)
-#         res = self._parse_json_response(response)
-
-#         tools = {
-#             str(k).lower(): bool(v)
-#             for k, v in (res.get("tracking_tools", {}) or {}).items()
-#         }
-#         out = {"uses_mlflow": False, "uses_wandb": False, "uses_clearml": False}
-#         for name, used in tools.items():
-#             key = self._CANON_MAP.get(name)
-#             if key:
-#                 out[key] = out.get(key, False) or used
-#         return out
-
-
-# class HyperparameterOptimizationAgent(BaseMicroAgent):
-#     """
-#     Detect HPO tools and hyperparameter config files.
-
-#     Produces:
-#       - has_hyperparam_file (bool)
-#       - uses_optuna (bool)
-#       - uses_ray_tune (bool)
-#     """
-
-#     _CANON_MAP = {
-#         "optuna": "uses_optuna",
-#         "ray tune": "uses_ray_tune",
-#         "ray.tune": "uses_ray_tune",
-#         "ray.tuning": "uses_ray_tune",
-#         "ray": "uses_ray_tune",
-#     }
-
-#     def evaluate(
-#         self, code_snippets: List[str], context: Optional[Dict[str, Any]] = None
-#     ) -> Dict[str, Any]:
-#         system_prompt = (
-#             "You are an HPO analyst. Detect Optuna/Ray Tune and hyperparameter "
-#             "config files. Respond ONLY with JSON."
-#         )
-
-#         ex = get_one_shot(self.__class__.__name__)
-#         response_format = (
-#             '{"optimization_tools": {"optuna": <bool>, "ray tune": <bool>}, '
-#             '"config_files": <true|false>, '
-#             '"optimization_strategies": ["<string>", "..."], '
-#             '"best_practices": ["<string>", "..."]}'
-#         )
-
-#         prompt = build_one_shot_prompt(
-#             system_preamble=system_prompt,
-#             response_format_description=response_format,
-#             task_input={"code_snippets": code_snippets},
-#             input_key_meanings=ex.get("input_key_meanings", {}),
-#             example_input=ex["example_input"],
-#             example_output=ex["example_output"],
-#         )
-
-#         response = self._call_llm(prompt, system_prompt)
-#         res = self._parse_json_response(response)
-
-#         tools = {
-#             str(k).lower(): bool(v)
-#             for k, v in (res.get("optimization_tools", {}) or {}).items()
-#         }
-#         out = {
-#             "has_hyperparam_file": bool(res.get("config_files", False)),
-#             "uses_optuna": False,
-#             "uses_ray_tune": False,
-#         }
-#         for name, used in tools.items():
-#             key = self._CANON_MAP.get(name)
-#             if key:
-#                 out[key] = out.get(key, False) or used
-#         return out
-
+# def _band(v: Any) -> int:
+#     try:
+#         x = int(v);  return 1 if x < 1 else 5 if x > 5 else x
+#     except Exception:
+#         return 3
 
 # class DataValidationAgent(BaseMicroAgent):
-#     """
-#     Detect data validation tools.
-
-#     Produces:
-#       - uses_great_expectations, uses_evidently, uses_pandera (booleans)
-#     """
-
-#     _CANON = {
-#         "great expectations": "uses_great_expectations",
-#         "greatexpectations": "uses_great_expectations",
-#         "great_expectations": "uses_great_expectations",
-#         "evidently": "uses_evidently",
-#         "pandera": "uses_pandera",
-#     }
-
-#     def evaluate(
-#         self, code_snippets: List[str], context: Optional[Dict[str, Any]] = None
-#     ) -> Dict[str, Any]:
-#         system_prompt = (
-#             "You are a data validation analyst. Detect Great Expectations, "
-#             "Evidently, Pandera. Respond ONLY with JSON."
-#         )
-
+#     METRIC_ID = "ml.data_validation"
+#     RUBRIC = (
+#         "Assess schema/value/drift checks and CI gating.\n"
+#         "5: strong rules + drift + CI gates; 4: solid checks; 3: some checks; 2: ad-hoc; 1: none."
+#     )
+#     INPUT_MEANINGS = {"code_snippets[]": "Pipelines validating schemas/distributions/drift."}
+#     def evaluate(self, code_snippets: List[str], context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
 #         ex = get_one_shot(self.__class__.__name__)
-#         response_format = (
-#             '{"validation_tools": {"great expectations": <bool>, "evidently": <bool>, "pandera": <bool>}, '
-#             '"validation_patterns": ["<string>", "..."], '
-#             '"data_quality_checks": ["<string>", "..."], '
-#             '"improvement_suggestions": ["<string>", "..."]}'
-#         )
-
-#         prompt = build_one_shot_prompt(
-#             system_preamble=system_prompt,
-#             response_format_description=response_format,
-#             task_input={"code_snippets": code_snippets},
-#             input_key_meanings=ex.get("input_key_meanings", {}),
-#             example_input=ex["example_input"],
-#             example_output=ex["example_output"],
-#         )
-
-#         response = self._call_llm(prompt, system_prompt)
-#         res = self._parse_json_response(response)
-
-#         tools = {
-#             str(k).lower(): bool(v)
-#             for k, v in (res.get("validation_tools", {}) or {}).items()
-#         }
-#         out = {
-#             "uses_great_expectations": False,
-#             "uses_evidently": False,
-#             "uses_pandera": False,
-#         }
-#         for name, used in tools.items():
-#             key = self._CANON.get(name)
-#             if key:
-#                 out[key] = out.get(key, False) or used
-#         return out
-
-
-# class ModelTrainingAgent(BaseMicroAgent):
-#     """
-#     Detect training scripts and entrypoints.
-
-#     Produces:
-#       - train_script_count (int)
-#       - has_entrypoint_training (bool)
-#     """
-
-#     def evaluate(
-#         self, code_snippets: List[str], context: Optional[Dict[str, Any]] = None
-#     ) -> Dict[str, Any]:
-#         system_prompt = (
-#             "You are an ML training analyst. Detect training scripts and main "
-#             "entrypoints. Respond ONLY with JSON."
-#         )
-
-#         ex = get_one_shot(self.__class__.__name__)
-#         response_format = (
-#             '{"train_script_count": <int>, "has_entrypoint_training": <true|false>, '
-#             '"training_patterns": ["<string>", "..."], '
-#             '"training_quality": <0-1>}'
-#         )
-
-#         prompt = build_one_shot_prompt(
-#             system_preamble=system_prompt,
-#             response_format_description=response_format,
-#             task_input={"code_snippets": code_snippets},
-#             input_key_meanings=ex.get("input_key_meanings", {}),
-#             example_input=ex["example_input"],
-#             example_output=ex["example_output"],
-#         )
-
-#         response = self._call_llm(prompt, system_prompt)
-#         res = self._parse_json_response(response)
-
+#         ti = {"code_snippets": _join_snippets(code_snippets)}
+#         p = build_metric_prompt(rubric=self.RUBRIC, metric_id=self.METRIC_ID,
+#                                 input_key_meanings=self.INPUT_MEANINGS, task_input=ti,
+#                                 example_input=ex["example_input"], example_output=ex["example_output"])
+#         with timed("metric.ml.data_validation"):
+#             out = self._parse_json_response(self._call_llm(p, "")) or {}
 #         return {
-#             "train_script_count": int(res.get("train_script_count", 0)),
-#             "has_entrypoint_training": bool(res.get("has_entrypoint_training", False)),
-#             "training_patterns": res.get("training_patterns", []),
-#             "training_quality": float(res.get("training_quality", 0.0)),
+#             "metric_id": self.METRIC_ID,
+#             "band": _band(out.get("band", 3)),
+#             "rationale": out.get("rationale", "No rationale."),
+#             "flags": out.get("flags", []),
+#             "gaps": out.get("gaps", []),
 #         }
 
+# class ExperimentTrackingAgent(BaseMicroAgent):
+#     METRIC_ID = "ml.experiment_tracking"
+#     RUBRIC = "Params/metrics/artifacts/signature/lineage across runs."
+#     INPUT_MEANINGS = {"code_snippets[]": "Training code that logs with MLflow/W&B/ClearML."}
+#     def evaluate(self, code_snippets: List[str], context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+#         ex = get_one_shot(self.__class__.__name__)
+#         ti = {"code_snippets": _join_snippets(code_snippets)}
+#         p = build_metric_prompt(rubric=self.RUBRIC, metric_id=self.METRIC_ID,
+#                                 input_key_meanings=self.INPUT_MEANINGS, task_input=ti,
+#                                 example_input=ex["example_input"], example_output=ex["example_output"])
+#         with timed("metric.ml.exp_tracking"):
+#             out = self._parse_json_response(self._call_llm(p, "")) or {}
+#         return {"metric_id": self.METRIC_ID, "band": _band(out.get("band", 3)),
+#                 "rationale": out.get("rationale", "No rationale."), "flags": out.get("flags", []), "gaps": out.get("gaps", [])}
+
+# class HyperparameterOptimizationAgent(BaseMicroAgent):
+#     METRIC_ID = "ml.hpo_practice"
+#     RUBRIC = "Search strategy, seeds, persistence; 5→1 from rigorous→none."
+#     INPUT_MEANINGS = {"code_snippets[]": "HPO code/configs"}
+#     def evaluate(self, code_snippets: List[str], context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+#         ex = get_one_shot(self.__class__.__name__)
+#         ti = {"code_snippets": _join_snippets(code_snippets)}
+#         p = build_metric_prompt(rubric=self.RUBRIC, metric_id=self.METRIC_ID,
+#                                 input_key_meanings=self.INPUT_MEANINGS, task_input=ti,
+#                                 example_input=ex["example_input"], example_output=ex["example_output"])
+#         with timed("metric.ml.hpo"):
+#             out = self._parse_json_response(self._call_llm(p, "")) or {}
+#         return {"metric_id": self.METRIC_ID, "band": _band(out.get("band", 3)),
+#                 "rationale": out.get("rationale", "No rationale."), "flags": out.get("flags", []), "gaps": out.get("gaps", [])}
+
+# class MLFrameworkAgent(BaseMicroAgent):
+#     METRIC_ID = "ml.framework_maturity"
+#     RUBRIC = "Clarity/consistency of primary framework; idioms; interop."
+#     INPUT_MEANINGS = {"code_snippets[]": "Training/inference code to infer framework usage"}
+#     def evaluate(self, code_snippets: List[str], context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+#         ex = get_one_shot(self.__class__.__name__)
+#         ti = {"code_snippets": _join_snippets(code_snippets)}
+#         p = build_metric_prompt(rubric=self.RUBRIC, metric_id=self.METRIC_ID,
+#                                 input_key_meanings=self.INPUT_MEANINGS, task_input=ti,
+#                                 example_input=ex["example_input"], example_output=ex["example_output"])
+#         with timed("metric.ml.framework"):
+#             out = self._parse_json_response(self._call_llm(p, "")) or {}
+#         return {"metric_id": self.METRIC_ID, "band": _band(out.get("band", 3)),
+#                 "rationale": out.get("rationale", "No rationale."), "flags": out.get("flags", []), "gaps": out.get("gaps", [])}
 
 # class ModelEvaluationAgent(BaseMicroAgent):
-#     """
-#     Detect evaluation scripts and metrics usage.
-
-#     Produces:
-#       - eval_script_count (int)
-#       - uses_metrics_library (bool)
-#     """
-
-#     def evaluate(
-#         self, code_snippets: List[str], context: Optional[Dict[str, Any]] = None
-#     ) -> Dict[str, Any]:
-#         system_prompt = (
-#             "You are an ML evaluation analyst. Detect evaluation scripts and "
-#             "metrics libraries. Respond ONLY with JSON."
-#         )
-
+#     METRIC_ID = "ml.evaluation_practice"
+#     RUBRIC = "Metrics breadth, calibration/fairness, reporting."
+#     INPUT_MEANINGS = {"code_snippets[]": "Evaluation scripts and metrics usage"}
+#     def evaluate(self, code_snippets: List[str], context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
 #         ex = get_one_shot(self.__class__.__name__)
-#         response_format = (
-#             '{"eval_script_count": <int>, "uses_metrics_library": <true|false>, '
-#             '"evaluation_metrics": ["<string>", "..."], '
-#             '"evaluation_quality": <0-1>}'
-#         )
+#         ti = {"code_snippets": _join_snippets(code_snippets)}
+#         p = build_metric_prompt(rubric=self.RUBRIC, metric_id=self.METRIC_ID,
+#                                 input_key_meanings=self.INPUT_MEANINGS, task_input=ti,
+#                                 example_input=ex["example_input"], example_output=ex["example_output"])
+#         with timed("metric.ml.eval"):
+#             out = self._parse_json_response(self._call_llm(p, "")) or {}
+#         return {"metric_id": self.METRIC_ID, "band": _band(out.get("band", 3)),
+#                 "rationale": out.get("rationale", "No rationale."), "flags": out.get("flags", []), "gaps": out.get("gaps", [])}
 
-#         prompt = build_one_shot_prompt(
-#             system_preamble=system_prompt,
-#             response_format_description=response_format,
-#             task_input={"code_snippets": code_snippets},
-#             input_key_meanings=ex.get("input_key_meanings", {}),
-#             example_input=ex["example_input"],
-#             example_output=ex["example_output"],
-#         )
-
-#         response = self._call_llm(prompt, system_prompt)
-#         res = self._parse_json_response(response)
-
-#         return {
-#             "eval_script_count": int(res.get("eval_script_count", 0)),
-#             "uses_metrics_library": bool(res.get("uses_metrics_library", False)),
-#             "evaluation_metrics": res.get("evaluation_metrics", []),
-#             "evaluation_quality": float(res.get("evaluation_quality", 0.0)),
-#         }
+# class ModelTrainingAgent(BaseMicroAgent):
+#     METRIC_ID = "ml.training_practice"
+#     RUBRIC = "Entrypoints/configs/seeds/checkpoints/recovery."
+#     INPUT_MEANINGS = {"code_snippets[]": "Entrypoints starting training"}
+#     def evaluate(self, code_snippets: List[str], context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+#         ex = get_one_shot(self.__class__.__name__)
+#         ti = {"code_snippets": _join_snippets(code_snippets)}
+#         p = build_metric_prompt(rubric=self.RUBRIC, metric_id=self.METRIC_ID,
+#                                 input_key_meanings=self.INPUT_MEANINGS, task_input=ti,
+#                                 example_input=ex["example_input"], example_output=ex["example_output"])
+#         with timed("metric.ml.train"):
+#             out = self._parse_json_response(self._call_llm(p, "")) or {}
+#         return {"metric_id": self.METRIC_ID, "band": _band(out.get("band", 3)),
+#                 "rationale": out.get("rationale", "No rationale."), "flags": out.get("flags", []), "gaps": out.get("gaps", [])}

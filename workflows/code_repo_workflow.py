@@ -3,28 +3,33 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
 from loguru import logger
-
-# add root for imports
+import os
 import sys
+
+# --- import bootstrap ---
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+# Use the improved orchestrator (unchanged)
 from agent_layer.dev_env_scanner.orchestrator import CodeRepoOrchestrator, now_utc_iso  # noqa: E402
 from data_collection_agents.dev_env_scanner_agent.logging_utils import setup_logger  # noqa: E402
 
-ARTIFACT_DIR = Path("runs_code_repo_mvp")
-LOGS_DIR = Path("logs")
+from data_collection_agents.dev_env_scanner_agent.utils.file_utils import list_all_files, list_source_files #noqa: E402
 
-# ---------- snapshot helpers (unchanged) ----------
-def _list_source_files(repo_path: Path) -> List[Path]:
-    return [p for p in repo_path.rglob("*.py") if p.is_file()]
+ARTIFACT_DIR = Path(os.getenv("CODE_REPO_ARTIFACT_DIR", "runs_code_repo_mvp"))
+LOGS_DIR     = Path(os.getenv("CODE_REPO_LOGS_DIR", "logs"))
 
-def _list_all_files(repo_path: Path) -> List[str]:
-    return [str(p) for p in repo_path.rglob("*") if p.is_file()]
+# Tunables (can be overridden via env)
+MAX_FILES_PER_REPO = int(os.getenv("CODE_REPO_MAX_FILES", "80"))
+MAX_SNIPPET_BYTES  = int(os.getenv("CODE_REPO_MAX_BYTES", "3000"))
 
-MAX_FILES_PER_REPO = 50
-MAX_SNIPPET_BYTES  = 3000
+_PROTO_SUFFIXES = ("_pb2.py", "_pb2_grpc.py")
+_PROTO_HINTS    = ("/generated/", "/gen/", "/proto/", "/protos/", "/bazel-")
+
+def _is_generated_or_proto(p: Path) -> bool:
+    s = str(p).replace("\\", "/").lower()
+    return s.endswith(_PROTO_SUFFIXES) or any(h in s for h in _PROTO_HINTS)
 
 def _read_snippets(paths: Iterable[Path]) -> List[str]:
     out: List[str] = []
@@ -41,7 +46,15 @@ def _read_snippets(paths: Iterable[Path]) -> List[str]:
     return out
 
 def collect_snapshot(repo_dir: Path) -> Dict[str, Any]:
-    src = _list_source_files(repo_dir)
+    """
+    Layout-agnostic: uses the new list_source_files (no 'src/' or repo-name assumptions).
+    Also lightly prioritizes likely-interesting files before capping to MAX_FILES_PER_REPO.
+    """
+    # all python files (already excludes docs/tests/etc in list_source_files)
+    src = list(list_source_files(str(repo_dir)))
+    src = [p for p in src if not _is_generated_or_proto(p)]
+
+    # simple prioritization (does not filter out others):
     keywords = ("src/", "train", "eval", "serve", "api", "pipeline", "dag", "flow", "inference")
     pri = [p for p in src if any(k in str(p).lower() for k in keywords)]
     seen = set()
@@ -50,14 +63,14 @@ def collect_snapshot(repo_dir: Path) -> Dict[str, Any]:
         if p not in seen:
             seen.add(p)
             ordered.append(p)
+
     picked = ordered[:MAX_FILES_PER_REPO]
 
     snapshot = {
         "code_snippets": _read_snippets(picked),
-        "file_paths": _list_all_files(repo_dir),
+        "file_paths": list(list_all_files(str(repo_dir))),  # full list (used by fs.* metrics)
     }
     return snapshot
-# --------------------------------------------------
 
 class CodeRepoWorkflow:
     """
@@ -78,11 +91,7 @@ class CodeRepoWorkflow:
 
         # per-run file + console; single file (no rotation)
         per_run_log = (self.logs_dir / f"{rid}.log").resolve()
-        setup_logger(
-            log_path=str(per_run_log),
-            level="INFO",
-            serialize=False
-        )
+        setup_logger(log_path=str(per_run_log), level="INFO", serialize=False)
         logger.info(f"Starting CodeRepoWorkflow.run (run_id={rid})")
 
         repo_dir = Path(repo_path).resolve()
@@ -96,8 +105,8 @@ class CodeRepoWorkflow:
         logger.info(f"Artifact written → {out_path}")
         return out_path, result
 
-# ---- Backwards-compatible functional entrypoint (optional) ----
+# ---- Backwards-compatible functional entrypoint ----
 def run_workflow(repo_path: str) -> Dict[str, Any]:
     wf = CodeRepoWorkflow()
-    out_path, result = wf.run(repo_path=repo_path, run_id=None)
+    _, result = wf.run(repo_path=repo_path, run_id=None)
     return result

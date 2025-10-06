@@ -5,6 +5,7 @@ from data_collection_agents.dev_env_scanner_agent.base_agent import BaseMicroAge
 from data_collection_agents.dev_env_scanner_agent.one_shot.registry import get_one_shot
 from data_collection_agents.dev_env_scanner_agent.one_shot.prompting import build_metric_prompt
 from data_collection_agents.dev_env_scanner_agent.logging_utils import timed
+from data_collection_agents.dev_env_scanner_agent.utils.text import label_snippets
 
 
 def _join_snippets(snippets: List[str]) -> str:
@@ -27,7 +28,7 @@ class MLFrameworkAgent(BaseMicroAgent):
 
     def evaluate(self, code_snippets: List[str], context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         ex = get_one_shot(self.__class__.__name__)
-        task_input = {"code_snippets": _join_snippets(code_snippets)}
+        task_input = {"code_snippets": label_snippets(code_snippets)}
         prompt = build_metric_prompt(
             rubric=self.RUBRIC,
             metric_id=self.METRIC_ID,

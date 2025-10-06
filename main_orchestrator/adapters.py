@@ -7,7 +7,9 @@ from workflows.AGENT_DATA_PLATFORM_ANALYZER.mvp_data_platform_scanner import MVP
 from agent_layer.bi_tracker_agent.orchestrator import BIOrchestrator
 from agent_layer.enterprise_systems.orchestrator_enterprise import EnterpriseOrchestrator
 from agent_layer.ml_ops_agent.orchestrator_mlops import run as run_mlops_agent
+from data_collection_agents.bi_tracker_agent.logging_utils import timed
 from typing import Optional, Dict, Any
+from loguru import logger
 import json
 import time
 from .utils import now_utc_str, write_json
@@ -63,9 +65,10 @@ def run_bi_adapter(
 
     if snapshot is None:
         snapshot = json.loads(Path(snapshot_path).read_text(encoding="utf-8"))
-
-    orch = BIOrchestrator()
-    res = orch.run(snapshot, out_dir=Path("agent_layer_outputs/bi_tracker"))
+    
+    with timed("bi_tracker_agent"):
+        orch = BIOrchestrator()
+        res = orch.run(snapshot, out_dir=Path("agent_layer_outputs/bi_tracker"))
 
     artifact = str(out_dir / f"bi_tracker_{now_utc_str()}.json")
     write_json(Path(artifact), res)
@@ -83,52 +86,93 @@ def run_code_repo_adapter(
     base_dir = Path("input_repos").resolve()
     base_dir.mkdir(parents=True, exist_ok=True)
 
-    if repo_url:
-        repo_dir = _clone_one(repo_url, base_dir=base_dir, update_existing=True, depth=1)
-    else:
-        repo_dir = Path(repo_path).resolve()
-        if not repo_dir.exists():
-            raise FileNotFoundError(f"repo_path does not exist: {repo_dir}")
-
-    res = run_workflow(str(repo_dir))
+    with timed("agent.code_repo"):
+        if repo_url:
+            repo_dir = _clone_one(repo_url, base_dir=base_dir, update_existing=True, depth=1)
+        else:
+            repo_dir = Path(repo_path).resolve()
+            if not repo_dir.exists():
+                raise FileNotFoundError(f"repo_path does not exist: {repo_dir}")
+            
+        res = run_workflow(str(repo_dir))
 
     out_dir.mkdir(parents=True, exist_ok=True)
     artifact = str(out_dir / f"code_repo_{now_utc_str()}.json")
     Path(artifact).write_text(json.dumps(res, indent=2, ensure_ascii=False), encoding="utf-8")
 
+    mcount = len((res or {}).get("metrics") or {})
+    logger.info(f"[code_repo] metrics={mcount} repo_dir={repo_dir}")
+
     return artifact, res.get("aggregates"), res.get("metrics"), {"raw_keys": list(res.keys())}
 
-def run_cloud_infra_adapter(out_dir: Path, batch_dir: str):
-    orch = CloudInfraOrchestrator(
-        batch_dir=batch_dir,
-        runs_dir=str(out_dir),
-        log_dir="logs/cloud_infra",
-        log_level="INFO",
-        serialize_logs=False,
-        max_workers=8,
-    )
-    res = orch.run_once()
 
-    if not isinstance(res, dict):
-        res = {"status": "ok"}
+def run_cloud_infra_adapter(
+    out_dir: Path,
+    *,
+    snapshot_path: str,
+):
+    p = Path(snapshot_path)
+    if not p.exists():
+        raise FileNotFoundError(f"cloud_infra snapshot not found: {p}")
 
+    try:
+        snapshot = json.loads(p.read_text(encoding="utf-8"))
+    except Exception as e:
+        raise ValueError(f"Invalid cloud_infra JSON at {p}: {e}")
+
+    with timed("agent.cloud_infra"):
+        orch = CloudInfraOrchestrator(
+            batch_dir="unused",
+            runs_dir=str(out_dir),
+            log_dir="logs/cloud_infra",
+            log_level="INFO",
+            serialize_logs=False,
+            max_workers=8,
+            snapshot_fn=lambda: snapshot,
+        )
+        res = orch.run_once()
+        if not isinstance(res, dict):
+            res = {"status": "ok"}
+
+    out_dir.mkdir(parents=True, exist_ok=True)
     artifact = str(out_dir / f"cloud_infra_{now_utc_str()}.json")
     Path(artifact).write_text(json.dumps(res, indent=2, ensure_ascii=False), encoding="utf-8")
 
+    mcount = len((res or {}).get("metrics") or {})
+    logger.info(f"[cloud_infra] metrics={mcount}")
+
     return artifact, res.get("aggregates"), res.get("metrics")
 
-def run_data_platform_adapter(out_dir: Path):
-    scanner = MVPDataPlatformScanner()  
-    obj = scanner.run()
+# ---------- Data Platform ----------
+def run_data_platform_adapter(
+    out_dir: Path,
+    *,
+    snapshot: Optional[Dict[str, Any]] = None,
+    snapshot_path: Optional[str] = None,
+):
+    if snapshot is None and snapshot_path is None:
+        raise ValueError("Data Platform adapter: no snapshot provided")
 
-    if not isinstance(obj, dict):
-        raise RuntimeError("Data Platform Analyzer produced no artifact dict. Check OPENAI_API_KEY and inputs.")
+    if snapshot is None:
+        snapshot = json.loads(Path(snapshot_path).read_text(encoding="utf-8"))
 
-    artifact = str(out_dir / f"data_platform_{int(time.time())}.json")
+    with timed("agent.data_platform"):
+        scanner = MVPDataPlatformScanner()
+        obj = scanner.run(ctx=snapshot)
+        if not isinstance(obj, dict):
+            raise RuntimeError("Data Platform Analyzer produced no artifact dict.")
+
     out_dir.mkdir(parents=True, exist_ok=True)
+    artifact = str(out_dir / f"data_platform_{int(time.time())}.json")
     Path(artifact).write_text(json.dumps(obj, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    mcount = len((obj or {}).get("results") or (obj or {}).get("metrics") or {})
+    logger.info(f"[data_platform] metrics={mcount}")
+
     return artifact, obj.get("aggregates"), obj.get("results") or obj.get("metrics"), {"raw_keys": list(obj.keys())}
 
+
+# ---------- Enterprise ----------
 def run_enterprise_adapter(
     out_dir: Path,
     *,
@@ -141,21 +185,26 @@ def run_enterprise_adapter(
     if snapshot is None:
         snapshot = json.loads(Path(snapshot_path).read_text(encoding="utf-8"))
 
-    orch = EnterpriseOrchestrator()
-    results, scores, waves = orch.run(snapshot, verbose=True)
-
-    artifact = {
-        "run": {"waves": waves},
-        "scores": scores,
-        "metrics": results,
-    }
+    with timed("agent.enterprise_systems"):
+        orch = EnterpriseOrchestrator()
+        results, scores, waves = orch.run(snapshot, verbose=True)
+        artifact_obj = {
+            "run": {"waves": waves},
+            "scores": scores,
+            "metrics": results,
+        }
 
     out_dir.mkdir(parents=True, exist_ok=True)
     artifact_path = str(out_dir / f"enterprise_{now_utc_str()}.json")
-    write_json(Path(artifact_path), artifact)
+    Path(artifact_path).write_text(json.dumps(artifact_obj, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    mcount = len((results or {}))
+    logger.info(f"[enterprise_systems] metrics={mcount}")
 
     return artifact_path, scores, results
 
+
+# ---------- MLOps ----------
 def run_mlops_adapter(
     out_dir: Path,
     *,
@@ -168,7 +217,8 @@ def run_mlops_adapter(
     if snapshot is None:
         snapshot = json.loads(Path(snapshot_path).read_text(encoding="utf-8"))
 
-    res = run_mlops_agent(snapshot, out_dir=Path("agent_layer_outputs/mlops_monitor"))
+    with timed("agent.ml_ops"):
+        res = run_mlops_agent(snapshot, out_dir=Path("agent_layer_outputs/mlops_monitor"))
 
     artifact_path = res["artifact_path"]
     aggregates    = res.get("aggregates")
@@ -176,6 +226,12 @@ def run_mlops_adapter(
 
     out_dir.mkdir(parents=True, exist_ok=True)
     payload_artifact = str(out_dir / f"mlops_{now_utc_str()}.json")
-    write_json(Path(payload_artifact), {"artifact_path": artifact_path, "aggregates": aggregates, "metrics": metrics})
+    Path(payload_artifact).write_text(
+        json.dumps({"artifact_path": artifact_path, "aggregates": aggregates, "metrics": metrics}, indent=2, ensure_ascii=False),
+        encoding="utf-8"
+    )
+
+    mcount = len((metrics or {}))
+    logger.info(f"[ml_ops] metrics={mcount}")
 
     return payload_artifact, aggregates, metrics
