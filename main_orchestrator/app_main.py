@@ -435,14 +435,19 @@ def run_all_collectors():
         tick_orchestrator(thread_id="manual-all-onepass")
 
         scores_path = Path(SURVEY_OUT_SCORES)
+        gaps_path = ORCH.results_root / "category_gaps.json"
         scores_json = None
+        gaps_json = None
         if scores_path.exists():
             scores_json = json.loads(scores_path.read_text(encoding="utf-8"))
+        if gaps_path.exists():
+            gaps_json = json.loads(gaps_path.read_text(encoding="utf-8"))
         
         _save_latest_inputs({})
 
         return {
             "scores": scores_json,
+            "gaps": gaps_json,
         }
 
     finally:

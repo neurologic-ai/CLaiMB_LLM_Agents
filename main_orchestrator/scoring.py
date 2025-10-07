@@ -253,7 +253,7 @@ def _weighted_final(dimensions: Dict[str, Dict[str, Any]], weights: Dict[str, fl
     return {"final_score": _round2(final), "breakdown": breakdown}
 
 # ---------- Gap Aggregation Functions ----------
-def _extract_gaps_from_metrics(payload: Any) -> Iterable[Tuple[str, str, List[str]]]:
+def _extract_gaps_from_metrics(payload: Any) -> Iterable[Tuple[str, str, List[str], str | None]]:
     """
     Extract gaps from agent metrics with their AIMRI mappings.
     Returns tuples of (dimension, subsection, gaps_list).
@@ -272,11 +272,12 @@ def _extract_gaps_from_metrics(payload: Any) -> Iterable[Tuple[str, str, List[st
                 mappings = metric.get("aimri") or metric.get("aimri_mapping")
                 if not isinstance(mappings, list) or not mappings:
                     continue
+                metric_id = metric.get("metric_id") if isinstance(metric.get("metric_id"), str) else None
                 
                 for mapping in mappings:
                     dim, sub = _normalize_mapping_item(mapping)
                     if dim and gaps:
-                        yield (dim, sub, gaps)
+                        yield (dim, sub, gaps, metric_id)
 
 def _aggregate_gaps_tree(inputs_root: Path) -> Dict[str, Any]:
     """
@@ -286,6 +287,9 @@ def _aggregate_gaps_tree(inputs_root: Path) -> Dict[str, Any]:
     subsection_gaps: Dict[str, List[str]] = {}
     dimension_contribs: Dict[str, int] = {}
     subsection_contribs: Dict[str, int] = {}
+    # Track unique contributing metrics per dimension/subsection to avoid inflation across files/mappings
+    dimension_seen_metrics: Dict[str, set] = {}
+    subsection_seen_metrics: Dict[str, set] = {}
     
     files = sorted(inputs_root.rglob("*.json"))
     gaps_seen = 0
@@ -299,7 +303,13 @@ def _aggregate_gaps_tree(inputs_root: Path) -> Dict[str, Any]:
         except Exception:
             continue
         
-        for dimension, subsection, gaps in _extract_gaps_from_metrics(data):
+        # Try to infer agent name from file path: .../agents/<agent>/<artifact>.json
+        try:
+            agent_name = jf.parent.name
+        except Exception:
+            agent_name = None
+
+        for dimension, subsection, gaps, metric_id in _extract_gaps_from_metrics(data):
             gaps_seen += len(gaps)
             
             # Clean and validate gaps
@@ -315,16 +325,27 @@ def _aggregate_gaps_tree(inputs_root: Path) -> Dict[str, Any]:
             if dimension not in dimension_gaps:
                 dimension_gaps[dimension] = []
                 dimension_contribs[dimension] = 0
+                dimension_seen_metrics[dimension] = set()
             dimension_gaps[dimension].extend(clean_gaps)
-            dimension_contribs[dimension] += 1
+            # Increment contributor count only once per unique (agent:metric_id)
+            if metric_id:
+                key = f"{agent_name}:{metric_id}" if agent_name else metric_id
+                if key not in dimension_seen_metrics[dimension]:
+                    dimension_seen_metrics[dimension].add(key)
+                    dimension_contribs[dimension] += 1
             
             # Aggregate by subsection
             if subsection:
                 if subsection not in subsection_gaps:
                     subsection_gaps[subsection] = []
                     subsection_contribs[subsection] = 0
+                    subsection_seen_metrics[subsection] = set()
                 subsection_gaps[subsection].extend(clean_gaps)
-                subsection_contribs[subsection] += 1
+                if metric_id:
+                    key = f"{agent_name}:{metric_id}" if agent_name else metric_id
+                    if key not in subsection_seen_metrics[subsection]:
+                        subsection_seen_metrics[subsection].add(key)
+                        subsection_contribs[subsection] += 1
             
             gaps_used += len(clean_gaps)
     
