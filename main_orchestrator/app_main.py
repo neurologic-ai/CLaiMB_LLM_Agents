@@ -289,13 +289,16 @@ def upload_category_weights(body: CategoryWeightsModel):
 def latest_results():
     overall_path = ORCH.results_root / "latest_overall.json"
     categories_path = ORCH.results_root / "category_scores.json"
+    gaps_path = ORCH.results_root / "category_gaps.json"
 
     overall = json.loads(overall_path.read_text()) if overall_path.exists() else None
     categories = json.loads(categories_path.read_text()) if categories_path.exists() else None
+    gaps = json.loads(gaps_path.read_text()) if gaps_path.exists() else None
 
     return {
         "overall": overall,
         "categories": categories,
+        "gaps": gaps,
         "state": {
             "updated_count": STATE.get("updated_count"),
             "last_scored_ts": STATE.get("last_scored_ts"),

@@ -252,6 +252,124 @@ def _weighted_final(dimensions: Dict[str, Dict[str, Any]], weights: Dict[str, fl
         }
     return {"final_score": _round2(final), "breakdown": breakdown}
 
+# ---------- Gap Aggregation Functions ----------
+def _extract_gaps_from_metrics(payload: Any) -> Iterable[Tuple[str, str, List[str]]]:
+    """
+    Extract gaps from agent metrics with their AIMRI mappings.
+    Returns tuples of (dimension, subsection, gaps_list).
+    """
+    if isinstance(payload, dict):
+        metrics = payload.get("metrics") or payload.get("results", {})
+        if isinstance(metrics, dict):
+            for metric in metrics.values():
+                if not isinstance(metric, dict):
+                    continue
+                
+                gaps = metric.get("gaps") or metric.get("gap")
+                if not isinstance(gaps, list) or not gaps:
+                    continue
+                
+                mappings = metric.get("aimri") or metric.get("aimri_mapping")
+                if not isinstance(mappings, list) or not mappings:
+                    continue
+                
+                for mapping in mappings:
+                    dim, sub = _normalize_mapping_item(mapping)
+                    if dim and gaps:
+                        yield (dim, sub, gaps)
+
+def _aggregate_gaps_tree(inputs_root: Path) -> Dict[str, Any]:
+    """
+    Aggregate gaps by AIMRI dimension and subsection, similar to score aggregation.
+    """
+    dimension_gaps: Dict[str, List[str]] = {}
+    subsection_gaps: Dict[str, List[str]] = {}
+    dimension_contribs: Dict[str, int] = {}
+    subsection_contribs: Dict[str, int] = {}
+    
+    files = sorted(inputs_root.rglob("*.json"))
+    gaps_seen = 0
+    gaps_used = 0
+    files_processed = 0
+    
+    for jf in files:
+        try:
+            data = json.loads(jf.read_text(encoding="utf-8", errors="ignore"))
+            files_processed += 1
+        except Exception:
+            continue
+        
+        for dimension, subsection, gaps in _extract_gaps_from_metrics(data):
+            gaps_seen += len(gaps)
+            
+            # Clean and validate gaps
+            clean_gaps = []
+            for gap in gaps:
+                if isinstance(gap, str) and gap.strip():
+                    clean_gaps.append(gap.strip()[:300])  # Limit length
+            
+            if not clean_gaps:
+                continue
+            
+            # Aggregate by dimension
+            if dimension not in dimension_gaps:
+                dimension_gaps[dimension] = []
+                dimension_contribs[dimension] = 0
+            dimension_gaps[dimension].extend(clean_gaps)
+            dimension_contribs[dimension] += 1
+            
+            # Aggregate by subsection
+            if subsection:
+                if subsection not in subsection_gaps:
+                    subsection_gaps[subsection] = []
+                    subsection_contribs[subsection] = 0
+                subsection_gaps[subsection].extend(clean_gaps)
+                subsection_contribs[subsection] += 1
+            
+            gaps_used += len(clean_gaps)
+    
+    # Deduplicate and sort gaps
+    def _dedupe_and_sort(gaps_list: List[str]) -> List[str]:
+        # Remove duplicates while preserving order
+        seen = set()
+        unique_gaps = []
+        for gap in gaps_list:
+            if gap not in seen:
+                seen.add(gap)
+                unique_gaps.append(gap)
+        return unique_gaps[:10]  # Limit to top 10 gaps per category
+    
+    subsections: Dict[str, Dict[str, Any]] = {}
+    for sub, gaps in subsection_gaps.items():
+        if gaps:
+            subsections[sub] = {
+                "gaps": _dedupe_and_sort(gaps),
+                "total_gaps": len(gaps),
+                "metric_contributions": subsection_contribs.get(sub, 0),
+            }
+    
+    dimensions: Dict[str, Dict[str, Any]] = {}
+    for dim, gaps in dimension_gaps.items():
+        if gaps:
+            dimensions[dim] = {
+                "gaps": _dedupe_and_sort(gaps),
+                "total_gaps": len(gaps),
+                "metric_contributions": dimension_contribs.get(dim, 0),
+            }
+    
+    return {
+        "meta": {
+            "inputs_root": str(inputs_root.resolve()),
+            "files_processed": files_processed,
+            "gaps_seen": gaps_seen,
+            "gaps_used": gaps_used,
+            "subsections_count": len(subsections),
+            "dimensions_count": len(dimensions),
+        },
+        "subsections": {k: subsections[k] for k in sorted(subsections.keys(), key=_sort_key)},
+        "dimensions": {k: dimensions[k] for k in sorted(dimensions.keys(), key=_sort_key)},
+    }
+
 # ---------- Public scorer API (drop-in) ----------
 class ScoringAgent:
     def __init__(self, *, category_weights: Dict[str, float] | None = None):
@@ -297,23 +415,33 @@ class ScoringAgent:
         normalized = self._normalize_weights(raw) if isinstance(raw, dict) else None
         return normalized
 
+    def run_gaps(self, inputs_root: str | Path) -> Dict[str, Any]:
+        """Run gap aggregation by AIMRI category."""
+        root = Path(inputs_root)
+        gaps_tree = _aggregate_gaps_tree(root)
+        return gaps_tree
+
 
 
     def run(self, inputs_root: str | Path) -> Dict[str, Any]:
         self.category_weights = self._load_weights() or self.category_weights or CATEGORY_WEIGHTS
         root = Path(inputs_root)
         tree = _aggregate_tree(root)
+        gaps_tree = _aggregate_gaps_tree(root)
         category_scores = {k: float(v["score"]) for k, v in tree["dimensions"].items()}
         wf = _weighted_final(tree["dimensions"], self.category_weights)
         overall = float(wf["final_score"])
         return {
             "overall_score": overall,
             "category_scores": category_scores,
+            "category_gaps": gaps_tree["dimensions"],
             "details": {
                 "weights_used": self.category_weights,
                 "weighted_breakdown": wf["breakdown"],
                 "subsections": tree["subsections"],
                 "dimensions": tree["dimensions"],
+                "gap_subsections": gaps_tree["subsections"],
                 "meta": tree["meta"],
+                "gaps_meta": gaps_tree["meta"],
             },
         }

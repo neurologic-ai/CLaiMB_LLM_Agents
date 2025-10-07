@@ -166,6 +166,10 @@ class Orchestrator:
         (self.results_root / "category_scores.json").write_text(
             json.dumps(out["result"].get("category_scores", {}), indent=2)
         )
+        # Save gap aggregation results
+        (self.results_root / "category_gaps.json").write_text(
+            json.dumps(out["result"].get("category_gaps", {}), indent=2)
+        )
 
         # --- Survey recalibration (configurable) ---
         cfg = self.survey_config
