@@ -1,0 +1,1474 @@
+{
+  "ts": "2025-10-09T05:09:48+00:00",
+  "result": {
+    "overall_score": 2.32,
+    "category_scores": {
+      "01. Technical Infrastructure": 2.38,
+      "02. Data Management & Quality": 2.67,
+      "03. AI/ML Capabilities": 2.22,
+      "04. Talent & Skills": 2.68,
+      "05. Governance & Ethics": 2.57,
+      "06. Strategic Alignment": 2.67,
+      "07. Cultural Readiness": 2.61,
+      "08. Process Maturity": 2.52,
+      "09. Foundation Model Operations": 2.98,
+      "11. Responsible AI & Social Impact": 2.84,
+      "12. AI Business Value & ROI": 2.49,
+      "13. AI Risk & Resilience": 2.82,
+      "15. AI Leadership & Vision": 3.0
+    },
+    "category_gaps": {
+      "01. Technical Infrastructure": {
+        "gaps": [
+          "Link usage is concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve a more balanced distribution and potentially unlock a higher score.",
+          "Link usage is uneven; increase link enablement and usage across underutilized dashboards to achieve a broader spread and reach at least 45% linked dashboards (unlocks score 4).",
+          "Link usage concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve broader engagement and reach at least 45% linked dashboards (unlocks score 4).",
+          "Link usage is concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve a more balanced traversal distribution (aim for \u226545% linked with moderate usage to unlock score 4).",
+          "Usage concentrated on a few dashboards \u2192 increase link enablement and usage across underutilized dashboards to achieve broader engagement and reach \u226545% linked dashboards (unlocks score 4).",
+          "Link usage is concentrated; increase link enablement and promote usage across underutilized dashboards to achieve a more balanced distribution and potentially unlock a higher score.",
+          "1. Onboard unmanaged resources to IaC management",
+          "2. Address the critical policy finding regarding the network security group",
+          "3. Remediate the high-severity finding related to public IPs on VMs",
+          "4. Review and update IaC configurations to ensure compliance"
+        ],
+        "total_gaps": 971,
+        "metric_contributions": 35
+      },
+      "02. Data Management & Quality": {
+        "gaps": [
+          "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 5).",
+          "Repeat cadence data is missing for some users; aim to capture repeats_per_week for at least 80% of active users to strengthen evidence of repeat usage.",
+          "Department spread unknown \u2192 report drilldown usage by dept/team \u2192 show broad spread across \u22653 BUs (unlocks score 4).",
+          "Stability unverified \u2192 include 4-week drilldown time series \u2192 demonstrate non-declining trend (supports score 4\u20135).",
+          "Sample size varies week to week \u2192 provide distinct WAU counts for each week to assess stability and growth more accurately.",
+          "Cohort composition unknown \u2192 report cohort size and retention by persona/BU \u2192 aim for \u226545% overall with clear segment drivers (unlocks score 4).",
+          "Link usage is concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve a more balanced distribution and potentially unlock a higher score.",
+          "Export governance unknown \u2192 add policy enforcement status + exception rate \u2192 demonstrate \u226595% governed exports (unlocks score 4\u20135).",
+          "Delivery reliability unknown \u2192 assess alert delivery success and failure rates to determine reliability.",
+          "BU spread unknown \u2192 count unique alert/subscription users per BU to evaluate broader adoption."
+        ],
+        "total_gaps": 939,
+        "metric_contributions": 53
+      },
+      "03. AI/ML Capabilities": {
+        "gaps": [
+          "Lack of docstrings for critical functions \u2192 implement docstrings for all functions \u2192 achieve coverage \u22650.45 (unlocks band 2).",
+          "Missing parameter/return descriptions \u2192 enforce complete function signatures with param/return tags \u2192 improve quality \u22650.45 (unlocks band 2).",
+          "Implement secure storage for sensitive data (e.g., secrets management) \u2192 eliminate hardcoded values (unlocks band 3).",
+          "Enhance input validation mechanisms to ensure data integrity \u2192 reduce risk of injection attacks (supports band 3).",
+          "Integrate preprocessing functions into a structured pipeline \u2192 establish a consistent feature engineering process \u2192 unlocks band 4.",
+          "Fragmented usage \u2192 consolidate to a primary framework and idiomatic patterns \u2192 improve clarity and consistency (unlocks band 4).",
+          "Implement schema validation checks \u2192 establish clear data expectations \u2192 improve data integrity (unlocks band 3).",
+          "Add drift monitoring mechanisms \u2192 track data distribution changes over time \u2192 enhance anomaly detection (supports band 3).",
+          "Ad-hoc logging \u2192 implement consistent logging for parameters and metrics across all functions \u2192 structured tracking (unlocks band 3).",
+          "Artifacts missing \u2192 ensure model artifacts are saved after each run \u2192 complete tracking (unlocks band 3)."
+        ],
+        "total_gaps": 372,
+        "metric_contributions": 41
+      },
+      "04. Talent & Skills": {
+        "gaps": [
+          "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 5).",
+          "Department spread unknown \u2192 report drilldown usage by dept/team \u2192 show broad spread across \u22653 BUs (unlocks score 4).",
+          "Stability unverified \u2192 include 4-week drilldown time series \u2192 demonstrate non-declining trend (supports score 4\u20135).",
+          "Sample size varies week to week \u2192 provide distinct WAU counts for each week to assess stability and growth more accurately.",
+          "Cohort composition unknown \u2192 report cohort size and retention by persona/BU \u2192 aim for \u226545% overall with clear segment drivers (unlocks score 4).",
+          "Export governance unknown \u2192 add policy enforcement status + exception rate \u2192 demonstrate \u226595% governed exports (unlocks score 4\u20135).",
+          "Total number of departments unknown \u2192 report total departments considered to clarify coverage percentage.",
+          "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 4).",
+          "Sample size is limited; provide WAU counts per week for the last 4 weeks to assess stability and growth potential.",
+          "Cohort composition unknown \u2192 report cohort size and retention by persona/BU \u2192 aim for \u226545% overall retention with clear segment drivers (unlocks score 4)."
+        ],
+        "total_gaps": 423,
+        "metric_contributions": 35
+      },
+      "05. Governance & Ethics": {
+        "gaps": [
+          "Repeat cadence data is missing for some users; aim to capture repeats_per_week for at least 80% of active users to strengthen evidence of repeat usage.",
+          "Critical gaps in ownership and certification on dashboards d3 and d7; establish clear ownership and certification processes.",
+          "Metadata is missing for d3 and d7; enforce metadata standards to ensure completeness.",
+          "Many dashboards lack PII tagging and access policies; implement comprehensive tagging and access control measures to improve coverage.",
+          "Owners missing for dashboards d3 and d7 \u2192 enforce owner assignment to achieve at least 80% coverage (unlocks score 4).",
+          "Lineage and glossary documentation is absent for dashboards d2, d3, d5, and d7 \u2192 ensure all dashboards have lineage and glossary entries to improve coverage.",
+          "Total number of departments unknown \u2192 report total departments considered to clarify coverage percentage.",
+          "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 4).",
+          "Repeat cadence is sparse for some users; aim to capture repeats_per_week for at least 80% of active users to verify weekly repeats for the majority (unlocks score 5).",
+          "Critical missing owners on dashboards d3 and d7 \u2192 assign owners to all dashboards to improve governance."
+        ],
+        "total_gaps": 938,
+        "metric_contributions": 35
+      },
+      "06. Strategic Alignment": {
+        "gaps": [
+          "Severe data sparsity preventing trustworthy computation of DAU and MAU.",
+          "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 5).",
+          "Repeat cadence data is missing for some users; aim to capture repeats_per_week for at least 80% of active users to strengthen evidence of repeat usage.",
+          "Department spread unknown \u2192 report drilldown usage by dept/team \u2192 show broad spread across \u22653 BUs (unlocks score 4).",
+          "Stability unverified \u2192 include 4-week drilldown time series \u2192 demonstrate non-declining trend (supports score 4\u20135).",
+          "Sample size varies week to week \u2192 provide distinct WAU counts for each week to assess stability and growth more accurately.",
+          "Cohort composition unknown \u2192 report cohort size and retention by persona/BU \u2192 aim for \u226545% overall with clear segment drivers (unlocks score 4).",
+          "Link usage is concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve a more balanced distribution and potentially unlock a higher score.",
+          "Export governance unknown \u2192 add policy enforcement status + exception rate \u2192 demonstrate \u226595% governed exports (unlocks score 4\u20135).",
+          "Delivery reliability unknown \u2192 assess alert delivery success and failure rates to determine reliability."
+        ],
+        "total_gaps": 520,
+        "metric_contributions": 43
+      },
+      "07. Cultural Readiness": {
+        "gaps": [
+          "Severe data sparsity preventing trustworthy computation of DAU and MAU.",
+          "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 5).",
+          "Repeat cadence data is missing for some users; aim to capture repeats_per_week for at least 80% of active users to strengthen evidence of repeat usage.",
+          "Department spread unknown \u2192 report drilldown usage by dept/team \u2192 show broad spread across \u22653 BUs (unlocks score 4).",
+          "Stability unverified \u2192 include 4-week drilldown time series \u2192 demonstrate non-declining trend (supports score 4\u20135).",
+          "Sample size varies week to week \u2192 provide distinct WAU counts for each week to assess stability and growth more accurately.",
+          "Cohort composition unknown \u2192 report cohort size and retention by persona/BU \u2192 aim for \u226545% overall with clear segment drivers (unlocks score 4).",
+          "Delivery reliability unknown \u2192 assess alert delivery success and failure rates to determine reliability.",
+          "BU spread unknown \u2192 count unique alert/subscription users per BU to evaluate broader adoption.",
+          "Total number of departments unknown \u2192 report total departments considered to clarify coverage percentage."
+        ],
+        "total_gaps": 112,
+        "metric_contributions": 13
+      },
+      "08. Process Maturity": {
+        "gaps": [
+          "Severe data sparsity preventing trustworthy computation of DAU and MAU.",
+          "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 5).",
+          "Repeat cadence data is missing for some users; aim to capture repeats_per_week for at least 80% of active users to strengthen evidence of repeat usage.",
+          "Department spread unknown \u2192 report drilldown usage by dept/team \u2192 show broad spread across \u22653 BUs (unlocks score 4).",
+          "Stability unverified \u2192 include 4-week drilldown time series \u2192 demonstrate non-declining trend (supports score 4\u20135).",
+          "Sample size varies week to week \u2192 provide distinct WAU counts for each week to assess stability and growth more accurately.",
+          "Cohort composition unknown \u2192 report cohort size and retention by persona/BU \u2192 aim for \u226545% overall with clear segment drivers (unlocks score 4).",
+          "Link usage is concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve a more balanced distribution and potentially unlock a higher score.",
+          "Export governance unknown \u2192 add policy enforcement status + exception rate \u2192 demonstrate \u226595% governed exports (unlocks score 4\u20135).",
+          "Delivery reliability unknown \u2192 assess alert delivery success and failure rates to determine reliability."
+        ],
+        "total_gaps": 1493,
+        "metric_contributions": 91
+      },
+      "09. Foundation Model Operations": {
+        "gaps": [
+          "1. Implement additional scaling actions to address the high CPU utilization.",
+          "2. Review and adjust scaling thresholds to prevent future violations.",
+          "3. Increase monitoring frequency to detect breaches earlier.",
+          "4. Analyze the cause of the high CPU usage to optimize resource allocation.",
+          "5. Consider implementing automated scaling policies based on real-time demand.",
+          "1. Increase the frequency of scaling actions to respond more promptly to CPU breaches.",
+          "2. Review and adjust the target CPU thresholds to better align with actual usage patterns.",
+          "3. Implement additional monitoring to track CPU utilization trends more effectively.",
+          "4. Analyze the scaling event timing to ensure it aligns with peak usage periods.",
+          "5. Consider adding more granular scaling policies to prevent future violations."
+        ],
+        "total_gaps": 106,
+        "metric_contributions": 8
+      },
+      "11. Responsible AI & Social Impact": {
+        "gaps": [
+          "Many dashboards lack PII tagging and access policies; implement comprehensive tagging and access control measures to improve coverage.",
+          "Many dashboards lack PII tagging and access policies; implement comprehensive tagging and access controls to improve coverage.",
+          "Many dashboards lack PII and access policy tags; implement comprehensive tagging and access control measures to improve coverage.",
+          "No calibration metrics \u2192 implement evaluation metrics for model performance \u2192 enhance reliability (unlocks band 4).",
+          "Fairness not addressed \u2192 include bias assessments in resume parsing \u2192 improve evaluation completeness (supports band 4).",
+          "Establish a data governance framework to ensure that all datasets are documented and assessed for sensitive data tagging.",
+          "Implement a process for regularly updating and maintaining metadata for all datasets to ensure compliance with data privacy regulations.",
+          "Conduct training sessions for data owners and stakeholders on the importance of tagging sensitive data and the potential risks of non-compliance.",
+          "Deploy an automated data classification tool to scan for and tag sensitive data types like PII and PCI across all tables.",
+          "Implement a mandatory data governance policy that requires all new tables containing sensitive data to be tagged before they are put into production."
+        ],
+        "total_gaps": 50,
+        "metric_contributions": 5
+      },
+      "12. AI Business Value & ROI": {
+        "gaps": [
+          "Severe data sparsity preventing trustworthy computation of DAU and MAU.",
+          "Staleness in high-priority dashboards needs addressing; ensure all critical assets are refreshed within SLA to improve efficiency posture.",
+          "Quantify the percentage of exports and the share of stale dashboards by priority to further improve efficiency posture.",
+          "Quantify the percentage of exports and the share of stale dashboards by priority to address inefficiencies; aim to reduce exports below 15% and eliminate staleness in critical assets (unlocks score 4\u20135).",
+          "Quantify the percentage of exports and the share of stale dashboards by priority to address inefficiencies; aim to reduce exports below 15% and eliminate staleness in critical assets to improve the score.",
+          "Quantify the percentage of exports and the share of stale dashboards by priority to address inefficiencies; aim to reduce exports below 15% and eliminate staleness for critical assets to improve the score.",
+          "Quantify the percentage of exports and the share of stale dashboards by priority to address inefficiencies. Aim to reduce exports to below 15% and eliminate staleness for critical assets to improve the score.",
+          "1. Review and adjust AWS commitment to better align with actual usage.",
+          "2. Consider increasing GCP commitment to match higher usage.",
+          "3. Analyze usage patterns to optimize future commitments."
+        ],
+        "total_gaps": 855,
+        "metric_contributions": 31
+      },
+      "13. AI Risk & Resilience": {
+        "gaps": [
+          "1. Investigate the root causes of the critical incident and major incident.",
+          "2. Implement measures to reduce MTTR and prevent future incidents.",
+          "3. Review SLO compliance and adjust monitoring thresholds.",
+          "4. Increase incident response training for the team.",
+          "5. Consider additional resources or tools to improve service reliability.",
+          "1. Monitor latency trends to identify potential spikes.",
+          "2. Investigate the causes of unhealthy minutes for both load balancers.",
+          "3. Review error handling and retry logic to further reduce 5xx errors.",
+          "4. Ensure capacity planning aligns with traffic patterns to maintain performance.",
+          "5. Conduct regular performance reviews to stay ahead of potential issues."
+        ],
+        "total_gaps": 303,
+        "metric_contributions": 21
+      },
+      "15. AI Leadership & Vision": {
+        "gaps": [
+          "Execution share low \u2192 increase AI execution share \u2192 target \u226550% (unlocks band 4).",
+          "Execution share low \u2192 increase AI execution share \u2192 achieve \u226550% (unlocks band 4).",
+          "Execution share low \u2192 increase AI execution percentage \u2192 achieve \u226550% (unlocks band 4).",
+          "Execution share low \u2192 increase AI execution percentage \u2192 achieve \u226550% executions using AI (unlocks band 4).",
+          "Execution share low \u2192 increase AI execution percentage \u2192 target \u226550% (unlocks band 4)."
+        ],
+        "total_gaps": 7,
+        "metric_contributions": 1
+      }
+    },
+    "details": {
+      "weights_used": {
+        "01. Technical Infrastructure": 10.0,
+        "02. Data Management & Quality": 5.0,
+        "03. AI/ML Capabilities": 20.0,
+        "04. Talent & Skills": 5.0,
+        "05. Governance & Ethics": 5.0,
+        "06. Strategic Alignment": 5.0,
+        "07. Cultural Readiness": 5.0,
+        "08. Process Maturity": 5.0,
+        "09. Foundation Model Operations": 5.0,
+        "10. Generative AI Capabilities": 5.0,
+        "11. Responsible AI & Social Impact": 5.0,
+        "12. AI Business Value & ROI": 5.0,
+        "13. AI Risk & Resilience": 5.0,
+        "14. AI Ecosystem & External Integration": 5.0,
+        "15. AI Leadership & Vision": 10.0
+      },
+      "weighted_breakdown": {
+        "01. Technical Infrastructure": {
+          "score": 2.38,
+          "weight": 0.1,
+          "weighted": 0.238
+        },
+        "02. Data Management & Quality": {
+          "score": 2.67,
+          "weight": 0.05,
+          "weighted": 0.1335
+        },
+        "03. AI/ML Capabilities": {
+          "score": 2.22,
+          "weight": 0.2,
+          "weighted": 0.444
+        },
+        "04. Talent & Skills": {
+          "score": 2.68,
+          "weight": 0.05,
+          "weighted": 0.134
+        },
+        "05. Governance & Ethics": {
+          "score": 2.57,
+          "weight": 0.05,
+          "weighted": 0.1285
+        },
+        "06. Strategic Alignment": {
+          "score": 2.67,
+          "weight": 0.05,
+          "weighted": 0.1335
+        },
+        "07. Cultural Readiness": {
+          "score": 2.61,
+          "weight": 0.05,
+          "weighted": 0.1305
+        },
+        "08. Process Maturity": {
+          "score": 2.52,
+          "weight": 0.05,
+          "weighted": 0.126
+        },
+        "09. Foundation Model Operations": {
+          "score": 2.98,
+          "weight": 0.05,
+          "weighted": 0.149
+        },
+        "11. Responsible AI & Social Impact": {
+          "score": 2.84,
+          "weight": 0.05,
+          "weighted": 0.142
+        },
+        "12. AI Business Value & ROI": {
+          "score": 2.49,
+          "weight": 0.05,
+          "weighted": 0.1245
+        },
+        "13. AI Risk & Resilience": {
+          "score": 2.82,
+          "weight": 0.05,
+          "weighted": 0.141
+        },
+        "15. AI Leadership & Vision": {
+          "score": 3.0,
+          "weight": 0.1,
+          "weighted": 0.3
+        }
+      },
+      "subsections": {
+        "1.1 Cloud Computing Capabilities": {
+          "score": 2.45,
+          "numerator": 41.4,
+          "denominator": 16.9,
+          "metric_contributions": 78
+        },
+        "1.2 Computing Resources": {
+          "score": 1.78,
+          "numerator": 41.78,
+          "denominator": 23.5,
+          "metric_contributions": 98
+        },
+        "1.3 Development Environment": {
+          "score": 2.38,
+          "numerator": 1.55,
+          "denominator": 0.65,
+          "metric_contributions": 3
+        },
+        "1.4 Integration Architecture": {
+          "score": 3.15,
+          "numerator": 49.6,
+          "denominator": 15.75,
+          "metric_contributions": 75
+        },
+        "1.5 Security Infrastructure": {
+          "score": 2.49,
+          "numerator": 38.0,
+          "denominator": 15.25,
+          "metric_contributions": 59
+        },
+        "2.1 Data Architecture": {
+          "score": 3.35,
+          "numerator": 24.1,
+          "denominator": 7.2,
+          "metric_contributions": 32
+        },
+        "2.2 Data Quality": {
+          "score": 2.92,
+          "numerator": 77.88,
+          "denominator": 26.65,
+          "metric_contributions": 119
+        },
+        "2.3 Data Governance": {
+          "score": 2.64,
+          "numerator": 124.18,
+          "denominator": 47.05,
+          "metric_contributions": 205
+        },
+        "2.4 Data Operations": {
+          "score": 2.83,
+          "numerator": 99.25,
+          "denominator": 35.1,
+          "metric_contributions": 134
+        },
+        "2.5 Data Accessibility": {
+          "score": 2.4,
+          "numerator": 24.92,
+          "denominator": 10.4,
+          "metric_contributions": 46
+        },
+        "3.1 Model Development": {
+          "score": 2.28,
+          "numerator": 12.9,
+          "denominator": 5.65,
+          "metric_contributions": 28
+        },
+        "3.2 Production Deployment": {
+          "score": 2.62,
+          "numerator": 19.4,
+          "denominator": 7.4,
+          "metric_contributions": 37
+        },
+        "3.3 MLOps Maturity": {
+          "score": 2.18,
+          "numerator": 78.02,
+          "denominator": 35.75,
+          "metric_contributions": 147
+        },
+        "3.4 Model Governance": {
+          "score": 1.81,
+          "numerator": 19.2,
+          "denominator": 10.6,
+          "metric_contributions": 51
+        },
+        "4.1 Technical Expertise": {
+          "score": 2.62,
+          "numerator": 57.7,
+          "denominator": 22.05,
+          "metric_contributions": 103
+        },
+        "4.2 Domain Knowledge": {
+          "score": 3.0,
+          "numerator": 4.2,
+          "denominator": 1.4,
+          "metric_contributions": 7
+        },
+        "4.3 Team Structure": {
+          "score": 3.0,
+          "numerator": 0.75,
+          "denominator": 0.25,
+          "metric_contributions": 1
+        },
+        "4.4 Training & Development": {
+          "score": 2.79,
+          "numerator": 56.98,
+          "denominator": 20.4,
+          "metric_contributions": 96
+        },
+        "4.5 Recruitment & Retention": {
+          "score": 2.47,
+          "numerator": 7.4,
+          "denominator": 3.0,
+          "metric_contributions": 15
+        },
+        "5.1 Ethical Framework": {
+          "score": 2.27,
+          "numerator": 10.0,
+          "denominator": 4.4,
+          "metric_contributions": 22
+        },
+        "5.2 Regulatory Compliance": {
+          "score": 2.52,
+          "numerator": 89.87,
+          "denominator": 35.65,
+          "metric_contributions": 150
+        },
+        "5.3 Risk Management": {
+          "score": 2.55,
+          "numerator": 74.45,
+          "denominator": 29.25,
+          "metric_contributions": 131
+        },
+        "5.4 Accountability Structure": {
+          "score": 2.32,
+          "numerator": 40.8,
+          "denominator": 17.6,
+          "metric_contributions": 86
+        },
+        "5.5 Transparency Practices": {
+          "score": 2.69,
+          "numerator": 20.05,
+          "denominator": 7.45,
+          "metric_contributions": 37
+        },
+        "6.1 Business Integration": {
+          "score": 3.03,
+          "numerator": 111.8,
+          "denominator": 36.85,
+          "metric_contributions": 174
+        },
+        "6.2 Leadership Support": {
+          "score": 3.31,
+          "numerator": 10.6,
+          "denominator": 3.2,
+          "metric_contributions": 16
+        },
+        "6.3 Investment Strategy": {
+          "score": 1.56,
+          "numerator": 22.95,
+          "denominator": 14.7,
+          "metric_contributions": 67
+        },
+        "6.4 Innovation Management": {
+          "score": 2.37,
+          "numerator": 16.35,
+          "denominator": 6.9,
+          "metric_contributions": 34
+        },
+        "7.2 Change Management": {
+          "score": 3.0,
+          "numerator": 4.2,
+          "denominator": 1.4,
+          "metric_contributions": 7
+        },
+        "7.3 Collaboration Culture": {
+          "score": 3.24,
+          "numerator": 11.0,
+          "denominator": 3.4,
+          "metric_contributions": 17
+        },
+        "7.4 Decision Making": {
+          "score": 2.44,
+          "numerator": 38.03,
+          "denominator": 15.6,
+          "metric_contributions": 70
+        },
+        "7.5 Learning Environment": {
+          "score": 2.0,
+          "numerator": 0.4,
+          "denominator": 0.2,
+          "metric_contributions": 1
+        },
+        "8.1 Project Management": {
+          "score": 2.75,
+          "numerator": 4.4,
+          "denominator": 1.6,
+          "metric_contributions": 8
+        },
+        "8.2 Documentation Practices": {
+          "score": 2.32,
+          "numerator": 38.8,
+          "denominator": 16.7,
+          "metric_contributions": 75
+        },
+        "8.3 Quality Assurance": {
+          "score": 2.99,
+          "numerator": 75.72,
+          "denominator": 25.35,
+          "metric_contributions": 122
+        },
+        "8.4 Operational Excellence": {
+          "score": 2.48,
+          "numerator": 129.2,
+          "denominator": 52.15,
+          "metric_contributions": 250
+        },
+        "8.5 Measurement & Metrics": {
+          "score": 2.42,
+          "numerator": 159.22,
+          "denominator": 65.75,
+          "metric_contributions": 284
+        },
+        "9.1 Model Integration & Deployment": {
+          "score": 3.2,
+          "numerator": 6.4,
+          "denominator": 2.0,
+          "metric_contributions": 10
+        },
+        "9.3 Performance Optimization": {
+          "score": 5.0,
+          "numerator": 7.0,
+          "denominator": 1.4,
+          "metric_contributions": 7
+        },
+        "9.4 Risk & Compliance Management": {
+          "score": 3.25,
+          "numerator": 13.0,
+          "denominator": 4.0,
+          "metric_contributions": 12
+        },
+        "9.5 Scaling & Distribution": {
+          "score": 1.85,
+          "numerator": 7.4,
+          "denominator": 4.0,
+          "metric_contributions": 20
+        },
+        "11.1 Algorithmic Fairness & Bias Mitigation": {
+          "score": 1.47,
+          "numerator": 4.4,
+          "denominator": 3.0,
+          "metric_contributions": 15
+        },
+        "11.2 Explainability & Interpretability": {
+          "score": 1.43,
+          "numerator": 2.0,
+          "denominator": 1.4,
+          "metric_contributions": 7
+        },
+        "11.3 Privacy & Data Protection": {
+          "score": 3.57,
+          "numerator": 25.92,
+          "denominator": 7.25,
+          "metric_contributions": 27
+        },
+        "12.1 Revenue Generation & Growth": {
+          "score": 2.95,
+          "numerator": 12.4,
+          "denominator": 4.2,
+          "metric_contributions": 21
+        },
+        "12.2 Cost Reduction & Efficiency": {
+          "score": 2.36,
+          "numerator": 113.88,
+          "denominator": 48.35,
+          "metric_contributions": 223
+        },
+        "12.3 Customer Experience Enhancement": {
+          "score": 2.86,
+          "numerator": 33.2,
+          "denominator": 11.6,
+          "metric_contributions": 56
+        },
+        "13.1 Model Reliability & Robustness": {
+          "score": 2.44,
+          "numerator": 20.65,
+          "denominator": 8.45,
+          "metric_contributions": 42
+        },
+        "13.2 Data Dependency & Availability": {
+          "score": 2.25,
+          "numerator": 9.0,
+          "denominator": 4.0,
+          "metric_contributions": 12
+        },
+        "13.4 Operational Continuity": {
+          "score": 3.13,
+          "numerator": 44.4,
+          "denominator": 14.2,
+          "metric_contributions": 67
+        },
+        "13.5 Regulatory & Legal Compliance": {
+          "score": 3.7,
+          "numerator": 6.1,
+          "denominator": 1.65,
+          "metric_contributions": 8
+        },
+        "15.1 AI Strategy & Roadmap": {
+          "score": 3.0,
+          "numerator": 4.2,
+          "denominator": 1.4,
+          "metric_contributions": 7
+        }
+      },
+      "dimensions": {
+        "01. Technical Infrastructure": {
+          "score": 2.38,
+          "numerator": 188.78,
+          "denominator": 79.23,
+          "metric_contributions": 312
+        },
+        "02. Data Management & Quality": {
+          "score": 2.67,
+          "numerator": 312.17,
+          "denominator": 116.75,
+          "metric_contributions": 406
+        },
+        "03. AI/ML Capabilities": {
+          "score": 2.22,
+          "numerator": 131.37,
+          "denominator": 59.3,
+          "metric_contributions": 215
+        },
+        "04. Talent & Skills": {
+          "score": 2.68,
+          "numerator": 134.45,
+          "denominator": 50.08,
+          "metric_contributions": 215
+        },
+        "05. Governance & Ethics": {
+          "score": 2.57,
+          "numerator": 209.42,
+          "denominator": 81.35,
+          "metric_contributions": 308
+        },
+        "06. Strategic Alignment": {
+          "score": 2.67,
+          "numerator": 180.33,
+          "denominator": 67.57,
+          "metric_contributions": 291
+        },
+        "07. Cultural Readiness": {
+          "score": 2.61,
+          "numerator": 56.08,
+          "denominator": 21.45,
+          "metric_contributions": 95
+        },
+        "08. Process Maturity": {
+          "score": 2.52,
+          "numerator": 412.1,
+          "denominator": 163.32,
+          "metric_contributions": 627
+        },
+        "09. Foundation Model Operations": {
+          "score": 2.98,
+          "numerator": 35.3,
+          "denominator": 11.85,
+          "metric_contributions": 49
+        },
+        "11. Responsible AI & Social Impact": {
+          "score": 2.84,
+          "numerator": 33.8,
+          "denominator": 11.9,
+          "metric_contributions": 42
+        },
+        "12. AI Business Value & ROI": {
+          "score": 2.49,
+          "numerator": 156.9,
+          "denominator": 63.08,
+          "metric_contributions": 279
+        },
+        "13. AI Risk & Resilience": {
+          "score": 2.82,
+          "numerator": 92.1,
+          "denominator": 32.72,
+          "metric_contributions": 129
+        },
+        "15. AI Leadership & Vision": {
+          "score": 3.0,
+          "numerator": 4.2,
+          "denominator": 1.4,
+          "metric_contributions": 7
+        }
+      },
+      "gap_subsections": {
+        "1.1 Cloud Computing Capabilities": {
+          "gaps": [
+            "1. Onboard unmanaged resources to IaC management",
+            "2. Address the critical policy finding regarding the network security group",
+            "3. Remediate the high-severity finding related to public IPs on VMs",
+            "4. Review and update IaC configurations to ensure compliance",
+            "5. Implement regular audits to monitor IaC coverage and drift",
+            "1. Review and adjust AWS commitment to better align with actual usage.",
+            "2. Consider increasing GCP commitment to match higher usage.",
+            "3. Analyze usage patterns to optimize future commitments.",
+            "4. Monitor usage closely to avoid further underutilization.",
+            "5. Evaluate potential for additional savings plans or commitments."
+          ],
+          "total_gaps": 351,
+          "metric_contributions": 6
+        },
+        "1.2 Computing Resources": {
+          "gaps": [
+            "1. Evaluate and terminate or resize instance 'gce-inst-1' due to high idle hours.",
+            "2. Implement monitoring to identify and address low-utilization instances.",
+            "3. Consider consolidating workloads to improve overall resource utilization.",
+            "4. Review and adjust scaling policies to better match demand.",
+            "5. Analyze usage patterns to optimize instance types and sizes.",
+            "1. Evaluate the need for 'azure-sql-1' and consider downsizing or consolidating resources.",
+            "2. Investigate potential reasons for low utilization on 'azure-sql-1'.",
+            "3. Monitor connection loads to ensure they are balanced across databases.",
+            "4. Assess IOPS performance to identify any bottlenecks.",
+            "5. Review overall database architecture for optimization opportunities."
+          ],
+          "total_gaps": 398,
+          "metric_contributions": 10
+        },
+        "1.3 Development Environment": {
+          "gaps": [
+            "Add/normalize dependency files and lock versions",
+            "Add CI workflows and enforce checks",
+            "Improve top-level layout and docs (README, CONTRIBUTING)"
+          ],
+          "total_gaps": 3,
+          "metric_contributions": 3
+        },
+        "1.4 Integration Architecture": {
+          "gaps": [
+            "Link usage is concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve a more balanced distribution and potentially unlock a higher score.",
+            "Link usage is uneven; increase link enablement and usage across underutilized dashboards to achieve a broader spread and reach at least 45% linked dashboards (unlocks score 4).",
+            "Link usage concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve broader engagement and reach at least 45% linked dashboards (unlocks score 4).",
+            "Link usage is concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve a more balanced traversal distribution (aim for \u226545% linked with moderate usage to unlock score 4).",
+            "Usage concentrated on a few dashboards \u2192 increase link enablement and usage across underutilized dashboards to achieve broader engagement and reach \u226545% linked dashboards (unlocks score 4).",
+            "Link usage is concentrated; increase link enablement and promote usage across underutilized dashboards to achieve a more balanced distribution and potentially unlock a higher score.",
+            "Unbounded fan-out \u2192 implement a bounded queue or chunked processing \u2192 prevents resource exhaustion (unlocks band 4).",
+            "No timeouts or error handling \u2192 add timeouts and exception management in the pool tasks \u2192 enhances reliability (supports band 4).",
+            "Add CI workflows and enforce checks",
+            "Implement a serving framework (e.g., FastAPI) \u2192 establish structured endpoints for predictions \u2192 unlocks band 4."
+          ],
+          "total_gaps": 70,
+          "metric_contributions": 12
+        },
+        "1.5 Security Infrastructure": {
+          "gaps": [
+            "1. Enforce MFA for all users immediately",
+            "2. Rotate the access key that is over 90 days old",
+            "3. Review and modify the wildcard admin policy to adhere to least-privilege principles",
+            "1. Remediate the open critical vulnerability immediately.",
+            "2. Increase patch agent coverage to at least 95%.",
+            "3. Monitor and reduce average patch age to below 14 days.",
+            "4. Conduct a review of patch management processes to identify delays.",
+            "5. Ensure regular scanning of all assets to maintain coverage.",
+            "1. Restrict SSH access to specific IP ranges",
+            "2. Make the public bucket private or enforce stricter ACLs"
+          ],
+          "total_gaps": 149,
+          "metric_contributions": 5
+        },
+        "2.1 Data Architecture": {
+          "gaps": [
+            "Link usage is concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve a more balanced distribution and potentially unlock a higher score.",
+            "Domain mix unknown \u2192 tag each source to domain (ERP/CRM/Support) \u2192 show \u22653 domains represented (unlocks score 4).",
+            "Link usage is uneven; increase link enablement and usage across underutilized dashboards to achieve a broader spread and reach at least 45% linked dashboards (unlocks score 4).",
+            "Link usage concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve broader engagement and reach at least 45% linked dashboards (unlocks score 4).",
+            "Link usage is concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve a more balanced traversal distribution (aim for \u226545% linked with moderate usage to unlock score 4).",
+            "Usage concentrated on a few dashboards \u2192 increase link enablement and usage across underutilized dashboards to achieve broader engagement and reach \u226545% linked dashboards (unlocks score 4).",
+            "Link usage is concentrated; increase link enablement and promote usage across underutilized dashboards to achieve a more balanced distribution and potentially unlock a higher score.",
+            "Implement schema validation checks \u2192 establish clear data expectations \u2192 improve data integrity (unlocks band 3).",
+            "Add drift monitoring mechanisms \u2192 track data distribution changes over time \u2192 enhance anomaly detection (supports band 3).",
+            "Standardize experiment directory & reproducibility"
+          ],
+          "total_gaps": 33,
+          "metric_contributions": 6
+        },
+        "2.2 Data Quality": {
+          "gaps": [
+            "Owners missing for dashboards d3 and d7 \u2192 enforce owner assignment to achieve at least 80% coverage (unlocks score 4).",
+            "Lineage and glossary documentation is absent for dashboards d2, d3, d5, and d7 \u2192 ensure all dashboards have lineage and glossary entries to improve coverage.",
+            "High-priority dashboards stale \u2192 critical refreshes missed; address refresh frequency to meet SLA.",
+            "Domain mix unknown \u2192 tag each source to domain (ERP/CRM/Support) \u2192 show \u22653 domains represented (unlocks score 4).",
+            "Staleness in high-priority dashboards needs addressing; ensure all critical assets are refreshed within SLA to improve efficiency posture.",
+            "Owners missing for dashboards d3 and d7; enforce owner assignment to achieve at least 80% coverage (unlocks score 4).",
+            "Lineage/glossary metadata is absent for dashboards d2, d3, and d7; ensure all dashboards have at least one metadata entry to improve coverage.",
+            "Lateness tails unknown \u2192 add p95/p99 lateness across assets \u2192 keep p95 within SLA for \u226595% dashboards (unlocks score 5).",
+            "Quantify the percentage of exports and the share of stale dashboards by priority to further improve efficiency posture.",
+            "Owners missing for dashboards d3 and d7; enforce owner assignment to achieve at least 80% owner coverage (unlocks score 4)."
+          ],
+          "total_gaps": 161,
+          "metric_contributions": 18
+        },
+        "2.3 Data Governance": {
+          "gaps": [
+            "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 5).",
+            "Cohort composition unknown \u2192 report cohort size and retention by persona/BU \u2192 aim for \u226545% overall with clear segment drivers (unlocks score 4).",
+            "Critical gaps in ownership and certification on dashboards d3 and d7; establish clear ownership and certification processes.",
+            "Metadata is missing for d3 and d7; enforce metadata standards to ensure completeness.",
+            "Many dashboards lack PII tagging and access policies; implement comprehensive tagging and access control measures to improve coverage.",
+            "Owners missing for dashboards d3 and d7 \u2192 enforce owner assignment to achieve at least 80% coverage (unlocks score 4).",
+            "Lineage and glossary documentation is absent for dashboards d2, d3, d5, and d7 \u2192 ensure all dashboards have lineage and glossary entries to improve coverage.",
+            "High-priority dashboards stale \u2192 critical refreshes missed; address refresh frequency to meet SLA.",
+            "Domain mix unknown \u2192 tag each source to domain (ERP/CRM/Support) \u2192 show \u22653 domains represented (unlocks score 4).",
+            "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 4)."
+          ],
+          "total_gaps": 354,
+          "metric_contributions": 22
+        },
+        "2.4 Data Operations": {
+          "gaps": [
+            "Repeat cadence data is missing for some users; aim to capture repeats_per_week for at least 80% of active users to strengthen evidence of repeat usage.",
+            "Delivery reliability unknown \u2192 assess alert delivery success and failure rates to determine reliability.",
+            "BU spread unknown \u2192 count unique alert/subscription users per BU to evaluate broader adoption.",
+            "Staleness in high-priority dashboards needs addressing; ensure all critical assets are refreshed within SLA to improve efficiency posture.",
+            "Repeat cadence is sparse for some users; aim to capture repeats_per_week for at least 80% of active users to verify weekly repeats for the majority (unlocks score 5).",
+            "BU spread unknown \u2192 count unique alert/subscription users per BU and assess delivery success \u2192 reach moderate adoption across \u22653 BUs (unlocks score 4).",
+            "Quantify the percentage of exports and the share of stale dashboards by priority to further improve efficiency posture.",
+            "Repeat cadence data is missing for some users; instrument repeats_per_week for at least 80% of active users to verify repeat usage and potentially unlock a higher score.",
+            "Quantify the percentage of exports and the share of stale dashboards by priority to address inefficiencies; aim to reduce exports below 15% and eliminate staleness in critical assets (unlocks score 4\u20135).",
+            "Repeat cadence data is missing for some users; aim to capture repeats_per_week for at least 80% of active users to strengthen evidence."
+          ],
+          "total_gaps": 324,
+          "metric_contributions": 18
+        },
+        "2.5 Data Accessibility": {
+          "gaps": [
+            "Department spread unknown \u2192 report drilldown usage by dept/team \u2192 show broad spread across \u22653 BUs (unlocks score 4).",
+            "Stability unverified \u2192 include 4-week drilldown time series \u2192 demonstrate non-declining trend (supports score 4\u20135).",
+            "Sample size varies week to week \u2192 provide distinct WAU counts for each week to assess stability and growth more accurately.",
+            "Export governance unknown \u2192 add policy enforcement status + exception rate \u2192 demonstrate \u226595% governed exports (unlocks score 4\u20135).",
+            "Total number of departments unknown \u2192 report total departments considered to clarify coverage percentage.",
+            "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 4).",
+            "Sample size is limited; provide WAU counts per week for the last 4 weeks to assess stability and growth potential.",
+            "Sample size is limited; provide WAU counts for each week to assess stability and growth more accurately.",
+            "Total number of departments unknown \u2192 report total departments and creators per department to clarify coverage percentage.",
+            "Sample size is limited; provide WAU counts per week to assess stability and growth more accurately."
+          ],
+          "total_gaps": 67,
+          "metric_contributions": 6
+        },
+        "3.1 Model Development": {
+          "gaps": [
+            "Lack of docstrings for critical functions \u2192 implement docstrings for all functions \u2192 achieve coverage \u22650.45 (unlocks band 2).",
+            "Missing parameter/return descriptions \u2192 enforce complete function signatures with param/return tags \u2192 improve quality \u22650.45 (unlocks band 2).",
+            "Integrate preprocessing functions into a structured pipeline \u2192 establish a consistent feature engineering process \u2192 unlocks band 4.",
+            "Fragmented usage \u2192 consolidate to a primary framework and idiomatic patterns \u2192 improve clarity and consistency (unlocks band 4).",
+            "Ad-hoc logging \u2192 implement consistent logging for parameters and metrics across all functions \u2192 structured tracking (unlocks band 3).",
+            "Artifacts missing \u2192 ensure model artifacts are saved after each run \u2192 complete tracking (unlocks band 3).",
+            "Signature missing \u2192 log model signature for reproducibility \u2192 supports better tracking (unlocks band 3).",
+            "Lineage unclear \u2192 record dataset versions used in experiments \u2192 traceable experiments (supports band 3).",
+            "No HPO strategy implemented \u2192 introduce a systematic search method (e.g., Optuna) \u2192 enable effective parameter tuning (unlocks band 4).",
+            "Standardize experiment directory & reproducibility"
+          ],
+          "total_gaps": 32,
+          "metric_contributions": 10
+        },
+        "3.2 Production Deployment": {
+          "gaps": [
+            "Implement a serving framework (e.g., FastAPI) \u2192 establish structured endpoints for predictions \u2192 unlocks band 4.",
+            "Add health checks and error handling \u2192 ensure operational reliability \u2192 unlocks band 3.",
+            "Implement model export using standardized methods (e.g., joblib, ONNX) \u2192 include serialization details \u2192 unlocks band 5.",
+            "per-service rate is below threshold \u2192 increase deployments or reduce services \u2192 raise per-service rate to \u22651/day (unlocks band 5)",
+            "p50 at 6.8h prevents band-5 \u2192 shard tests and cache dependencies \u2192 reduce p50 \u22644h (unlocks band 5).",
+            "Max RPS at 950 below 800 \u2192 optimize resource allocation and load balancing \u2192 raise max_rps_at_slo to \u2265800 (unlocks band 5).",
+            "Lack of evidence prevents assessment \u2192 collect and report CFR and rollback data \u2192 establish baseline metrics (unlocks band 3).",
+            "per-service rate is below threshold \u2192 increase deployments or reduce services \u2192 raise per-service rate to \u22651/week (unlocks band 5)",
+            "No evidence available prevents any assessment \u2192 collect and report p50 and p95 lead times \u2192 establish metrics to unlock band 3.",
+            "No evidence provided \u2192 collect and report availability, error rate, p95 latency, reaction time, and max RPS \u2192 meet all thresholds for band 3."
+          ],
+          "total_gaps": 30,
+          "metric_contributions": 6
+        },
+        "3.3 MLOps Maturity": {
+          "gaps": [
+            "Integrate preprocessing functions into a structured pipeline \u2192 establish a consistent feature engineering process \u2192 unlocks band 4.",
+            "Fragmented usage \u2192 consolidate to a primary framework and idiomatic patterns \u2192 improve clarity and consistency (unlocks band 4).",
+            "Implement schema validation checks \u2192 establish clear data expectations \u2192 improve data integrity (unlocks band 3).",
+            "Add drift monitoring mechanisms \u2192 track data distribution changes over time \u2192 enhance anomaly detection (supports band 3).",
+            "Ad-hoc logging \u2192 implement consistent logging for parameters and metrics across all functions \u2192 structured tracking (unlocks band 3).",
+            "Artifacts missing \u2192 ensure model artifacts are saved after each run \u2192 complete tracking (unlocks band 3).",
+            "Signature missing \u2192 log model signature for reproducibility \u2192 supports better tracking (unlocks band 3).",
+            "Lineage unclear \u2192 record dataset versions used in experiments \u2192 traceable experiments (supports band 3).",
+            "No HPO strategy implemented \u2192 introduce a systematic search method (e.g., Optuna) \u2192 enable effective parameter tuning (unlocks band 4).",
+            "Entrypoint structure missing \u2192 implement a main function with clear configuration handling \u2192 organized training process (unlocks band 3)."
+          ],
+          "total_gaps": 256,
+          "metric_contributions": 28
+        },
+        "3.4 Model Governance": {
+          "gaps": [
+            "Implement secure storage for sensitive data (e.g., secrets management) \u2192 eliminate hardcoded values (unlocks band 3).",
+            "Enhance input validation mechanisms to ensure data integrity \u2192 reduce risk of injection attacks (supports band 3).",
+            "No calibration metrics \u2192 implement evaluation metrics for model performance \u2192 enhance reliability (unlocks band 4).",
+            "Fairness not addressed \u2192 include bias assessments in resume parsing \u2192 improve evaluation completeness (supports band 4).",
+            "Coverage below 90% \u2192 increase models with all controls to \u226545 \u2192 achieve \u226590% coverage (unlocks band 5).",
+            "Staging coverage at 0.83 <0.90 \u2192 enforce stage on register policy \u2192 raise pct_staged to \u22650.90 (unlocks band 5).",
+            "Data references at 0.86 block a higher band \u2192 log immutable dataset version/hash per run \u2192 raise pct_data_ref to \u22650.90 (unlocks band 5).",
+            "One recent rollback limits confidence \u2192 add pre-deploy shadow tests and tighten rollback criteria \u2192 keep rollbacks_30d at 0 (unlocks band 5).",
+            "SHAP coverage at 0.84 \u2192 implement SHAP file generation in all runs \u2192 raise pct_with_shap to \u22650.85 (unlocks band 4).",
+            "Bias report at 0.72 \u2192 integrate a bias evaluation step in the pipeline \u2192 raise pct_with_bias_report to \u22650.80 (unlocks band 4)."
+          ],
+          "total_gaps": 54,
+          "metric_contributions": 9
+        },
+        "4.1 Technical Expertise": {
+          "gaps": [
+            "Department spread unknown \u2192 report drilldown usage by dept/team \u2192 show broad spread across \u22653 BUs (unlocks score 4).",
+            "Stability unverified \u2192 include 4-week drilldown time series \u2192 demonstrate non-declining trend (supports score 4\u20135).",
+            "1. Investigate reasons for low CPU request versus usage ratio and adjust requests accordingly.",
+            "2. Monitor pending pods closely and aim to reduce their count.",
+            "3. Review node resource allocation to improve binpack efficiency.",
+            "4. Consider scaling the cluster if pending pods persist.",
+            "5. Reassess resource requests and limits quarterly.",
+            "1. Monitor latency trends to identify potential spikes.",
+            "2. Investigate the causes of unhealthy minutes for both load balancers.",
+            "3. Review error handling and retry logic to further reduce 5xx errors."
+          ],
+          "total_gaps": 291,
+          "metric_contributions": 18
+        },
+        "4.2 Domain Knowledge": {
+          "gaps": [
+            "Sales order to billing time high \u2192 analyze bottlenecks in billing process \u2192 reduce to \u226424h (unlocks band 4).",
+            "Sales order to billing time high \u2192 streamline billing process \u2192 target \u226424h (unlocks band 4).",
+            "SO to billing delay \u2192 streamline billing processes \u2192 target \u226424h (unlocks band 4).",
+            "SO to billing delay \u2192 analyze bottlenecks in billing process \u2192 reduce to \u226424h (unlocks band 4).",
+            "SO to billing time high \u2192 analyze bottlenecks in billing process \u2192 reduce to \u226424h (unlocks band 4).",
+            "SO to billing delay \u2192 streamline billing process \u2192 reduce to \u226424h (unlocks band 4)."
+          ],
+          "total_gaps": 7,
+          "metric_contributions": 1
+        },
+        "4.3 Team Structure": {
+          "gaps": [
+            "Improve top-level layout and docs (README, CONTRIBUTING)"
+          ],
+          "total_gaps": 1,
+          "metric_contributions": 1
+        },
+        "4.4 Training & Development": {
+          "gaps": [
+            "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 5).",
+            "Sample size varies week to week \u2192 provide distinct WAU counts for each week to assess stability and growth more accurately.",
+            "Export governance unknown \u2192 add policy enforcement status + exception rate \u2192 demonstrate \u226595% governed exports (unlocks score 4\u20135).",
+            "Total number of departments unknown \u2192 report total departments considered to clarify coverage percentage.",
+            "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 4).",
+            "Sample size is limited; provide WAU counts per week for the last 4 weeks to assess stability and growth potential.",
+            "Sample size is limited; provide WAU counts for each week to assess stability and growth more accurately.",
+            "Total number of departments unknown \u2192 report total departments and creators per department to clarify coverage percentage.",
+            "Sample size is limited; provide WAU counts per week to assess stability and growth more accurately.",
+            "User engagement metrics over the last four weeks are needed to confirm trends."
+          ],
+          "total_gaps": 109,
+          "metric_contributions": 14
+        },
+        "4.5 Recruitment & Retention": {
+          "gaps": [
+            "Cohort composition unknown \u2192 report cohort size and retention by persona/BU \u2192 aim for \u226545% overall with clear segment drivers (unlocks score 4).",
+            "Cohort composition unknown \u2192 report cohort size and retention by persona/BU \u2192 aim for \u226545% overall retention with clear segment drivers (unlocks score 4).",
+            "High p90 hours \u2192 analyze top 3 longest onboarding steps with median/p90 \u2192 reduce p90 to \u226448h (unlocks band 4).",
+            "Approval delays evident \u2192 analyze approval step durations and identify bottlenecks \u2192 reduce p90 to \u226448h (unlocks band 4).",
+            "Approval delays identified \u2192 analyze approval step durations and identify bottlenecks \u2192 reduce p90 to \u226448h (unlocks band 4).",
+            "Approval delays evident \u2192 analyze top 3 longest approval steps with median/p90 \u2192 reduce worst-step p90 to \u226448h (unlocks band 4)."
+          ],
+          "total_gaps": 15,
+          "metric_contributions": 2
+        },
+        "5.1 Ethical Framework": {
+          "gaps": [
+            "No calibration metrics \u2192 implement evaluation metrics for model performance \u2192 enhance reliability (unlocks band 4).",
+            "Fairness not addressed \u2192 include bias assessments in resume parsing \u2192 improve evaluation completeness (supports band 4).",
+            "Coverage below 90% \u2192 increase models with all controls to \u226545 \u2192 achieve \u226590% coverage (unlocks band 5).",
+            "SHAP coverage at 0.84 \u2192 implement SHAP file generation in all runs \u2192 raise pct_with_shap to \u22650.85 (unlocks band 4).",
+            "Bias report at 0.72 \u2192 integrate a bias evaluation step in the pipeline \u2192 raise pct_with_bias_report to \u22650.80 (unlocks band 4).",
+            "No SHAP files present \u2192 implement SHAP analysis in the pipeline \u2192 ensure pct_with_shap is \u22650.60 (unlocks band 2).",
+            "No bias reports available \u2192 integrate bias evaluation in the workflow \u2192 ensure pct_with_bias_report is \u22650.60 (unlocks band 2).",
+            "No validation JSON generated \u2192 establish validation summary generation in each run \u2192 ensure pct_with_validation_json is \u22650.60 (unlocks band 2).",
+            "No evidence for bias or explainability \u2192 implement reporting for both metrics in the pipeline \u2192 ensure pct_with_bias_report and pct_with_explainability are both \u22650.60 (unlocks band 2).",
+            "No evidence provided \u2192 implement logging for SHAP, bias reports, and validation JSON \u2192 ensure all metrics are collected (unlocks band 3)."
+          ],
+          "total_gaps": 25,
+          "metric_contributions": 4
+        },
+        "5.2 Regulatory Compliance": {
+          "gaps": [
+            "Critical gaps in ownership and certification on dashboards d3 and d7; establish clear ownership and certification processes.",
+            "Metadata is missing for d3 and d7; enforce metadata standards to ensure completeness.",
+            "Many dashboards lack PII tagging and access policies; implement comprehensive tagging and access control measures to improve coverage.",
+            "Owners missing for dashboards d3 and d7 \u2192 enforce owner assignment to achieve at least 80% coverage (unlocks score 4).",
+            "Lineage and glossary documentation is absent for dashboards d2, d3, d5, and d7 \u2192 ensure all dashboards have lineage and glossary entries to improve coverage.",
+            "Critical missing owners on dashboards d3 and d7 \u2192 assign owners to all dashboards to improve governance.",
+            "Dashboards d3 and d5 are not certified \u2192 ensure all dashboards are certified to enhance trust.",
+            "Many dashboards lack PII tagging and access policies; implement comprehensive tagging and access controls to improve coverage.",
+            "Owners missing for dashboards d3 and d7; enforce owner assignment to achieve at least 80% coverage (unlocks score 4).",
+            "Lineage/glossary metadata is absent for dashboards d2, d3, and d7; ensure all dashboards have at least one metadata entry to improve coverage."
+          ],
+          "total_gaps": 329,
+          "metric_contributions": 16
+        },
+        "5.3 Risk Management": {
+          "gaps": [
+            "Many dashboards lack PII tagging and access policies; implement comprehensive tagging and access control measures to improve coverage.",
+            "Owners missing for dashboards d3 and d7 \u2192 enforce owner assignment to achieve at least 80% coverage (unlocks score 4).",
+            "Lineage and glossary documentation is absent for dashboards d2, d3, d5, and d7 \u2192 ensure all dashboards have lineage and glossary entries to improve coverage.",
+            "Many dashboards lack PII tagging and access policies; implement comprehensive tagging and access controls to improve coverage.",
+            "Owners missing for dashboards d3 and d7; enforce owner assignment to achieve at least 80% coverage (unlocks score 4).",
+            "Lineage/glossary metadata is absent for dashboards d2, d3, and d7; ensure all dashboards have at least one metadata entry to improve coverage.",
+            "Owners missing for dashboards d3 and d7; enforce owner assignment to achieve at least 80% owner coverage (unlocks score 4).",
+            "Lineage/glossary missing for dashboards d2, d3, and d7; ensure all dashboards have at least one metadata entry to improve coverage.",
+            "Lineage/glossary metadata missing for dashboards d2, d3, and d7; ensure all dashboards have at least one metadata entry to improve coverage.",
+            "Owners missing for multiple dashboards (d3, d5, d7) \u2192 enforce owner assignment to improve accountability."
+          ],
+          "total_gaps": 359,
+          "metric_contributions": 13
+        },
+        "5.4 Accountability Structure": {
+          "gaps": [
+            "Repeat cadence data is missing for some users; aim to capture repeats_per_week for at least 80% of active users to strengthen evidence of repeat usage.",
+            "Critical gaps in ownership and certification on dashboards d3 and d7; establish clear ownership and certification processes.",
+            "Metadata is missing for d3 and d7; enforce metadata standards to ensure completeness.",
+            "Total number of departments unknown \u2192 report total departments considered to clarify coverage percentage.",
+            "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 4).",
+            "Repeat cadence is sparse for some users; aim to capture repeats_per_week for at least 80% of active users to verify weekly repeats for the majority (unlocks score 5).",
+            "Critical missing owners on dashboards d3 and d7 \u2192 assign owners to all dashboards to improve governance.",
+            "Dashboards d3 and d5 are not certified \u2192 ensure all dashboards are certified to enhance trust.",
+            "Repeat cadence data is missing for some users; instrument repeats_per_week for at least 80% of active users to verify repeat usage and potentially unlock a higher score.",
+            "Critical lack of owners on dashboards d3 and d7; assign owners to all dashboards to improve governance."
+          ],
+          "total_gaps": 196,
+          "metric_contributions": 10
+        },
+        "5.5 Transparency Practices": {
+          "gaps": [
+            "Implement a structured orchestration framework (e.g., Airflow, Prefect) \u2192 define a clear pipeline with scheduling and reliability controls \u2192 unlocks band 3.",
+            "On-time rate below 0.95 \u2192 improve SF and SN performance \u2192 achieve \u22650.95 on-time rate (unlocks band 5).",
+            "Coverage uneven by platform \u2192 report on-time rates for all systems \u2192 achieve \u22650.95 on-time rate across all systems (unlocks band 5).",
+            "System performance uneven \u2192 report on-time rates per system weekly \u2192 achieve \u22650.95 on-time rate for all systems (unlocks band 5).",
+            "On-time rate shortfall \u2192 improve on-time completion for all systems \u2192 achieve on_time_rate \u2265 0.95 (unlocks band 5).",
+            "System performance uneven \u2192 improve SF and SN on-time rates to \u22650.95 \u2192 achieve overall on-time rate \u22650.95 (unlocks band 5).",
+            "Coverage uneven by platform \u2192 report on-time rates per system weekly \u2192 achieve \u22650.95 on-time rate for all systems (unlocks band 5).",
+            "Staging coverage at 0.83 <0.90 \u2192 enforce stage on register policy \u2192 raise pct_staged to \u22650.90 (unlocks band 5).",
+            "Overall completeness at 0.82 limits the band \u2192 ensure all runs log artifacts consistently \u2192 raise pct_artifacts to \u22650.85 (unlocks band 4).",
+            "Data ref at 0.86 blocks band-5 \u2192 log immutable dataset version or hash per run \u2192 raise pct_data_ref to \u22650.90 (unlocks band 5)."
+          ],
+          "total_gaps": 29,
+          "metric_contributions": 5
+        },
+        "6.1 Business Integration": {
+          "gaps": [
+            "Severe data sparsity preventing trustworthy computation of DAU and MAU.",
+            "Repeat cadence data is missing for some users; aim to capture repeats_per_week for at least 80% of active users to strengthen evidence of repeat usage.",
+            "Link usage is concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve a more balanced distribution and potentially unlock a higher score.",
+            "Export governance unknown \u2192 add policy enforcement status + exception rate \u2192 demonstrate \u226595% governed exports (unlocks score 4\u20135).",
+            "Delivery reliability unknown \u2192 assess alert delivery success and failure rates to determine reliability.",
+            "BU spread unknown \u2192 count unique alert/subscription users per BU to evaluate broader adoption.",
+            "Domain mix unknown \u2192 tag each source to domain (ERP/CRM/Support) \u2192 show \u22653 domains represented (unlocks score 4).",
+            "Total number of departments unknown \u2192 report total departments considered to clarify coverage percentage.",
+            "Staleness in high-priority dashboards needs addressing; ensure all critical assets are refreshed within SLA to improve efficiency posture.",
+            "Repeat cadence is sparse for some users; aim to capture repeats_per_week for at least 80% of active users to verify weekly repeats for the majority (unlocks score 5)."
+          ],
+          "total_gaps": 169,
+          "metric_contributions": 26
+        },
+        "6.2 Leadership Support": {
+          "gaps": [
+            "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 5).",
+            "Sample size varies week to week \u2192 provide distinct WAU counts for each week to assess stability and growth more accurately.",
+            "Sample size is limited; provide WAU counts per week for the last 4 weeks to assess stability and growth potential.",
+            "Sample size is limited; provide WAU counts for each week to assess stability and growth more accurately.",
+            "Sample size is limited; provide WAU counts per week to assess stability and growth more accurately.",
+            "User engagement metrics over the last four weeks are needed to confirm trends.",
+            "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 4).",
+            "Sample size is limited; provide WAU counts per week for the last 4 weeks to assess stability and growth more accurately."
+          ],
+          "total_gaps": 17,
+          "metric_contributions": 2
+        },
+        "6.3 Investment Strategy": {
+          "gaps": [
+            "Cohort composition unknown \u2192 report cohort size and retention by persona/BU \u2192 aim for \u226545% overall with clear segment drivers (unlocks score 4).",
+            "Cohort composition unknown \u2192 report cohort size and retention by persona/BU \u2192 aim for \u226545% overall retention with clear segment drivers (unlocks score 4).",
+            "1. Review and adjust AWS commitment to better align with actual usage.",
+            "2. Consider increasing GCP commitment to match higher usage.",
+            "3. Analyze usage patterns to optimize future commitments.",
+            "4. Monitor usage closely to avoid further underutilization.",
+            "5. Evaluate potential for additional savings plans or commitments.",
+            "1. Evaluate and terminate or resize instance 'gce-inst-1' due to high idle hours.",
+            "2. Implement monitoring to identify and address low-utilization instances.",
+            "3. Consider consolidating workloads to improve overall resource utilization."
+          ],
+          "total_gaps": 289,
+          "metric_contributions": 6
+        },
+        "6.4 Innovation Management": {
+          "gaps": [
+            "Department spread unknown \u2192 report drilldown usage by dept/team \u2192 show broad spread across \u22653 BUs (unlocks score 4).",
+            "Stability unverified \u2192 include 4-week drilldown time series \u2192 demonstrate non-declining trend (supports score 4\u20135).",
+            "High average complexity across functions \u2192 simplify logic and reduce nesting \u2192 target avg complexity \u2264 10 (unlocks band 3).",
+            "Multiple functions with high complexity \u2192 refactor to reduce cyclomatic complexity in critical areas \u2192 aim for \u226420% functions in high/very_high (unlocks band 3).",
+            "Incomplete function definition for pdf_reader \u2192 complete the function and ensure proper error handling \u2192 improve readability and maintainability (unlocks band 3).",
+            "Mixed responsibilities in data processing functions \u2192 separate data fetching, processing, and visualization into distinct functions \u2192 enhance maintainability (unlocks band 3).",
+            "Frequent deep nesting (depth \u22654) in data processing and visualization \u2192 refactor to reduce nesting and improve readability \u2192 target depth \u22643 (unlocks band 3).",
+            "Limited tests for edge cases in data handling \u2192 implement unit tests for critical functions \u2192 ensure robustness and reliability (unlocks band 3).",
+            "Unbounded fan-out \u2192 implement a bounded queue or chunked processing \u2192 prevents resource exhaustion (unlocks band 4).",
+            "No timeouts or error handling \u2192 add timeouts and exception management in the pool tasks \u2192 enhances reliability (supports band 4)."
+          ],
+          "total_gaps": 45,
+          "metric_contributions": 9
+        },
+        "7.2 Change Management": {
+          "gaps": [
+            "High failure rate \u2192 analyze root causes of failures and rollbacks \u2192 reduce failure rate to \u22647% (unlocks band 4).",
+            "High failure rate \u2192 analyze root causes of failures and implement targeted improvements \u2192 reduce failure rate to \u22647% (unlocks band 4).",
+            "High failure rate \u2192 analyze root causes of failures and rollbacks \u2192 reduce failure rate to \u22648% (unlocks band 4).",
+            "High failure rate \u2192 analyze root causes of failures and implement targeted improvements \u2192 reduce failure rate to \u22648% (unlocks band 4).",
+            "Failure causes unclear \u2192 implement detailed tracking of failure reasons for each deploy \u2192 achieve \u22648% failure rate (unlocks band 4)."
+          ],
+          "total_gaps": 7,
+          "metric_contributions": 1
+        },
+        "7.3 Collaboration Culture": {
+          "gaps": [
+            "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 5).",
+            "Total number of departments unknown \u2192 report total departments considered to clarify coverage percentage.",
+            "Total number of departments unknown \u2192 report total departments and creators per department to clarify coverage percentage.",
+            "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 4).",
+            "Total number of departments unknown \u2192 report total departments and creator presence per department to clarify coverage percentage.",
+            "Incomplete function definition for pdf_reader \u2192 complete the function and ensure proper error handling \u2192 improve readability and maintainability (unlocks band 3).",
+            "Mixed responsibilities in data processing functions \u2192 separate data fetching, processing, and visualization into distinct functions \u2192 enhance maintainability (unlocks band 3)."
+          ],
+          "total_gaps": 18,
+          "metric_contributions": 3
+        },
+        "7.4 Decision Making": {
+          "gaps": [
+            "Severe data sparsity preventing trustworthy computation of DAU and MAU.",
+            "Repeat cadence data is missing for some users; aim to capture repeats_per_week for at least 80% of active users to strengthen evidence of repeat usage.",
+            "Department spread unknown \u2192 report drilldown usage by dept/team \u2192 show broad spread across \u22653 BUs (unlocks score 4).",
+            "Stability unverified \u2192 include 4-week drilldown time series \u2192 demonstrate non-declining trend (supports score 4\u20135).",
+            "Sample size varies week to week \u2192 provide distinct WAU counts for each week to assess stability and growth more accurately.",
+            "Cohort composition unknown \u2192 report cohort size and retention by persona/BU \u2192 aim for \u226545% overall with clear segment drivers (unlocks score 4).",
+            "Delivery reliability unknown \u2192 assess alert delivery success and failure rates to determine reliability.",
+            "BU spread unknown \u2192 count unique alert/subscription users per BU to evaluate broader adoption.",
+            "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 4).",
+            "Repeat cadence is sparse for some users; aim to capture repeats_per_week for at least 80% of active users to verify weekly repeats for the majority (unlocks score 5)."
+          ],
+          "total_gaps": 85,
+          "metric_contributions": 8
+        },
+        "7.5 Learning Environment": {
+          "gaps": [
+            "High average complexity across functions \u2192 simplify logic and reduce nesting \u2192 target avg complexity \u2264 10 (unlocks band 3).",
+            "Multiple functions with high complexity \u2192 refactor to reduce cyclomatic complexity in critical areas \u2192 aim for \u226420% functions in high/very_high (unlocks band 3)."
+          ],
+          "total_gaps": 2,
+          "metric_contributions": 1
+        },
+        "8.1 Project Management": {
+          "gaps": [
+            "Standardize experiment directory & reproducibility",
+            "High failure rate \u2192 analyze root causes of failures and rollbacks \u2192 reduce failure rate to \u22647% (unlocks band 4).",
+            "High failure rate \u2192 analyze root causes of failures and implement targeted improvements \u2192 reduce failure rate to \u22647% (unlocks band 4).",
+            "High failure rate \u2192 analyze root causes of failures and rollbacks \u2192 reduce failure rate to \u22648% (unlocks band 4).",
+            "High failure rate \u2192 analyze root causes of failures and implement targeted improvements \u2192 reduce failure rate to \u22648% (unlocks band 4).",
+            "Failure causes unclear \u2192 implement detailed tracking of failure reasons for each deploy \u2192 achieve \u22648% failure rate (unlocks band 4)."
+          ],
+          "total_gaps": 8,
+          "metric_contributions": 2
+        },
+        "8.2 Documentation Practices": {
+          "gaps": [
+            "Critical gaps in ownership and certification on dashboards d3 and d7; establish clear ownership and certification processes.",
+            "Metadata is missing for d3 and d7; enforce metadata standards to ensure completeness.",
+            "Owners missing for dashboards d3 and d7 \u2192 enforce owner assignment to achieve at least 80% coverage (unlocks score 4).",
+            "Lineage and glossary documentation is absent for dashboards d2, d3, d5, and d7 \u2192 ensure all dashboards have lineage and glossary entries to improve coverage.",
+            "Critical missing owners on dashboards d3 and d7 \u2192 assign owners to all dashboards to improve governance.",
+            "Dashboards d3 and d5 are not certified \u2192 ensure all dashboards are certified to enhance trust.",
+            "Owners missing for dashboards d3 and d7; enforce owner assignment to achieve at least 80% coverage (unlocks score 4).",
+            "Lineage/glossary metadata is absent for dashboards d2, d3, and d7; ensure all dashboards have at least one metadata entry to improve coverage.",
+            "Critical lack of owners on dashboards d3 and d7; assign owners to all dashboards to improve governance.",
+            "Metadata incomplete on several dashboards; enforce a template that includes description, owner, SLA, and lineage."
+          ],
+          "total_gaps": 97,
+          "metric_contributions": 18
+        },
+        "8.3 Quality Assurance": {
+          "gaps": [
+            "Staleness in high-priority dashboards needs addressing; ensure all critical assets are refreshed within SLA to improve efficiency posture.",
+            "Quantify the percentage of exports and the share of stale dashboards by priority to further improve efficiency posture.",
+            "Quantify the percentage of exports and the share of stale dashboards by priority to address inefficiencies; aim to reduce exports below 15% and eliminate staleness in critical assets (unlocks score 4\u20135).",
+            "Quantify the percentage of exports and the share of stale dashboards by priority to address inefficiencies; aim to reduce exports below 15% and eliminate staleness in critical assets to improve the score.",
+            "Quantify the percentage of exports and the share of stale dashboards by priority to address inefficiencies; aim to reduce exports below 15% and eliminate staleness for critical assets to improve the score.",
+            "Quantify the percentage of exports and the share of stale dashboards by priority to address inefficiencies. Aim to reduce exports to below 15% and eliminate staleness for critical assets to improve the score.",
+            "High average complexity across functions \u2192 simplify logic and reduce nesting \u2192 target avg complexity \u2264 10 (unlocks band 3).",
+            "Multiple functions with high complexity \u2192 refactor to reduce cyclomatic complexity in critical areas \u2192 aim for \u226420% functions in high/very_high (unlocks band 3).",
+            "Incomplete function definition for pdf_reader \u2192 complete the function and ensure proper error handling \u2192 improve readability and maintainability (unlocks band 3).",
+            "Mixed responsibilities in data processing functions \u2192 separate data fetching, processing, and visualization into distinct functions \u2192 enhance maintainability (unlocks band 3)."
+          ],
+          "total_gaps": 130,
+          "metric_contributions": 27
+        },
+        "8.4 Operational Excellence": {
+          "gaps": [
+            "High-priority dashboards stale \u2192 critical refreshes missed; address refresh frequency to meet SLA.",
+            "Lateness tails unknown \u2192 add p95/p99 lateness across assets \u2192 keep p95 within SLA for \u226595% dashboards (unlocks score 5).",
+            "High-priority dashboards stale beyond SLA \u2192 immediate action required to refresh d1, d2, and d6.",
+            "Critical stales present in high-priority dashboards; add p95/p99 lateness across assets to assess refresh timeliness.",
+            "Tail lateness unknown \u2192 add p95/p99 lateness across assets \u2192 keep p95 within SLA for \u226595% dashboards (unlocks score 5).",
+            "Lateness tail unknown \u2192 add p95/p99 lateness across assets \u2192 keep p95 within SLA for \u226595% dashboards (unlocks score 5).",
+            "High-priority dashboards stale beyond SLA \u2192 immediate action required to refresh d1, d2, d6.",
+            "1. Onboard unmanaged resources to IaC management",
+            "2. Address the critical policy finding regarding the network security group",
+            "3. Remediate the high-severity finding related to public IPs on VMs"
+          ],
+          "total_gaps": 543,
+          "metric_contributions": 33
+        },
+        "8.5 Measurement & Metrics": {
+          "gaps": [
+            "Severe data sparsity preventing trustworthy computation of DAU and MAU.",
+            "Department spread unknown \u2192 report creators by department and coverage % \u2192 reach \u226560% dept coverage (unlocks score 5).",
+            "Repeat cadence data is missing for some users; aim to capture repeats_per_week for at least 80% of active users to strengthen evidence of repeat usage.",
+            "Department spread unknown \u2192 report drilldown usage by dept/team \u2192 show broad spread across \u22653 BUs (unlocks score 4).",
+            "Stability unverified \u2192 include 4-week drilldown time series \u2192 demonstrate non-declining trend (supports score 4\u20135).",
+            "Sample size varies week to week \u2192 provide distinct WAU counts for each week to assess stability and growth more accurately.",
+            "Cohort composition unknown \u2192 report cohort size and retention by persona/BU \u2192 aim for \u226545% overall with clear segment drivers (unlocks score 4).",
+            "Link usage is concentrated on a few dashboards; increase link enablement and usage across underutilized dashboards to achieve a more balanced distribution and potentially unlock a higher score.",
+            "Export governance unknown \u2192 add policy enforcement status + exception rate \u2192 demonstrate \u226595% governed exports (unlocks score 4\u20135).",
+            "Delivery reliability unknown \u2192 assess alert delivery success and failure rates to determine reliability."
+          ],
+          "total_gaps": 715,
+          "metric_contributions": 36
+        },
+        "9.1 Model Integration & Deployment": {
+          "gaps": [
+            "Entrypoint structure missing \u2192 implement a main function with clear configuration handling \u2192 organized training process (unlocks band 3).",
+            "No checkpoints or resume functionality \u2192 add checkpointing and recovery mechanisms \u2192 robust training (unlocks band 4).",
+            "Introduce automated deployment with rollout/rollback",
+            "Implement model export using standardized methods (e.g., joblib, ONNX) \u2192 include serialization details \u2192 unlocks band 5.",
+            "per-service rate is below threshold \u2192 increase deployments or reduce services \u2192 raise per-service rate to \u22651/day (unlocks band 5)",
+            "per-service rate is below threshold \u2192 increase deployments or reduce services \u2192 raise per-service rate to \u22651/week (unlocks band 5)",
+            "per-service rate is below threshold \u2192 increase deployments or reduce services \u2192 raise freq_per_week to \u22656 (unlocks band 5)"
+          ],
+          "total_gaps": 11,
+          "metric_contributions": 4
+        },
+        "9.4 Risk & Compliance Management": {
+          "gaps": [
+            "Tighten IAM policies by implementing a strict principle of least privilege, restricting user access to only the data they absolutely need for their job function.",
+            "Conduct quarterly access audits to review and revoke unnecessary permissions, ensuring that former employees or users with changed roles no longer have access.",
+            "Enforce role-based access control (RBAC) across all data systems to standardize permissions and prevent ad-hoc access grants.",
+            "Revise the permissions for the `guest` IAM role to explicitly deny all access, aligning with the `no_access` policy."
+          ],
+          "total_gaps": 23,
+          "metric_contributions": 2
+        },
+        "9.5 Scaling & Distribution": {
+          "gaps": [
+            "1. Implement additional scaling actions to address the high CPU utilization.",
+            "2. Review and adjust scaling thresholds to prevent future violations.",
+            "3. Increase monitoring frequency to detect breaches earlier.",
+            "4. Analyze the cause of the high CPU usage to optimize resource allocation.",
+            "5. Consider implementing automated scaling policies based on real-time demand.",
+            "1. Increase the frequency of scaling actions to respond more promptly to CPU breaches.",
+            "2. Review and adjust the target CPU thresholds to better align with actual usage patterns.",
+            "3. Implement additional monitoring to track CPU utilization trends more effectively.",
+            "4. Analyze the scaling event timing to ensure it aligns with peak usage periods.",
+            "5. Consider adding more granular scaling policies to prevent future violations."
+          ],
+          "total_gaps": 72,
+          "metric_contributions": 2
+        },
+        "11.1 Algorithmic Fairness & Bias Mitigation": {
+          "gaps": [
+            "No calibration metrics \u2192 implement evaluation metrics for model performance \u2192 enhance reliability (unlocks band 4).",
+            "Fairness not addressed \u2192 include bias assessments in resume parsing \u2192 improve evaluation completeness (supports band 4).",
+            "SHAP coverage at 0.84 \u2192 implement SHAP file generation in all runs \u2192 raise pct_with_shap to \u22650.85 (unlocks band 4).",
+            "Bias report at 0.72 \u2192 integrate a bias evaluation step in the pipeline \u2192 raise pct_with_bias_report to \u22650.80 (unlocks band 4).",
+            "No SHAP files present \u2192 implement SHAP analysis in the pipeline \u2192 ensure pct_with_shap is \u22650.60 (unlocks band 2).",
+            "No bias reports available \u2192 integrate bias evaluation in the workflow \u2192 ensure pct_with_bias_report is \u22650.60 (unlocks band 2).",
+            "No validation JSON generated \u2192 establish validation summary generation in each run \u2192 ensure pct_with_validation_json is \u22650.60 (unlocks band 2).",
+            "No evidence for bias or explainability \u2192 implement reporting for both metrics in the pipeline \u2192 ensure pct_with_bias_report and pct_with_explainability are both \u22650.60 (unlocks band 2).",
+            "No evidence provided \u2192 implement logging for SHAP, bias reports, and validation JSON \u2192 ensure all metrics are collected (unlocks band 3).",
+            "Both metrics are missing \u2192 implement bias and explainability reporting in the pipeline \u2192 achieve pct_with_bias_report and pct_with_explainability to \u22650.60 (unlocks band 2)."
+          ],
+          "total_gaps": 18,
+          "metric_contributions": 3
+        },
+        "11.2 Explainability & Interpretability": {
+          "gaps": [
+            "No evidence for bias or explainability \u2192 implement reporting for both metrics in the pipeline \u2192 ensure pct_with_bias_report and pct_with_explainability are both \u22650.60 (unlocks band 2).",
+            "Both metrics are missing \u2192 implement bias and explainability reporting in the pipeline \u2192 achieve pct_with_bias_report and pct_with_explainability to \u22650.60 (unlocks band 2).",
+            "No evidence for bias or explainability \u2192 implement reporting for both aspects in the pipeline \u2192 achieve pct_with_bias_report and pct_with_explainability \u22650.60 (unlocks band 2).",
+            "No bias report or explainability evidence \u2192 implement reporting mechanisms for both \u2192 achieve pct_with_bias_report and pct_with_explainability to \u22650.60 (unlocks band 2).",
+            "Both metrics are missing \u2192 implement tracking for bias and explainability reports \u2192 achieve pct_with_bias_report and pct_with_explainability \u22650.60 (unlocks band 2)."
+          ],
+          "total_gaps": 6,
+          "metric_contributions": 1
+        },
+        "11.3 Privacy & Data Protection": {
+          "gaps": [
+            "Many dashboards lack PII tagging and access policies; implement comprehensive tagging and access control measures to improve coverage.",
+            "Many dashboards lack PII tagging and access policies; implement comprehensive tagging and access controls to improve coverage.",
+            "Many dashboards lack PII and access policy tags; implement comprehensive tagging and access control measures to improve coverage.",
+            "Establish a data governance framework to ensure that all datasets are documented and assessed for sensitive data tagging.",
+            "Implement a process for regularly updating and maintaining metadata for all datasets to ensure compliance with data privacy regulations.",
+            "Conduct training sessions for data owners and stakeholders on the importance of tagging sensitive data and the potential risks of non-compliance.",
+            "Deploy an automated data classification tool to scan for and tag sensitive data types like PII and PCI across all tables.",
+            "Implement a mandatory data governance policy that requires all new tables containing sensitive data to be tagged before they are put into production.",
+            "Conduct a full manual audit of existing data sources to identify and tag all previously missed sensitive fields."
+          ],
+          "total_gaps": 26,
+          "metric_contributions": 2
+        },
+        "12.1 Revenue Generation & Growth": {
+          "gaps": [
+            "Tail risk unknown \u2192 add p95/p99 latency and failure % for the conversion process \u2192 keep p90 within 24h (unlocks band 4).",
+            "Sales order to billing time high \u2192 analyze bottlenecks in billing process \u2192 reduce to \u226424h (unlocks band 4).",
+            "Post-AI KPI decline \u2192 investigate root causes and implement corrective actions \u2192 achieve \u226510% uplift (unlocks band 4).",
+            "Sales order to billing time high \u2192 streamline billing process \u2192 target \u226424h (unlocks band 4).",
+            "Post-AI KPI decline \u2192 analyze factors causing decrease and implement corrective actions \u2192 achieve \u226510% uplift (unlocks band 4).",
+            "SO to billing delay \u2192 streamline billing processes \u2192 target \u226424h (unlocks band 4).",
+            "Post KPI decline \u2192 analyze factors causing decrease and implement corrective actions \u2192 achieve post KPI value \u2265 baseline (unlocks band 3).",
+            "Tail risk unknown \u2192 add p95/p99 latency and failure % for the conversion path \u2192 keep p90 within 24h (unlocks band 4).",
+            "SO to billing delay \u2192 analyze bottlenecks in billing process \u2192 reduce to \u226424h (unlocks band 4).",
+            "Post KPI decrease \u2192 analyze factors causing decline \u2192 achieve post KPI value \u2265 baseline (unlocks band 4)."
+          ],
+          "total_gaps": 21,
+          "metric_contributions": 3
+        },
+        "12.2 Cost Reduction & Efficiency": {
+          "gaps": [
+            "Staleness in high-priority dashboards needs addressing; ensure all critical assets are refreshed within SLA to improve efficiency posture.",
+            "Quantify the percentage of exports and the share of stale dashboards by priority to further improve efficiency posture.",
+            "Quantify the percentage of exports and the share of stale dashboards by priority to address inefficiencies; aim to reduce exports below 15% and eliminate staleness in critical assets (unlocks score 4\u20135).",
+            "Quantify the percentage of exports and the share of stale dashboards by priority to address inefficiencies; aim to reduce exports below 15% and eliminate staleness in critical assets to improve the score.",
+            "Quantify the percentage of exports and the share of stale dashboards by priority to address inefficiencies; aim to reduce exports below 15% and eliminate staleness for critical assets to improve the score.",
+            "Quantify the percentage of exports and the share of stale dashboards by priority to address inefficiencies. Aim to reduce exports to below 15% and eliminate staleness for critical assets to improve the score.",
+            "1. Review and adjust AWS commitment to better align with actual usage.",
+            "2. Consider increasing GCP commitment to match higher usage.",
+            "3. Analyze usage patterns to optimize future commitments.",
+            "4. Monitor usage closely to avoid further underutilization."
+          ],
+          "total_gaps": 689,
+          "metric_contributions": 25
+        },
+        "12.3 Customer Experience Enhancement": {
+          "gaps": [
+            "Severe data sparsity preventing trustworthy computation of DAU and MAU.",
+            "1. Investigate the root causes of the critical incident and major incident.",
+            "2. Implement measures to reduce MTTR and prevent future incidents.",
+            "3. Review SLO compliance and adjust monitoring thresholds.",
+            "4. Increase incident response training for the team.",
+            "5. Consider additional resources or tools to improve service reliability.",
+            "1. Monitor latency trends to identify potential spikes.",
+            "2. Investigate the causes of unhealthy minutes for both load balancers.",
+            "3. Review error handling and retry logic to further reduce 5xx errors.",
+            "4. Ensure capacity planning aligns with traffic patterns to maintain performance."
+          ],
+          "total_gaps": 145,
+          "metric_contributions": 6
+        },
+        "13.1 Model Reliability & Robustness": {
+          "gaps": [
+            "Unbounded fan-out \u2192 implement a bounded queue or chunked processing \u2192 prevents resource exhaustion (unlocks band 4).",
+            "No timeouts or error handling \u2192 add timeouts and exception management in the pool tasks \u2192 enhances reliability (supports band 4).",
+            "Implement a structured orchestration framework (e.g., Airflow, Prefect) \u2192 define a clear pipeline with scheduling and reliability controls \u2192 unlocks band 3.",
+            "Integrate preprocessing functions into a structured pipeline \u2192 establish a consistent feature engineering process \u2192 unlocks band 4.",
+            "No HPO strategy implemented \u2192 introduce a systematic search method (e.g., Optuna) \u2192 enable effective parameter tuning (unlocks band 4).",
+            "Entrypoint structure missing \u2192 implement a main function with clear configuration handling \u2192 organized training process (unlocks band 3).",
+            "No checkpoints or resume functionality \u2192 add checkpointing and recovery mechanisms \u2192 robust training (unlocks band 4).",
+            "Implement a serving framework (e.g., FastAPI) \u2192 establish structured endpoints for predictions \u2192 unlocks band 4.",
+            "Add health checks and error handling \u2192 ensure operational reliability \u2192 unlocks band 3.",
+            "Implement model export using standardized methods (e.g., joblib, ONNX) \u2192 include serialization details \u2192 unlocks band 5."
+          ],
+          "total_gaps": 37,
+          "metric_contributions": 11
+        },
+        "13.2 Data Dependency & Availability": {
+          "gaps": [
+            "Investigate the cause of the failure in the `users` ingestion pipeline to identify any errors or bottlenecks.",
+            "Implement a manual refresh of the `users` table to bring it up to date immediately.",
+            "Set up an automated monitoring system to alert the data team when the `users` table is more than 1 hour behind its expected update time.",
+            "Implement a foundational data lineage documentation process to identify and document all existing tables and their relationships.",
+            "Establish a governance framework to ensure that all new data assets are required to have documented lineage before they are deployed.",
+            "Conduct a comprehensive audit of the data estate to identify all tables and prioritize lineage documentation for those critical to business operations.",
+            "Train data engineers and analysts on the importance of data lineage and how to document it effectively.",
+            "Investigate the `orders` ingestion process to identify bottlenecks causing the 5h delay, focusing on data source reliability and processing efficiency.",
+            "Address the `inventory` table's update issues by reviewing the scheduling and execution of its data pipeline, ensuring it runs as expected.",
+            "Implement a monitoring system that alerts the data team when any table is more than 30 minutes behind its expected update time."
+          ],
+          "total_gaps": 37,
+          "metric_contributions": 2
+        },
+        "13.4 Operational Continuity": {
+          "gaps": [
+            "1. Investigate the root causes of the critical incident and major incident.",
+            "2. Implement measures to reduce MTTR and prevent future incidents.",
+            "3. Review SLO compliance and adjust monitoring thresholds.",
+            "4. Increase incident response training for the team.",
+            "5. Consider additional resources or tools to improve service reliability.",
+            "1. Monitor latency trends to identify potential spikes.",
+            "2. Investigate the causes of unhealthy minutes for both load balancers.",
+            "3. Review error handling and retry logic to further reduce 5xx errors.",
+            "4. Ensure capacity planning aligns with traffic patterns to maintain performance.",
+            "5. Conduct regular performance reviews to stay ahead of potential issues."
+          ],
+          "total_gaps": 220,
+          "metric_contributions": 6
+        },
+        "13.5 Regulatory & Legal Compliance": {
+          "gaps": [
+            "Implement secure storage for sensitive data (e.g., secrets management) \u2192 eliminate hardcoded values (unlocks band 3).",
+            "Enhance input validation mechanisms to ensure data integrity \u2192 reduce risk of injection attacks (supports band 3).",
+            "Coverage below 90% \u2192 increase models with all controls to \u226545 \u2192 achieve \u226590% coverage (unlocks band 5)."
+          ],
+          "total_gaps": 9,
+          "metric_contributions": 2
+        },
+        "15.1 AI Strategy & Roadmap": {
+          "gaps": [
+            "Execution share low \u2192 increase AI execution share \u2192 target \u226550% (unlocks band 4).",
+            "Execution share low \u2192 increase AI execution share \u2192 achieve \u226550% (unlocks band 4).",
+            "Execution share low \u2192 increase AI execution percentage \u2192 achieve \u226550% (unlocks band 4).",
+            "Execution share low \u2192 increase AI execution percentage \u2192 achieve \u226550% executions using AI (unlocks band 4).",
+            "Execution share low \u2192 increase AI execution percentage \u2192 target \u226550% (unlocks band 4)."
+          ],
+          "total_gaps": 7,
+          "metric_contributions": 1
+        }
+      },
+      "meta": {
+        "inputs_root": "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/orchestrator_output/agents",
+        "files_processed": 42,
+        "metrics_seen": 760,
+        "metrics_used": 760,
+        "subsections_count": 52,
+        "dimensions_count": 13
+      },
+      "gaps_meta": {
+        "inputs_root": "/Users/samirandolui/Desktop/CLaiMB_LLM_Agents/orchestrator_output/agents",
+        "files_processed": 42,
+        "gaps_seen": 7089,
+        "gaps_used": 7089,
+        "subsections_count": 51,
+        "dimensions_count": 13
+      }
+    }
+  },
+  "latest_sign_ts": {
+    "cloud_infra": "2025-10-09T05:09:48+00:00",
+    "data_platform": "2025-10-09T05:09:35+00:00",
+    "ml_ops": "2025-10-09T05:08:52+00:00",
+    "bi_tracker": "2025-10-09T05:08:43+00:00",
+    "enterprise_systems": "2025-10-09T05:09:13+00:00"
+  }
+}

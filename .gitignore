@@ -37,7 +37,5 @@ services/
 services_common/
 bus/
 orchestrator_output
-results/
 user_inputs
-results/category_scores.json
 .DS_Store
