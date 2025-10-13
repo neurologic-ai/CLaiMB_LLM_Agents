@@ -10,7 +10,10 @@ from main_orchestrator import survey_recalibrator
 from .feature_bus import FeatureBus, utc_iso
 from .scoring import ScoringAgent
 from .survey_recalibrator import Args as SRArgs, main_with_args as run_survey_recalibration
+from .gap_summarizer import GapSummarizer
+from .recommendation_generator import RecommendationGenerator
 import os
+import re
 
 @dataclass
 class SurveyConfig:
@@ -21,6 +24,16 @@ class SurveyConfig:
     out_scores: Path | None = None
     out_audit: Path | None = None
     default_N: int = 5
+
+@dataclass
+class GapSummarizerConfig:
+    enabled: bool = True
+    model: str = "gpt-3.5-turbo"
+
+@dataclass
+class RecommendationGeneratorConfig:
+    enabled: bool = True
+    model: str = "gpt-4-turbo-preview"  # Better model for strategic recommendations
 
 AGENTS_LIST = [
     "cloud_infra",        # 6h
@@ -66,7 +79,9 @@ class Orchestrator:
         bus_root: str = "./bus",
         results_root: str = "./results",
         agents_root: str = "./orchestrator_output/agents",
-        survey_config: SurveyConfig | None = None,   # <— NEW
+        survey_config: SurveyConfig | None = None,
+        gap_summarizer_config: GapSummarizerConfig | None = None,
+        recommendation_generator_config: RecommendationGeneratorConfig | None = None,
     ):
         self.bus = FeatureBus(bus_root)
         self.results_root = Path(results_root)
@@ -75,8 +90,14 @@ class Orchestrator:
         self.agents_root = Path(agents_root)
         self.agents_root.mkdir(parents=True, exist_ok=True)
 
-        # NEW: configure survey from args or env
+        # Configure survey from args or env
         self.survey_config = survey_config or self._load_survey_config_from_env()
+        
+        # Configure gap summarizer from args or env
+        self.gap_summarizer_config = gap_summarizer_config or self._load_gap_summarizer_config_from_env()
+        
+        # Configure recommendation generator from args or env
+        self.recommendation_generator_config = recommendation_generator_config or self._load_recommendation_generator_config_from_env()
 
         self.scorer = ScoringAgent(category_weights=None)
         self.graph = self._build_graph()
@@ -113,6 +134,25 @@ class Orchestrator:
             out_scores=out_scores,
             out_audit=out_audit,
             default_N=default_N,
+        )
+    
+    def _load_gap_summarizer_config_from_env(self) -> GapSummarizerConfig:
+        """Build GapSummarizerConfig from environment variables."""
+        enabled = os.getenv("GAP_SUMMARIZER_ENABLED", "true").lower() not in {"0", "false", "no"}
+        model = os.getenv("GAP_SUMMARIZER_MODEL", "gpt-3.5-turbo")
+        return GapSummarizerConfig(
+            enabled=enabled,
+            model=model,
+        )
+    
+    def _load_recommendation_generator_config_from_env(self) -> RecommendationGeneratorConfig:
+        """Build RecommendationGeneratorConfig from environment variables."""
+        enabled = os.getenv("RECOMMENDATION_GENERATOR_ENABLED", "true").lower() not in {"0", "false", "no"}
+        model = os.getenv("RECOMMENDATION_GENERATOR_MODEL", "gpt-4-turbo-preview")
+        
+        return RecommendationGeneratorConfig(
+            enabled=enabled,
+            model=model,
         )
 
     # ---- nodes ----
@@ -170,6 +210,44 @@ class Orchestrator:
         (self.results_root / "category_gaps.json").write_text(
             json.dumps(out["result"].get("category_gaps", {}), indent=2)
         )
+        
+        # Generate comprehensive AIMRI structure with subsections
+        self._generate_aimri_structure(out["result"])
+
+        # --- Gap Summarizer (configurable) ---
+        gap_cfg = self.gap_summarizer_config
+        if gap_cfg and gap_cfg.enabled:
+            try:
+                print("▶ Running Gap Summarizer...")
+                summarizer = GapSummarizer(model=gap_cfg.model)
+                
+                # Generate summaries for all categories
+                gap_summaries = summarizer.summarize_all_categories(
+                    save_output=True,
+                    output_path=self.results_root / "gap_summaries.json"
+                )
+                
+                print("✅ Gap Summarizer complete")
+            except Exception as e:
+                print(f"⚠️ Gap Summarizer failed: {e}")
+                # Continue execution even if gap summarizer fails
+        
+        # --- Recommendation Generator (configurable) ---
+        rec_cfg = self.recommendation_generator_config
+        if rec_cfg and rec_cfg.enabled:
+            try:
+                print("▶ Running Recommendation Generator...")
+                generator = RecommendationGenerator(model=rec_cfg.model)
+                
+                # Generate prioritized recommendations
+                recommendations = generator.generate_recommendations(
+                    save_output=True,
+                    output_path=self.results_root / "prioritized_recommendations.json"
+                )
+                print("✅ Recommendation Generator complete")
+            except Exception as e:
+                print(f"⚠️ Recommendation Generator failed: {e}")
+                # Continue execution even if recommendation generator fails
 
         # --- Survey recalibration (configurable) ---
         cfg = self.survey_config
@@ -185,6 +263,99 @@ class Orchestrator:
             run_survey_recalibration(sr_args)
 
         return state
+
+    def _generate_aimri_structure(self, result: Dict[str, Any]):
+        """Generate comprehensive AIMRI structure with all 15 categories and their subsections."""
+        # Load AIMRI canonical structure
+        aimri_json_path = Path(__file__).parent / "aimri.json"
+        try:
+            with open(aimri_json_path, 'r') as f:
+                aimri_canonical = json.load(f)
+                aimri_points = aimri_canonical.get("aimri_points", [])
+        except Exception:
+            aimri_points = []
+        
+        # Build category to subsections mapping
+        category_subsections_map = {}
+        for point in aimri_points:
+            cat = point.get("category")
+            subsection_id = point.get("id")
+            subsection_name = point.get("name")
+            
+            # Find matching category with number prefix
+            for cat_key in ["01. Technical Infrastructure", "02. Data Management & Quality", 
+                           "03. AI/ML Capabilities", "04. Talent & Skills", "05. Governance & Ethics",
+                           "06. Strategic Alignment", "07. Cultural Readiness", "08. Process Maturity",
+                           "09. Foundation Model Operations", "10. Generative AI Capabilities",
+                           "11. Responsible AI & Social Impact", "12. AI Business Value & ROI",
+                           "13. AI Risk & Resilience", "14. AI Ecosystem & External Integration",
+                           "15. AI Leadership & Vision"]:
+                if cat in cat_key:
+                    if cat_key not in category_subsections_map:
+                        category_subsections_map[cat_key] = []
+                    category_subsections_map[cat_key].append({
+                        "id": subsection_id,
+                        "name": subsection_name,
+                        "full_name": f"{subsection_id} {subsection_name}"
+                    })
+                    break
+        
+        # Get data from result details
+        details = result.get("details", {})
+        score_subsections = details.get("subsections", {})
+        gap_subsections = details.get("gap_subsections", {})
+        category_scores = result.get("category_scores", {})
+        category_gaps = result.get("category_gaps", {})
+        
+        # Build comprehensive structure
+        aimri_data = {}
+        
+        # All AIMRI categories
+        ALL_CATEGORIES = [
+            "01. Technical Infrastructure",
+            "02. Data Management & Quality",
+            "03. AI/ML Capabilities",
+            "04. Talent & Skills",
+            "05. Governance & Ethics",
+            "06. Strategic Alignment",
+            "07. Cultural Readiness",
+            "08. Process Maturity",
+            "09. Foundation Model Operations",
+            "10. Generative AI Capabilities",
+            "11. Responsible AI & Social Impact",
+            "12. AI Business Value & ROI",
+            "13. AI Risk & Resilience",
+            "14. AI Ecosystem & External Integration",
+            "15. AI Leadership & Vision"
+        ]
+        
+        # Process each category
+        for category in ALL_CATEGORIES:
+            # Get category-level data
+            category_score = category_scores.get(category, 0.0)
+            category_gaps_data = category_gaps.get(category, {})
+            
+            if isinstance(category_gaps_data, dict):
+                category_gap_list = category_gaps_data.get("gaps", [])
+            else:
+                category_gap_list = []
+            
+            # Build subsections list (just names)
+            subsections_list = []
+            canonical_subs = category_subsections_map.get(category, [])
+            
+            for sub_info in canonical_subs:
+                subsections_list.append(sub_info["full_name"])
+            
+            aimri_data[category] = {
+                "score": round(float(category_score), 2),
+                "gaps": category_gap_list,
+                "subsections": subsections_list
+            }
+        
+        # Save to js.json
+        js_file = self.results_root / "clubbed_result.json"
+        js_file.write_text(json.dumps(aimri_data, indent=2, ensure_ascii=False))
 
     # ---- graph ----
     def _build_graph(self):

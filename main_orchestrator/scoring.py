@@ -358,7 +358,7 @@ def _aggregate_gaps_tree(inputs_root: Path) -> Dict[str, Any]:
             if gap not in seen:
                 seen.add(gap)
                 unique_gaps.append(gap)
-        return unique_gaps[:10]  # Limit to top 10 gaps per category
+        return unique_gaps  # You can Limit to top n gaps per category
     
     subsections: Dict[str, Dict[str, Any]] = {}
     for sub, gaps in subsection_gaps.items():
