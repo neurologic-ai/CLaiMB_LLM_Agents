@@ -36,3 +36,10 @@ data/
 services/
 services_common/
 bus/
+.git
+*.pyc
+*.pyo
+*.pytest_cache/
+.secrets/
+.idea/
+.vscode/

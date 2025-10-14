@@ -231,6 +231,19 @@ class Orchestrator:
             except Exception as e:
                 print(f"⚠️ Gap Summarizer failed: {e}")
                 # Continue execution even if gap summarizer fails
+
+        # --- Survey recalibration (configurable) ---
+        cfg = self.survey_config
+        if cfg and cfg.enabled:
+            sr_args = SRArgs(
+                survey=cfg.survey_path,
+                yamls=cfg.yaml_paths or [],
+                existing_json=cfg.existing_json or (self.results_root / "category_scores.json"),
+                out_scores=cfg.out_scores or (self.results_root / "survey_metric_scores.json"),
+                out_audit=cfg.out_audit or (self.results_root / "survey_recalibration_audit.json"),
+                default_N=cfg.default_N,
+            )
+            run_survey_recalibration(sr_args)
         
         # --- Recommendation Generator (configurable) ---
         rec_cfg = self.recommendation_generator_config
@@ -248,19 +261,6 @@ class Orchestrator:
             except Exception as e:
                 print(f"⚠️ Recommendation Generator failed: {e}")
                 # Continue execution even if recommendation generator fails
-
-        # --- Survey recalibration (configurable) ---
-        cfg = self.survey_config
-        if cfg and cfg.enabled:
-            sr_args = SRArgs(
-                survey=cfg.survey_path,
-                yamls=cfg.yaml_paths or [],
-                existing_json=cfg.existing_json or (self.results_root / "category_scores.json"),
-                out_scores=cfg.out_scores or (self.results_root / "survey_metric_scores.json"),
-                out_audit=cfg.out_audit or (self.results_root / "survey_recalibration_audit.json"),
-                default_N=cfg.default_N,
-            )
-            run_survey_recalibration(sr_args)
 
         return state
 

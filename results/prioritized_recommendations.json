@@ -1,101 +1,345 @@
 {
   "Overall Prioritized Recommendations": {
-    "recommendation": "Generated 10 prioritized recommendations based on category weights and gap analysis.",
+    "recommendation": "Generated 10 prioritized recommendations with linear interpolation scoring.",
     "prioritized_actions": [
       {
         "rank": 1,
-        "title": "Implement Comprehensive Documentation Practices",
-        "description": "Develop and enforce comprehensive documentation standards for AI/ML model development, including functions, parameters, and returns. This will ensure clarity, consistency, and improve collaboration across teams.",
+        "title": "Implement Structured Orchestration Framework",
+        "description": "Introducing a structured orchestration framework like Airflow or Prefect will streamline AI workflows, ensuring clear pipelines with retries and validation. This will significantly improve operational efficiency and data quality.",
         "impact": "High",
+        "confidence": 0.95,
         "affected_categories": [
-          "03. AI/ML Capabilities"
-        ]
+          "Data Management & Quality",
+          "AI/ML Capabilities"
+        ],
+        "score_details": {
+          "Data Management & Quality": {
+            "Recommendable_Score": 4.1,
+            "Current_Score": 2.75
+          },
+          "AI/ML Capabilities": {
+            "Recommendable_Score": 3.393,
+            "Current_Score": 3.11
+          }
+        }
       },
       {
         "rank": 2,
-        "title": "Enhance Data Security and Governance",
-        "description": "Implement secure storage mechanisms and robust input validation for data handling, coupled with comprehensive data governance frameworks. This will mitigate risks, ensure data integrity, and enhance trust in AI applications.",
+        "title": "Enhance Security Measures",
+        "description": "Moving secrets to a secure manager and implementing logging best practices will bolster security across technical infrastructure and AI/ML capabilities, mitigating risks of data exposure and unauthorized access.",
         "impact": "High",
+        "confidence": 0.9,
         "affected_categories": [
-          "03. AI/ML Capabilities",
-          "02. Data Management & Quality",
-          "05. Governance & Ethics"
-        ]
+          "Technical Infrastructure",
+          "AI/ML Capabilities",
+          "Governance & Ethics"
+        ],
+        "score_details": {
+          "Technical Infrastructure": {
+            "Recommendable_Score": 3.935,
+            "Current_Score": 2.87
+          },
+          "AI/ML Capabilities": {
+            "Recommendable_Score": 3.299,
+            "Current_Score": 3.11
+          },
+          "Governance & Ethics": {
+            "Recommendable_Score": 4.085,
+            "Current_Score": 3.17
+          }
+        }
       },
       {
         "rank": 3,
-        "title": "Standardize Model Development and Deployment",
-        "description": "Streamline the model development and deployment process, including preprocessing pipelines and model export methods, to enhance efficiency, reproducibility, and scalability across AI projects.",
+        "title": "Implement Comprehensive Documentation and Structured Logging",
+        "description": "Ensuring comprehensive documentation and structured logging will enhance maintainability, reproducibility, and operational reliability, directly impacting AI/ML capabilities and talent development.",
         "impact": "High",
+        "confidence": 0.88,
         "affected_categories": [
-          "03. AI/ML Capabilities"
-        ]
+          "AI/ML Capabilities",
+          "Talent & Skills"
+        ],
+        "score_details": {
+          "AI/ML Capabilities": {
+            "Recommendable_Score": 3.393,
+            "Current_Score": 3.11
+          },
+          "Talent & Skills": {
+            "Recommendable_Score": 3.7,
+            "Current_Score": 3.05
+          }
+        }
       },
       {
         "rank": 4,
-        "title": "Optimize Cloud Commitments and Resource Utilization",
-        "description": "Review and optimize cloud computing commitments and resource utilization to align with actual needs, reducing costs and increasing operational efficiency.",
+        "title": "Simplify Code Complexity and Enhance Documentation Quality",
+        "description": "Refactoring code to reduce complexity and enhancing documentation will improve maintainability and clarity, benefiting both the talent pool and strategic alignment.",
         "impact": "Medium",
+        "confidence": 0.85,
         "affected_categories": [
-          "01. Technical Infrastructure"
-        ]
+          "Talent & Skills",
+          "Strategic Alignment"
+        ],
+        "score_details": {
+          "Talent & Skills": {
+            "Recommendable_Score": 3.7,
+            "Current_Score": 3.05
+          },
+          "Strategic Alignment": {
+            "Recommendable_Score": 5.0,
+            "Current_Score": 2.79
+          }
+        }
       },
       {
         "rank": 5,
-        "title": "Increase AI Execution Share",
-        "description": "Focus on increasing the AI execution share to at least 50%, demonstrating a commitment to leveraging AI across operations and enhancing the organization's competitive edge in AI adoption.",
-        "impact": "High",
+        "title": "Integrate CI Gating for Validation Failures",
+        "description": "Implementing CI gating for validation failures will ensure that only quality data and code progress through pipelines, enhancing data management, process maturity, and AI/ML capabilities.",
+        "impact": "Medium",
+        "confidence": 0.9,
         "affected_categories": [
-          "15. AI Leadership & Vision"
-        ]
+          "Data Management & Quality",
+          "AI/ML Capabilities",
+          "Process Maturity"
+        ],
+        "score_details": {
+          "Data Management & Quality": {
+            "Recommendable_Score": 3.65,
+            "Current_Score": 2.75
+          },
+          "AI/ML Capabilities": {
+            "Recommendable_Score": 3.299,
+            "Current_Score": 3.11
+          },
+          "Process Maturity": {
+            "Recommendable_Score": 5.0,
+            "Current_Score": 2.57
+          }
+        }
       },
       {
         "rank": 6,
-        "title": "Improve Metadata Management and Data Accessibility",
-        "description": "Enforce metadata standards and improve data accessibility across the organization. This will enhance data quality, governance, and support advanced analytics and ML capabilities.",
-        "impact": "Medium",
+        "title": "Implement Error Handling and Operational Safety Measures",
+        "description": "Introducing comprehensive error handling and operational safety measures will enhance system reliability and performance across technical infrastructure, AI/ML capabilities, and AI risk & resilience.",
+        "impact": "High",
+        "confidence": 0.92,
         "affected_categories": [
-          "02. Data Management & Quality",
-          "05. Governance & Ethics"
-        ]
+          "Technical Infrastructure",
+          "AI/ML Capabilities",
+          "AI Risk & Resilience"
+        ],
+        "score_details": {
+          "Technical Infrastructure": {
+            "Recommendable_Score": 3.935,
+            "Current_Score": 2.87
+          },
+          "AI/ML Capabilities": {
+            "Recommendable_Score": 3.299,
+            "Current_Score": 3.11
+          },
+          "AI Risk & Resilience": {
+            "Recommendable_Score": 3.824,
+            "Current_Score": 3.04
+          }
+        }
       },
       {
         "rank": 7,
-        "title": "Enhance Monitoring and Logging Processes",
-        "description": "Establish structured monitoring and logging processes, including drift monitoring and artifact tracking, to enhance AI/ML model performance visibility and anomaly detection.",
-        "impact": "Medium",
+        "title": "Establish Model Performance Monitoring",
+        "description": "Integrating model performance monitoring, including drift detection and bias assessment, will improve AI/ML capabilities, governance, and responsible AI practices.",
+        "impact": "High",
+        "confidence": 0.87,
         "affected_categories": [
-          "03. AI/ML Capabilities"
-        ]
+          "AI/ML Capabilities",
+          "Governance & Ethics",
+          "Responsible AI & Social Impact"
+        ],
+        "score_details": {
+          "AI/ML Capabilities": {
+            "Recommendable_Score": 3.299,
+            "Current_Score": 3.11
+          },
+          "Governance & Ethics": {
+            "Recommendable_Score": 4.085,
+            "Current_Score": 3.17
+          },
+          "Responsible AI & Social Impact": {
+            "Recommendable_Score": 5.0,
+            "Current_Score": 2.98
+          }
+        }
       },
       {
         "rank": 8,
-        "title": "Implement Targeted Talent Development Programs",
-        "description": "Design and implement talent development programs focusing on AI/ML skills enhancement, ensuring the workforce is equipped with the necessary skills to support AI initiatives.",
+        "title": "Enhance Talent & Skills through Training and Development",
+        "description": "Investing in training and development to address gaps in technical expertise and documentation quality will elevate the organization's talent pool, directly impacting AI/ML capabilities and talent & skills.",
         "impact": "Medium",
+        "confidence": 0.8,
         "affected_categories": [
-          "04. Talent & Skills"
-        ]
+          "AI/ML Capabilities",
+          "Talent & Skills"
+        ],
+        "score_details": {
+          "AI/ML Capabilities": {
+            "Recommendable_Score": 3.393,
+            "Current_Score": 3.11
+          },
+          "Talent & Skills": {
+            "Recommendable_Score": 3.7,
+            "Current_Score": 3.05
+          }
+        }
       },
       {
         "rank": 9,
-        "title": "Strengthen Strategic Alignment",
-        "description": "Enhance strategic alignment by improving data completeness, departmental insights, and establishing export governance to better support decision-making processes.",
+        "title": "Implement Systematic Hyperparameter Optimization",
+        "description": "Adopting a systematic approach to hyperparameter optimization will enhance model performance, directly benefiting AI/ML capabilities and AI business value & ROI.",
         "impact": "Medium",
+        "confidence": 0.85,
         "affected_categories": [
-          "06. Strategic Alignment"
-        ]
+          "AI/ML Capabilities",
+          "AI Business Value & ROI"
+        ],
+        "score_details": {
+          "AI/ML Capabilities": {
+            "Recommendable_Score": 3.393,
+            "Current_Score": 3.11
+          },
+          "AI Business Value & ROI": {
+            "Recommendable_Score": 5.0,
+            "Current_Score": 3.17
+          }
+        }
       },
       {
         "rank": 10,
-        "title": "Enhance Incident Response and Monitoring",
-        "description": "Improve incident response capabilities and enhance monitoring frequency to detect and respond to breaches more effectively, reducing potential risks and improving resilience.",
+        "title": "Automate Deployment with Rollout/Rollback Capabilities",
+        "description": "Establishing automated deployment processes will enhance operational reliability and agility, impacting foundation model operations and AI risk & resilience.",
         "impact": "Medium",
+        "confidence": 0.82,
         "affected_categories": [
-          "01. Technical Infrastructure",
-          "13. AI Risk & Resilience"
-        ]
+          "Foundation Model Operations",
+          "AI Risk & Resilience"
+        ],
+        "score_details": {
+          "Foundation Model Operations": {
+            "Recommendable_Score": 5.0,
+            "Current_Score": 2.64
+          },
+          "AI Risk & Resilience": {
+            "Recommendable_Score": 4.216,
+            "Current_Score": 3.04
+          }
+        }
       }
     ]
+  },
+  "scoring_meta": {
+    "baseline_category_scores": {
+      "01. Technical Infrastructure": 2.18,
+      "02. Data Management & Quality": 2.1,
+      "03. AI/ML Capabilities": 2.06,
+      "04. Talent & Skills": 2.28,
+      "05. Governance & Ethics": 2.0,
+      "06. Strategic Alignment": 2.3,
+      "07. Cultural Readiness": 3.0,
+      "08. Process Maturity": 2.03,
+      "09. Foundation Model Operations": 1.57,
+      "11. Responsible AI & Social Impact": 3.0,
+      "12. AI Business Value & ROI": 1.44,
+      "13. AI Risk & Resilience": 1.73
+    },
+    "recalibrated_category_scores": {
+      "01. Technical Infrastructure": 2.87,
+      "02. Data Management & Quality": 2.75,
+      "03. AI/ML Capabilities": 3.11,
+      "04. Talent & Skills": 3.05,
+      "05. Governance & Ethics": 3.17,
+      "06. Strategic Alignment": 2.79,
+      "07. Cultural Readiness": 2.8,
+      "08. Process Maturity": 2.57,
+      "09. Foundation Model Operations": 2.64,
+      "10. Generative AI Capabilities": 1.95,
+      "11. Responsible AI & Social Impact": 2.98,
+      "12. AI Business Value & ROI": 3.17,
+      "13. AI Risk & Resilience": 3.04,
+      "14. AI Ecosystem & External Integration": 2.43,
+      "15. AI Leadership & Vision": 2.63
+    },
+    "normalized_contribution_sums_per_category": {
+      "Data Management & Quality": 1.0,
+      "AI/ML Capabilities": 1.0,
+      "Technical Infrastructure": 1.0,
+      "Governance & Ethics": 1.0,
+      "Talent & Skills": 1.0,
+      "Strategic Alignment": 1.0,
+      "Process Maturity": 1.0,
+      "AI Risk & Resilience": 1.0,
+      "Responsible AI & Social Impact": 1.0,
+      "AI Business Value & ROI": 1.0,
+      "Foundation Model Operations": 1.0
+    },
+    "category_projection": {
+      "Technical Infrastructure": {
+        "baseline_score": 2.18,
+        "total_expected_gain": 0.0,
+        "projected_new_score": 2.18
+      },
+      "Data Management & Quality": {
+        "baseline_score": 2.1,
+        "total_expected_gain": 0.0,
+        "projected_new_score": 2.1
+      },
+      "AI/ML Capabilities": {
+        "baseline_score": 2.06,
+        "total_expected_gain": 0.0,
+        "projected_new_score": 2.06
+      },
+      "Talent & Skills": {
+        "baseline_score": 2.28,
+        "total_expected_gain": 0.0,
+        "projected_new_score": 2.28
+      },
+      "Governance & Ethics": {
+        "baseline_score": 2.0,
+        "total_expected_gain": 0.0,
+        "projected_new_score": 2.0
+      },
+      "Strategic Alignment": {
+        "baseline_score": 2.3,
+        "total_expected_gain": 0.0,
+        "projected_new_score": 2.3
+      },
+      "Cultural Readiness": {
+        "baseline_score": 3.0,
+        "total_expected_gain": 0.0,
+        "projected_new_score": 3.0
+      },
+      "Process Maturity": {
+        "baseline_score": 2.03,
+        "total_expected_gain": 0.0,
+        "projected_new_score": 2.03
+      },
+      "Foundation Model Operations": {
+        "baseline_score": 1.57,
+        "total_expected_gain": 0.0,
+        "projected_new_score": 1.57
+      },
+      "Responsible AI & Social Impact": {
+        "baseline_score": 3.0,
+        "total_expected_gain": 0.0,
+        "projected_new_score": 3.0
+      },
+      "AI Business Value & ROI": {
+        "baseline_score": 1.44,
+        "total_expected_gain": 0.0,
+        "projected_new_score": 1.44
+      },
+      "AI Risk & Resilience": {
+        "baseline_score": 1.73,
+        "total_expected_gain": 0.0,
+        "projected_new_score": 1.73
+      }
+    }
   }
 }
